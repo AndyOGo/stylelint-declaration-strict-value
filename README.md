@@ -217,10 +217,10 @@ The config scheme looks as follows:
       ["string", "string", /* ... */] ||
       {
         // match all
-        "": "string" || "/RegExp/" || ["string", "/RegExp/" /* ... */],
+        "": "string" || ["string", /* ... */],
         
         // match specific prop
-        "color": "string" || "/RegExp/" || ["string", "/RegExp/" /* ... */],
+        "color": "string" || ["string", /* ... */],
       }
   }
 ]
