@@ -136,7 +136,8 @@ function validOptions(actual) {
   if (!Object.keys(actual).every(key => allowedKeys.indexOf(key) > -1)) return false
 
   if ('ignoreFunctions' in actual &&
-    (typeof actual.ignoreFunctions === 'boolean' || actual.ignoreFunctions !== null)) return false
+    typeof actual.ignoreFunctions !== 'boolean' &&
+    actual.ignoreFunctions !== null) return false
 
   if ('ignoreKeywords' in actual && !validProperties(actual.ignoreKeywords)) return false
 
