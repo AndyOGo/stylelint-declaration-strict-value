@@ -16,6 +16,7 @@ const messages = utils.ruleMessages(ruleName, {
 const reVar = /^(?:@.+|\$.+|var\(--.+\))$/
 const reFunc = /^.+\(.+\)$/
 const defaults = {
+  ignoreVariables: true,
   ignoreFunctions: true,
   ignoreKeywords: null,
 }
@@ -50,7 +51,7 @@ const rule = (properties, options) =>
       properties = [properties]
     }
 
-    const { ignoreKeywords, ignoreFunctions } = {
+    const { ignoreVariables, ignoreFunctions, ignoreKeywords } = {
       ...defaults,
       ...options,
     }
@@ -67,9 +68,13 @@ const rule = (properties, options) =>
 
       function declsWalker(node) {
         const { value, prop } = node
-        const validVar = reVar.test(value)
+        let validVar = false
         let validFunc = false
         let validKeyword = false
+
+        if (ignoreVariables) {
+          validVar = reVar.test(value)
+        }
 
         if (ignoreFunctions && !validVar) {
           validFunc = reFunc.test(value)
@@ -93,14 +98,18 @@ const rule = (properties, options) =>
         }
 
         if (!validVar && !validFunc && !validKeyword) {
-          const type = ['variable']
+          const types = []
+
+          if (ignoreVariables) {
+            types.push('variable')
+          }
 
           if (ignoreFunctions) {
-            type.push('function')
+            types.push('function')
           }
 
           if (ignoreKeywords && getIgnoredKeywords(ignoreKeywords, property)) {
-            type.push('keyword')
+            types.push('keyword')
           }
 
           const { raws } = node
@@ -112,7 +121,7 @@ const rule = (properties, options) =>
             node,
             line: start.line,
             column: start.column + prop.length + raws.between.length,
-            message: messages.expected(type, value, prop),
+            message: messages.expected(types, value, prop),
           })
         }
       }
