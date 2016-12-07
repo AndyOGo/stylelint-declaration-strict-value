@@ -74,12 +74,13 @@ The default config is:
 ```js
 // defaults
 {
+  ignoreVariables: true,
   ignoreFunctions: true,
   ignoreKeywords: null,
 }
 ```
 
-#### ignoreFunctions
+#### ignoreVariables
 
 Variables can be enabled or disabled, like:
 
