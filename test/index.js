@@ -2,7 +2,10 @@ import testRule from 'stylelint-test-rule-tape'
 
 import declarationStrictValue, { ruleName } from '../src'
 
-testRule(declarationStrictValue.rule, {
+const { rule } = declarationStrictValue
+
+// default config
+testRule(rule, {
   ruleName,
   skipBasicChecks: true,
 
