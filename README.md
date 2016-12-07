@@ -31,31 +31,6 @@ Like so:
 }
 ```
 
-### Scheme
-
-The config scheme looks as follows:
-
-```js
-[
-  // primary options
-  "string" || "/RegExp/" || ["string", "/RegExp/" /* ... */],
-
-  // secondary options (optional)
-  {
-    ignoreFunctions: true || false,
-    ignoreKeywords: "string" ||
-      ["string", "string", /* ... */] ||
-      {
-        // match all
-        "": "string" || "/RegExp/" || ["string", "/RegExp/" /* ... */],
-        
-        // match specific prop
-        "color": "string" || "/RegExp/" || ["string", "/RegExp/" /* ... */],
-      }
-  }
-]
-```
-
 ### Primary Options
 
 Primary options represent either a single property or a list of multiple properties to check. Technically it's either a `"string"` or an `[array]` of simple strings or `/RegExp/`.
@@ -226,3 +201,46 @@ The basic principle works the same as above - you either have one keyword or a l
 }
 ```
 
+### Scheme
+
+The config scheme looks as follows:
+
+```js
+[
+  // primary options
+  "string" || "/RegExp/" || ["string", "/RegExp/" /* ... */],
+
+  // secondary options (optional)
+  {
+    ignoreFunctions: true || false,
+    ignoreKeywords: "string" ||
+      ["string", "string", /* ... */] ||
+      {
+        // match all
+        "": "string" || "/RegExp/" || ["string", "/RegExp/" /* ... */],
+        
+        // match specific prop
+        "color": "string" || "/RegExp/" || ["string", "/RegExp/" /* ... */],
+      }
+  }
+]
+```
+
+## Credit / Inspiration
+
+This package was mainly inspired by [`stylelint-declaration-use-variable`](https://github.com/sh-waqar/stylelint-declaration-use-variable).
+Originally I planned to contribute, but as I faced more issues I decided to write my own from scratch.
+
+Proudly brought to you by [`<scale-unlimited>`](http://www.scale-unlimited.com)
+
+# License
+
+The MIT License (MIT)
+
+Copyright (c) 2016 Andreas Deuschlinger
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
