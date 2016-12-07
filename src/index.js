@@ -28,24 +28,21 @@ const getIgnoredKeywords = (ignoreKeywords, property) => {
 
 const rule = (properties, options) =>
   (root, result) => {
-    const validOptions = utils.validateOptions(
+    const hasValidOptions = utils.validateOptions(
       result,
       ruleName,
       {
         actual: properties,
-        possible: [],
+        possible: validProperties,
       },
       {
         actual: options,
-        possible: {
-          ignoreFunctions: [true, null],
-          ignoreKeywords: [[], null],
-        },
+        possible: validOptions,
         optional: true,
       }
     )
 
-    if (!validOptions) return
+    if (!hasValidOptions) return
 
     if (!Array.isArray(properties)) {
       properties = [properties]
@@ -126,3 +123,22 @@ const declarationStrictValuePlugin = stylelint.createPlugin(ruleName, rule)
 
 export default declarationStrictValuePlugin
 export { ruleName, messages }
+
+function validProperties(actual) {
+  return typeof actual === 'string' ||
+    (Array.isArray(actual) && actual.every(item => typeof item === 'string'))
+}
+
+function validOptions(actual) {
+  if (typeof actual !== 'object') return false
+
+  const allowedKeys = Object.keys(defaults)
+  if (!Object.keys(actual).every(key => allowedKeys.indexOf(key) > -1)) return false
+
+  if ('ignoreFunctions' in actual &&
+    (typeof actual.ignoreFunctions === 'boolean' || actual.ignoreFunctions !== null)) return false
+
+  if ('ignoreKeywords' in actual && !validProperties(actual.ignoreKeywords)) return false
+
+  return true
+}
