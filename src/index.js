@@ -9,7 +9,7 @@ const messages = utils.ruleMessages(ruleName, {
   expected,
 })
 const reVar = /^(?:@.+|\$.+|var\(--.+\))$/
-const reFunc = /^.+\(.+\)$/
+const reFunc = /^(?!var\(--).+\(.+\)$/
 
 const rule = (properties, options) =>
   (root, result) => {
