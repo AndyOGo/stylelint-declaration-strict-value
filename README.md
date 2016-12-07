@@ -54,7 +54,9 @@ Multiple properties can be linted by passing as an array. Regex can also be used
 
 #### Regex support
 
-Passing a regex will lint the variable usage for all matching properties. Regex is actiavated by surrounding `/` slashes.
+Passing a regex will lint the variable usage for all matching properties.
+
+**Note for JSON / YAML:** Regex needs to be activated by surrounding `/` slashes.
 
 ```js
 // .stylelintrc
