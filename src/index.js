@@ -23,7 +23,9 @@ const defaults = {
 const getIgnoredKeywords = (ignoreKeywords, property) => {
   if (!ignoreKeywords) return null
 
-  return ignoreKeywords[property] || ignoreKeywords[''] || ignoreKeywords
+  const keywords = ignoreKeywords[property] || ignoreKeywords[''] || ignoreKeywords
+
+  return Array.isArray(keywords) ? keywords : [keywords]
 }
 
 const rule = (properties, options) =>
