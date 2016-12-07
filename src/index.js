@@ -104,10 +104,15 @@ const rule = (properties, options) =>
             type.push('keyword')
           }
 
+          const { raws } = node
+          const { start } = node.source
+
           utils.report({
             ruleName,
             result,
             node,
+            line: start.line,
+            column: start.column + prop.length + raws.between.length,
             message: messages.expected(type, value, prop),
           })
         }
