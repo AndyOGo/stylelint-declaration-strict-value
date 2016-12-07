@@ -111,7 +111,13 @@ function getTypes(config, property) {
 function getIgnoredKeywords(ignoreKeywords, property) {
   if (!ignoreKeywords) return null
 
-  const keywords = ignoreKeywords[property] || ignoreKeywords[''] || ignoreKeywords
+  let keywords = ignoreKeywords
+
+  if ({}.hasOwnProperty.call(keywords, property)) {
+    keywords = keywords[property]
+  } else if ({}.hasOwnProperty.call(keywords, '')) {
+    keywords = keywords['']
+  }
 
   return Array.isArray(keywords) ? keywords : [keywords]
 }
