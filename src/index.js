@@ -1,6 +1,7 @@
 import stylelint from 'stylelint'
 
 import { validProperties, validOptions, expected, getTypes, getIgnoredKeywords } from './lib/validation'
+import defaults from './defaults'
 
 const ruleName = 'scale-unlimited/declaration-strict-value'
 const utils = stylelint.utils
@@ -9,11 +10,6 @@ const messages = utils.ruleMessages(ruleName, {
 })
 const reVar = /^(?:@.+|\$.+|var\(--.+\))$/
 const reFunc = /^.+\(.+\)$/
-const defaults = {
-  ignoreVariables: true,
-  ignoreFunctions: true,
-  ignoreKeywords: null,
-}
 
 const rule = (properties, options) =>
   (root, result) => {

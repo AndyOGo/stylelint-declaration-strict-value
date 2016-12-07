@@ -1,3 +1,5 @@
+import defaults from '../defaults'
+
 /**
  * Validate primary options of stylelint plugin config.
  *
