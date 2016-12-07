@@ -120,7 +120,7 @@ This configuration can either be a simple `"string"`, an `[array]` of `"strings"
 
 ##### Simple single keyword
 
-To ignore a single `keyword` for all properties simply use a `"string", like:
+To ignore a single `keyword` for all properties simply use a `"string"`, like:
 
 ```js
 // .stylelintrc
@@ -230,6 +230,7 @@ The config scheme looks as follows:
 
   // secondary options (optional)
   {
+    ignoreVariables: true || false,
     ignoreFunctions: true || false,
     ignoreKeywords: "string" ||
       ["string", "string", /* ... */] ||
