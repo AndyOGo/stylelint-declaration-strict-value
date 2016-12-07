@@ -11,7 +11,14 @@
     "url": "git+https://github.com/AndyOGo/stylelint-declaration-strict-value.git"
   },
   "keywords": [
-    "stylelint"
+    "stylelint-plugin",
+    "stylelint",
+    "css",
+    "lint",
+    "delaration-strict-value",
+    "variable",
+    "function",
+    "keyword"
   ],
   "author": "Andreas Deuschlinger",
   "license": "MIT",
