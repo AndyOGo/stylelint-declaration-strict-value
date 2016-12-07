@@ -66,8 +66,8 @@ const rule = (properties, options) =>
       function declsWalker(node) {
         const { value, prop } = node
         const validVar = reVar.test(value)
-        let validFunc = true
-        let validKeyword = true
+        let validFunc = false
+        let validKeyword = false
 
         if (ignoreFunctions && !validVar) {
           validFunc = reFunc.test(value)
@@ -90,7 +90,7 @@ const rule = (properties, options) =>
           }
         }
 
-        if (!validVar || !validFunc || !validKeyword) {
+        if (!validVar && !validFunc && !validKeyword) {
           const type = ['variable']
 
           if (ignoreFunctions) {
