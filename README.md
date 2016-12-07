@@ -81,6 +81,21 @@ The default config is:
 
 #### ignoreFunctions
 
+Variables can be enabled or disabled, like:
+
+```js
+// .stylelintrc
+"rules": {
+  // ...
+  "scale-unlimited/declaration-strict-value": ["/color/", {
+    ignoreVariables: false,
+  }],
+  // ...
+}
+```
+
+#### ignoreFunctions
+
 Function can be enabled or disabled, like:
 
 ```js
