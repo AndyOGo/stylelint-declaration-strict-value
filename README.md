@@ -229,7 +229,7 @@ The config scheme looks as follows:
 ## Credit / Inspiration
 
 This package was mainly inspired by [`stylelint-declaration-use-variable`](https://github.com/sh-waqar/stylelint-declaration-use-variable).
-Originally I planned to contribute, but as I faced more issues I decided to write my own from scratch.
+Originally I planned to contribute, but as I faced more issues I decided to write my own from scratch based on `ES6`.
 
 Proudly brought to you by [`<scale-unlimited>`](http://www.scale-unlimited.com)
 
