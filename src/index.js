@@ -141,7 +141,15 @@ function validOptions(actual) {
     typeof actual.ignoreFunctions !== 'boolean' &&
     actual.ignoreFunctions !== null) return false
 
-  if ('ignoreKeywords' in actual && !validProperties(actual.ignoreKeywords)) return false
+  if ('ignoreKeywords' in actual &&
+    !validProperties(actual.ignoreKeywords) &&
+    !validHash(actual.ignoreKeywords)) return false
 
   return true
+}
+
+function validHash(actual) {
+  if (typeof actual !== 'object') return false
+
+  return Object.keys(actual).every(key => validProperties(actual[key]))
 }
