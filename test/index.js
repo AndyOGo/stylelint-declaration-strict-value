@@ -23,13 +23,13 @@ testRule(rule, {
   reject: [
     {
       code: '.foo { color: #fff; }',
-      message: `Expected variable or function for #fff of color (${ruleName})`,
+      message: `Expected variable or function for "#fff" of "color" (${ruleName})`,
       line: 1,
       column: 8,
     },
     {
       code: '.foo { color: red; }',
-      message: `Expected variable or function for red of color (${ruleName})`,
+      message: `Expected variable or function for "red" of "color" (${ruleName})`,
       line: 1,
       column: 8,
     },
@@ -54,38 +54,38 @@ testRule(rule, {
   reject: [
     {
       code: '.foo { color: #fff; }',
-      message: `Expected variable for #fff of color (${ruleName})`,
+      message: `Expected variable for "#fff" of "color" (${ruleName})`,
       line: 1,
       column: 8,
     },
     {
       code: '.foo { color: red; }',
-      message: `Expected variable for red of color (${ruleName})`,
+      message: `Expected variable for "red" of "color" (${ruleName})`,
       line: 1,
       column: 8,
     },
     {
       code: '.foo { color: map-get($bar, baz); }',
-      message: `Expected variable for map-get($bar, baz) of color (${ruleName})`,
+      message: `Expected variable for "map-get($bar, baz)" of "color" (${ruleName})`,
       line: 1,
       column: 8,
     },
     {
       code: '.foo { color: darken(#fff, 10%); }',
-      message: `Expected variable for darken(#fff, 10%) of color (${ruleName})`,
+      message: `Expected variable for "darken(#fff, 10%)" of "color" (${ruleName})`,
       line: 1,
       column: 8,
     },
     {
       code: '.foo { color: color(#fff, lighten(10%)); }',
-      message: `Expected variable for color(#fff, lighten(10%)) of color (${ruleName})`,
+      message: `Expected variable for "color(#fff, lighten(10%))" of "color" (${ruleName})`,
       line: 1,
       column: 8,
     },
   ],
 })
 
-// array of properties
+// array" of "properties
 testRule(rule, {
   ruleName,
   skipBasicChecks: true,
@@ -107,19 +107,19 @@ testRule(rule, {
   reject: [
     {
       code: '.foo { color: #fff; }',
-      message: `Expected variable or function for #fff of color (${ruleName})`,
+      message: `Expected variable or function for "#fff" of "color" (${ruleName})`,
       line: 1,
       column: 8,
     },
     {
       code: '.foo { font-size: 16px; }',
-      message: `Expected variable or function for 16px of font-size (${ruleName})`,
+      message: `Expected variable or function for "16px" of "font-size" (${ruleName})`,
       line: 1,
       column: 8,
     },
     {
       code: '.foo { fill: #fff; }',
-      message: `Expected variable or function for #fff of fill (${ruleName})`,
+      message: `Expected variable or function for "#fff" of "fill" (${ruleName})`,
       line: 1,
       column: 8,
     },
@@ -148,37 +148,37 @@ testRule(rule, {
   reject: [
     {
       code: '.foo { color: #fff; }',
-      message: `Expected variable or function for #fff of color (${ruleName})`,
+      message: `Expected variable or function for "#fff" of "color" (${ruleName})`,
       line: 1,
       column: 8,
     },
     {
       code: '.foo { color: red; }',
-      message: `Expected variable or function for red of color (${ruleName})`,
+      message: `Expected variable or function for "red" of "color" (${ruleName})`,
       line: 1,
       column: 8,
     },
     {
       code: '.foo { background-color: #fff; }',
-      message: `Expected variable or function for #fff of background-color (${ruleName})`,
+      message: `Expected variable or function for "#fff" of "background-color" (${ruleName})`,
       line: 1,
       column: 8,
     },
     {
       code: '.foo { background-color: red; }',
-      message: `Expected variable or function for red of background-color (${ruleName})`,
+      message: `Expected variable or function for "red" of "background-color" (${ruleName})`,
       line: 1,
       column: 8,
     },
     {
       code: '.foo { border-color: #fff; }',
-      message: `Expected variable or function for #fff of border-color (${ruleName})`,
+      message: `Expected variable or function for "#fff" of "border-color" (${ruleName})`,
       line: 1,
       column: 8,
     },
     {
       code: '.foo { border-color: red; }',
-      message: `Expected variable or function for red of border-color (${ruleName})`,
+      message: `Expected variable or function for "red" of "border-color" (${ruleName})`,
       line: 1,
       column: 8,
     },
@@ -214,7 +214,7 @@ testRule(rule, {
   reject: [
     {
       code: '.foo { color: inherit; }',
-      message: `Expected variable, function or keyword for inherit of color (${ruleName})`,
+      message: `Expected variable, function or keyword for "inherit" of "color" (${ruleName})`,
       line: 1,
       column: 8,
     },
@@ -239,7 +239,7 @@ testRule(rule, {
   reject: [
     {
       code: '.foo { color: inherit; }',
-      message: `Expected variable, function or keyword for inherit of color (${ruleName})`,
+      message: `Expected variable, function or keyword for "inherit" of "color" (${ruleName})`,
       line: 1,
       column: 8,
     },
@@ -271,13 +271,13 @@ testRule(rule, {
   reject: [
     {
       code: '.foo { color: inherit; }',
-      message: `Expected variable, function or keyword for inherit of color (${ruleName})`,
+      message: `Expected variable, function or keyword for "inherit" of "color" (${ruleName})`,
       line: 1,
       column: 8,
     },
     {
       code: '.foo { fill: currentColor; }',
-      message: `Expected variable, function or keyword for currentColor of fill (${ruleName})`,
+      message: `Expected variable, function or keyword for "currentColor" of "fill" (${ruleName})`,
       line: 1,
       column: 8,
     },
