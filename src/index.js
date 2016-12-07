@@ -5,13 +5,13 @@ const utils = stylelint.utils
 const messages = utils.ruleMessages(ruleName, {
   expected: (type, property, value) => {
     if (Array.isArray(type)) {
-      const typeLast = type.pop();
+      const typeLast = type.pop()
 
       type = type.length ? `${type.join(', ')} or ${typeLast}` : typeLast
     }
 
     return `Expected ${type} for ${value} of ${property}.`
-  }
+  },
 })
 const reVar = /^(?:@.+|\$.+|var\(--.+\))$/
 const reFunc = /^.+\(.+\)$/
@@ -20,10 +20,10 @@ const defaults = {
   ignoreKeywords: null,
 }
 
-const getIgnoredKeywords = (irgnoreKeywords, property) => {
+const getIgnoredKeywords = (ignoreKeywords, property) => {
   if (!ignoreKeywords) return null
 
-  return irgnoreKeywords[property] || irgnoreKeywords[''] || irgnoreKeywords
+  return ignoreKeywords[property] || ignoreKeywords[''] || ignoreKeywords
 }
 
 const rule = (properties, options) =>
@@ -39,11 +39,11 @@ const rule = (properties, options) =>
         actual: options,
         possible: {
           ignoreFunctions: [true, null],
-          ignoreKeywords: [[], null]
+          ignoreKeywords: [[], null],
         },
         optional: true,
       }
-    );
+    )
 
     if (!validOptions) return
 
@@ -53,9 +53,9 @@ const rule = (properties, options) =>
 
     const { ignoreKeywords, ignoreFunctions } = {
       ...defaults,
-      ...options
+      ...options,
     }
-    let reKeywords = ignoreKeywords ? {} : null
+    const reKeywords = ignoreKeywords ? {} : null
 
     properties.forEach((property) => {
       let propFilter = property
@@ -65,54 +65,54 @@ const rule = (properties, options) =>
       }
 
       root.walkDecls(propFilter, declsWalker)
-    })
 
-    function declsWalker(node) {
-      const { value, prop } = node
-      const validVar = reVar.test(value)
-      let validFunc = true
-      let validKeyword = true
+      function declsWalker(node) {
+        const { value, prop } = node
+        const validVar = reVar.test(value)
+        let validFunc = true
+        let validKeyword = true
 
-      if (ignoreFunctions && !validVar) {
-        validFunc = reFunc.test(value)
-      }
+        if (ignoreFunctions && !validVar) {
+          validFunc = reFunc.test(value)
+        }
 
-      if (ignoreKeywords && !validVar || !validFunc) {
-        let reKeyword = reKeywords[property]
+        if (ignoreKeywords && (!validVar || !validFunc)) {
+          let reKeyword = reKeywords[property]
 
-        if (!reKeyword) {
-          const ignoreKeyword = getIgnoredKeywords(ignoreKeywords, property)
+          if (!reKeyword) {
+            const ignoreKeyword = getIgnoredKeywords(ignoreKeywords, property)
 
-          if (ignoreKeyword) {
-            reKeyword = new RegExp(`^${ignoreKeyword.join('|')}$`)
-            reKeywords[property] = reKeyword
+            if (ignoreKeyword) {
+              reKeyword = new RegExp(`^${ignoreKeyword.join('|')}$`)
+              reKeywords[property] = reKeyword
+            }
+          }
+
+          if (reKeyword) {
+            validKeyword = reKeyword.test(value)
           }
         }
 
-        if (reKeyword) {
-          validKeyword = reKeyword.test(value)
+        if (!validVar || !validFunc || !validKeyword) {
+          const type = ['variable']
+
+          if (ignoreFunctions) {
+            type.push('function')
+          }
+
+          if (ignoreKeywords && getIgnoredKeywords(ignoreKeywords, property)) {
+            type.push('keyword')
+          }
+
+          utils.report({
+            ruleName,
+            result,
+            node,
+            message: messages.expected(type, value, prop),
+          })
         }
       }
-
-      if (!validVar || !validFunc || !validKeyword) {
-        let type = ['variable']
-
-        if (ignoreFunctions) {
-          type.push('function')
-        }
-
-        if (ignoreKeywords && getIgnoredKeywords(ignoreKeywords, property)) {
-          type.push('keyword')
-        }
-
-        utils.report({
-          ruleName,
-          result,
-          node,
-          message: messages.expected(types, value, prop)
-        })
-      }
-    }
+    })
   }
 
 rule.primaryOptionArray = true
