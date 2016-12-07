@@ -12,6 +12,9 @@ testRule(declarationStrictValue.rule, {
     { code: '.foo { color: $bar; }' },
     { code: '.foo { color: @bar; }' },
     { code: '.foo { color: var(--bar); }' },
+    { code: '.foo { color: map-get($bar, baz); }' },
+    { code: '.foo { color: darken(#fff, 10%); }' },
+    { code: '.foo { color: color(#fff, lighten(10%)); }' },
   ],
 
   reject: [
@@ -24,12 +27,6 @@ testRule(declarationStrictValue.rule, {
     {
       code: '.foo { color: red; }',
       message: `Expected variable or function for red of color (${ruleName})`,
-      line: 1,
-      column: 8,
-    },
-    {
-      code: '.foo { color: darken( #fff, 10%); }',
-      message: `Expected variable or function for darken( #fff, 10%) of color (${ruleName})`,
       line: 1,
       column: 8,
     },
