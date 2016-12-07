@@ -28,6 +28,10 @@ function validOptions(actual) {
   const allowedKeys = Object.keys(defaults)
   if (!Object.keys(actual).every(key => allowedKeys.indexOf(key) > -1)) return false
 
+  if ('ignoreVariables' in actual &&
+    typeof actual.ignoreVariables !== 'boolean' &&
+    actual.ignoreVariables !== null) return false
+
   if ('ignoreFunctions' in actual &&
     typeof actual.ignoreFunctions !== 'boolean' &&
     actual.ignoreFunctions !== null) return false
