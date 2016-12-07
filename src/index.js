@@ -10,7 +10,7 @@ const messages = utils.ruleMessages(ruleName, {
       type = type.length ? `${type.join(', ')} or ${typeLast}` : typeLast
     }
 
-    return `Expected ${type} for ${value} of ${property}`
+    return `Expected ${type} for "${value}" of "${property}"`
   },
 })
 const reVar = /^(?:@.+|\$.+|var\(--.+\))$/
