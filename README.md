@@ -54,9 +54,7 @@ Multiple properties can be linted by passing as an array. Regex can also be used
 
 #### Regex support
 
-Passing a regex will lint the variable usage for all matching properties.
-
-**Note for JSON / YAML:** Regex needs to be activated by surrounding `/` slashes.
+Passing a regex will lint the variable usage for all matching properties, like:
 
 ```js
 // .stylelintrc
@@ -67,9 +65,11 @@ Passing a regex will lint the variable usage for all matching properties.
 }
 ```
 
+**Note for JSON / YAML:** Regex needs to be activated by surrounding `/` slashes.
+
 ### Secondary Options
 
-Additionally you can pass an optional second options hash to enable/disable functions and custom keywords.
+Additionally you can pass an optional second options hash to enable/disable variables, functions and custom keywords.
 
 The default config is:
 
@@ -99,7 +99,7 @@ Variables can be enabled or disabled, like:
 
 #### ignoreFunctions
 
-Function can be enabled or disabled, like:
+Functions can be enabled or disabled, like:
 
 ```js
 // .stylelintrc
@@ -114,7 +114,7 @@ Function can be enabled or disabled, like:
 
 #### ignoreKeywords
 
-This allows you ignore several CSS keywords like `currentColor`, `initial`, `transparent`, etc.
+This allows you to ignore several CSS keywords like `currentColor`, `initial`, `transparent`, etc.
 
 This configuration can either be a simple `"string"`, an `[array]` of `"strings"` or a complex hash of property/keyword mappings.
 
@@ -198,7 +198,7 @@ The basic principle works the same as above - you either have one keyword or a l
 }
 ```
 
-**Note** In case you still want to define a default list of allowed keyswords, you can with the empty `""` string property name, like:
+**Note** In case you still want to define a default list of allowed keywords, you can with the empty `""` string property name, like:
 
 ```js
 // .stylelintrc
