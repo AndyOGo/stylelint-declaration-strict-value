@@ -3,14 +3,14 @@ import stylelint from 'stylelint'
 const ruleName = 'scale-unlimited/declaration-strict-value'
 const utils = stylelint.utils
 const messages = utils.ruleMessages(ruleName, {
-  expected: (type, property, value) => {
+  expected: (type, value, property) => {
     if (Array.isArray(type)) {
       const typeLast = type.pop()
 
       type = type.length ? `${type.join(', ')} or ${typeLast}` : typeLast
     }
 
-    return `Expected ${type} for ${value} of ${property}.`
+    return `Expected ${type} for ${value} of ${property}`
   },
 })
 const reVar = /^(?:@.+|\$.+|var\(--.+\))$/
