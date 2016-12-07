@@ -8,6 +8,7 @@ const utils = stylelint.utils
 const messages = utils.ruleMessages(ruleName, {
   expected,
 })
+const reSkipProp = /^(?:@|\$|--).+$/
 const reVar = /^(?:@.+|\$.+|var\(--.+\))$/
 const reFunc = /^(?!var\(--).+\(.+\)$/
 
@@ -62,6 +63,9 @@ const rule = (properties, options) =>
        */
       function lintDeclStrictValue(node) {
         const { value, prop } = node
+
+        // skip variable declarations
+        if (reSkipProp.test(prop)) return
 
         // falsify everything ba default
         let validVar = false

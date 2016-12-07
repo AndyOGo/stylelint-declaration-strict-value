@@ -1,4 +1,5 @@
 import './default'
+import './skip-var-defs'
 import './ignore-unlisted-properties'
 import './regex-property'
 import './multiple-properties'
