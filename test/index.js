@@ -184,3 +184,16 @@ testRule(rule, {
     },
   ],
 })
+
+// ignore unlisted properties
+testRule(rule, {
+  ruleName,
+  skipBasicChecks: true,
+
+  config: 'color',
+
+  accept: [
+    { code: '.foo { display: block; }' },
+    { code: '.foo { position: absolute; }' },
+  ],
+})
