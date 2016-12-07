@@ -1,0 +1,25 @@
+{
+  "name": "stylelint-declaration-strict-value",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AndyOGo/stylelint-declaration-strict-value.git"
+  },
+  "keywords": [
+    "stylelint"
+  ],
+  "author": "Andreas Deuschlinger",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AndyOGo/stylelint-declaration-strict-value/issues"
+  },
+  "homepage": "https://github.com/AndyOGo/stylelint-declaration-strict-value#readme",
+  "dependencies": {
+    "stylelint": "^7.6.0"
+  }
+}
