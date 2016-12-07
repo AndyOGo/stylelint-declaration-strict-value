@@ -1,17 +1,11 @@
 import stylelint from 'stylelint'
 
+import { validProperties, validOptions, expected, getTypes, getIgnoredKeywords } from './lib/validation'
+
 const ruleName = 'scale-unlimited/declaration-strict-value'
 const utils = stylelint.utils
 const messages = utils.ruleMessages(ruleName, {
-  expected: (type, value, property) => {
-    if (Array.isArray(type)) {
-      const typeLast = type.pop()
-
-      type = type.length ? `${type.join(', ')} or ${typeLast}` : typeLast
-    }
-
-    return `Expected ${type} for "${value}" of "${property}"`
-  },
+  expected,
 })
 const reVar = /^(?:@.+|\$.+|var\(--.+\))$/
 const reFunc = /^.+\(.+\)$/
@@ -21,16 +15,9 @@ const defaults = {
   ignoreKeywords: null,
 }
 
-const getIgnoredKeywords = (ignoreKeywords, property) => {
-  if (!ignoreKeywords) return null
-
-  const keywords = ignoreKeywords[property] || ignoreKeywords[''] || ignoreKeywords
-
-  return Array.isArray(keywords) ? keywords : [keywords]
-}
-
 const rule = (properties, options) =>
   (root, result) => {
+    // validate stylelint plugin options
     const hasValidOptions = utils.validateOptions(
       result,
       ruleName,
@@ -47,39 +34,55 @@ const rule = (properties, options) =>
 
     if (!hasValidOptions) return
 
+    // normalize options
     if (!Array.isArray(properties)) {
       properties = [properties]
     }
 
-    const { ignoreVariables, ignoreFunctions, ignoreKeywords } = {
+    const config = {
       ...defaults,
       ...options,
     }
+    const { ignoreVariables, ignoreFunctions, ignoreKeywords } = config
     const reKeywords = ignoreKeywords ? {} : null
 
+    // loop through all properties
     properties.forEach((property) => {
       let propFilter = property
 
+      // parse RegExp
       if (propFilter.charAt(0) === '/' && propFilter.slice(-1) === '/') {
         propFilter = new RegExp(propFilter.slice(1, -1))
       }
 
-      root.walkDecls(propFilter, declsWalker)
+      // walk through all declarations filtered by configured properties
+      root.walkDecls(propFilter, lintDeclStrictValue)
 
-      function declsWalker(node) {
+      /**
+       * Lint usages of declarations values againts, variables, functions
+       * or custum keywords - as configured.
+       *
+       * @param {Object} node - A Declaration-Node from PostCSS AST-Parser.
+       */
+      function lintDeclStrictValue(node) {
         const { value, prop } = node
+
+        // falsify everything ba default
         let validVar = false
         let validFunc = false
         let validKeyword = false
 
+        // test variable
         if (ignoreVariables) {
           validVar = reVar.test(value)
         }
 
+        // test function
         if (ignoreFunctions && !validVar) {
           validFunc = reFunc.test(value)
         }
 
+        // test keywords
         if (ignoreKeywords && (!validVar || !validFunc)) {
           let reKeyword = reKeywords[property]
 
@@ -97,21 +100,9 @@ const rule = (properties, options) =>
           }
         }
 
+        // report only if all failed
         if (!validVar && !validFunc && !validKeyword) {
-          const types = []
-
-          if (ignoreVariables) {
-            types.push('variable')
-          }
-
-          if (ignoreFunctions) {
-            types.push('function')
-          }
-
-          if (ignoreKeywords && getIgnoredKeywords(ignoreKeywords, property)) {
-            types.push('keyword')
-          }
-
+          const types = getTypes(config, property)
           const { raws } = node
           const { start } = node.source
 
@@ -134,31 +125,3 @@ const declarationStrictValuePlugin = stylelint.createPlugin(ruleName, rule)
 
 export default declarationStrictValuePlugin
 export { ruleName, messages }
-
-function validProperties(actual) {
-  return typeof actual === 'string' ||
-    (Array.isArray(actual) && actual.every(item => typeof item === 'string'))
-}
-
-function validOptions(actual) {
-  if (typeof actual !== 'object') return false
-
-  const allowedKeys = Object.keys(defaults)
-  if (!Object.keys(actual).every(key => allowedKeys.indexOf(key) > -1)) return false
-
-  if ('ignoreFunctions' in actual &&
-    typeof actual.ignoreFunctions !== 'boolean' &&
-    actual.ignoreFunctions !== null) return false
-
-  if ('ignoreKeywords' in actual &&
-    !validProperties(actual.ignoreKeywords) &&
-    !validHash(actual.ignoreKeywords)) return false
-
-  return true
-}
-
-function validHash(actual) {
-  if (typeof actual !== 'object') return false
-
-  return Object.keys(actual).every(key => validProperties(actual[key]))
-}
