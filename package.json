@@ -6,7 +6,8 @@
   "scripts": {
     "build": "babel src --out-dir ./",
     "prepublish": "npm run build",
-    "test": "babel-node test"
+    "test": "babel-node test",
+    "eslint": "eslint 'src/**/*.js' 'test/**/*.js'"
   },
   "repository": {
     "type": "git",
