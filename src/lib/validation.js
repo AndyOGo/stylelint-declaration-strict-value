@@ -68,6 +68,7 @@ function expected(types, value, property) {
   if (Array.isArray(types)) {
     const typesLast = types.pop()
 
+    // eslint-disable-next-line no-param-reassign
     types = types.length ? `${types.join(', ')} or ${typesLast}` : typesLast
   }
 

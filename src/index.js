@@ -33,6 +33,7 @@ const rule = (properties, options) =>
 
     // normalize options
     if (!Array.isArray(properties)) {
+      // eslint-disable-next-line no-param-reassign
       properties = [properties]
     }
 
