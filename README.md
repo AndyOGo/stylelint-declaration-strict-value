@@ -1,5 +1,7 @@
 # stylelint-declaration-strict-value
 
+[![Build Status](https://travis-ci.org/AndyOGo/stylelint-declaration-strict-value.svg?branch=master)](https://travis-ci.org/AndyOGo/stylelint-declaration-strict-value)
+
 A [stylelint](https://github.com/stylelint/stylelint) plugin that enforces either variables (`$sass`, `@less`, `var(--cssnext)`), functions or custom CSS keywords (`inherit`, `none`, etc.) for property's values.
 
 # Installation
