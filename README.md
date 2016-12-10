@@ -278,7 +278,7 @@ a { color: $color-white; }
 
 #### ignoreKeywords
 
-This allows you to ignore several CSS keywords like `currentColor`, `initial`, `transparent`, etc.
+This allows you to ignore several CSS keywords like `currentColor`, `inherit`, `transparent`, etc.
 
 This configuration can either be a simple `"string"`, an `[array]` of `"strings"` or a complex hash of property/keyword mappings.
 
@@ -462,9 +462,9 @@ a {
 }
 
 a {
-  color: initial;
-  background-color: initial;
-  border-color: initial;
+  color: inherit;
+  background-color: inherit;
+  border-color: inherit;
   fill: inherit;
   stroke: inherit;
 }
@@ -483,12 +483,58 @@ The basic principle works the same as above - you either have one keyword or a l
   "scale-unlimited/declaration-strict-value": [
     ["/color/", "fill", "stroke"], {
     ignoreKeywords: {
-        "/color/": ["currentColor", "transparent", "initial"],
-        "fill": ["currentColor", "initial"],
+        "/color/": ["currentColor", "transparent", "inherit"],
+        "fill": ["currentColor", "inherit"],
         "stroke": "currentColor",
     },
   }],
   // ...
+}
+```
+
+The following patterns are considered **warnings:**
+
+```css
+a {
+  color: #FFF;
+  background-color: #FFF;
+  border-color: #FFF;
+  fill: #FFF;
+  stroke: #FFF;
+}
+
+a {
+  fill: transparent;
+  stroke: transparent;
+}
+
+a {
+  stroke: inherit;
+}
+```
+
+The following patterns are **not** considered **warnings:**
+
+```css
+a {
+  color: currentColor;
+  background-color: currentColor;
+  border-color: currentColor;
+  fill: currentColor;
+  stroke: currentColor;
+}
+
+a {
+  color: transparent;
+  background-color: transparent;
+  border-color: transparent;
+}
+
+a {
+  color: inherit;
+  background-color: inherit;
+  border-color: inherit;
+  fill: inherit;
 }
 ```
 
@@ -505,8 +551,8 @@ The basic principle works the same as above - you either have one keyword or a l
         "": ["currentColor"],
         
         // specific mapping
-        "/color/": ["currentColor", "transparent", "initial"],
-        "fill": ["currentColor", "initial"],
+        "/color/": ["currentColor", "transparent", "inherit"],
+        "fill": ["currentColor", "inherit"],
     },
   }],
   // ...
