@@ -33,6 +33,36 @@ Like so:
 }
 ```
 
+The following patterns are considered **warnings:**
+
+```css
+a { color: #FFF; }
+
+a { color: inherit; }
+
+a { color: currentColor; }
+```
+
+The following patterns are **not** considered **warnings:**
+
+```css
+a { color: var(--color-white); }
+
+a { color: color(red alpha(-10%)); }
+```
+
+```less
+a { color: @color-white; }
+
+a { color: darken(#fff, 10%); }
+```
+
+```scss
+a { color: $color-white; }
+
+a { color: darken(#fff, 10%); }
+```
+
 ### Primary Options
 
 Primary options represent either a single property or a list of multiple properties to check. Technically it's either a `"string"` or an `[array]` of simple strings or `/RegExp/`.
@@ -52,6 +82,40 @@ Multiple properties can be linted by passing as an array. Regex can also be used
 }
 ```
 
+The following patterns are considered **warnings:**
+
+```css
+a { color: #FFF; z-index: 1; font-size: 20px; }
+
+a { color: inherit; z-index: auto; font-size: inherit; }
+```
+
+The following patterns are **not** considered **warnings:**
+
+```css
+a {
+  color: var(--color-white);
+  z-index: var(--a-z-index);
+  font-size: var(--a-font-size);
+}
+```
+
+```less
+a {
+  color: @color-white;
+  z-index: @a-z-index;
+  font-size: @a-font-size;
+}
+```
+
+```scss
+a {
+  color: $color-white;
+  z-index: $a-z-index;
+  font-size: $a-font-size;
+}
+```
+
 **Note:** Multiple Properties require you to use nested arrays `[[]]` in your configuration.
 
 #### Regex support
@@ -68,6 +132,48 @@ Passing a regex will lint the variable usage for all matching properties, like:
 ```
 
 **Note for JSON / YAML:** Regex needs to be activated by surrounding `/` slashes.
+
+The following patterns are considered **warnings:**
+
+```css
+a {
+  color: #FFF;
+  background-color: #FFF;
+  border-color: #FFF;
+}
+
+a {
+  color: inherit;
+  background-color: inherit;
+  border-color: inherit;
+}
+```
+
+The following patterns are **not** considered **warnings:**
+
+```css
+a {
+  color: var(--color-white);
+  background-color: var(--color-white);
+  border-color: var(--color-white);
+}
+```
+
+```less
+a {
+  color: @color-white;
+  background-color: @color-white;
+  border-color: @color-white;
+}
+```
+
+```scss
+a {
+  color: $color-white;
+  background-color: $color-white;
+  border-color: $color-white;
+}
+```
 
 ### Secondary Options
 
@@ -99,6 +205,34 @@ Variables can be enabled or disabled, like:
 }
 ```
 
+The following patterns are considered **warnings:**
+
+```css
+a { color: var(--color-white); }
+```
+
+```less
+a { color: @color-white; }
+```
+
+```scss
+a { color: $color-white; }
+```
+
+The following patterns are **not** considered **warnings:**
+
+```css
+a { color: color(red alpha(-10%)); }
+```
+
+```less
+a { color: darken(#fff, 10%); }
+```
+
+```scss
+a { color: darken(#fff, 10%); }
+```
+
 #### ignoreFunctions
 
 Functions can be enabled or disabled, like:
@@ -112,6 +246,34 @@ Functions can be enabled or disabled, like:
   }],
   // ...
 }
+```
+
+The following patterns are considered **warnings:**
+
+```css
+a { color: color(red alpha(-10%)); }
+```
+
+```less
+a { color: darken(#fff, 10%); }
+```
+
+```scss
+a { color: darken(#fff, 10%); }
+```
+
+The following patterns are **not** considered **warnings:**
+
+```css
+a { color: var(--color-white); }
+```
+
+```less
+a { color: @color-white; }
+```
+
+```scss
+a { color: $color-white; }
 ```
 
 #### ignoreKeywords
@@ -135,6 +297,32 @@ To ignore a single `keyword` for all properties simply use a `"string"`, like:
 }
 ```
 
+The following patterns are considered **warnings:**
+
+```css
+a {
+  color: #FFF;
+  background-color: #FFF;
+  border-color: #FFF;
+}
+
+a {
+  color: inherit;
+  background-color: inherit;
+  border-color: inherit;
+}
+```
+
+The following patterns are **not** considered **warnings:**
+
+```css
+a {
+  color: currentColor;
+  background-color: currentColor;
+  border-color: currentColor;
+}
+```
+
 Or with **multiple** properties:
 
 ```js
@@ -149,6 +337,38 @@ Or with **multiple** properties:
 }
 ```
 
+The following patterns are considered **warnings:**
+
+```css
+a {
+  color: #FFF;
+  background-color: #FFF;
+  border-color: #FFF;
+  fill: #FFF;
+  stroke: #FFF;
+}
+
+a {
+  color: inherit;
+  background-color: inherit;
+  border-color: inherit;
+  fill: inherit;
+  stroke: inherit;
+}
+```
+
+The following patterns are **not** considered **warnings:**
+
+```css
+a {
+  color: currentColor;
+  background-color: currentColor;
+  border-color: currentColor;
+  fill: currentColor;
+  stroke: currentColor;
+}
+```
+
 ##### List of keywords
 
 To ignore a list of `keywords` for all properties simply use an `[array]`, like:
@@ -158,9 +378,41 @@ To ignore a list of `keywords` for all properties simply use an `[array]`, like:
 "rules": {
   // ...
   "scale-unlimited/declaration-strict-value": ["/color/", {
-    ignoreKeywords: ["currentColor", "transparent", "initial"],
+    ignoreKeywords: ["currentColor", "transparent", "inherit"],
   }],
   // ...
+}
+```
+
+The following patterns are considered **warnings:**
+
+```css
+a {
+  color: #FFF;
+  background-color: #FFF;
+  border-color: #FFF;
+}
+```
+
+The following patterns are **not** considered **warnings:**
+
+```css
+a {
+  color: currentColor;
+  background-color: currentColor;
+  border-color: currentColor;
+}
+
+a {
+  color: transparent;
+  background-color: transparent;
+  border-color: transparent;
+}
+
+a {
+  color: inherit;
+  background-color: inherit;
+  border-color: inherit;
 }
 ```
 
@@ -172,9 +424,49 @@ Or with **multiple** properties:
   // ...
   "scale-unlimited/declaration-strict-value": [
     ["/color/", "fill", "stroke"], {
-    ignoreKeywords: ["currentColor", "transparent", "initial"],
+    ignoreKeywords: ["currentColor", "transparent", "inherit"],
   }],
   // ...
+}
+```
+
+The following patterns are considered **warnings:**
+
+```css
+a {
+  color: #FFF;
+  background-color: #FFF;
+  border-color: #FFF;
+  fill: #FFF;
+  stroke: #FFF;
+}
+```
+
+The following patterns are **not** considered **warnings:**
+
+```css
+a {
+  color: currentColor;
+  background-color: currentColor;
+  border-color: currentColor;
+  fill: currentColor;
+  stroke: currentColor;
+}
+
+a {
+  color: transparent;
+  background-color: transparent;
+  border-color: transparent;
+  fill: transparent;
+  stroke: transparent;
+}
+
+a {
+  color: initial;
+  background-color: initial;
+  border-color: initial;
+  fill: inherit;
+  stroke: inherit;
 }
 ```
 
