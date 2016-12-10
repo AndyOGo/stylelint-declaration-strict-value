@@ -85,9 +85,18 @@ Multiple properties can be linted by passing as an array. Regex can also be used
 The following patterns are considered **warnings:**
 
 ```css
-a { color: #FFF; z-index: 1; font-size: 20px; }
+a {
+  color: #FFF;
+  z-index: 1;
+  font-size: 20px;
+ }
 
-a { color: inherit; z-index: auto; font-size: inherit; }
+a {
+  color: inherit;
+  z-index: auto;
+  font-size:
+  inherit;
+ }
 ```
 
 The following patterns are **not** considered **warnings:**
