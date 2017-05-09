@@ -18,6 +18,7 @@ function validProperties(actual) {
  * @param {Object} actual - The actual config to validate.
  * @param {boolean} [actual.ignoreVariables=true] - Whether or not to lint variables.
  * @param {boolean} [actual.ignoreFunctions=true] - Whether or not to lint functions.
+ * @param {string} [actual.severity='error'] - What the severity level is for this rule.
  * @param {string|Array|Object} [actual.ignoreKeywords=null] - A keywords config.
  *
  * @returns {boolean}
@@ -35,6 +36,10 @@ function validOptions(actual) {
   if ('ignoreFunctions' in actual &&
     typeof actual.ignoreFunctions !== 'boolean' &&
     actual.ignoreFunctions !== null) return false
+
+  if ('severity' in actual &&
+    typeof actual.severity !== 'string' &&
+    actual.severity !== null) return false
 
   if ('ignoreKeywords' in actual &&
     !validProperties(actual.ignoreKeywords) &&
