@@ -68,7 +68,7 @@ const rule = (properties, options) =>
         // skip variable declarations
         if (reSkipProp.test(prop)) return
 
-        // falsify everything ba default
+        // falsify everything by default
         let validVar = false
         let validFunc = false
         let validKeyword = false
