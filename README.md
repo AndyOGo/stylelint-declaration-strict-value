@@ -48,17 +48,23 @@ The following patterns are **not** considered **warnings:**
 ```css
 a { color: var(--color-white); }
 
+a { color: -var(--color-white); }
+
 a { color: color(red alpha(-10%)); }
 ```
 
 ```less
 a { color: @color-white; }
 
+a { color: -@color-white; }
+
 a { color: darken(#fff, 10%); }
 ```
 
 ```scss
 a { color: $color-white; }
+
+a { color: -$color-white; }
 
 a { color: darken(#fff, 10%); }
 ```
