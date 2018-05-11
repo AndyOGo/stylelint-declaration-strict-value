@@ -12,7 +12,7 @@ const reSkipProp = /^(?:@|\$|--).+$/
 const reVar = /^-?(?:@.+|\$.+|var\(--.+\))$/
 const reFunc = /^(?!var\(--).+\(.+\)$/
 
-const rule = (properties, options) =>
+const rule = (properties, options, context) =>
   (root, result) => {
     // validate stylelint plugin options
     const hasValidOptions = utils.validateOptions(
@@ -98,6 +98,15 @@ const rule = (properties, options) =>
 
           if (reKeyword) {
             validKeyword = reKeyword.test(value)
+          }
+        }
+
+        if(context.fix){
+          //only if a fix code is available from config
+          if(options.ignoreKeywords[property+"-fix"]) {
+            //take the fix function from the config
+            var valueToVariables = new Function('a', options.ignoreKeywords[property+"-fix"]); //creates a function called valueToVariables. the unminified function is located in fix.js
+            node.value = valueToVariables(node.value);
           }
         }
 
