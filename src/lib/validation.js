@@ -37,6 +37,10 @@ function validOptions(actual) {
     typeof actual.ignoreFunctions !== 'boolean' &&
     actual.ignoreFunctions !== null) return false
 
+  if ('disableFix' in actual &&
+    typeof actual.disableFix !== 'boolean' &&
+    actual.disableFix !== null) return false
+
   if ('severity' in actual &&
     typeof actual.severity !== 'string' &&
     actual.severity !== null) return false

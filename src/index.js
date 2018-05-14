@@ -41,7 +41,7 @@ const rule = (properties, options, context) =>
       ...defaults,
       ...options,
     }
-    const { ignoreVariables, ignoreFunctions, ignoreKeywords } = config
+    const { ignoreVariables, ignoreFunctions, ignoreKeywords, disableFix } = config
     const reKeywords = ignoreKeywords ? {} : null
 
     // loop through all properties
@@ -101,12 +101,16 @@ const rule = (properties, options, context) =>
           }
         }
 
-        if(context.fix){
-          //only if a fix code is available from config
-          if(options.ignoreKeywords[property+"-fix"]) {
-            //take the fix function from the config
-            var valueToVariables = new Function('a', options.ignoreKeywords[property+"-fix"]); //creates a function called valueToVariables. the unminified function is located in fix.js
-            node.value = valueToVariables(node.value);
+        if (context.fix && !disableFix) {
+          // only if a fix code is available from config
+          if (options.ignoreKeywords[property + "-fix"]) {
+            //a is a local variable inside the fix function
+            var a = node.value;
+            // take the fix function from the config
+            node.value = eval(options.ignoreKeywords[property + "-fix"]);
+            return;
+          } else {
+            console.log('Please include the fix function in your stylelint config file.');
           }
         }
 
