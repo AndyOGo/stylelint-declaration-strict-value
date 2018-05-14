@@ -42,7 +42,7 @@ function validOptions(actual) {
     actual.disableFix !== null) return false
 
   if ('autofixFunc' in actual &&
-    typeof actual.autofixFunc !== 'object' &&
+    typeof actual.autofixFunc !== 'function' &&
     actual.autofixFunc !== null) return false
 
   if ('severity' in actual &&
