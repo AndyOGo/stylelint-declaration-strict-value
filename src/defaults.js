@@ -4,5 +4,5 @@ export default {
   ignoreKeywords: null,
   severity: 'error',
   disableFix: true,
-  autofixFunc: {}
+  autofixFunc: {},
 }
