@@ -3,5 +3,6 @@ export default {
   ignoreFunctions: true,
   ignoreKeywords: null,
   severity: 'error',
-  disableFix: true
+  disableFix: true,
+  autofixFunc: {}
 }

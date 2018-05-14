@@ -41,6 +41,10 @@ function validOptions(actual) {
     typeof actual.disableFix !== 'boolean' &&
     actual.disableFix !== null) return false
 
+  if ('autofixFunc' in actual &&
+    typeof actual.autofixFunc !== 'object' &&
+    actual.autofixFunc !== null) return false
+
   if ('severity' in actual &&
     typeof actual.severity !== 'string' &&
     actual.severity !== null) return false

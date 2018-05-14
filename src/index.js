@@ -103,11 +103,11 @@ const rule = (properties, options, context) =>
 
         if (context.fix && !disableFix) {
           // only if a fix code is available from config
-          if (options.ignoreKeywords[property + "-fix"]) {
+          if (options.autofixFunc[property + "-fix"]) {
             //a is a local variable inside the fix function
             var a = node.value;
             // take the fix function from the config
-            node.value = eval(options.ignoreKeywords[property + "-fix"]);
+            node.value = eval(options.autofixFunc[property + "-fix"]);
             return;
           } else {
             console.log('Please include the fix function in your stylelint config file.');
