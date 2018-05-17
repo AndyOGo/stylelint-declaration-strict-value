@@ -105,6 +105,7 @@ const rule = (properties, options, context) =>
           // only if a fix code is available from config
           if (options.autofixFunc) {
             // take the fix function from the config
+            // eslint-disable-next-line no-param-reassign
             node.value = options.autofixFunc(node.value)
             return
           }
