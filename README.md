@@ -202,6 +202,9 @@ The default config is:
   ignoreVariables: true,
   ignoreFunctions: true,
   ignoreKeywords: null,
+  disableFix: true,
+  severity: 'error',
+  autofixFunc: null
 }
 ```
 
@@ -289,6 +292,36 @@ a { color: @color-white; }
 
 ```scss
 a { color: $color-white; }
+```
+#### disableFix
+
+Autofixing the rule violation can be enabled or disabled, like:
+
+```js
+// .stylelintrc
+"rules": {
+  // ...
+  "scale-unlimited/declaration-strict-value": ["/color/", {
+    disableFix: false,
+  }],
+  // ...
+}
+```
+
+#### autofixFunc
+
+Autofixing the rule violation can be acheived using a custom function, like:
+
+```js
+// .stylelintrc
+"rules": {
+  // ...
+  "scale-unlimited/declaration-strict-value": ["/color/", {
+    disableFix: true,
+    autofixFunc: function(root, node, context){ /* css AST change code goes here */ }
+  }],
+  // ...
+}
 ```
 
 #### ignoreKeywords
