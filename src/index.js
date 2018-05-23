@@ -104,7 +104,7 @@ const rule = (properties, options, context) =>
         if (context && context.fix && !disableFix && !validVar && !validFunc && !validKeyword) {
           const { autofixFunc } = config
           // only if a fix code is available from config
-          if (typeof autofixFunc === 'function') {
+          if (autofixFunc) {
             // take the fix function from the config
             autofixFunc(root, node, context)
             return
