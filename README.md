@@ -628,7 +628,9 @@ The config scheme looks as follows:
         
         // match specific prop
         "color": "string" || ["string", /* ... */],
-      }
+      },
+    disableFix: true || false,
+    autofixFunc: function(root, node, context, validVar, validFunc, validKeyword){ /* css AST change code goes here */ }
   }
 ]
 ```
