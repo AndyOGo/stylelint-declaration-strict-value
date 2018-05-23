@@ -101,7 +101,7 @@ const rule = (properties, options, context) =>
           }
         }
 
-        if (context.fix && !disableFix && !validVar && !validFunc && !validKeyword) {
+        if (context && context.fix && !disableFix && !validVar && !validFunc && !validKeyword) {
           // only if a fix code is available from config
           if (options.autofixFunc) {
             // take the fix function from the config
