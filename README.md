@@ -318,7 +318,7 @@ Autofixing the rule violation can be acheived using a custom function, like:
   // ...
   "scale-unlimited/declaration-strict-value": ["/color/", {
     disableFix: true,
-    autofixFunc: function(root, node, context){ /* css AST change code goes here */ }
+    autofixFunc: function(root, node, context, validVar, validFunc, validKeyword){ /* css AST change code goes here */ }
   }],
   // ...
 }
