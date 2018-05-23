@@ -102,11 +102,11 @@ const rule = (properties, options, context) =>
         }
 
         if (context && context.fix && !disableFix && !validVar && !validFunc && !validKeyword) {
+          const { autofixFunc } = config
           // only if a fix code is available from config
-          if (options.autofixFunc) {
+          if (typeof autofixFunc === 'function') {
             // take the fix function from the config
-            // eslint-disable-next-line no-param-reassign
-            options.autofixFunc(root, node)
+            autofixFunc(root, node, context)
             return
           }
         }
