@@ -607,40 +607,9 @@ a {
 }
 ```
 
-### Scheme - No autofix
+### Scheme
 
 The config scheme looks as follows:
-
-```js
-
-[
-  // primary options
-  "string" || "/RegExp/" || ["string", "/RegExp/" /* ... */],
-
-  // secondary options (optional)
-  {
-    ignoreVariables: true || false,
-    ignoreFunctions: true || false,
-    ignoreKeywords: "string" ||
-      ["string", "string", /* ... */] ||
-      {
-        // match all
-        "": "string" || ["string", /* ... */],
-        
-        // match specific prop
-        "color": "string" || ["string", /* ... */],
-      },
-    disableFix: true || false,
-    autofixFunc: function(root, node, context, validVar, validFunc, validKeyword){ /* css AST change code goes here */ }
-  }
-]
-```
-
-### Scheme - with autofix
-
- The config scheme looks as follows:
-
- Only difference is to pass an autofixFunc property along with the config.
 
 ```js
 
@@ -663,37 +632,6 @@ var replaceValuesWithVariables = require("your module exporting an fixing functi
         "color": "string" || ["string", /* ... */],
       },
     autofixFunc: replaceValuesWithVariables
-  }
-]
-```
-
-### Scheme - Temporarly remove autofix
-
- Lets assume the fix is not working as expected, but you would like to stop it fixing and do the linting alone in that case pass the disableFix as true in the config follows:
-
-
-```js
-
-var replaceValuesWithVariables = require("your module exporting an fixing function")
-[
-  // primary options
-  "string" || "/RegExp/" || ["string", "/RegExp/" /* ... */],
-
-  // secondary options (optional)
-  {
-    ignoreVariables: true || false,
-    ignoreFunctions: true || false,
-    ignoreKeywords: "string" ||
-      ["string", "string", /* ... */] ||
-      {
-        // match all
-        "": "string" || ["string", /* ... */],
-        
-        // match specific prop
-        "color": "string" || ["string", /* ... */],
-      },
-    autofixFunc: replaceValuesWithVariables,
-    disableFix: true
   }
 ]
 ```
