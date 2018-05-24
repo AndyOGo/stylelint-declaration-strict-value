@@ -354,6 +354,8 @@ Autofixing the rule violation can be acheived using a custom function, like:
 }
 ```
 
+**Note:** In order to allow `function`s within config you will need to [export your stylelint config as CommonJS module](https://github.com/davidtheclark/cosmiconfig#cosmiconfig) ([i.e. `stylelint.config.js`](https://github.com/stylelint/stylelint/blob/master/docs/user-guide/configuration.md#loading-the-configuration-object)).
+
 #### ignoreKeywords
 
 This allows you to ignore several CSS keywords like `currentColor`, `inherit`, `transparent`, etc.
