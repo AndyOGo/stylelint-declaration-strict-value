@@ -106,7 +106,7 @@ const rule = (properties, options, context) =>
           // only if a fix code is available from config
           if (autofixFunc) {
             // take the fix function from the config
-            autofixFunc(root, node, context)
+            autofixFunc(root, node, context, validVar, validFunc, validKeyword)
             return
           }
         }
