@@ -69,6 +69,36 @@ a { color: -$color-white; }
 a { color: darken(#fff, 10%); }
 ```
 
+### Scheme
+
+The overall config scheme looks as follows:
+
+```js
+[
+  // primary options
+  "string" || "/RegExp/" || ["string", "/RegExp/" /* ... */],
+
+  // secondary options (optional)
+  {
+    ignoreVariables: true || false,
+    ignoreFunctions: true || false,
+    ignoreKeywords: "string" ||
+      ["string", "string", /* ... */] ||
+      {
+        // match all
+        "": "string" || ["string", /* ... */],
+        
+        // match specific prop
+        "color": "string" || ["string", /* ... */],
+      },
+    disableFix: true || false,
+    autofixFunc: function(root, node, context, validVar, validFunc, validKeyword){ /* css AST change code goes here */ }
+  }
+]
+```
+
+Please read further for detailed explanations.
+
 ### Primary Options
 
 Primary options represent either a single property or a list of multiple properties to check. Technically it's either a `"string"` or an `[array]` of simple strings or `/RegExp/`.
@@ -605,34 +635,6 @@ a {
   }],
   // ...
 }
-```
-
-### Scheme
-
-The config scheme looks as follows:
-
-```js
-[
-  // primary options
-  "string" || "/RegExp/" || ["string", "/RegExp/" /* ... */],
-
-  // secondary options (optional)
-  {
-    ignoreVariables: true || false,
-    ignoreFunctions: true || false,
-    ignoreKeywords: "string" ||
-      ["string", "string", /* ... */] ||
-      {
-        // match all
-        "": "string" || ["string", /* ... */],
-        
-        // match specific prop
-        "color": "string" || ["string", /* ... */],
-      },
-    disableFix: true || false,
-    autofixFunc: function(root, node, context, validVar, validFunc, validKeyword){ /* css AST change code goes here */ }
-  }
-]
 ```
 
 ## Credit / Inspiration
