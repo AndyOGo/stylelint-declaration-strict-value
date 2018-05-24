@@ -612,6 +612,8 @@ a {
 The config scheme looks as follows:
 
 ```js
+
+var replaceValuesWithVariables = require("your module exporting an fixing function")
 [
   // primary options
   "string" || "/RegExp/" || ["string", "/RegExp/" /* ... */],
@@ -628,7 +630,8 @@ The config scheme looks as follows:
         
         // match specific prop
         "color": "string" || ["string", /* ... */],
-      }
+      },
+    autofixFunc: replaceValuesWithVariables
   }
 ]
 ```
