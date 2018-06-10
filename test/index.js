@@ -1,6 +1,7 @@
 import './default'
 import './skip-var-defs'
 import './ignore-unlisted-properties'
+import './auto-fix-function'
 import './regex-property'
 import './multiple-properties'
 import './ignore-variables'
