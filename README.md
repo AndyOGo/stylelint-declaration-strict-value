@@ -319,8 +319,9 @@ a { color: $color-white; }
 #### ignoreKeywords
 
 This allows you to ignore several CSS keywords like `currentColor`, `inherit`, `transparent`, etc.
+**Note:** for convenience also non-standard-keywords like `0` can be specified.
 
-This configuration can either be a simple `"string"`, an `[array]` of `"strings"` or a complex hash of property/keyword mappings.
+This configuration can either be a simple `"string"`, `number`, an `[array]` of `"strings"`, `numbers` or a complex hash of property/keyword mappings.
 
 ##### Simple single keyword
 
@@ -526,6 +527,7 @@ The basic principle works the same as above - you either have one keyword or a l
         "/color/": ["currentColor", "transparent", "inherit"],
         "fill": ["currentColor", "inherit"],
         "stroke": "currentColor",
+        "z-index": 0,
     },
   }],
   // ...
@@ -541,6 +543,7 @@ a {
   border-color: #FFF;
   fill: #FFF;
   stroke: #FFF;
+  z-index: 1;
 }
 
 a {
@@ -562,6 +565,7 @@ a {
   border-color: currentColor;
   fill: currentColor;
   stroke: currentColor;
+  z-index: 0;
 }
 
 a {
