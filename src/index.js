@@ -41,7 +41,7 @@ const rule = (properties, options) =>
       ...defaults,
       ...options,
     }
-    const { ignoreVariables, ignoreFunctions, ignoreKeywords } = config
+    const { ignoreVariables, ignoreFunctions, ignoreKeywords, message } = config
     const reKeywords = ignoreKeywords ? {} : null
 
     // loop through all properties
@@ -113,7 +113,7 @@ const rule = (properties, options) =>
             node,
             line: start.line,
             column: start.column + prop.length + raws.between.length,
-            message: messages.expected(types, value, prop),
+            message: messages.expected(types, value, prop, message),
           })
         }
       }
