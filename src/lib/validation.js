@@ -1,6 +1,19 @@
 import defaults from '../defaults'
 
 /**
+ * Check if type is either `number` or `string`.
+ *
+ * @param {*} value - Any value.
+ *
+ * @returns {boolean}
+ */
+function isNumberOrString(value) {
+  const type = typeof value
+
+  return type === 'string' || type === 'number'
+}
+
+/**
  * Validate primary options of stylelint plugin config.
  *
  * @param {string|string[]} actual - The actual config to validate.
@@ -8,8 +21,8 @@ import defaults from '../defaults'
  * @returns {boolean}
  */
 function validProperties(actual) {
-  return typeof actual === 'string' ||
-    (Array.isArray(actual) && actual.every(item => typeof item === 'string'))
+  return isNumberOrString(actual) ||
+    (Array.isArray(actual) && actual.every(item => isNumberOrString(item)))
 }
 
 /**
@@ -19,7 +32,7 @@ function validProperties(actual) {
  * @param {boolean} [actual.ignoreVariables=true] - Whether or not to lint variables.
  * @param {boolean} [actual.ignoreFunctions=true] - Whether or not to lint functions.
  * @param {string} [actual.severity='error'] - What the severity level is for this rule.
- * @param {string|Array|Object} [actual.ignoreKeywords=null] - A keywords config.
+ * @param {number|string|Array|Object} [actual.ignoreKeywords=null] - A keywords config.
  * @param {string} [actual.message=null] - A custom message to be delivered upon error interpolated with `${types}`, `${value}` and `${property}`.
  *
  * @returns {boolean}
@@ -56,7 +69,7 @@ function validOptions(actual) {
 /**
  * Validate optional hash keyword config.
  *
- * @param {string|Array} actual - A keyword config.
+ * @param {Object} actual - A keyword config.
  *
  * @returns {boolean}
  */
@@ -125,7 +138,7 @@ function getTypes(config, property) {
  * out of a complex ignoreKeywords config hash or array.
  *
  * @param {Object|Array|string} ignoreKeywords - The keyword/-s to ignore.
- * @param {Array} property - The specific CSS declaration's property of the current iteration.
+ * @param {string} property - The specific CSS declaration's property of the current iteration.
  * @returns {Array}
  */
 function getIgnoredKeywords(ignoreKeywords, property) {
