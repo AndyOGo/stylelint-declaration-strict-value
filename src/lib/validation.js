@@ -20,6 +20,7 @@ function validProperties(actual) {
  * @param {boolean} [actual.ignoreFunctions=true] - Whether or not to lint functions.
  * @param {string} [actual.severity='error'] - What the severity level is for this rule.
  * @param {string|Array|Object} [actual.ignoreKeywords=null] - A keywords config.
+ * @param {string} [actual.message=null] - A custom message to be delivered upon error interpolated with `${types}`, `${value}` and `${property}`.
  *
  * @returns {boolean}
  */
@@ -45,6 +46,10 @@ function validOptions(actual) {
     !validProperties(actual.ignoreKeywords) &&
     !validHash(actual.ignoreKeywords)) return false
 
+  if ('message' in actual &&
+    typeof actual.message !== 'string' &&
+    actual.message !== null) return false
+
   return true
 }
 
@@ -67,14 +72,23 @@ function validHash(actual) {
  * @param {Array} types - Either `variable`, `function` and/or `keyword`.
  * @param {string} value - The CSS declaration's value.
  * @param {string} property - The CSS declaration's property.
+ * @param {string} [customMessage] - A custom message to be delivered upon error interpolated with `${types}`, `${value}` and `${property}`.
  * @returns {string}
  */
-function expected(types, value, property) {
+function expected(types, value, property, customMessage) {
   if (Array.isArray(types)) {
     const typesLast = types.pop()
 
     // eslint-disable-next-line no-param-reassign
     types = types.length ? `${types.join(', ')} or ${typesLast}` : typesLast
+  }
+
+  if (typeof customMessage === 'string' && customMessage.length) {
+    /* eslint-disable no-template-curly-in-string */
+    return customMessage.replace('${types}', types)
+      .replace('${value}', value)
+      .replace('${property}', property)
+    /* eslint-enable no-template-curly-in-string */
   }
 
   return `Expected ${types} for "${value}" of "${property}"`
