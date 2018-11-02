@@ -33,18 +33,6 @@ testRule(rule, {
     autoFixFunc,
   }],
 
-  accept: [
-    { code: '.foo { color: $bar; }' },
-    { code: '.foo { color: @bar; }' },
-    { code: '.foo { color: var(--bar); }' },
-    { code: '.foo { color: -$bar; }' },
-    { code: '.foo { color: -@bar; }' },
-    { code: '.foo { color: -var(--bar); }' },
-    { code: '.foo { color: map-get($bar, baz); }' },
-    { code: '.foo { color: darken(#fff, 10%); }' },
-    { code: '.foo { color: color(#fff, lighten(10%)); }' },
-  ],
-
   reject: [
     {
       code: '.foo { color: #fff; }',
