@@ -1,3 +1,28 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**
+
+- [stylelint-declaration-strict-value](#stylelint-declaration-strict-value)
+- [Installation](#installation)
+- [Usage](#usage)
+  - [Usage](#usage-1)
+    - [Primary Options](#primary-options)
+      - [Multiple Properties](#multiple-properties)
+      - [Regex support](#regex-support)
+    - [Secondary Options](#secondary-options)
+      - [ignoreVariables](#ignorevariables)
+      - [ignoreFunctions](#ignorefunctions)
+      - [ignoreKeywords](#ignorekeywords)
+        - [Simple single keyword](#simple-single-keyword)
+        - [List of keywords](#list-of-keywords)
+        - [Complex Mighty Hash Mapping](#complex-mighty-hash-mapping)
+      - [message](#message)
+    - [Scheme](#scheme)
+  - [Credit / Inspiration](#credit--inspiration)
+- [License](#license)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # stylelint-declaration-strict-value
 
 [![Build Status](https://travis-ci.org/AndyOGo/stylelint-declaration-strict-value.svg?branch=master)](https://travis-ci.org/AndyOGo/stylelint-declaration-strict-value)
@@ -569,6 +594,22 @@ a {
         "/color/": ["currentColor", "transparent", "inherit"],
         "fill": ["currentColor", "inherit"],
     },
+  }],
+  // ...
+}
+```
+
+#### message
+
+You can provide your [custom `message`](https://stylelint.io/user-guide/configuration/#custom-messages) string, it will interpolate the `${types}`, `${value}` and `${property}` placeholders, like:
+
+```js
+// .stylelintrc
+"rules": {
+  // ...
+  "scale-unlimited/declaration-strict-value": [
+    ["/color/", "fill", "stroke"], {
+    message: "Custom expected ${types} for \"${value}\" of \"${property}\"",
   }],
   // ...
 }
