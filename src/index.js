@@ -1,6 +1,6 @@
 import stylelint from 'stylelint'
 
-import { validProperties, validOptions, expected, getTypes, getIgnoredKeywords } from './lib/validation'
+import { validProperties, validOptions, expected, getTypes, getIgnoredKeywords, getAutoFixFunc } from './lib/validation'
 import defaults from './defaults'
 
 const ruleName = 'scale-unlimited/declaration-strict-value'
@@ -42,6 +42,7 @@ const rule = (properties, options, context = {}) =>
       ...options,
     }
     const { ignoreVariables, ignoreFunctions, ignoreKeywords, message, disableFix, autoFixFunc } = config
+    const autoFixFuncNormalized = getAutoFixFunc(autoFixFunc)
     const reKeywords = ignoreKeywords ? {} : null
 
     // loop through all properties
@@ -109,7 +110,7 @@ const rule = (properties, options, context = {}) =>
 
           // support auto fixing
           if (context.fix && !disableFix) {
-            const fixedValue = autoFixFunc(node, { validVar, validFunc, validKeyword }, root, config)
+            const fixedValue = autoFixFuncNormalized(node, { validVar, validFunc, validKeyword }, root, config)
 
             // apply fixed value if returned
             if (fixedValue) {

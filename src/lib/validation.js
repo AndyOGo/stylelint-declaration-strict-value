@@ -1,3 +1,6 @@
+/* globals process */
+import path from 'path'
+
 import defaults from '../defaults'
 
 /**
@@ -69,6 +72,7 @@ function validOptions(actual) {
 
   if ('autoFixFunc' in actual &&
     typeof actual.autoFixFunc !== 'function' &&
+    typeof actual.autoFixFunc !== 'string' &&
     actual.autoFixFunc !== null) return false
 
   return true
@@ -163,10 +167,37 @@ function getIgnoredKeywords(ignoreKeywords, property) {
   return Array.isArray(keywords) ? keywords : [keywords]
 }
 
+/**
+ *
+ * @param autoFixFunc
+ * @returns {*}
+ */
+function getAutoFixFunc(autoFixFunc) {
+  const type = typeof autoFixFunc
+
+  if (type === 'function') {
+    return autoFixFunc
+  } else if (type === 'string') {
+    let resolveAutoFixfunc
+
+    try {
+      resolveAutoFixfunc = require.resolve(autoFixFunc)
+    } catch (error) {
+      resolveAutoFixfunc = require.resolve(path.join(process.cwd(), autoFixFunc))
+    }
+
+    // eslint-disable-next-line import/no-dynamic-require, global-require
+    return require(resolveAutoFixfunc)
+  }
+
+  return null
+}
+
 export {
   validProperties,
   validOptions,
   expected,
   getTypes,
   getIgnoredKeywords,
+  getAutoFixFunc,
 }
