@@ -23,7 +23,7 @@ function autoFixFunc(node, validation, root, config) {
   }
 }
 
-// default config
+// autofix by function property
 testRule(rule, {
   ruleName,
   skipBasicChecks: true,
