@@ -17,6 +17,7 @@
         - [List of keywords](#list-of-keywords)
         - [Complex Mighty Hash Mapping](#complex-mighty-hash-mapping)
       - [message](#message)
+      - [Autofix support](#autofix-support)
     - [Scheme](#scheme)
   - [Credit / Inspiration](#credit--inspiration)
 - [License](#license)
@@ -616,6 +617,47 @@ You can provide your [custom `message`](https://stylelint.io/user-guide/configur
     message: "Custom expected ${types} for \"${value}\" of \"${property}\"",
   }],
   // ...
+}
+```
+
+#### Autofix support
+
+This plugin supports **configurable** [autofixing enabled by `--fix` option](https://stylelint.io/user-guide/cli/#autofixing-errors).
+
+**Important:** it's up to you to specify how autofixing should take place, this is because this plugin has to deal with **dynamic** values not static ones (which are predictable and very easy to autofix).
+
+So you have to supply an `autoFixFunc` function and **implement each fix you want by yourself**. To help you with that this function receives the whole [PostCSS API](http://api.postcss.org/postcss.html), all validations and configuration of this plugin, as follows [`node`](http://api.postcss.org/Node.html), `validation`, [`root`](http://api.postcss.org/Declaration.html#root) and `config`.
+`validation` is a hash of `{ validVar, validFunc, validKeyword }`, which tells you which aspect of the rule failed validation.
+
+**Note:** it's best you use a JavaScript based config file, which is easy because Stylelint utilizes [cosmiconfig](https://github.com/davidtheclark/cosmiconfig).
+
+```js
+// .stylelintrc.js
+function autoFixFunc(node, validation, root, config) {
+  const { value, prop } = node
+
+  if (prop === 'color') {
+    switch (value) {
+      case '#fff':
+        // auto-fix by returned value
+        return '$color-white'
+
+      case 'red':
+        // auto-fix by PostCSS AST tranformation
+        node.value = '$color-red'
+    }
+  }
+}
+
+module.exports = {
+  "rules": {
+    // ...
+    "scale-unlimited/declaration-strict-value": [
+      ["/color/"], {
+      autoFixFunc: autoFixFunc,
+    }],
+    // ...
+  }
 }
 ```
 
