@@ -631,6 +631,8 @@ So you have to supply an `autoFixFunc` function and **implement each fix you wan
 
 **Note:** it's best you use a JavaScript based config file, which is easy because Stylelint utilizes [cosmiconfig](https://github.com/davidtheclark/cosmiconfig).
 
+You can also disable autofixing by setting [`disableFix`](https://github.com/stylelint/stylelint/blob/master/docs/developer-guide/plugins.md#the-anatomy-of-a-plugin) to `true`;
+
 ```js
 // .stylelintrc.js
 function autoFixFunc(node, validation, root, config) {
@@ -655,6 +657,7 @@ module.exports = {
     "scale-unlimited/declaration-strict-value": [
       ["/color/"], {
       autoFixFunc: autoFixFunc,
+      disableFix: true | false,
     }],
     // ...
   }
