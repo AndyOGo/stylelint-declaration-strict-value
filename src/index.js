@@ -12,7 +12,7 @@ const reSkipProp = /^(?:@|\$|--).+$/
 const reVar = /^-?(?:@.+|\$.+|var\(--.+\))$/
 const reFunc = /^(?!var\(--).+\(.+\)$/
 
-const rule = (properties, options) =>
+const rule = (properties, options, context = {}) =>
   (root, result) => {
     // validate stylelint plugin options
     const hasValidOptions = utils.validateOptions(
@@ -41,7 +41,7 @@ const rule = (properties, options) =>
       ...defaults,
       ...options,
     }
-    const { ignoreVariables, ignoreFunctions, ignoreKeywords, message } = config
+    const { ignoreVariables, ignoreFunctions, ignoreKeywords, message, disableFix, autoFixFunc } = config
     const reKeywords = ignoreKeywords ? {} : null
 
     // loop through all properties
@@ -107,14 +107,25 @@ const rule = (properties, options) =>
           const { raws } = node
           const { start } = node.source
 
-          utils.report({
-            ruleName,
-            result,
-            node,
-            line: start.line,
-            column: start.column + prop.length + raws.between.length,
-            message: messages.expected(types, value, prop, message),
-          })
+          // support auto fixing
+          if (context.fix && !disableFix) {
+            const fixedValue = autoFixFunc(node, { validVar, validFunc, validKeyword }, root, config)
+
+            // apply fixed value if returned
+            if (fixedValue) {
+              // eslint-disable-next-line no-param-reassign
+              node.value = fixedValue
+            }
+          } else {
+            utils.report({
+              ruleName,
+              result,
+              node,
+              line: start.line,
+              column: start.column + prop.length + raws.between.length,
+              message: messages.expected(types, value, prop, message),
+            })
+          }
         }
       }
     })

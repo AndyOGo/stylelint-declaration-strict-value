@@ -63,6 +63,14 @@ function validOptions(actual) {
     typeof actual.message !== 'string' &&
     actual.message !== null) return false
 
+  if ('disableFix' in actual &&
+    typeof actual.disableFix !== 'boolean' &&
+    actual.disableFix !== null) return false
+
+  if ('autoFixFunc' in actual &&
+    typeof actual.autoFixFunc !== 'function' &&
+    actual.autoFixFunc !== null) return false
+
   return true
 }
 
