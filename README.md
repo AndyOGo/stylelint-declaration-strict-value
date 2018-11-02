@@ -574,6 +574,22 @@ a {
 }
 ```
 
+#### message
+
+You can provide your [custom `message`](https://stylelint.io/user-guide/configuration/#custom-messages) string, it will interpolate the `${types}`, `${value}` and `${property}` placeholders, like:
+
+```js
+// .stylelintrc
+"rules": {
+  // ...
+  "scale-unlimited/declaration-strict-value": [
+    ["/color/", "fill", "stroke"], {
+    message: "Custom expected ${types} for \"${value}\" of \"${property}\"",
+  }],
+  // ...
+}
+```
+
 ### Scheme
 
 The config scheme looks as follows:
