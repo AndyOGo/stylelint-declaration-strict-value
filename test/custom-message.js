@@ -4,7 +4,7 @@ import declarationStrictValue, { ruleName } from '../src'
 
 const { rule } = declarationStrictValue
 
-// ignore unlisted properties
+// custom message
 testRule(rule, {
   ruleName,
   skipBasicChecks: true,
