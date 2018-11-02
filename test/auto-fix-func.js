@@ -50,3 +50,31 @@ testRule(rule, {
     },
   ],
 })
+
+// autofix by file exporting function
+testRule(rule, {
+  ruleName,
+  skipBasicChecks: true,
+  fix: true,
+
+  config: ['color', {
+    autoFixFunc: './test/helpers/auto-fix-func.js',
+  }],
+
+  reject: [
+    {
+      code: '.foo { color: #fff; }',
+      fixed: '.foo { color: $color-white; }',
+      message: `Expected variable or function for "#fff" of "color" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
+    {
+      code: '.foo { color: red; }',
+      fixed: '.foo { color: $color-red; }',
+      message: `Expected variable or function for "red" of "color" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
+  ],
+})
