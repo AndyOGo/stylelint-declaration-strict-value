@@ -630,7 +630,7 @@ So you have to supply an `autoFixFunc` function and **implement each fix you wan
 `validation` is a hash of `{ validVar, validFunc, validKeyword }`, which tells you which aspect of the rule failed validation.
 
 **Note:** it's best you use a JavaScript based config file, which is easy because Stylelint utilizes [cosmiconfig](https://github.com/davidtheclark/cosmiconfig).
-Alternatively you can specify a common JS module, which will be resolves by [standard `require`](https://nodejs.org/api/modules.html#modules_file_modules) calls or to your `CWD`.
+Alternatively you can specify a common JS module, which will be resolves by [standard `require`](https://nodejs.org/api/modules.html#modules_file_modules) calls including support for `CDW`.
 
 You can also disable autofixing by setting [`disableFix`](https://github.com/stylelint/stylelint/blob/master/docs/developer-guide/plugins.md#the-anatomy-of-a-plugin) to `true`;
 
