@@ -24,8 +24,8 @@ function isNumberOrString(value) {
  * @returns {boolean}
  */
 function validProperties(actual) {
-  return isNumberOrString(actual) ||
-    (Array.isArray(actual) && actual.every(item => isNumberOrString(item)))
+  return isNumberOrString(actual)
+    || (Array.isArray(actual) && actual.every(item => isNumberOrString(item)))
 }
 
 /**
@@ -46,34 +46,34 @@ function validOptions(actual) {
   const allowedKeys = Object.keys(defaults)
   if (!Object.keys(actual).every(key => allowedKeys.indexOf(key) > -1)) return false
 
-  if ('ignoreVariables' in actual &&
-    typeof actual.ignoreVariables !== 'boolean' &&
-    actual.ignoreVariables !== null) return false
+  if ('ignoreVariables' in actual
+    && typeof actual.ignoreVariables !== 'boolean'
+    && actual.ignoreVariables !== null) return false
 
-  if ('ignoreFunctions' in actual &&
-    typeof actual.ignoreFunctions !== 'boolean' &&
-    actual.ignoreFunctions !== null) return false
+  if ('ignoreFunctions' in actual
+    && typeof actual.ignoreFunctions !== 'boolean'
+    && actual.ignoreFunctions !== null) return false
 
-  if ('severity' in actual &&
-    typeof actual.severity !== 'string' &&
-    actual.severity !== null) return false
+  if ('severity' in actual
+    && typeof actual.severity !== 'string'
+    && actual.severity !== null) return false
 
-  if ('ignoreKeywords' in actual &&
-    !validProperties(actual.ignoreKeywords) &&
-    !validHash(actual.ignoreKeywords)) return false
+  if ('ignoreKeywords' in actual
+    && !validProperties(actual.ignoreKeywords)
+    && !validHash(actual.ignoreKeywords)) return false
 
-  if ('message' in actual &&
-    typeof actual.message !== 'string' &&
-    actual.message !== null) return false
+  if ('message' in actual
+    && typeof actual.message !== 'string'
+    && actual.message !== null) return false
 
-  if ('disableFix' in actual &&
-    typeof actual.disableFix !== 'boolean' &&
-    actual.disableFix !== null) return false
+  if ('disableFix' in actual
+    && typeof actual.disableFix !== 'boolean'
+    && actual.disableFix !== null) return false
 
-  if ('autoFixFunc' in actual &&
-    typeof actual.autoFixFunc !== 'function' &&
-    typeof actual.autoFixFunc !== 'string' &&
-    actual.autoFixFunc !== null) return false
+  if ('autoFixFunc' in actual
+    && typeof actual.autoFixFunc !== 'function'
+    && typeof actual.autoFixFunc !== 'string'
+    && actual.autoFixFunc !== null) return false
 
   return true
 }
@@ -177,7 +177,9 @@ function getAutoFixFunc(autoFixFunc) {
 
   if (type === 'function') {
     return autoFixFunc
-  } else if (type === 'string') {
+  }
+
+  if (type === 'string') {
     let resolveAutoFixfunc
 
     try {

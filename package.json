@@ -1,7 +1,7 @@
 {
   "name": "stylelint-declaration-strict-value",
   "version": "1.1.1",
-  "description": "Specify properties for which a variable, function, keyword must be used",
+  "description": "Specify properties for which a variable, function, keyword or value must be used",
   "main": "index.js",
   "scripts": {
     "build": "babel src --out-dir ./",
@@ -34,17 +34,17 @@
     "stylelint": "^7.0.0 || ^8.0.0 || ^9.0.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.18.0",
-    "babel-core": "^6.18.2",
-    "babel-eslint": "^7.1.0",
-    "babel-plugin-transform-class-properties": "^6.18.0",
-    "babel-plugin-transform-es2015-destructuring": "^6.18.0",
-    "babel-plugin-transform-object-assign": "^6.8.0",
-    "babel-plugin-transform-object-rest-spread": "^6.16.0",
-    "babel-preset-es2015": "^6.18.0",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^10.0.1",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-es2015-destructuring": "^6.23.0",
+    "babel-plugin-transform-object-assign": "^6.22.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
     "doctoc": "^1.3.1",
-    "eslint": "^3.9.1",
-    "eslint-config-airbnb-base": "^9.0.0",
+    "eslint": "^5.8.0",
+    "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.0.1",
     "stylelint": "^9.7.1",
     "stylelint-test-rule-tape": "^0.2.0"
