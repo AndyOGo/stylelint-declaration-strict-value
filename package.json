@@ -30,8 +30,8 @@
     "url": "https://github.com/AndyOGo/stylelint-declaration-strict-value/issues"
   },
   "homepage": "https://github.com/AndyOGo/stylelint-declaration-strict-value#readme",
-  "dependencies": {
-    "stylelint": "^7.6.0"
+  "peerDependencies": {
+    "stylelint": "^7.0.0 || ^8.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",
