@@ -1,7 +1,7 @@
 {
   "name": "stylelint-declaration-strict-value",
   "version": "1.1.1",
-  "description": "Specify properties for which a variable, function, keyword must be used",
+  "description": "Specify properties for which a variable, function, keyword or value must be used",
   "main": "index.js",
   "scripts": {
     "build": "babel src --out-dir ./",
