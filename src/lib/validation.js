@@ -168,9 +168,10 @@ function getIgnoredKeywords(ignoreKeywords, property) {
 }
 
 /**
+ * Get the auto-fix function either by a function directly or from source file.
  *
- * @param autoFixFunc
- * @returns {*}
+ * @param {Function|string} autoFixFunc
+ * @returns {Function|null}
  */
 function getAutoFixFunc(autoFixFunc) {
   const type = typeof autoFixFunc
