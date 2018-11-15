@@ -722,7 +722,10 @@ The config scheme looks as follows:
         
         // match specific prop
         "color": "string" || ["string", /* ... */],
-      }
+      },
+    autoFixFunc: './auto-fix-func.js' || function() {},
+    disableFix: true || false,
+    message: "Custom expected ${types} for \"${value}\" of \"${property}\"",
   }
 ]
 ```
