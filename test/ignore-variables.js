@@ -9,7 +9,7 @@ testRule(rule, {
   ruleName,
   skipBasicChecks: true,
 
-  config: ['color', {
+  config: ['/color|margin/', {
     ignoreVariables: false,
   }],
 
@@ -17,6 +17,11 @@ testRule(rule, {
     { code: '.foo { color: map-get(my-map(), 10); }' },
     { code: '.foo { color: darken(#fff, 10%); }' },
     { code: '.foo { color: color(#fff, lighten(10%)); }' },
+    { code: '.foo { margin: getY() getX(); }' },
+    { code: '.foo { margin: -getY() getX(); }' },
+    { code: '.foo { margin: getY() -getX(); }' },
+    { code: '.foo { margin: -getY() -getX(); }' },
+    { code: '.foo { margin: toPx(5em) getX() toPx(10%); }' },
   ],
 
   reject: [
