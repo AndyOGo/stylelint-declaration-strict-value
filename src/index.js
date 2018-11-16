@@ -1,8 +1,10 @@
 import stylelint from 'stylelint'
+import valuesParser from 'postcss-values-parser'
 
 import {
-  validProperties, validOptions, expected, getTypes, getIgnoredKeywords, getAutoFixFunc,
+  reFunc, reSkipProp, reVar, validProperties, validOptions, expected, getTypes, getIgnoredKeywords, getAutoFixFunc,
 } from './lib/validation'
+import getNode from './lib/get-node'
 import defaults from './defaults'
 
 const ruleName = 'scale-unlimited/declaration-strict-value'
@@ -10,9 +12,6 @@ const { utils } = stylelint
 const messages = utils.ruleMessages(ruleName, {
   expected,
 })
-const reSkipProp = /^(?:@|\$|--).+$/
-const reVar = /^-?(?:@.+|\$.+|var\(--.+\))$/
-const reFunc = /^(?!var\(--).+\(.+\)$/
 
 const rule = (properties, options, context = {}) => (root, result) => {
   // validate stylelint plugin options
@@ -43,7 +42,7 @@ const rule = (properties, options, context = {}) => (root, result) => {
     ...options,
   }
   const {
-    ignoreVariables, ignoreFunctions, ignoreKeywords, message, disableFix, autoFixFunc,
+    ignoreVariables, ignoreFunctions, ignoreKeywords, message, disableFix, autoFixFunc, loose,
   } = config
   const autoFixFuncNormalized = getAutoFixFunc(autoFixFunc)
   const reKeywords = ignoreKeywords ? {} : null
@@ -58,77 +57,93 @@ const rule = (properties, options, context = {}) => (root, result) => {
     }
 
     // walk through all declarations filtered by configured properties
-    root.walkDecls(propFilter, lintDeclStrictValue)
+    root.walkDecls(propFilter, lintDeclStrictValues)
 
     /**
      * Lint usages of declarations values againts, variables, functions
-     * or custum keywords - as configured.
+     * or custom keywords - as configured.
      *
      * @param {Object} node - A Declaration-Node from PostCSS AST-Parser.
      */
-    function lintDeclStrictValue(node) {
-      const { value, prop } = node
+    function lintDeclStrictValues(nodes) {
+      const { value: values, prop } = nodes
 
       // skip variable declarations
       if (reSkipProp.test(prop)) return
 
-      // falsify everything by default
-      let validVar = false
-      let validFunc = false
-      let validKeyword = false
+      const valueAst = valuesParser(values, {
+        loose,
+      }).parse()
 
-      // test variable
-      if (ignoreVariables) {
-        validVar = reVar.test(value)
-      }
+      valueAst.first.walk(lintDeclStrictValue)
 
-      // test function
-      if (ignoreFunctions && !validVar) {
-        validFunc = reFunc.test(value)
-      }
+      function lintDeclStrictValue(node) {
+        // important prevent walk of children by returning false
+        if (node.parent.skipChildren) return false
 
-      // test keywords
-      if (ignoreKeywords && (!validVar || !validFunc)) {
-        let reKeyword = reKeywords[property]
+        const { type, value } = getNode(node)
+        // falsify everything by default
+        let validVar = false
+        let validFunc = false
+        let validKeyword = false
 
-        if (!reKeyword) {
-          const ignoreKeyword = getIgnoredKeywords(ignoreKeywords, property)
+        // skip root, comma and paren nodes
+        if (type === 'root' || type === 'comment' || type === 'comma' || type === 'paren' || type === 'operator') return
+        console.log(`${type} -> ${value} : ${node.toString()}`)
+        // test variable
+        if (ignoreVariables) {
+          validVar = type === 'var'
+        }
 
-          if (ignoreKeyword) {
-            reKeyword = new RegExp(`^${ignoreKeyword.join('|')}$`)
-            reKeywords[property] = reKeyword
+        // test function
+        if (ignoreFunctions && !validVar) {
+          validFunc = type === 'func'
+        }
+
+        // test keywords
+        if (ignoreKeywords && (!validVar || !validFunc)) {
+          let reKeyword = reKeywords[property]
+
+          if (!reKeyword) {
+            const ignoreKeyword = getIgnoredKeywords(ignoreKeywords, property)
+
+            if (ignoreKeyword) {
+              reKeyword = new RegExp(`^${ignoreKeyword.join('|')}$`)
+              reKeywords[property] = reKeyword
+            }
+          }
+
+          if (reKeyword) {
+            console.log(value, node.toString())
+            validKeyword = reKeyword.test(node.toString())
           }
         }
 
-        if (reKeyword) {
-          validKeyword = reKeyword.test(value)
-        }
-      }
+        // report only if all failed
+        if (!validVar && !validFunc && !validKeyword) {
+          const types = getTypes(config, property)
+          const { raws } = nodes
+          const { start } = nodes.source
 
-      // report only if all failed
-      if (!validVar && !validFunc && !validKeyword) {
-        const types = getTypes(config, property)
-        const { raws } = node
-        const { start } = node.source
+          // support auto fixing
+          if (context.fix && !disableFix) {
+            const fixedValue = autoFixFuncNormalized(node, nodes, { validVar, validFunc, validKeyword }, root, config)
 
-        // support auto fixing
-        if (context.fix && !disableFix) {
-          const fixedValue = autoFixFuncNormalized(node, { validVar, validFunc, validKeyword }, root, config)
-
-          // apply fixed value if returned
-          if (fixedValue) {
-            // eslint-disable-next-line no-param-reassign
-            node.value = fixedValue
+            // apply fixed value if returned
+            if (fixedValue) {
+              // eslint-disable-next-line no-param-reassign
+              node.value = fixedValue
+            }
+          } else {
+            utils.report({
+              ruleName,
+              result,
+              nodes,
+              line: start.line,
+              column: start.column + prop.length + raws.between.length,
+              message: messages.expected(types, values, prop, message),
+            })
           }
-        } else {
-          utils.report({
-            ruleName,
-            result,
-            node,
-            line: start.line,
-            column: start.column + prop.length + raws.between.length,
-            message: messages.expected(types, value, prop, message),
-          })
         }
       }
     }

@@ -3,6 +3,10 @@ import path from 'path'
 
 import defaults from '../defaults'
 
+export const reSkipProp = /^(?:@|\$|--).+$/
+export const reVar = /^-?(?:@.+|\$.+|var\(--.+\))$/
+export const reFunc = /^(?!var\(--).+\(.+\)$/
+
 /**
  * Check if type is either `number` or `string`.
  *
