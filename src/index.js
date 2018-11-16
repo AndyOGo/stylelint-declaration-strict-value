@@ -147,8 +147,6 @@ const rule = (properties, options, context = {}) => (root, result) => {
         // report only if all failed
         if (!validVar && !validFunc && !validKeyword) {
           const types = getTypes(config, property)
-          const { raws } = nodes
-          const { start } = nodes.source
 
           // support auto fixing
           if (context.fix && !disableFix) {
@@ -160,17 +158,13 @@ const rule = (properties, options, context = {}) => (root, result) => {
               node.value = fixedValue
             }
           } else {
-            const { line } = start
-            const column = start.column + prop.length + raws.between.length
+            const { source: { start : { line } } } = nodes
 
-            console.log({ validVar, validFunc, validKeyword })
-            console.log(values, line, column)
             utils.report({
               ruleName,
               result,
-              nodes,
+              node: nodes,
               line,
-              column,
               message: messages.expected(types, values, prop, message),
             })
           }
