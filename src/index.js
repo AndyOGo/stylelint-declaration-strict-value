@@ -111,13 +111,6 @@ const rule = (properties, options, context = {}) => (root, result) => {
           validFunc = true
         }
 
-        // if invalid func found, no need to walk through children
-        // one error at a time
-        if (type === 'func' && !validFunc) {
-          // eslint-disable-next-line no-param-reassign
-          node.skipChildren = true
-        }
-
         if (type === 'number'
           && ((isParentFunc && ignoreNumberArgs)
           || (!isParentFunc && ignoreNumbers))) {
@@ -156,6 +149,15 @@ const rule = (properties, options, context = {}) => (root, result) => {
 
         // report only if all failed
         if (!validVar && !validFunc && !validKeyword) {
+          // if invalid found, no need to walk through the rest
+          // one error at a time
+          let skipAllParent = node
+          while (skipAllParent) {
+            // eslint-disable-next-line no-param-reassign
+            skipAllParent.skipChildren = true
+            skipAllParent = skipAllParent.parent
+          }
+
           const types = getTypes(config, property)
 
           // support auto fixing
