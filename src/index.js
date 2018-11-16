@@ -45,10 +45,10 @@ const rule = (properties, options, context = {}) => (root, result) => {
     ignoreVariables, ignoreNumbers, ignoreColors, ignoreOperators, ignoreFunctions, ignoreKeywords, message, disableFix, autoFixFunc, loose,
   } = config
   const isComplexIgnoreFunctions = typeof ignoreFunctions === 'object'
-  const ignoreNested = isComplexIgnoreFunctions ? ignoreFunctions.ignoreNested : ignoreFunctions
-  const ignoreNumberArgs = isComplexIgnoreFunctions ? ignoreFunctions.ignoreNumbers : ignoreFunctions
-  const ignoreColorArgs = isComplexIgnoreFunctions ? ignoreFunctions.ignoreColors : ignoreFunctions
-  const ignoreOperatorsInArgs = isComplexIgnoreFunctions ? ignoreFunctions.ignoreOperators : ignoreFunctions
+  const ignoreNested = isComplexIgnoreFunctions ? ignoreFunctions.ignoreNested : !!ignoreFunctions
+  const ignoreNumberArgs = isComplexIgnoreFunctions ? ignoreFunctions.ignoreNumbers : !!ignoreFunctions
+  const ignoreColorArgs = isComplexIgnoreFunctions ? ignoreFunctions.ignoreColors : !!ignoreFunctions
+  const ignoreOperatorsInArgs = isComplexIgnoreFunctions ? ignoreFunctions.ignoreOperators : !!ignoreFunctions
   const autoFixFuncNormalized = getAutoFixFunc(autoFixFunc)
   const reKeywords = ignoreKeywords ? {} : null
 
@@ -158,7 +158,7 @@ const rule = (properties, options, context = {}) => (root, result) => {
               node.value = fixedValue
             }
           } else {
-            const { source: { start : { line } } } = nodes
+            const { source: { start: { line } } } = nodes
 
             utils.report({
               ruleName,
