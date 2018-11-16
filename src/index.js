@@ -2,7 +2,7 @@ import stylelint from 'stylelint'
 import valuesParser from 'postcss-values-parser'
 
 import {
-  reFunc, reSkipProp, reVar, validProperties, validOptions, expected, getTypes, getIgnoredKeywords, getAutoFixFunc,
+  reSkipProp, validProperties, validOptions, expected, getTypes, getIgnoredKeywords, getAutoFixFunc,
 } from './lib/validation'
 import getNode from './lib/get-node'
 import defaults from './defaults'
@@ -87,7 +87,7 @@ const rule = (properties, options, context = {}) => (root, result) => {
         // important prevent walk of children by returning false
         if (node.parent.skipChildren) return false
 
-        const { type, value, parent } = getNode(node)
+        const { type, parent } = getNode(node)
         const rawValue = node.toString().trim()
         const isParentFunc = parent.type === 'func'
         // falsify everything by default

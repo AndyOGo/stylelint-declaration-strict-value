@@ -1,5 +1,5 @@
 import {
-  reFunc, reSkipProp, reVar,
+  reVar,
 } from './validation'
 
 const getNode = (node) => {
