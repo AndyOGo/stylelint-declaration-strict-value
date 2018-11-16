@@ -42,8 +42,13 @@ const rule = (properties, options, context = {}) => (root, result) => {
     ...options,
   }
   const {
-    ignoreVariables, ignoreFunctions, ignoreKeywords, message, disableFix, autoFixFunc, loose,
+    ignoreVariables, ignoreNumbers, ignoreColors, ignoreOperators, ignoreFunctions, ignoreKeywords, message, disableFix, autoFixFunc, loose,
   } = config
+  const isComplexIgnoreFunctions = typeof ignoreFunctions === 'object'
+  const ignoreNested = isComplexIgnoreFunctions ? ignoreFunctions.ignoreNested : ignoreFunctions
+  const ignoreNumberArgs = isComplexIgnoreFunctions ? ignoreFunctions.ignoreNumbers : ignoreFunctions
+  const ignoreColorArgs = isComplexIgnoreFunctions ? ignoreFunctions.ignoreColors : ignoreFunctions
+  const ignoreOperatorsInArgs = isComplexIgnoreFunctions ? ignoreFunctions.ignoreOperators : ignoreFunctions
   const autoFixFuncNormalized = getAutoFixFunc(autoFixFunc)
   const reKeywords = ignoreKeywords ? {} : null
 
@@ -81,14 +86,15 @@ const rule = (properties, options, context = {}) => (root, result) => {
         // important prevent walk of children by returning false
         if (node.parent.skipChildren) return false
 
-        const { type, value } = getNode(node)
+        const { type, value, parent } = getNode(node)
+        const isParentFunc = parent.type === 'func'
         // falsify everything by default
         let validVar = false
         let validFunc = false
         let validKeyword = false
 
         // skip root, comma and paren nodes
-        if (type === 'root' || type === 'comment' || type === 'comma' || type === 'paren' || type === 'operator') return
+        if (type === 'root' || type === 'comment' || type === 'comma' || type === 'paren') return
         console.log(`${type} -> ${value} : ${node.toString()}`)
         // test variable
         if (ignoreVariables) {
@@ -96,8 +102,39 @@ const rule = (properties, options, context = {}) => (root, result) => {
         }
 
         // test function
-        if (ignoreFunctions && !validVar) {
-          validFunc = type === 'func'
+        if (ignoreFunctions && !validVar && type === 'func') {
+          if (isParentFunc && ignoreNested) {
+            validFunc = true
+          } else {
+            validFunc = true
+          }
+        }
+
+        if (type === 'number') {
+          if (isParentFunc && ignoreNumberArgs) {
+            return
+          } else if (!isParentFunc && ignoreNumbers) {
+            return
+          }
+        }
+
+        if (type === 'word') {
+          const isColor = node.isColor || node.isHex
+
+          console.log(isParentFunc, ignoreColors, isColor)
+          if (isParentFunc && ignoreColorArgs && isColor) {
+            return
+          } else if (!isParentFunc && ignoreColors && isColor) {
+            return
+          }
+        }
+
+        if (type === 'operator') {
+          if (isParentFunc && ignoreOperatorsInArgs) {
+            return
+          } else if (!isParentFunc && ignoreOperators) {
+            return
+          }
         }
 
         // test keywords
@@ -135,12 +172,18 @@ const rule = (properties, options, context = {}) => (root, result) => {
               node.value = fixedValue
             }
           } else {
+            const { line } = start
+            const column = start.column + prop.length + raws.between.length
+
+            console.log({ validVar, validFunc, validKeyword })
+            console.log(line, column)
+            console.log(config)
             utils.report({
               ruleName,
               result,
               nodes,
-              line: start.line,
-              column: start.column + prop.length + raws.between.length,
+              line,
+              column,
               message: messages.expected(types, values, prop, message),
             })
           }

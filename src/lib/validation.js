@@ -54,8 +54,21 @@ function validOptions(actual) {
     && typeof actual.ignoreVariables !== 'boolean'
     && actual.ignoreVariables !== null) return false
 
+  if ('ignoreOperators' in actual
+    && typeof actual.ignoreVariables !== 'boolean'
+    && actual.ignoreVariables !== null) return false
+
+  if ('ignoreNumbers' in actual
+    && typeof actual.ignoreVariables !== 'boolean'
+    && actual.ignoreVariables !== null) return false
+
+  if ('ignoreColors' in actual
+    && typeof actual.ignoreVariables !== 'boolean'
+    && actual.ignoreVariables !== null) return false
+
   if ('ignoreFunctions' in actual
     && typeof actual.ignoreFunctions !== 'boolean'
+    && typeof actual.ignoreFunctions !== 'object'
     && actual.ignoreFunctions !== null) return false
 
   if ('severity' in actual
