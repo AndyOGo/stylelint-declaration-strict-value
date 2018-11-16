@@ -3,7 +3,7 @@ import {
 } from './validation'
 
 const getNode = (node) => {
-  const rawValue = node.toString()
+  const rawValue = node.toString().trim()
 
   // IMPORTANT detect vars for CSS, SCSS and Less
   if (reVar.test(rawValue)) {
