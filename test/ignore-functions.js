@@ -34,7 +34,7 @@ testRule(rule, {
     },
     {
       code: '.foo { color: map-get($bar, $baz); }',
-      message: `Expected variable for "map-get($bar, baz)" of "color" (${ruleName})`,
+      message: `Expected variable for "map-get($bar, $baz)" of "color" (${ruleName})`,
       line: 1,
       column: 8,
     },

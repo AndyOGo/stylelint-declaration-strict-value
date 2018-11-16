@@ -14,7 +14,7 @@ testRule(rule, {
   }],
 
   accept: [
-    { code: '.foo { color: map-get($bar, $baz); }' },
+    { code: '.foo { color: map-get(my-map(), 10); }' },
     { code: '.foo { color: darken(#fff, 10%); }' },
     { code: '.foo { color: color(#fff, lighten(10%)); }' },
   ],

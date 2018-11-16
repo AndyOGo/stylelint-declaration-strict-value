@@ -82,6 +82,7 @@ const rule = (properties, options, context = {}) => (root, result) => {
 
       valueAst.first.walk(lintDeclStrictValue)
 
+      // eslint-disable-next-line consistent-return
       function lintDeclStrictValue(node) {
         // important prevent walk of children by returning false
         if (node.parent.skipChildren) return false
@@ -95,8 +96,10 @@ const rule = (properties, options, context = {}) => (root, result) => {
         let validKeyword = false
 
         // skip root, comment, comma and paren nodes
-        if (type === 'root' || type === 'comment' || type === 'comma' || type === 'paren') return
-        console.log(`${type} -> ${value} : ${rawValue}`)
+        if (type === 'root' || type === 'comment' || type === 'comma' || type === 'paren') {
+          return // eslint-disable-line consistent-return
+        }
+
         // test variable
         if (ignoreVariables) {
           validVar = type === 'var'
@@ -108,22 +111,29 @@ const rule = (properties, options, context = {}) => (root, result) => {
           validFunc = true
         }
 
+        // if invalid func found, no need to walk through children
+        // one error at a time
+        if (type === 'func' && !validFunc) {
+          // eslint-disable-next-line no-param-reassign
+          node.skipChildren = true
+        }
+
         if (type === 'number'
           && ((isParentFunc && ignoreNumberArgs)
           || (!isParentFunc && ignoreNumbers))) {
-          return
+          return // eslint-disable-line consistent-return
         }
 
         if (type === 'word' && (node.isColor || node.isHex)
           && ((isParentFunc && ignoreColorArgs)
           || (!isParentFunc && ignoreColors))) {
-          return
+          return // eslint-disable-line consistent-return
         }
 
         if (type === 'operator'
           && ((isParentFunc && ignoreOperatorsInArgs)
           || (!isParentFunc && ignoreOperators))) {
-          return
+          return // eslint-disable-line consistent-return
         }
 
         // test keywords
