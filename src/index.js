@@ -87,54 +87,43 @@ const rule = (properties, options, context = {}) => (root, result) => {
         if (node.parent.skipChildren) return false
 
         const { type, value, parent } = getNode(node)
+        const rawValue = node.toString().trim()
         const isParentFunc = parent.type === 'func'
         // falsify everything by default
         let validVar = false
         let validFunc = false
         let validKeyword = false
 
-        // skip root, comma and paren nodes
+        // skip root, comment, comma and paren nodes
         if (type === 'root' || type === 'comment' || type === 'comma' || type === 'paren') return
-        console.log(`${type} -> ${value} : ${node.toString()}`)
+        console.log(`${type} -> ${value} : ${rawValue}`)
         // test variable
         if (ignoreVariables) {
           validVar = type === 'var'
         }
 
         // test function
-        if (ignoreFunctions && !validVar && type === 'func') {
-          if (isParentFunc && ignoreNested) {
-            validFunc = true
-          } else {
-            validFunc = true
-          }
+        if (ignoreFunctions && !validVar && type === 'func'
+          && ((isParentFunc && ignoreNested) || !isParentFunc)) {
+          validFunc = true
         }
 
-        if (type === 'number') {
-          if (isParentFunc && ignoreNumberArgs) {
-            return
-          } else if (!isParentFunc && ignoreNumbers) {
-            return
-          }
+        if (type === 'number'
+          && ((isParentFunc && ignoreNumberArgs)
+          || (!isParentFunc && ignoreNumbers))) {
+          return
         }
 
-        if (type === 'word') {
-          const isColor = node.isColor || node.isHex
-
-          console.log(isParentFunc, ignoreColors, isColor)
-          if (isParentFunc && ignoreColorArgs && isColor) {
-            return
-          } else if (!isParentFunc && ignoreColors && isColor) {
-            return
-          }
+        if (type === 'word' && (node.isColor || node.isHex)
+          && ((isParentFunc && ignoreColorArgs)
+          || (!isParentFunc && ignoreColors))) {
+          return
         }
 
-        if (type === 'operator') {
-          if (isParentFunc && ignoreOperatorsInArgs) {
-            return
-          } else if (!isParentFunc && ignoreOperators) {
-            return
-          }
+        if (type === 'operator'
+          && ((isParentFunc && ignoreOperatorsInArgs)
+          || (!isParentFunc && ignoreOperators))) {
+          return
         }
 
         // test keywords
@@ -151,8 +140,7 @@ const rule = (properties, options, context = {}) => (root, result) => {
           }
 
           if (reKeyword) {
-            console.log(value, node.toString())
-            validKeyword = reKeyword.test(node.toString())
+            validKeyword = reKeyword.test(rawValue)
           }
         }
 
@@ -176,8 +164,7 @@ const rule = (properties, options, context = {}) => (root, result) => {
             const column = start.column + prop.length + raws.between.length
 
             console.log({ validVar, validFunc, validKeyword })
-            console.log(line, column)
-            console.log(config)
+            console.log(values, line, column)
             utils.report({
               ruleName,
               result,
