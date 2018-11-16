@@ -76,11 +76,24 @@ const rule = (properties, options, context = {}) => (root, result) => {
       // skip variable declarations
       if (reSkipProp.test(prop)) return
 
-      const valueAst = valuesParser(values, {
-        loose,
-      }).parse()
+      try {
+        const valueAst = valuesParser(values, {
+          loose,
+        }).parse()
 
-      valueAst.first.walk(lintDeclStrictValue)
+        valueAst.first.walk(lintDeclStrictValue)
+      } catch (error) {
+        const types = getTypes(config, property)
+        const { source: { start: { line } } } = nodes
+
+        utils.report({
+          ruleName,
+          result,
+          node: nodes,
+          line,
+          message: messages.expected(types, values, prop, message),
+        })
+      }
 
       // eslint-disable-next-line consistent-return
       function lintDeclStrictValue(node) {
@@ -94,6 +107,7 @@ const rule = (properties, options, context = {}) => (root, result) => {
         let validVar = false
         let validFunc = false
         let validKeyword = false
+        let validOperator = false
 
         // skip root, comment, comma and paren nodes
         if (type === 'root' || type === 'comment' || type === 'comma' || type === 'paren') {
@@ -117,7 +131,7 @@ const rule = (properties, options, context = {}) => (root, result) => {
           return // eslint-disable-line consistent-return
         }
 
-        if (type === 'word' && (node.isColor || node.isHex)
+        if (type === 'word' && node.isColor
           && ((isParentFunc && ignoreColorArgs)
           || (!isParentFunc && ignoreColors))) {
           return // eslint-disable-line consistent-return
@@ -126,7 +140,7 @@ const rule = (properties, options, context = {}) => (root, result) => {
         if (type === 'operator'
           && ((isParentFunc && ignoreOperatorsInArgs)
           || (!isParentFunc && ignoreOperators))) {
-          return // eslint-disable-line consistent-return
+          validOperator = true
         }
 
         // test keywords
@@ -148,7 +162,7 @@ const rule = (properties, options, context = {}) => (root, result) => {
         }
 
         // report only if all failed
-        if (!validVar && !validFunc && !validKeyword) {
+        if (!validVar && !validFunc && !validKeyword && !validOperator) {
           // if invalid found, no need to walk through the rest
           // one error at a time
           let skipAllParent = node
@@ -158,11 +172,9 @@ const rule = (properties, options, context = {}) => (root, result) => {
             skipAllParent = skipAllParent.parent
           }
 
-          const types = getTypes(config, property)
-
           // support auto fixing
           if (context.fix && !disableFix) {
-            const fixedValue = autoFixFuncNormalized(node, nodes, { validVar, validFunc, validKeyword }, root, config)
+            const fixedValue = autoFixFuncNormalized(node, nodes, { validVar, validFunc, validKeyword, validOperator }, root, config)
 
             // apply fixed value if returned
             if (fixedValue) {
@@ -170,6 +182,7 @@ const rule = (properties, options, context = {}) => (root, result) => {
               node.value = fixedValue
             }
           } else {
+            const types = getTypes(config, property)
             const { source: { start: { line } } } = nodes
 
             utils.report({
