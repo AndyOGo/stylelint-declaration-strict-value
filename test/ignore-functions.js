@@ -33,7 +33,7 @@ testRule(rule, {
       column: 8,
     },
     {
-      code: '.foo { color: map-get($bar, baz); }',
+      code: '.foo { color: map-get($bar, $baz); }',
       message: `Expected variable for "map-get($bar, baz)" of "color" (${ruleName})`,
       line: 1,
       column: 8,
