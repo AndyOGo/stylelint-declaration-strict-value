@@ -11,8 +11,6 @@ const getNode = (node) => {
     node.type = 'var'
     // make sure to mark walk through children as skipped
     node.skipChildren = true
-
-    return node
   }
 
   return node
