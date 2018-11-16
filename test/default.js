@@ -52,6 +52,12 @@ testRule(rule, {
       column: 8,
     },
     {
+      code: '.foo { margin: 10px; }',
+      message: `Expected variable or function for "10px" of "margin" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
+    {
       code: '.foo { border: 1px solid red; }',
       message: `Expected variable or function for "1px solid red" of "border" (${ruleName})`,
       line: 1,

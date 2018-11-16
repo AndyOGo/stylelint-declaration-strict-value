@@ -108,9 +108,10 @@ const rule = (properties, options, context = {}) => (root, result) => {
         let validFunc = false
         let validKeyword = false
         let validOperator = false
+        let validNumber = false
 
-        // skip root, comment, comma and paren nodes
-        if (type === 'root' || type === 'comment' || type === 'comma' || type === 'paren') {
+        // skip root, comment, comma, paren and value nodes
+        if (type === 'root' || type === 'comment' || type === 'comma' || type === 'paren' || type === 'value') {
           return // eslint-disable-line consistent-return
         }
 
@@ -128,7 +129,7 @@ const rule = (properties, options, context = {}) => (root, result) => {
         if (type === 'number'
           && ((isParentFunc && ignoreNumberArgs)
           || (!isParentFunc && ignoreNumbers))) {
-          return // eslint-disable-line consistent-return
+          validNumber = true
         }
 
         if (type === 'word' && node.isColor
@@ -162,7 +163,7 @@ const rule = (properties, options, context = {}) => (root, result) => {
         }
 
         // report only if all failed
-        if (!validVar && !validFunc && !validKeyword && !validOperator) {
+        if (!validVar && !validFunc && !validKeyword && !validOperator && !validNumber) {
           // if invalid found, no need to walk through the rest
           // one error at a time
           let skipAllParent = node
@@ -175,7 +176,7 @@ const rule = (properties, options, context = {}) => (root, result) => {
           // support auto fixing
           if (context.fix && !disableFix) {
             const validations = {
-              validVar, validFunc, validKeyword, validOperator,
+              validVar, validFunc, validKeyword, validOperator, validNumber,
             }
             const fixedValue = autoFixFuncNormalized(node, nodes, validations, root, config)
 

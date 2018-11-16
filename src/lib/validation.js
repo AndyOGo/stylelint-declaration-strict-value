@@ -144,11 +144,19 @@ function expected(types, value, property, customMessage) {
  * @returns {Array}
  */
 function getTypes(config, property) {
-  const { ignoreVariables, ignoreFunctions, ignoreKeywords } = config
+  const { ignoreVariables, ignoreFunctions, ignoreKeywords, ignoreNumbers, ignoreColors } = config
   const types = []
 
   if (ignoreVariables) {
     types.push('variable')
+  }
+
+  if (ignoreNumbers) {
+    types.push('number')
+  }
+
+  if (ignoreColors) {
+    types.push('color')
   }
 
   if (ignoreFunctions) {
