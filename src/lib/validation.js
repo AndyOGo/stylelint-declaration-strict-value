@@ -55,16 +55,16 @@ function validOptions(actual) {
     && actual.ignoreVariables !== null) return false
 
   if ('ignoreOperators' in actual
-    && typeof actual.ignoreVariables !== 'boolean'
-    && actual.ignoreVariables !== null) return false
+    && typeof actual.ignoreOperators !== 'boolean'
+    && actual.ignoreOperators !== null) return false
 
   if ('ignoreNumbers' in actual
-    && typeof actual.ignoreVariables !== 'boolean'
-    && actual.ignoreVariables !== null) return false
+    && typeof actual.ignoreNumbers !== 'boolean'
+    && actual.ignoreNumbers !== null) return false
 
   if ('ignoreColors' in actual
-    && typeof actual.ignoreVariables !== 'boolean'
-    && actual.ignoreVariables !== null) return false
+    && typeof actual.ignoreColors !== 'boolean'
+    && actual.ignoreColors !== null) return false
 
   if ('ignoreFunctions' in actual
     && typeof actual.ignoreFunctions !== 'boolean'
