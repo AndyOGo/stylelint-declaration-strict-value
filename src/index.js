@@ -174,7 +174,10 @@ const rule = (properties, options, context = {}) => (root, result) => {
 
           // support auto fixing
           if (context.fix && !disableFix) {
-            const fixedValue = autoFixFuncNormalized(node, nodes, { validVar, validFunc, validKeyword, validOperator }, root, config)
+            const validations = {
+              validVar, validFunc, validKeyword, validOperator,
+            }
+            const fixedValue = autoFixFuncNormalized(node, nodes, validations, root, config)
 
             // apply fixed value if returned
             if (fixedValue) {
