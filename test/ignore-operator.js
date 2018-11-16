@@ -39,7 +39,7 @@ testRule(rule, {
       line: 1,
       column: 8,
     },
-    // https://github.com/shellscape/postcss-values-parser/issues/58
+    // @todo: uncomment if https://github.com/shellscape/postcss-values-parser/issues/58
     // {
     //   code: '.foo { color: *; }',
     //   message: `Expected variable or function for "*" of "color" (${ruleName})`,
