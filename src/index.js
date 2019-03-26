@@ -1,5 +1,5 @@
 import stylelint from 'stylelint'
-import valuesParser from 'postcss-values-parser'
+import { parse } from 'postcss-values-parser'
 
 import {
   reSkipProp, validProperties, validOptions, expected, getTypes, getIgnoredKeywords, getAutoFixFunc,
@@ -77,11 +77,18 @@ const rule = (properties, options, context = {}) => (root, result) => {
       if (reSkipProp.test(prop)) return
 
       try {
-        const valueAst = valuesParser(values, {
-          loose,
-        }).parse()
+        const valueAst = parse(values, {
+          ignoreUnknownWords: true,
+          variables: {
+            prefixes: [
+              '--', // CSS variables
+              '@', // LES variables
+              '$', // SCSS variables
+            ],
+          },
+        })
 
-        valueAst.first.walk(lintDeclStrictValue)
+        valueAst.walk(lintDeclStrictValue)
       } catch (error) {
         const types = getTypes(config, property)
         const { source: { start: { line } } } = nodes
@@ -112,13 +119,16 @@ const rule = (properties, options, context = {}) => (root, result) => {
         let validColor = false
 
         // skip root, comment, comma, paren and value nodes
-        if (type === 'root' || type === 'comment' || type === 'comma' || type === 'paren' || type === 'value') {
+        if (type === 'root'
+        || type === 'comment'
+        || type === 'punctuation'
+        || type === 'value') {
           return // eslint-disable-line consistent-return
         }
 
         // test variable
         if (ignoreVariables) {
-          validVar = type === 'var'
+          validVar = type === 'word' && node.isVariable
         }
 
         // test function
@@ -127,7 +137,7 @@ const rule = (properties, options, context = {}) => (root, result) => {
           validFunc = true
         }
 
-        if (type === 'number'
+        if (type === 'numeric'
           && ((isParentFunc && ignoreNumberArgs)
           || (!isParentFunc && ignoreNumbers))) {
           validNumber = true
