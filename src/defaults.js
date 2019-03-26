@@ -10,7 +10,7 @@ export default {
   ignoreOperators: true,
   ignoreNumbers: false,
   ignoreColors: false,
-  loose: true,
+  ignoreUnknownWords: true,
   severity: 'error',
   message: null,
   disableFix: null,

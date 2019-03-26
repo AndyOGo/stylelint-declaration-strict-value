@@ -42,7 +42,7 @@ const rule = (properties, options, context = {}) => (root, result) => {
     ...options,
   }
   const {
-    ignoreVariables, ignoreNumbers, ignoreColors, ignoreOperators, ignoreFunctions, ignoreKeywords, message, disableFix, autoFixFunc, loose,
+    ignoreVariables, ignoreNumbers, ignoreColors, ignoreOperators, ignoreFunctions, ignoreKeywords, message, disableFix, autoFixFunc, ignoreUnknownWords,
   } = config
   const isComplexIgnoreFunctions = typeof ignoreFunctions === 'object'
   const ignoreNested = isComplexIgnoreFunctions ? ignoreFunctions.ignoreNested : !!ignoreFunctions
@@ -78,7 +78,7 @@ const rule = (properties, options, context = {}) => (root, result) => {
 
       try {
         const valueAst = parse(values, {
-          ignoreUnknownWords: true,
+          ignoreUnknownWords,
           variables: {
             prefixes: [
               '--', // CSS variables
