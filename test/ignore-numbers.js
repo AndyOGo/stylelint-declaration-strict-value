@@ -6,7 +6,7 @@ const { rule } = declarationStrictValue
 
 // https://developer.mozilla.org/en-US/docs/Learn/CSS/Introduction_to_CSS/Values_and_units
 const absoluteUnits = ['px', 'q', 'mm', 'cm', 'in', 'pt', 'pc']
-const relativeUnits = ['%', 'em', 'ex', 'ch', 'rem', 'vw', 'vh']
+const relativeUnits = ['%', 'em', 'ex', 'ch', 'rem', 'vw', 'vh', 'vmin', 'vmax']
 
 // default config
 testRule(rule, {
