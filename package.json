@@ -50,6 +50,6 @@
     "stylelint-test-rule-tape": "^0.2.0"
   },
   "dependencies": {
-    "postcss-values-parser": "^2.0.0"
+    "postcss-values-parser": "^3.0.2"
   }
 }
