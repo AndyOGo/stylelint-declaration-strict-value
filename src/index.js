@@ -5,6 +5,9 @@ import {
   reSkipProp, validProperties, validOptions, expected, getTypes, getIgnoredKeywords, getAutoFixFunc,
 } from './lib/validation'
 import getNode from './lib/get-node'
+import isColor from './lib/is-color'
+import isOperand from './lib/is-operand'
+import isVar from './lib/is-var'
 import defaults from './defaults'
 
 const ruleName = 'scale-unlimited/declaration-strict-value'
@@ -82,8 +85,8 @@ const rule = (properties, options, context = {}) => (root, result) => {
           variables: {
             prefixes: [
               '--', // CSS variables
-              '@', // LES variables
-              '$', // SCSS variables
+              '\\@', // LESS variables
+              '\\$', // SCSS variables
             ],
           },
         })
@@ -107,7 +110,7 @@ const rule = (properties, options, context = {}) => (root, result) => {
         // important prevent walk of children by returning false
         if (node.parent.skipChildren) return false
 
-        const { type, parent } = getNode(node)
+        const { type, parent, value } = node
         const rawValue = node.toString().trim()
         const isParentFunc = parent.type === 'func'
         // falsify everything by default
@@ -122,19 +125,22 @@ const rule = (properties, options, context = {}) => (root, result) => {
         if (type === 'root'
         || type === 'comment'
         || type === 'punctuation'
-        || type === 'value') {
+        || type === 'quoted') {
           return // eslint-disable-line consistent-return
         }
 
+        // skip all unused nodes
+        // if (type !== 'atword'
+        // && (type !== 'word' && !node.isVariable && !node.isColor)
+        // && type !== 'numeric'
+        // && type !== 'operator'
+        // && type !== 'func') {
+        //   return // eslint-disable-line consistent-return
+        // }
+
         // test variable
         if (ignoreVariables) {
-          validVar = type === 'word' && node.isVariable
-        }
-
-        // test function
-        if (ignoreFunctions && !validVar && type === 'func'
-          && ((isParentFunc && ignoreNested) || !isParentFunc)) {
-          validFunc = true
+          validVar = isVar(node)
         }
 
         if (type === 'numeric'
@@ -143,16 +149,32 @@ const rule = (properties, options, context = {}) => (root, result) => {
           validNumber = true
         }
 
-        if (type === 'word' && node.isColor
+        if (isColor(node)
           && ((isParentFunc && ignoreColorArgs)
           || (!isParentFunc && ignoreColors))) {
           validColor = true
         }
 
+        // test function
+        if (ignoreFunctions && !validVar && !validNumber && !validColor && type === 'func'
+          && ((isParentFunc && ignoreNested) || !isParentFunc)) {
+          validFunc = true
+        }
+
         if (type === 'operator'
-          && ((isParentFunc && ignoreOperatorsInArgs)
-          || (!isParentFunc && ignoreOperators))) {
+          && (
+            (isParentFunc && ignoreOperatorsInArgs)
+            || (!isParentFunc && ignoreOperators)
+          )) {
           validOperator = true
+        }
+
+        if (type === 'operator') {
+          // console.log(node)
+        }
+
+        if (type === 'word' && node.isVariable) {
+          console.log(node)
         }
 
         // test keywords
