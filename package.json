@@ -46,7 +46,7 @@
     "eslint": "^5.8.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.0.1",
-    "stylelint": "^9.7.1",
+    "stylelint": "^10.0.1",
     "stylelint-test-rule-tape": "^0.2.0"
   }
 }
