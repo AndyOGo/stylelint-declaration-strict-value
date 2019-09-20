@@ -12,7 +12,7 @@ const messages = utils.ruleMessages(ruleName, {
 })
 const reSkipProp = /^(?:@|\$|--).+$/
 const reVar = /^-?(?:@.+|\$.+|var\(--.+\))$/
-const reFunc = /^(?!var\(--).+\(.+\)$/
+const reFunc = /^(?!var\(--).+\(.*\)$/
 
 const rule = (properties, options, context = {}) => (root, result) => {
   // validate stylelint plugin options
