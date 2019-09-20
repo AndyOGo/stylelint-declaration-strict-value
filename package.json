@@ -31,7 +31,7 @@
   },
   "homepage": "https://github.com/AndyOGo/stylelint-declaration-strict-value#readme",
   "peerDependencies": {
-    "stylelint": "^7.0.0 || ^8.0.0 || ^9.0.0 || ^10.0.0 || ^11.0.0"
+    "stylelint": ">=17.0.0 <=11.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
