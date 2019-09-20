@@ -5,7 +5,6 @@
 - [stylelint-declaration-strict-value](#stylelint-declaration-strict-value)
 - [Installation](#installation)
 - [Usage](#usage)
-  - [Usage](#usage-1)
     - [Primary Options](#primary-options)
       - [Multiple Properties](#multiple-properties)
       - [Regex support](#regex-support)
@@ -37,8 +36,6 @@ npm install stylelint-declaration-strict-value
 ```
 
 # Usage
-
-## Usage
 
 Add it to your stylelint config `plugins` array, then add `"declaration-strict-value"` to your rules,
 specifying the property for which you want to check the usage of variables, functions or keywords.
