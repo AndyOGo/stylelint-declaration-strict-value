@@ -31,12 +31,12 @@
   },
   "homepage": "https://github.com/AndyOGo/stylelint-declaration-strict-value#readme",
   "peerDependencies": {
-    "stylelint": ">=7 <=11"
+    "stylelint": ">=7 <=12"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
-    "babel-eslint": "^10.0.1",
+    "babel-eslint": "^10.0.3",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-es2015-destructuring": "^6.23.0",
     "babel-plugin-transform-object-assign": "^6.22.0",
@@ -44,9 +44,9 @@
     "babel-preset-es2015": "^6.24.1",
     "doctoc": "^1.4.0",
     "eslint": "^5.16.0",
-    "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-import": "^2.17.2",
-    "stylelint": "^11.0.0",
+    "eslint-config-airbnb-base": "^13.2.0",
+    "eslint-plugin-import": "^2.18.2",
+    "stylelint": "^12.0.0",
     "stylelint-test-rule-tape": "^0.2.0"
   }
 }
