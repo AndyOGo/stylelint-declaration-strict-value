@@ -1,4 +1,3 @@
-/* globals process */
 import path from 'path'
 
 import defaults from '../defaults'
