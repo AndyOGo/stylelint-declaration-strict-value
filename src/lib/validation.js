@@ -25,7 +25,7 @@ function isNumberOrString(value) {
  */
 function validProperties(actual) {
   return isNumberOrString(actual)
-    || (Array.isArray(actual) && actual.every(item => isNumberOrString(item)))
+    || (Array.isArray(actual) && actual.every((item) => isNumberOrString(item)))
 }
 
 /**
@@ -44,7 +44,7 @@ function validOptions(actual) {
   if (typeof actual !== 'object') return false
 
   const allowedKeys = Object.keys(defaults)
-  if (!Object.keys(actual).every(key => allowedKeys.indexOf(key) > -1)) return false
+  if (!Object.keys(actual).every((key) => allowedKeys.indexOf(key) > -1)) return false
 
   if ('ignoreVariables' in actual
     && typeof actual.ignoreVariables !== 'boolean'
@@ -88,7 +88,7 @@ function validOptions(actual) {
 function validHash(actual) {
   if (typeof actual !== 'object') return false
 
-  return Object.keys(actual).every(key => validProperties(actual[key]))
+  return Object.keys(actual).every((key) => validProperties(actual[key]))
 }
 
 /**
