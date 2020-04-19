@@ -154,8 +154,7 @@ a {
 a {
   color: inherit;
   z-index: auto;
-  font-size:
-  inherit;
+  font-size: inherit;
  }
 ```
 
