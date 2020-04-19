@@ -40,6 +40,12 @@ testRule(rule, {
       column: 8,
     },
     {
+      code: '.foo { color: map-get(namespace.$bar, baz); }',
+      message: `Expected variable for "map-get(namespace.$bar, baz)" of "color" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
+    {
       code: '.foo { color: darken(#fff, 10%); }',
       message: `Expected variable for "darken(#fff, 10%)" of "color" (${ruleName})`,
       line: 1,
