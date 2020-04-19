@@ -41,6 +41,12 @@ testRule(rule, {
       column: 8,
     },
     {
+      code: '.foo { color: namespace.$bar; }',
+      message: `Expected function for "namespace.$bar" of "color" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
+    {
       code: '.foo { color: @bar; }',
       message: `Expected function for "@bar" of "color" (${ruleName})`,
       line: 1,
