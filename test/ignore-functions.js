@@ -15,6 +15,7 @@ testRule(rule, {
 
   accept: [
     { code: '.foo { color: $bar; }' },
+    { code: '.foo { color: namespace.$bar; }' },
     { code: '.foo { color: @bar; }' },
     { code: '.foo { color: var(--bar); }' },
   ],
