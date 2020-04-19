@@ -632,7 +632,7 @@ a {
     ignoreKeywords: {
         // default, for all
         "": ["currentColor"],
-        
+
         // specific mapping
         "/color/": ["currentColor", "transparent", "inherit"],
         "fill": ["currentColor", "inherit"],
