@@ -27,7 +27,7 @@
 
 [![Build Status](https://travis-ci.org/AndyOGo/stylelint-declaration-strict-value.svg?branch=master)](https://travis-ci.org/AndyOGo/stylelint-declaration-strict-value)
 
-A [stylelint](https://github.com/stylelint/stylelint) plugin that enforces either variables (`$sass`, `@less`, `var(--cssnext)`), functions or custom CSS keywords (`inherit`, `none`, etc.) for property's values.
+A [stylelint](https://github.com/stylelint/stylelint) plugin that enforces either variables (`$sass`, `namespace.$sass`, `@less`, `var(--cssnext)`), functions or custom CSS keywords (`inherit`, `none`, etc.) for property's values.
 
 # Installation
 
@@ -86,6 +86,8 @@ a { color: darken(#fff, 10%); }
 
 ```scss
 a { color: $color-white; }
+
+a { color: namespace.$color-white; }
 
 a { color: -$color-white; }
 
@@ -151,6 +153,7 @@ a {
   color: $color-white;
   z-index: $a-z-index;
   font-size: $a-font-size;
+  line-height: namespace.$line-height;
 }
 ```
 
@@ -211,6 +214,12 @@ a {
   background-color: $color-white;
   border-color: $color-white;
 }
+
+a {
+  color: namespace.$color-white;
+  background-color: namespace.$color-white;
+  border-color: namespace.$color-white;
+}
 ```
 
 ### Secondary Options
@@ -255,6 +264,8 @@ a { color: @color-white; }
 
 ```scss
 a { color: $color-white; }
+
+a { color: namespace.$color-white; }
 ```
 
 The following patterns are **not** considered **warnings:**
@@ -312,6 +323,8 @@ a { color: @color-white; }
 
 ```scss
 a { color: $color-white; }
+
+a { color: namespace.$color-white; }
 ```
 
 #### ignoreKeywords
