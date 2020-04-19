@@ -5,6 +5,7 @@
 - [stylelint-declaration-strict-value](#stylelint-declaration-strict-value)
 - [Installation](#installation)
 - [Usage](#usage)
+    - [Scheme](#scheme)
     - [Primary Options](#primary-options)
       - [Multiple Properties](#multiple-properties)
       - [Regex support](#regex-support)
@@ -17,7 +18,6 @@
         - [Complex Mighty Hash Mapping](#complex-mighty-hash-mapping)
       - [message](#message)
       - [Autofix support](#autofix-support)
-    - [Scheme](#scheme)
   - [Credit / Inspiration](#credit--inspiration)
 - [License](#license)
 
@@ -92,6 +92,35 @@ a { color: namespace.$color-white; }
 a { color: -$color-white; }
 
 a { color: darken(#fff, 10%); }
+```
+
+### Scheme
+
+The config scheme looks as follows:
+
+```js
+[
+  // primary options
+  "string" || "/RegExp/" || ["string", "/RegExp/" /* ... */],
+
+  // secondary options (optional)
+  {
+    ignoreVariables: true || false,
+    ignoreFunctions: true || false,
+    ignoreKeywords: "string" ||
+      ["string", "string", /* ... */] ||
+      {
+        // match all
+        "": "string" || ["string", /* ... */],
+
+        // match specific prop
+        "color": "string" || ["string", /* ... */],
+      },
+    autoFixFunc: './auto-fix-func.js' || function() {},
+    disableFix: true || false,
+    message: "Custom expected ${types} for \"${value}\" of \"${property}\"",
+  }
+]
 ```
 
 ### Primary Options
@@ -709,35 +738,6 @@ module.exports = autoFixFunc
     }],
     // ...
   }
-```
-
-### Scheme
-
-The config scheme looks as follows:
-
-```js
-[
-  // primary options
-  "string" || "/RegExp/" || ["string", "/RegExp/" /* ... */],
-
-  // secondary options (optional)
-  {
-    ignoreVariables: true || false,
-    ignoreFunctions: true || false,
-    ignoreKeywords: "string" ||
-      ["string", "string", /* ... */] ||
-      {
-        // match all
-        "": "string" || ["string", /* ... */],
-        
-        // match specific prop
-        "color": "string" || ["string", /* ... */],
-      },
-    autoFixFunc: './auto-fix-func.js' || function() {},
-    disableFix: true || false,
-    message: "Custom expected ${types} for \"${value}\" of \"${property}\"",
-  }
-]
 ```
 
 ## Credit / Inspiration
