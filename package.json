@@ -18,11 +18,15 @@
     "stylelint-plugin",
     "stylelint",
     "css",
+    "scss",
+    "less",
     "lint",
     "delaration-strict-value",
     "variable",
     "function",
-    "keyword"
+    "keyword",
+    "color",
+    "z-index"
   ],
   "author": "Andreas Deuschlinger",
   "license": "MIT",
