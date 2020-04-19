@@ -142,7 +142,7 @@ function getTypes(config, property) {
 }
 
 /**
- * Get the correct ignored keywords for an specific CSS declaration's property
+ * Get the correct ignored keywords for a specific CSS declaration's property
  * out of a complex ignoreKeywords config hash or array.
  *
  * @param {null|object|Array|string} ignoreKeywords - The keyword/-s to ignore.
