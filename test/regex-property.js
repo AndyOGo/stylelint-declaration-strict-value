@@ -13,12 +13,15 @@ testRule(rule, {
 
   accept: [
     { code: '.foo { color: $bar; }' },
+    { code: '.foo { color: namespace.$bar; }' },
     { code: '.foo { color: @bar; }' },
     { code: '.foo { color: var(--bar); }' },
     { code: '.foo { background-color: $bar; }' },
+    { code: '.foo { background-color: namespace.$bar; }' },
     { code: '.foo { background-color: @bar; }' },
     { code: '.foo { background-color: var(--bar); }' },
     { code: '.foo { border-color: $bar; }' },
+    { code: '.foo { border-color: namespace.$bar; }' },
     { code: '.foo { border-color: @bar; }' },
     { code: '.foo { border-color: var(--bar); }' },
   ],

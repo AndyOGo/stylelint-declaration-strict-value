@@ -15,6 +15,7 @@ testRule(rule, {
 
   accept: [
     { code: '.foo { color: $bar; }' },
+    { code: '.foo { color: namespace.$bar; }' },
     { code: '.foo { color: @bar; }' },
     { code: '.foo { color: var(--bar); }' },
   ],
@@ -35,6 +36,12 @@ testRule(rule, {
     {
       code: '.foo { color: map-get($bar, baz); }',
       message: `Expected variable for "map-get($bar, baz)" of "color" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
+    {
+      code: '.foo { color: map-get(namespace.$bar, baz); }',
+      message: `Expected variable for "map-get(namespace.$bar, baz)" of "color" (${ruleName})`,
       line: 1,
       column: 8,
     },
