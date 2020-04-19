@@ -16,6 +16,7 @@ testRule(rule, {
   accept: [
     { code: '.foo { color: spacing(); }' },
     { code: '.foo { color: map-get($bar, baz); }' },
+    { code: '.foo { color: map-get(namespace.$bar, baz); }' },
     { code: '.foo { color: darken(#fff, 10%); }' },
     { code: '.foo { color: color(#fff, lighten(10%)); }' },
   ],
@@ -36,6 +37,12 @@ testRule(rule, {
     {
       code: '.foo { color: $bar; }',
       message: `Expected function for "$bar" of "color" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
+    {
+      code: '.foo { color: namespace.$bar; }',
+      message: `Expected function for "namespace.$bar" of "color" (${ruleName})`,
       line: 1,
       column: 8,
     },

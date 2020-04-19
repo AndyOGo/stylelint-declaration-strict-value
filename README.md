@@ -5,6 +5,7 @@
 - [stylelint-declaration-strict-value](#stylelint-declaration-strict-value)
 - [Installation](#installation)
 - [Usage](#usage)
+    - [Scheme](#scheme)
     - [Primary Options](#primary-options)
       - [Multiple Properties](#multiple-properties)
       - [Regex support](#regex-support)
@@ -17,7 +18,6 @@
         - [Complex Mighty Hash Mapping](#complex-mighty-hash-mapping)
       - [message](#message)
       - [Autofix support](#autofix-support)
-    - [Scheme](#scheme)
   - [Credit / Inspiration](#credit--inspiration)
 - [License](#license)
 
@@ -27,7 +27,7 @@
 
 [![Build Status](https://travis-ci.org/AndyOGo/stylelint-declaration-strict-value.svg?branch=master)](https://travis-ci.org/AndyOGo/stylelint-declaration-strict-value)
 
-A [stylelint](https://github.com/stylelint/stylelint) plugin that enforces either variables (`$sass`, `@less`, `var(--cssnext)`), functions or custom CSS keywords (`inherit`, `none`, etc.) for property's values.
+A [stylelint](https://github.com/stylelint/stylelint) plugin that enforces either variables (`$sass`, `namespace.$sass`, `@less`, `var(--cssnext)`), functions or custom CSS keywords (`inherit`, `none`, etc.) for property's values.
 
 # Installation
 
@@ -87,9 +87,40 @@ a { color: darken(#fff, 10%); }
 ```scss
 a { color: $color-white; }
 
+a { color: namespace.$color-white; }
+
 a { color: -$color-white; }
 
 a { color: darken(#fff, 10%); }
+```
+
+### Scheme
+
+The config scheme looks as follows:
+
+```js
+[
+  // primary options
+  "string" || "/RegExp/" || ["string", "/RegExp/" /* ... */],
+
+  // secondary options (optional)
+  {
+    ignoreVariables: true || false,
+    ignoreFunctions: true || false,
+    ignoreKeywords: "string" ||
+      ["string", "string", /* ... */] ||
+      {
+        // match all
+        "": "string" || ["string", /* ... */],
+
+        // match specific prop
+        "color": "string" || ["string", /* ... */],
+      },
+    autoFixFunc: './auto-fix-func.js' || function() {},
+    disableFix: true || false,
+    message: "Custom expected ${types} for \"${value}\" of \"${property}\"",
+  }
+]
 ```
 
 ### Primary Options
@@ -151,6 +182,7 @@ a {
   color: $color-white;
   z-index: $a-z-index;
   font-size: $a-font-size;
+  line-height: namespace.$line-height;
 }
 ```
 
@@ -211,6 +243,12 @@ a {
   background-color: $color-white;
   border-color: $color-white;
 }
+
+a {
+  color: namespace.$color-white;
+  background-color: namespace.$color-white;
+  border-color: namespace.$color-white;
+}
 ```
 
 ### Secondary Options
@@ -255,6 +293,8 @@ a { color: @color-white; }
 
 ```scss
 a { color: $color-white; }
+
+a { color: namespace.$color-white; }
 ```
 
 The following patterns are **not** considered **warnings:**
@@ -312,6 +352,8 @@ a { color: @color-white; }
 
 ```scss
 a { color: $color-white; }
+
+a { color: namespace.$color-white; }
 ```
 
 #### ignoreKeywords
@@ -696,35 +738,6 @@ module.exports = autoFixFunc
     }],
     // ...
   }
-```
-
-### Scheme
-
-The config scheme looks as follows:
-
-```js
-[
-  // primary options
-  "string" || "/RegExp/" || ["string", "/RegExp/" /* ... */],
-
-  // secondary options (optional)
-  {
-    ignoreVariables: true || false,
-    ignoreFunctions: true || false,
-    ignoreKeywords: "string" ||
-      ["string", "string", /* ... */] ||
-      {
-        // match all
-        "": "string" || ["string", /* ... */],
-        
-        // match specific prop
-        "color": "string" || ["string", /* ... */],
-      },
-    autoFixFunc: './auto-fix-func.js' || function() {},
-    disableFix: true || false,
-    message: "Custom expected ${types} for \"${value}\" of \"${property}\"",
-  }
-]
 ```
 
 ## Credit / Inspiration
