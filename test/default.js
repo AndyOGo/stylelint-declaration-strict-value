@@ -9,7 +9,7 @@ testRule(rule, {
   ruleName,
   skipBasicChecks: true,
 
-  config: 'color',
+  config: [['color', 'content']],
 
   accept: [
     { code: '.foo { color: $bar; }' },
@@ -37,6 +37,30 @@ testRule(rule, {
     {
       code: '.foo { color: red; }',
       message: `Expected variable or function for "red" of "color" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
+    {
+      code: '.foo { content: "$bar"; }',
+      message: `Expected variable or function for ""$bar"" of "content" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
+    {
+      code: '.foo { content: "namespace.$bar"; }',
+      message: `Expected variable or function for ""namespace.$bar"" of "content" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
+    {
+      code: '.foo { content: "@bar"; }',
+      message: `Expected variable or function for ""@bar"" of "content" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
+    {
+      code: '.foo { content: "var(--bar)"; }',
+      message: `Expected variable or function for ""var(--bar)"" of "content" (${ruleName})`,
       line: 1,
       column: 8,
     },
