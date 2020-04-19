@@ -11,7 +11,7 @@ const messages = utils.ruleMessages(ruleName, {
   expected,
 })
 const reSkipProp = /^(?:@|\$|--).+$/
-const reVar = /^-?(?:@.+|\$.+|var\(--.+\))$/
+const reVar = /^-?(?:@.+|(?:.+\.)?\$.+|var\(--.+\))$/
 const reFunc = /^(?!var\(--).+\(.*\)$/
 
 const rule = (properties, options, context = {}) => (root, result) => {
