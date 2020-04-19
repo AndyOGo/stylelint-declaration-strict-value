@@ -146,7 +146,7 @@ const ruleFunction = (properties, options, context = {}) => (root, result) => {
           const ignoreKeyword = getIgnoredKeywords(ignoreKeywords, property)
 
           if (ignoreKeyword) {
-            reKeyword = new RegExp(`^${ignoreKeyword.join('|')}$`)
+            reKeyword = new RegExp(`^${ignoreKeyword.join('$|^')}$`)
             reKeywords[property] = reKeyword
           }
         }
