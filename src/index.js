@@ -16,7 +16,7 @@ const reSkipProp = /^(?:@|\$|--).+$/
 // @see:  https://drafts.csswg.org/css-syntax-3/#ident-token-diagram
 // eslint-disable-next-line no-control-regex
 const reVar = /^-?(?:@.+|(?:(?:[a-zA-Z_-]|[^\x00-\x7F])+(?:[a-zA-Z0-9_-]|[^\x00-\x7F])*\.)?\$.+|var\(--.+\))$/
-const reFunc = /^(?!var\(--).+\(.*\)$/s
+const reFunc = /^(?!var\(--)[\s\S]+\([\s\S]*\)$/
 
 const rule = (properties, options, context = {}) => (root, result) => {
   // validate stylelint plugin options
