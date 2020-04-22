@@ -9,7 +9,7 @@ testRule(rule, {
   ruleName,
   skipBasicChecks: true,
 
-  config: ['color', {
+  config: [['color', 'margin'], {
     ignoreVariables: false,
   }],
 
@@ -19,6 +19,36 @@ testRule(rule, {
     { code: '.foo { color: map-get(namespace.$bar, baz); }' },
     { code: '.foo { color: darken(#fff, 10%); }' },
     { code: '.foo { color: color(#fff, lighten(10%)); }' },
+    {
+      code: `.foo { color: map-get(
+        $bar,
+        baz)
+      ; }`,
+    },
+    {
+      code: `.foo { color: map-get(
+        namespace.$bar,
+        baz)
+      ; }`,
+    },
+    {
+      code: `.foo { color: darken(
+        #fff,
+        10%)
+      ; }`,
+    },
+    {
+      code: `.foo { color: color(
+        #fff,
+        lighten(10%))
+      ; }`,
+    },
+    {
+      code: `.foo { margin: calc(
+        var(--x) *
+        var(--y)
+      ); }`,
+    },
   ],
 
   reject: [
@@ -55,6 +85,32 @@ testRule(rule, {
     {
       code: '.foo { color: var(--bar); }',
       message: `Expected function for "var(--bar)" of "color" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
+    {
+      code: `.foo { color: var(
+        --bar,
+        fallback
+      ); }`,
+      message: `Expected function for "var(
+        --bar,
+        fallback
+      )" of "color" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
+    {
+      code: `.foo { color: var(
+        --bar,
+        fallback,
+        fallback2
+      ); }`,
+      message: `Expected function for "var(
+        --bar,
+        fallback,
+        fallback2
+      )" of "color" (${ruleName})`,
       line: 1,
       column: 8,
     },

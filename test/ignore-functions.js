@@ -9,7 +9,7 @@ testRule(rule, {
   ruleName,
   skipBasicChecks: true,
 
-  config: ['color', {
+  config: [['color', 'margin'], {
     ignoreFunctions: false,
   }],
 
@@ -20,6 +20,19 @@ testRule(rule, {
     { code: '.foo { color: var(--bar); }' },
     { code: '.foo { color: var(--bar, fallback); }' },
     { code: '.foo { color: var(--bar, fallback, fallback2); }' },
+    {
+      code: `.foo { color: var(
+        --bar,
+        fallback
+      ); }`,
+    },
+    {
+      code: `.foo { color: var(
+        --bar,
+        fallback,
+        fallback2
+      ); }`,
+    },
   ],
 
   reject: [
@@ -56,6 +69,62 @@ testRule(rule, {
     {
       code: '.foo { color: color(#fff, lighten(10%)); }',
       message: `Expected variable for "color(#fff, lighten(10%))" of "color" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
+    {
+      code: `.foo { color: map-get(
+        $bar,
+        baz)
+      ; }`,
+      message: `Expected variable for "map-get(
+        $bar,
+        baz)" of "color" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
+    {
+      code: `.foo { color: map-get(
+        namespace.$bar,
+        baz)
+      ; }`,
+      message: `Expected variable for "map-get(
+        namespace.$bar,
+        baz)" of "color" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
+    {
+      code: `.foo { color: darken(
+        #fff,
+        10%)
+      ; }`,
+      message: `Expected variable for "darken(
+        #fff,
+        10%)" of "color" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
+    {
+      code: `.foo { color: color(
+        #fff,
+        lighten(10%))
+      ; }`,
+      message: `Expected variable for "color(
+        #fff,
+        lighten(10%))" of "color" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
+    {
+      code: `.foo { margin: calc(
+        var(--x) *
+        var(--y)
+      ); }`,
+      message: `Expected variable for "calc(
+        var(--x) *
+        var(--y)
+      )" of "margin" (${ruleName})`,
       line: 1,
       column: 8,
     },

@@ -9,7 +9,7 @@ testRule(rule, {
   ruleName,
   skipBasicChecks: true,
 
-  config: [['color', 'content']],
+  config: [['color', 'content', 'margin']],
 
   accept: [
     { code: '.foo { color: $bar; }' },
@@ -18,6 +18,19 @@ testRule(rule, {
     { code: '.foo { color: var(--bar); }' },
     { code: '.foo { color: var(--bar, fallback); }' },
     { code: '.foo { color: var(--bar, fallback, fallback2); }' },
+    {
+      code: `.foo { color: var(
+        --bar,
+        fallback
+      ); }`,
+    },
+    {
+      code: `.foo { color: var(
+        --bar,
+        fallback,
+        fallback2
+      ); }`,
+    },
     { code: '.foo { color: -$bar; }' },
     { code: '.foo { color: -namespace.$bar; }' },
     { code: '.foo { color: -@bar; }' },
@@ -97,6 +110,44 @@ testRule(rule, {
       column: 8,
     },
     {
+      code: '.foo { content: "var(--bar, fallback)"; }',
+      message: `Expected variable or function for ""var(--bar, fallback)"" of "content" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
+    {
+      code: '.foo { content: "var(--bar, fallback, fallback2)"; }',
+      message: `Expected variable or function for ""var(--bar, fallback, fallback2)"" of "content" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
+    {
+      code: `.foo { content: "var(
+        --bar,
+        fallback
+      )"; }`,
+      message: `Expected variable or function for ""var(
+        --bar,
+        fallback
+      )"" of "content" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
+    {
+      code: `.foo { content: "var(
+        --bar,
+        fallback,
+        fallback2
+      )"; }`,
+      message: `Expected variable or function for ""var(
+        --bar,
+        fallback,
+        fallback2
+      )"" of "content" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
+    {
       code: '.foo { content: "-$bar"; }',
       message: `Expected variable or function for ""-$bar"" of "content" (${ruleName})`,
       line: 1,
@@ -117,6 +168,44 @@ testRule(rule, {
     {
       code: '.foo { content: "-var(--bar)"; }',
       message: `Expected variable or function for ""-var(--bar)"" of "content" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
+    {
+      code: '.foo { content: "-var(--bar, fallback)"; }',
+      message: `Expected variable or function for ""-var(--bar, fallback)"" of "content" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
+    {
+      code: '.foo { content: "-var(--bar, fallback, fallback2)"; }',
+      message: `Expected variable or function for ""-var(--bar, fallback, fallback2)"" of "content" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
+    {
+      code: `.foo { content: "-var(
+        --bar,
+        fallback
+      )"; }`,
+      message: `Expected variable or function for ""-var(
+        --bar,
+        fallback
+      )"" of "content" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
+    {
+      code: `.foo { content: "-var(
+        --bar,
+        fallback,
+        fallback2
+      )"; }`,
+      message: `Expected variable or function for ""-var(
+        --bar,
+        fallback,
+        fallback2
+      )"" of "content" (${ruleName})`,
       line: 1,
       column: 8,
     },
@@ -147,6 +236,62 @@ testRule(rule, {
     {
       code: '.foo { content: "color(#fff, lighten(10%))"; }',
       message: `Expected variable or function for ""color(#fff, lighten(10%))"" of "content" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
+    {
+      code: `.foo { content: "map-get(
+        $bar,
+        baz)"
+      ; }`,
+      message: `Expected variable or function for ""map-get(
+        $bar,
+        baz)"" of "content" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
+    {
+      code: `.foo { content: "map-get(
+        namespace.$bar,
+        baz)"
+      ; }`,
+      message: `Expected variable or function for ""map-get(
+        namespace.$bar,
+        baz)"" of "content" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
+    {
+      code: `.foo { content: "darken(
+        #fff,
+        10%)"
+      ; }`,
+      message: `Expected variable or function for ""darken(
+        #fff,
+        10%)"" of "content" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
+    {
+      code: `.foo { content: "color(
+        #fff,
+        lighten(10%))"
+      ; }`,
+      message: `Expected variable or function for ""color(
+        #fff,
+        lighten(10%))"" of "content" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
+    {
+      code: `.foo { content: "calc(
+        var(--x) *
+        var(--y)
+      )"; }`,
+      message: `Expected variable or function for ""calc(
+        var(--x) *
+        var(--y)
+      )"" of "content" (${ruleName})`,
       line: 1,
       column: 8,
     },
