@@ -18,6 +18,8 @@ testRule(rule, {
     { code: '.foo { color: namespace.$bar; }' },
     { code: '.foo { color: @bar; }' },
     { code: '.foo { color: var(--bar); }' },
+    { code: '.foo { color: var(--bar, fallback); }' },
+    { code: '.foo { color: var(--bar, fallback, fallback2); }' },
   ],
 
   reject: [
