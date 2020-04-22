@@ -1,7 +1,7 @@
 import stylelint from 'stylelint'
 
 import {
-  validProperties, validOptions, expected, getTypes, getIgnoredKeywords, getAutoFixFunc,
+  validProperties, validOptions, expected, getTypes, getIgnoredKeywords, getIgnoredValues, getAutoFixFunc,
 } from './lib/validation'
 import defaults from './defaults'
 
@@ -44,6 +44,10 @@ const reVar = /^-?(?:@.+|(?:(?:[a-zA-Z_-]|[^\x00-\x7F])+(?:[a-zA-Z0-9_-]|[^\x00-
  * @default
  */
 const reFunc = /^(?!var\(\s*--)[\s\S]+\([\s\S]*\)$/
+const isRegexString = (value) => value.charAt(0) === '/' && value.slice(-1) === '/'
+const getRegexString = (value) => value.slice(1, -1)
+const stringToRegex = (value) => new RegExp(getRegexString(value))
+const mapIgnoreValue = (ignoreValue) => (isRegexString(ignoreValue) ? getRegexString(ignoreValue) : `^${ignoreValue}$`)
 
 /**
  * A rule function essentially returns a little PostCSS plugin.
@@ -93,18 +97,19 @@ const ruleFunction = (properties, options, context = {}) => (root, result) => {
     ...options,
   }
   const {
-    ignoreVariables, ignoreFunctions, ignoreKeywords, message, disableFix, autoFixFunc,
+    ignoreVariables, ignoreFunctions, ignoreKeywords, ignoreValues, message, disableFix, autoFixFunc,
   } = config
   const autoFixFuncNormalized = getAutoFixFunc(autoFixFunc)
   const reKeywords = ignoreKeywords ? {} : null
+  const reValues = ignoreValues ? {} : null
 
   // loop through all properties
   properties.forEach((property) => {
     let propFilter = property
 
     // parse RegExp
-    if (propFilter.charAt(0) === '/' && propFilter.slice(-1) === '/') {
-      propFilter = new RegExp(propFilter.slice(1, -1))
+    if (isRegexString(propFilter)) {
+      propFilter = stringToRegex(propFilter)
     }
 
     // walk through all declarations filtered by configured properties
@@ -127,6 +132,7 @@ const ruleFunction = (properties, options, context = {}) => (root, result) => {
       let validVar = false
       let validFunc = false
       let validKeyword = false
+      let validValue = false
 
       // test variable
       if (ignoreVariables) {
@@ -156,15 +162,37 @@ const ruleFunction = (properties, options, context = {}) => (root, result) => {
         }
       }
 
+      if (ignoreValues && (!validVar || !validFunc || !validKeyword)) {
+        let reValue = reValues[property]
+
+        if (!reValue) {
+          const ignoreKeyword = getIgnoredValues(ignoreValues, property)
+
+          if (ignoreKeyword) {
+            reValue = new RegExp(ignoreValues.map(mapIgnoreValue).join('|'))
+            reValues[property] = reValue
+          }
+        }
+
+        if (reValue) {
+          validValue = reValue.test(value)
+        }
+      }
+
       // report only if all failed
-      if (!validVar && !validFunc && !validKeyword) {
+      if (!validVar && !validFunc && !validKeyword && !validValue) {
         const types = getTypes(config, property)
         const { raws } = node
         const { start } = node.source
 
         // support auto fixing
         if (context.fix && !disableFix) {
-          const fixedValue = autoFixFuncNormalized(node, { validVar, validFunc, validKeyword }, root, config)
+          const fixedValue = autoFixFuncNormalized(node, {
+            validVar,
+            validFunc,
+            validKeyword,
+            validValue,
+          }, root, config)
 
           // apply fixed value if returned
           if (fixedValue) {
