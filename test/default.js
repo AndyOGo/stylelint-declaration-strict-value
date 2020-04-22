@@ -16,6 +16,8 @@ testRule(rule, {
     { code: '.foo { color: namespace.$bar; }' },
     { code: '.foo { color: @bar; }' },
     { code: '.foo { color: var(--bar); }' },
+    { code: '.foo { color: var(--bar, fallback); }' },
+    { code: '.foo { color: var(--bar, fallback, fallback2); }' },
     { code: '.foo { color: -$bar; }' },
     { code: '.foo { color: -namespace.$bar; }' },
     { code: '.foo { color: -@bar; }' },
@@ -25,6 +27,36 @@ testRule(rule, {
     { code: '.foo { color: map-get(namespace.$bar, baz); }' },
     { code: '.foo { color: darken(#fff, 10%); }' },
     { code: '.foo { color: color(#fff, lighten(10%)); }' },
+    {
+      code: `.foo { color: map-get(
+        $bar,
+        baz)
+      ; }`,
+    },
+    {
+      code: `.foo { color: map-get(
+        namespace.$bar,
+        baz)
+      ; }`,
+    },
+    {
+      code: `.foo { color: darken(
+        #fff,
+        10%)
+      ; }`,
+    },
+    {
+      code: `.foo { color: color(
+        #fff,
+        lighten(10%))
+      ; }`,
+    },
+    {
+      code: `.foo { margin: calc(
+        var(--x) *
+        var(--y)
+      ); }`,
+    },
   ],
 
   reject: [
