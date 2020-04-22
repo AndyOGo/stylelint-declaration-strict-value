@@ -58,5 +58,31 @@ testRule(rule, {
       line: 1,
       column: 8,
     },
+    {
+      code: `.foo { color: var(
+        --bar,
+        fallback
+      ); }`,
+      message: `Expected function for "var(
+        --bar,
+        fallback
+      )" of "color" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
+    {
+      code: `.foo { color: var(
+        --bar,
+        fallback,
+        fallback2
+      ); }`,
+      message: `Expected function for "var(
+        --bar,
+        fallback,
+        fallback2
+      )" of "color" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
   ],
 })
