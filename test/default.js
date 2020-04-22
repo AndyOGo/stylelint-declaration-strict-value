@@ -49,6 +49,12 @@ testRule(rule, {
         lighten(10%))
       ; }`,
     },
+    {
+      code: `.foo { margin: calc(
+        var(--x) *
+        var(--y)
+      ); }`,
+    },
   ],
 
   reject: [
