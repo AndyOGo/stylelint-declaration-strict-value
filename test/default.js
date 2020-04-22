@@ -25,6 +25,30 @@ testRule(rule, {
     { code: '.foo { color: map-get(namespace.$bar, baz); }' },
     { code: '.foo { color: darken(#fff, 10%); }' },
     { code: '.foo { color: color(#fff, lighten(10%)); }' },
+    {
+      code: `.foo { color: map-get(
+        $bar,
+        baz)
+      ; }`,
+    },
+    {
+      code: `.foo { color: map-get(
+        namespace.$bar,
+        baz)
+      ; }`,
+    },
+    {
+      code: `.foo { color: darken(
+        #fff,
+        10%)
+      ; }`,
+    },
+    {
+      code: `.foo { color: color(
+        #fff,
+        lighten(10%))
+      ; }`,
+    },
   ],
 
   reject: [
