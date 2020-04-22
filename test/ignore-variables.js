@@ -9,7 +9,7 @@ testRule(rule, {
   ruleName,
   skipBasicChecks: true,
 
-  config: ['color', {
+  config: [['color', 'margin'], {
     ignoreVariables: false,
   }],
 
