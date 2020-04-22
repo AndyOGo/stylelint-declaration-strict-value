@@ -239,5 +239,61 @@ testRule(rule, {
       line: 1,
       column: 8,
     },
+    {
+      code: `.foo { content: "map-get(
+        $bar,
+        baz)"
+      ; }`,
+      message: `Expected variable or function for ""map-get(
+        $bar,
+        baz)"" of "content" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
+    {
+      code: `.foo { content: "map-get(
+        namespace.$bar,
+        baz)"
+      ; }`,
+      message: `Expected variable or function for ""map-get(
+        namespace.$bar,
+        baz)"" of "content" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
+    {
+      code: `.foo { content: "darken(
+        #fff,
+        10%)"
+      ; }`,
+      message: `Expected variable or function for ""darken(
+        #fff,
+        10%)"" of "content" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
+    {
+      code: `.foo { content: "color(
+        #fff,
+        lighten(10%))"
+      ; }`,
+      message: `Expected variable or function for ""color(
+        #fff,
+        lighten(10%))"" of "content" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
+    {
+      code: `.foo { content: "calc(
+        var(--x) *
+        var(--y)
+      )"; }`,
+      message: `Expected variable or function for ""calc(
+        var(--x) *
+        var(--y)
+      )"" of "content" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
   ],
 })
