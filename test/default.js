@@ -110,6 +110,44 @@ testRule(rule, {
       column: 8,
     },
     {
+      code: '.foo { content: "var(--bar, fallback)"; }',
+      message: `Expected variable or function for ""var(--bar, fallback)"" of "content" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
+    {
+      code: '.foo { content: "var(--bar, fallback, fallback2)"; }',
+      message: `Expected variable or function for ""var(--bar, fallback, fallback2)"" of "content" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
+    {
+      code: `.foo { content: "var(
+        --bar,
+        fallback
+      )"; }`,
+      message: `Expected variable or function for ""var(
+        --bar,
+        fallback
+      )"" of "content" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
+    {
+      code: `.foo { content: "var(
+        --bar,
+        fallback,
+        fallback2
+      )"; }`,
+      message: `Expected variable or function for ""var(
+        --bar,
+        fallback,
+        fallback2
+      )"" of "content" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
+    {
       code: '.foo { content: "-$bar"; }',
       message: `Expected variable or function for ""-$bar"" of "content" (${ruleName})`,
       line: 1,
@@ -130,6 +168,44 @@ testRule(rule, {
     {
       code: '.foo { content: "-var(--bar)"; }',
       message: `Expected variable or function for ""-var(--bar)"" of "content" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
+    {
+      code: '.foo { content: "-var(--bar, fallback)"; }',
+      message: `Expected variable or function for ""-var(--bar, fallback)"" of "content" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
+    {
+      code: '.foo { content: "-var(--bar, fallback, fallback2)"; }',
+      message: `Expected variable or function for ""-var(--bar, fallback, fallback2)"" of "content" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
+    {
+      code: `.foo { content: "-var(
+        --bar,
+        fallback
+      )"; }`,
+      message: `Expected variable or function for ""-var(
+        --bar,
+        fallback
+      )"" of "content" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
+    {
+      code: `.foo { content: "-var(
+        --bar,
+        fallback,
+        fallback2
+      )"; }`,
+      message: `Expected variable or function for ""-var(
+        --bar,
+        fallback,
+        fallback2
+      )"" of "content" (${ruleName})`,
       line: 1,
       column: 8,
     },
