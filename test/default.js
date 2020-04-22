@@ -9,7 +9,7 @@ testRule(rule, {
   ruleName,
   skipBasicChecks: true,
 
-  config: [['color', 'content']],
+  config: [['color', 'content', 'margin']],
 
   accept: [
     { code: '.foo { color: $bar; }' },
