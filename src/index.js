@@ -16,12 +16,33 @@ const { utils } = stylelint
 const messages = utils.ruleMessages(ruleName, {
   expected,
 })
+/**
+ * RegExp to skip non-CSS properties.
+ *
+ * @constant  {RegExp}
+ * @default
+ */
 const reSkipProp = /^(?:@|\$|--).+$/
-// Sass namespaces and CSS <ident-token>
-// @see: https://github.com/sass/sass/blob/master/accepted/module-system.md#member-references
-// @see:  https://drafts.csswg.org/css-syntax-3/#ident-token-diagram
+/**
+ * RegExp to parse CSS, SCSS and less variables
+ * - allowing CSS variables to be multi line.
+ * - Sass namespaces and CSS <ident-token> supported.
+ *
+ * @see https://github.com/sass/sass/blob/master/accepted/module-system.md#member-references
+ * @see  https://drafts.csswg.org/css-syntax-3/#ident-token-diagram
+ * @constant {RegExp}
+ * @default
+ */
 // eslint-disable-next-line no-control-regex
 const reVar = /^-?(?:@.+|(?:(?:[a-zA-Z_-]|[^\x00-\x7F])+(?:[a-zA-Z0-9_-]|[^\x00-\x7F])*\.)?\$.+|var\(\s*--[\s\S]+\))$/
+/**
+ * RegExp to parse functions.
+ * - irgnoring CSS variables `var(--*)`
+ * - allow multi line arguments.
+ *
+ * @constant  {RegExp}
+ * @default
+ */
 const reFunc = /^(?!var\(\s*--)[\s\S]+\([\s\S]*\)$/
 
 /**
