@@ -30,12 +30,7 @@ function validProperties(actual) {
 /**
  * Validate optional secondary options of stylelint plugin config.
  *
- * @param {object} actual - The actual config to validate.
- * @param {boolean} [actual.ignoreVariables=true] - Whether or not to lint variables.
- * @param {boolean} [actual.ignoreFunctions=true] - Whether or not to lint functions.
- * @param {string} [actual.severity='error'] - What the severity level is for this rule.
- * @param {number|string|Array|object} [actual.ignoreKeywords=null] - A keywords config.
- * @param {string} [actual.message=null] - A custom message to be delivered upon error interpolated with `${types}`, `${value}` and `${property}`.
+ * @param {import('../defaults').SecondaryOptions} actual - The actual config to validate.
  *
  * @returns {boolean} - Returns `true` if secondary options are valied, else `false`.
  */
@@ -150,7 +145,7 @@ function getTypes(config, property) {
  * Get the correct ignored keywords for an specific CSS declaration's property
  * out of a complex ignoreKeywords config hash or array.
  *
- * @param {object|Array|string} ignoreKeywords - The keyword/-s to ignore.
+ * @param {null|object|Array|string} ignoreKeywords - The keyword/-s to ignore.
  * @param {string} property - The specific CSS declaration's property of the current iteration.
  *
  * @returns {Array} - Returns the matching `ignoreKeywords` rules for a specific CSS property.
