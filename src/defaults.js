@@ -4,6 +4,6 @@ export default {
   ignoreKeywords: null,
   severity: 'error',
   message: null,
-  disableFix: null,
+  disableFix: false,
   autoFixFunc: null,
 }
