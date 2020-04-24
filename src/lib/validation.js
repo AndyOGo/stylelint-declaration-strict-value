@@ -30,7 +30,7 @@ function validProperties(actual) {
 /**
  * Validate optional secondary options of stylelint plugin config.
  *
- * @param {import('../defaults').SecondaryOptions} actual - The actual config to validate.
+ * @param {SecondaryOptions} actual - The actual config to validate.
  *
  * @returns {boolean} - Returns `true` if secondary options are valied, else `false`.
  */
