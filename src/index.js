@@ -38,7 +38,7 @@ const reFunc = /^(?!var\(\s*--)[\s\S]+\([\s\S]*\)$/
  *
  * @see https://stylelint.io/developer-guide/plugins
  * @param {string|string[]} properties - Primary options, a CSS property or list of CSS properties to lint.
- * @param {import('./defaults').SecondaryOptions} [options=defaults] - Secondary options, configure edge cases.
+ * @param {SecondaryOptions} [options=defaults] - Secondary options, configure edge cases.
  * @param {*} [context] - Only used for autofixing.
  *
  * @returns {PostCSSPlugin} - Returns a PostCSS Plugin.
