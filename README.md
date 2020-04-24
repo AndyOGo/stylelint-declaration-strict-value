@@ -18,6 +18,7 @@
         - [Complex Mighty Hash Mapping](#complex-mighty-hash-mapping)
       - [message](#message)
       - [Autofix support](#autofix-support)
+- [API](#api)
   - [Credit / Inspiration](#credit--inspiration)
 - [License](#license)
 
@@ -738,6 +739,10 @@ module.exports = autoFixFunc
     // ...
   }
 ```
+
+# API
+
+Please find the API docs at [`./API.md`](./API.md).
 
 ## Credit / Inspiration
 
