@@ -5,6 +5,12 @@ import {
 } from './lib/validation'
 import defaults from './defaults'
 
+/**
+ * Rule Name.
+ *
+ * @constant {string}
+ * @default
+ */
 const ruleName = 'scale-unlimited/declaration-strict-value'
 const { utils } = stylelint
 const messages = utils.ruleMessages(ruleName, {
@@ -18,7 +24,26 @@ const reSkipProp = /^(?:@|\$|--).+$/
 const reVar = /^-?(?:@.+|(?:(?:[a-zA-Z_-]|[^\x00-\x7F])+(?:[a-zA-Z0-9_-]|[^\x00-\x7F])*\.)?\$.+|var\(\s*--[\s\S]+\))$/
 const reFunc = /^(?!var\(\s*--)[\s\S]+\([\s\S]*\)$/
 
-const rule = (properties, options, context = {}) => (root, result) => {
+/**
+ * A rule function essentially returns a little PostCSS plugin.
+ * It will report violations of this rule.
+ *
+ * @typedef {Function} PostCSSPlugin
+ * @param {object} root - PostCSS root (the parsed AST).
+ * @param {object} result - PostCSS lazy result.
+ */
+
+/**
+ * Stylelint declaration strict value rule function.
+ *
+ * @see https://stylelint.io/developer-guide/plugins
+ * @param {string|string[]} properties - Primary options, a CSS property or list of CSS properties to lint.
+ * @param {import('./defaults').SecondaryOptions} [options=defaults] - Secondary options, configure edge cases.
+ * @param {*} [context] - Only used for autofixing.
+ *
+ * @returns {PostCSSPlugin} - Returns a PostCSS Plugin.
+ */
+const ruleFunction = (properties, options, context = {}) => (root, result) => {
   // validate stylelint plugin options
   const hasValidOptions = utils.validateOptions(
     result,
@@ -68,6 +93,7 @@ const rule = (properties, options, context = {}) => (root, result) => {
      * Lint usages of declarations values againts, variables, functions
      * or custum keywords - as configured.
      *
+     * @callback
      * @param {object} node - A Declaration-Node from PostCSS AST-Parser.
      */
     function lintDeclStrictValue(node) {
@@ -139,9 +165,9 @@ const rule = (properties, options, context = {}) => (root, result) => {
   })
 }
 
-rule.primaryOptionArray = true
+ruleFunction.primaryOptionArray = true
 
-const declarationStrictValuePlugin = stylelint.createPlugin(ruleName, rule)
+const declarationStrictValuePlugin = stylelint.createPlugin(ruleName, ruleFunction)
 
 export default declarationStrictValuePlugin
 export { ruleName, messages }
