@@ -7,7 +7,7 @@ import defaults from '../defaults'
  *
  * @param {*} value - Any value.
  *
- * @returns {boolean}
+ * @returns {boolean} - Returns `true` if `value`'s type is either `number` or `string`, else `false`.
  */
 function isNumberOrString(value) {
   const type = typeof value
@@ -20,7 +20,7 @@ function isNumberOrString(value) {
  *
  * @param {string|string[]} actual - The actual config to validate.
  *
- * @returns {boolean}
+ * @returns {boolean} - Returns `true` if primary options are valied, else `false`.
  */
 function validProperties(actual) {
   return isNumberOrString(actual)
@@ -37,7 +37,7 @@ function validProperties(actual) {
  * @param {number|string|Array|object} [actual.ignoreKeywords=null] - A keywords config.
  * @param {string} [actual.message=null] - A custom message to be delivered upon error interpolated with `${types}`, `${value}` and `${property}`.
  *
- * @returns {boolean}
+ * @returns {boolean} - Returns `true` if secondary options are valied, else `false`.
  */
 function validOptions(actual) {
   if (typeof actual !== 'object') return false
@@ -82,7 +82,7 @@ function validOptions(actual) {
  *
  * @param {object} actual - A keyword config.
  *
- * @returns {boolean}
+ * @returns {boolean} - Returns `true` if hash keyword config is valid, else `false`.
  */
 function validHash(actual) {
   if (typeof actual !== 'object') return false
@@ -97,7 +97,8 @@ function validHash(actual) {
  * @param {string} value - The CSS declaration's value.
  * @param {string} property - The CSS declaration's property.
  * @param {string} [customMessage] - A custom message to be delivered upon error interpolated with `${types}`, `${value}` and `${property}`.
- * @returns {string}
+ *
+ * @returns {string} - Returns an expected message for stylelint report.
  */
 function expected(types, value, property, customMessage) {
   if (Array.isArray(types)) {
@@ -123,7 +124,8 @@ function expected(types, value, property, customMessage) {
  *
  * @param {object} config - The secondary stylelint-plugin config.
  * @param {string} property - The specific CSS declaration's property of the current iteration.
- * @returns {Array}
+ *
+ * @returns {Array} - Returns a list of configured types.
  */
 function getTypes(config, property) {
   const { ignoreVariables, ignoreFunctions, ignoreKeywords } = config
@@ -150,7 +152,8 @@ function getTypes(config, property) {
  *
  * @param {object|Array|string} ignoreKeywords - The keyword/-s to ignore.
  * @param {string} property - The specific CSS declaration's property of the current iteration.
- * @returns {Array}
+ *
+ * @returns {Array} - Returns the matching `ignoreKeywords` rules for a specific CSS property.
  */
 function getIgnoredKeywords(ignoreKeywords, property) {
   if (!ignoreKeywords) return null
@@ -169,8 +172,9 @@ function getIgnoredKeywords(ignoreKeywords, property) {
 /**
  * Get the auto-fix function either by a function directly or from source file.
  *
- * @param {Function|string} autoFixFunc
- * @returns {Function|null}
+ * @param {Function|string} autoFixFunc - A JavaScript function or a module path to resolve it, also from cwd.
+ *
+ * @returns {Function|null} - Returns the auto-fix function if found, else `null`.
  */
 function getAutoFixFunc(autoFixFunc) {
   const type = typeof autoFixFunc
