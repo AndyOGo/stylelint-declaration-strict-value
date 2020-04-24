@@ -18,7 +18,8 @@
     "no-else-return": "warn",
     "no-use-before-define": ["error", { "functions": false, "classes": false }],
     "semi": ["error", "never"],
-    "quote-props": ["error", "consistent"]
+    "quote-props": ["error", "consistent"],
+    "jsdoc/no-undefined-types": ["warn", { "definedTypes": ["SecondaryOptions"] }]
   },
   "globals": {}
 }
