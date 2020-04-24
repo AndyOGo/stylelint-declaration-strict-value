@@ -9,7 +9,7 @@
   "scripts": {
     "build": "microbundle",
     "prepublish": "npm run build",
-    "test": "babel-node test",
+    "test": "node -r esm test",
     "eslint": "eslint 'src/**/*.js' 'test/**/*.js'",
     "toc": "doctoc README.md --title '**Table of Contents**'"
   },
