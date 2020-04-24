@@ -1,5 +1,5 @@
 {
-  "extends": "airbnb-base",
+  "extends": ["airbnb-base", "plugin:jsdoc/recommended"],
   "parser": "babel-eslint",
   "parserOptions": {
     "ecmaVersion": 6,
@@ -8,6 +8,9 @@
       "classes": true
     }
   },
+  "plugins": [
+    "jsdoc"
+  ],
   "rules": {
     "dot-notation": "off",
     "max-len": ["warn", 140, 2],
