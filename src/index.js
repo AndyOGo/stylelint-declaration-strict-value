@@ -5,20 +5,66 @@ import {
 } from './lib/validation'
 import defaults from './defaults'
 
+/**
+ * Rule Name.
+ *
+ * @constant {string}
+ * @default
+ */
 const ruleName = 'scale-unlimited/declaration-strict-value'
 const { utils } = stylelint
 const messages = utils.ruleMessages(ruleName, {
   expected,
 })
+/**
+ * RegExp to skip non-CSS properties.
+ *
+ * @constant  {RegExp}
+ * @default
+ */
 const reSkipProp = /^(?:@|\$|--).+$/
-// Sass namespaces and CSS <ident-token>
-// @see: https://github.com/sass/sass/blob/master/accepted/module-system.md#member-references
-// @see:  https://drafts.csswg.org/css-syntax-3/#ident-token-diagram
+/**
+ * RegExp to parse CSS, SCSS and less variables
+ * - allowing CSS variables to be multi line.
+ * - Sass namespaces and CSS <ident-token> supported.
+ *
+ * @see https://github.com/sass/sass/blob/master/accepted/module-system.md#member-references
+ * @see  https://drafts.csswg.org/css-syntax-3/#ident-token-diagram
+ * @constant {RegExp}
+ * @default
+ */
 // eslint-disable-next-line no-control-regex
 const reVar = /^-?(?:@.+|(?:(?:[a-zA-Z_-]|[^\x00-\x7F])+(?:[a-zA-Z0-9_-]|[^\x00-\x7F])*\.)?\$.+|var\(\s*--[\s\S]+\))$/
+/**
+ * RegExp to parse functions.
+ * - irgnoring CSS variables `var(--*)`
+ * - allow multi line arguments.
+ *
+ * @constant  {RegExp}
+ * @default
+ */
 const reFunc = /^(?!var\(\s*--)[\s\S]+\([\s\S]*\)$/
 
-const rule = (properties, options, context = {}) => (root, result) => {
+/**
+ * A rule function essentially returns a little PostCSS plugin.
+ * It will report violations of this rule.
+ *
+ * @typedef {Function} PostCSSPlugin
+ * @param {object} root - PostCSS root (the parsed AST).
+ * @param {object} result - PostCSS lazy result.
+ */
+
+/**
+ * Stylelint declaration strict value rule function.
+ *
+ * @see https://stylelint.io/developer-guide/plugins
+ * @param {string|string[]} properties - Primary options, a CSS property or list of CSS properties to lint.
+ * @param {SecondaryOptions} [options=defaults] - Secondary options, configure edge cases.
+ * @param {*} [context] - Only used for autofixing.
+ *
+ * @returns {PostCSSPlugin} - Returns a PostCSS Plugin.
+ */
+const ruleFunction = (properties, options, context = {}) => (root, result) => {
   // validate stylelint plugin options
   const hasValidOptions = utils.validateOptions(
     result,
@@ -68,7 +114,8 @@ const rule = (properties, options, context = {}) => (root, result) => {
      * Lint usages of declarations values againts, variables, functions
      * or custum keywords - as configured.
      *
-     * @param {Object} node - A Declaration-Node from PostCSS AST-Parser.
+     * @callback
+     * @param {object} node - A Declaration-Node from PostCSS AST-Parser.
      */
     function lintDeclStrictValue(node) {
       const { value, prop } = node
@@ -139,9 +186,9 @@ const rule = (properties, options, context = {}) => (root, result) => {
   })
 }
 
-rule.primaryOptionArray = true
+ruleFunction.primaryOptionArray = true
 
-const declarationStrictValuePlugin = stylelint.createPlugin(ruleName, rule)
+const declarationStrictValuePlugin = stylelint.createPlugin(ruleName, ruleFunction)
 
 export default declarationStrictValuePlugin
 export { ruleName, messages }
