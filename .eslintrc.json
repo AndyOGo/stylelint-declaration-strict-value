@@ -13,7 +13,7 @@
   ],
   "rules": {
     "dot-notation": "off",
-    "max-len": ["warn", 140, 2],
+    "max-len": ["warn", { "ignoreComments": true, "code": 140, "tabWidth": 2 }],
     "no-cond-assign": ["error", "except-parens"],
     "no-else-return": "warn",
     "no-use-before-define": ["error", { "functions": false, "classes": false }],
