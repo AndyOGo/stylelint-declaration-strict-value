@@ -68,7 +68,7 @@ const rule = (properties, options, context = {}) => (root, result) => {
      * Lint usages of declarations values againts, variables, functions
      * or custum keywords - as configured.
      *
-     * @param {Object} node - A Declaration-Node from PostCSS AST-Parser.
+     * @param {object} node - A Declaration-Node from PostCSS AST-Parser.
      */
     function lintDeclStrictValue(node) {
       const { value, prop } = node

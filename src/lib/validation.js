@@ -30,11 +30,11 @@ function validProperties(actual) {
 /**
  * Validate optional secondary options of stylelint plugin config.
  *
- * @param {Object} actual - The actual config to validate.
+ * @param {object} actual - The actual config to validate.
  * @param {boolean} [actual.ignoreVariables=true] - Whether or not to lint variables.
  * @param {boolean} [actual.ignoreFunctions=true] - Whether or not to lint functions.
  * @param {string} [actual.severity='error'] - What the severity level is for this rule.
- * @param {number|string|Array|Object} [actual.ignoreKeywords=null] - A keywords config.
+ * @param {number|string|Array|object} [actual.ignoreKeywords=null] - A keywords config.
  * @param {string} [actual.message=null] - A custom message to be delivered upon error interpolated with `${types}`, `${value}` and `${property}`.
  *
  * @returns {boolean}
@@ -80,7 +80,7 @@ function validOptions(actual) {
 /**
  * Validate optional hash keyword config.
  *
- * @param {Object} actual - A keyword config.
+ * @param {object} actual - A keyword config.
  *
  * @returns {boolean}
  */
@@ -121,7 +121,7 @@ function expected(types, value, property, customMessage) {
 /**
  * Get configured types for stylelint report message.
  *
- * @param {Object} config - The secondary stylelint-plugin config.
+ * @param {object} config - The secondary stylelint-plugin config.
  * @param {string} property - The specific CSS declaration's property of the current iteration.
  * @returns {Array}
  */
@@ -148,7 +148,7 @@ function getTypes(config, property) {
  * Get the correct ignored keywords for an specific CSS declaration's property
  * out of a complex ignoreKeywords config hash or array.
  *
- * @param {Object|Array|string} ignoreKeywords - The keyword/-s to ignore.
+ * @param {object|Array|string} ignoreKeywords - The keyword/-s to ignore.
  * @param {string} property - The specific CSS declaration's property of the current iteration.
  * @returns {Array}
  */
