@@ -11,6 +11,7 @@
     "prepublish": "npm run build",
     "test": "node -r esm test",
     "eslint": "eslint 'src/**/*.js' 'test/**/*.js'",
+    "docs": "documentation build src/index.js -f md -o API.md",
     "toc": "doctoc README.md --title '**Table of Contents**'"
   },
   "repository": {
