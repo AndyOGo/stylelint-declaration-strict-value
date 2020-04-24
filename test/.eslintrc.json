@@ -4,6 +4,7 @@
       "devDependencies": true,
       "optionalDependencies": false,
       "peerDependencies": false
-    }]
+    }],
+    "jsdoc/require-jsdoc": "off"
   }
 }
