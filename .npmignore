@@ -3,6 +3,7 @@ test/
 
 .idea
 .vscode
+.nyc_output
 
 .babelrc
 .editorconfig
