@@ -26,30 +26,32 @@
     -   [Parameters][22]
 -   [getIgnoredKeywords][23]
     -   [Parameters][24]
--   [getAutoFixFunc][25]
+-   [getIgnoredValues][25]
     -   [Parameters][26]
--   [defaults][27]
-    -   [Properties][28]
--   [SecondaryOptions][29]
+-   [getAutoFixFunc][27]
+    -   [Parameters][28]
+-   [defaults][29]
     -   [Properties][30]
+-   [SecondaryOptions][31]
+    -   [Properties][32]
 
 ## ruleName
 
 Rule Name.
 
-Type: [string][31]
+Type: [string][33]
 
 ## reSkipProp
 
 RegExp to skip non-CSS properties.
 
-Type: [RegExp][32]
+Type: [RegExp][34]
 
 ## reVar
 
--   **See: [https://github.com/sass/sass/blob/master/accepted/module-system.md#member-references][33]
+-   **See: [https://github.com/sass/sass/blob/master/accepted/module-system.md#member-references][35]
     **
--   **See: [https://drafts.csswg.org/css-syntax-3/#ident-token-diagram][34]
+-   **See: [https://drafts.csswg.org/css-syntax-3/#ident-token-diagram][36]
     **
 
 RegExp to parse CSS, SCSS and less variables
@@ -57,7 +59,7 @@ RegExp to parse CSS, SCSS and less variables
 -   allowing CSS variables to be multi line.
 -   Sass namespaces and CSS <ident-token> supported.
 
-Type: [RegExp][32]
+Type: [RegExp][34]
 
 ## reFunc
 
@@ -66,45 +68,45 @@ RegExp to parse functions.
 -   irgnoring CSS variables `var(--*)`
 -   allow multi line arguments.
 
-Type: [RegExp][32]
+Type: [RegExp][34]
 
 ## PostCSSPlugin
 
 A rule function essentially returns a little PostCSS plugin.
 It will report violations of this rule.
 
-Type: [Function][35]
+Type: [Function][37]
 
 ### Parameters
 
--   `root` **[object][36]** PostCSS root (the parsed AST).
--   `result` **[object][36]** PostCSS lazy result.
+-   `root` **[object][38]** PostCSS root (the parsed AST).
+-   `result` **[object][38]** PostCSS lazy result.
 
 ## ruleFunction
 
--   **See: [https://stylelint.io/developer-guide/plugins][37]
+-   **See: [https://stylelint.io/developer-guide/plugins][39]
     **
 
 Stylelint declaration strict value rule function.
 
 ### Parameters
 
--   `properties` **([string][31] \| [Array][38]&lt;[string][31]>)** Primary options, a CSS property or list of CSS properties to lint.
--   `options` **[SecondaryOptions][39]** Secondary options, configure edge cases. (optional, default `defaults`)
+-   `properties` **([string][33] \| [Array][40]&lt;[string][33]>)** Primary options, a CSS property or list of CSS properties to lint.
+-   `options` **[SecondaryOptions][41]** Secondary options, configure edge cases. (optional, default `defaults`)
 -   `context` **any?** Only used for autofixing. (optional, default `{}`)
 
-Returns **[PostCSSPlugin][40]** Returns a PostCSS Plugin.
+Returns **[PostCSSPlugin][42]** Returns a PostCSS Plugin.
 
 ## lintDeclStrictValue
 
 Lint usages of declarations values againts, variables, functions
 or custum keywords - as configured.
 
-Type: [Function][35]
+Type: [Function][37]
 
 ### Parameters
 
--   `node` **[object][36]** A Declaration-Node from PostCSS AST-Parser.
+-   `node` **[object][38]** A Declaration-Node from PostCSS AST-Parser.
 
 ## isNumberOrString
 
@@ -114,7 +116,7 @@ Check if type is either `number` or `string`.
 
 -   `value` **any** Any value.
 
-Returns **[boolean][41]** Returns `true` if `value`'s type is either `number` or `string`, else `false`.
+Returns **[boolean][43]** Returns `true` if `value`'s type is either `number` or `string`, else `false`.
 
 ## validProperties
 
@@ -122,9 +124,9 @@ Validate primary options of stylelint plugin config.
 
 ### Parameters
 
--   `actual` **([string][31] \| [Array][38]&lt;[string][31]>)** The actual config to validate.
+-   `actual` **([string][33] \| [Array][40]&lt;[string][33]>)** The actual config to validate.
 
-Returns **[boolean][41]** Returns `true` if primary options are valied, else `false`.
+Returns **[boolean][43]** Returns `true` if primary options are valied, else `false`.
 
 ## validOptions
 
@@ -132,9 +134,9 @@ Validate optional secondary options of stylelint plugin config.
 
 ### Parameters
 
--   `actual` **[SecondaryOptions][39]** The actual config to validate.
+-   `actual` **[SecondaryOptions][41]** The actual config to validate.
 
-Returns **[boolean][41]** Returns `true` if secondary options are valied, else `false`.
+Returns **[boolean][43]** Returns `true` if secondary options are valied, else `false`.
 
 ## validHash
 
@@ -142,9 +144,9 @@ Validate optional hash keyword config.
 
 ### Parameters
 
--   `actual` **[object][36]** A keyword config.
+-   `actual` **[object][38]** A keyword config.
 
-Returns **[boolean][41]** Returns `true` if hash keyword config is valid, else `false`.
+Returns **[boolean][43]** Returns `true` if hash keyword config is valid, else `false`.
 
 ## expected
 
@@ -152,12 +154,12 @@ Build expected message for stylelint report.
 
 ### Parameters
 
--   `types` **[Array][38]** Either `variable`, `function` and/or `keyword`.
--   `value` **[string][31]** The CSS declaration's value.
--   `property` **[string][31]** The CSS declaration's property.
--   `customMessage` **[string][31]?** A custom message to be delivered upon error interpolated with `${types}`, `${value}` and `${property}`.
+-   `types` **[Array][40]** Either `variable`, `function` and/or `keyword`.
+-   `value` **[string][33]** The CSS declaration's value.
+-   `property` **[string][33]** The CSS declaration's property.
+-   `customMessage` **[string][33]?** A custom message to be delivered upon error interpolated with `${types}`, `${value}` and `${property}`.
 
-Returns **[string][31]** Returns an expected message for stylelint report.
+Returns **[string][33]** Returns an expected message for stylelint report.
 
 ## getTypes
 
@@ -165,22 +167,34 @@ Get configured types for stylelint report message.
 
 ### Parameters
 
--   `config` **[object][36]** The secondary stylelint-plugin config.
--   `property` **[string][31]** The specific CSS declaration's property of the current iteration.
+-   `config` **[object][38]** The secondary stylelint-plugin config.
+-   `property` **[string][33]** The specific CSS declaration's property of the current iteration.
 
-Returns **[Array][38]** Returns a list of configured types.
+Returns **[Array][40]** Returns a list of configured types.
 
 ## getIgnoredKeywords
 
-Get the correct ignored keywords for an specific CSS declaration's property
-out of a complex ignoreKeywords config hash or array.
+Get the correct ignored keywords for a specific CSS declaration's property
+out of a complex `ignoreKeywords` config hash or array.
 
 ### Parameters
 
--   `ignoreKeywords` **(null | [object][36] \| [Array][38] \| [string][31])** The keyword/-s to ignore.
--   `property` **[string][31]** The specific CSS declaration's property of the current iteration.
+-   `ignoreKeywords` **(null | [object][38] \| [Array][40] \| [string][33])** The keyword/-s to ignore.
+-   `property` **[string][33]** The specific CSS declaration's property of the current iteration.
 
-Returns **[Array][38]** Returns the matching `ignoreKeywords` rules for a specific CSS property.
+Returns **[Array][40]** Returns ignored keywords for a specific CSS property.
+
+## getIgnoredValues
+
+Get the correct ignored values for a specific CSS declaration's property
+out of a complex `ignoreValues` config hash or array.
+
+### Parameters
+
+-   `ignoreValues` **(null | [string][33] \| [RegExp][34] \| [object][38] \| [Array][40])** The values/-s to ignore.
+-   `property` **[string][33]** The specific CSS declaration's property of the current iteration.
+
+Returns **[Array][40]** Returns ignored values for a specific CSS property.
 
 ## getAutoFixFunc
 
@@ -188,41 +202,42 @@ Get the auto-fix function either by a function directly or from source file.
 
 ### Parameters
 
--   `autoFixFunc` **([Function][35] \| [string][31])** A JavaScript function or a module path to resolve it, also from cwd.
+-   `autoFixFunc` **([Function][37] \| [string][33])** A JavaScript function or a module path to resolve it, also from cwd.
 
-Returns **([Function][35] | null)** Returns the auto-fix function if found, else `null`.
+Returns **([Function][37] | null)** Returns the auto-fix function if found, else `null`.
 
 ## defaults
 
 Default options.
 
-Type: [SecondaryOptions][39]
+Type: [SecondaryOptions][41]
 
 ### Properties
 
--   `ignoreVariables` **[boolean][41]** Ignore variables by default.
--   `ignoreFunctions` **[boolean][41]** Ignore function by default.
--   `ignoreKeywords` **null** Forbid keywords by default.
--   `severity` **[string][31]** This rule's default severity is `'error'`.
--   `message` **null** Use default message.
--   `disableFix` **null** Don't auto-fix if `--fix` option is applied.
--   `autoFixFunc` **null** By default no auto-fix feature.
+-   `ignoreVariables` **[boolean][43]?** Ignore variables by default.
+-   `ignoreFunctions` **[boolean][43]?** Ignore function by default.
+-   `ignoreKeywords` **null?** Forbid keywords by default.
+-   `ignoreValues` **null?** Forbid values by default.
+-   `severity` **[string][33]?** This rule's default severity is `'error'`.
+-   `message` **null?** Use default message.
+-   `disableFix` **null?** Don't auto-fix if `--fix` option is applied.
+-   `autoFixFunc` **null?** By default no auto-fix feature.
 
 ## SecondaryOptions
 
 Plugin secondary options.
 
-Type: [object][36]
+Type: [object][38]
 
 ### Properties
 
--   `ignoreVariables` **[boolean][41]?** Wheter or not to ignore variables.
--   `ignoreFunctions` **[boolean][41]?** Wheter or not to ignore function.
--   `ignoreKeywords` **(null | [number][42] \| [string][31] \| [Array][38] \| [object][36])?** Wheter or not to ignore function.
--   `severity` **[string][31]?** Adjust severity of the rule, `'warning'` or `'error'` (default).
--   `message` **(null | [string][31])?** A custom message when a rule is violated, interpolated with `${types}`, `${value}` and `${property}`.
--   `disableFix` **[boolean][41]?** Don't auto-fix if `--fix` option is applied.
--   `autoFixFunc` **(null | [Function][35])?** By default no auto-fix feature.
+-   `ignoreVariables` **[boolean][43]?** Wheter or not to ignore variables.
+-   `ignoreFunctions` **[boolean][43]?** Wheter or not to ignore function.
+-   `ignoreKeywords` **(null | [number][44] \| [string][33] \| [Array][40] \| [object][38])?** A ignored keywords config.
+-   `severity` **[string][33]?** Adjust severity of the rule, `'warning'` or `'error'` (default).
+-   `message` **(null | [string][33])?** A custom message when a rule is violated, interpolated with `${types}`, `${value}` and `${property}`.
+-   `disableFix` **[boolean][43]?** Don't auto-fix if `--fix` option is applied.
+-   `autoFixFunc` **(null | [Function][37])?** By default no auto-fix feature.
 
 [1]: #rulename
 
@@ -272,38 +287,42 @@ Type: [object][36]
 
 [24]: #parameters-9
 
-[25]: #getautofixfunc
+[25]: #getignoredvalues
 
 [26]: #parameters-10
 
-[27]: #defaults
+[27]: #getautofixfunc
 
-[28]: #properties
+[28]: #parameters-11
 
-[29]: #secondaryoptions
+[29]: #defaults
 
-[30]: #properties-1
+[30]: #properties
 
-[31]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+[31]: #secondaryoptions
 
-[32]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/RegExp
+[32]: #properties-1
 
-[33]: https://github.com/sass/sass/blob/master/accepted/module-system.md#member-references
+[33]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
 
-[34]: https://drafts.csswg.org/css-syntax-3/#ident-token-diagram
+[34]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/RegExp
 
-[35]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
+[35]: https://github.com/sass/sass/blob/master/accepted/module-system.md#member-references
 
-[36]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+[36]: https://drafts.csswg.org/css-syntax-3/#ident-token-diagram
 
-[37]: https://stylelint.io/developer-guide/plugins
+[37]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
 
-[38]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+[38]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
 
-[39]: #secondaryoptions
+[39]: https://stylelint.io/developer-guide/plugins
 
-[40]: #postcssplugin
+[40]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
 
-[41]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
+[41]: #secondaryoptions
 
-[42]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
+[42]: #postcssplugin
+
+[43]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
+
+[44]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
