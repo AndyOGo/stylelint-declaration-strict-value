@@ -4,63 +4,19 @@ import declarationStrictValue, { ruleName } from '../src'
 
 const { rule } = declarationStrictValue
 
-// ignore single value
+// ignore multiple keywords
 testRule(rule, {
   ruleName,
   skipBasicChecks: true,
 
   config: ['color', {
-    ignoreValues: 'transparent',
+    ignoreValues: ['transparent', '/^#[0-9a-fA-F]{3,6}$/', '/^red$/i'],
   }],
 
   accept: [
     { code: '.foo { color: transparent; }' },
-  ],
-
-  reject: [
-    {
-      code: '.foo { color: inherit; }',
-      message: `Expected variable, function or keyword for "inherit" of "color" (${ruleName})`,
-      line: 1,
-      column: 8,
-    },
-  ],
-})
-
-// ignore single value regex
-testRule(rule, {
-  ruleName,
-  skipBasicChecks: true,
-
-  config: ['color', {
-    ignoreValues: '/^#[0-9a-fA-F]{3,6}$/',
-  }],
-
-  accept: [
     { code: '.foo { color: #fff; }' },
     { code: '.foo { color: #ffffff; }' },
-  ],
-
-  reject: [
-    {
-      code: '.foo { color: inherit; }',
-      message: `Expected variable, function or keyword for "inherit" of "color" (${ruleName})`,
-      line: 1,
-      column: 8,
-    },
-  ],
-})
-
-// ignore single value regex with i flag
-testRule(rule, {
-  ruleName,
-  skipBasicChecks: true,
-
-  config: ['color', {
-    ignoreValues: '/^red$/i',
-  }],
-
-  accept: [
     { code: '.foo { color: red; }' },
     { code: '.foo { color: Red; }' },
     { code: '.foo { color: REd; }' },
