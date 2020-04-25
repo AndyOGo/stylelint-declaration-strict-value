@@ -1,7 +1,7 @@
 import stylelint from 'stylelint'
 
 import {
-  validProperties, validOptions, expected, getTypes, getIgnoredKeywords, getAutoFixFunc,
+  validProperties, validOptions, expected, getTypes, getIgnoredKeywords, getIgnoredValues, getAutoFixFunc,
 } from './lib/validation'
 import defaults from './defaults'
 
@@ -24,9 +24,9 @@ const messages = utils.ruleMessages(ruleName, {
  */
 const reSkipProp = /^(?:@|\$|--).+$/
 /**
- * RegExp to parse CSS, SCSS and less variables
- * - allowing CSS variables to be multi line.
- * - Sass namespaces and CSS <ident-token> supported.
+ * RegExp to parse CSS, SCSS and less variables.
+ * - allowing CSS variables to be multi line
+ * - Sass namespaces and CSS <ident-token> supported
  *
  * @see https://github.com/sass/sass/blob/master/accepted/module-system.md#member-references
  * @see  https://drafts.csswg.org/css-syntax-3/#ident-token-diagram
@@ -38,12 +38,25 @@ const reVar = /^-?(?:@.+|(?:(?:[a-zA-Z_-]|[^\x00-\x7F])+(?:[a-zA-Z0-9_-]|[^\x00-
 /**
  * RegExp to parse functions.
  * - irgnoring CSS variables `var(--*)`
- * - allow multi line arguments.
+ * - allow multi line arguments
  *
  * @constant  {RegExp}
  * @default
  */
 const reFunc = /^(?!var\(\s*--)[\s\S]+\([\s\S]*\)$/
+/**
+ * RegExp to parse regular expressions.
+ * - supporting patterns
+ * - and optional flags
+ *
+ * @constant  {RegExp}
+ * @default
+ */
+const reRegex = /^\/(.*)\/([a-zA-Z]*)$/
+const isRegexString = (value) => reRegex.test(value)
+const getRegexString = (value) => value.match(reRegex).slice(1)
+const stringToRegex = (value) => new RegExp(...getRegexString(value))
+const mapIgnoreValue = (ignoreValue) => (isRegexString(ignoreValue) ? stringToRegex(ignoreValue) : new RegExp(`^${ignoreValue}$`))
 
 /**
  * A rule function essentially returns a little PostCSS plugin.
@@ -93,18 +106,19 @@ const ruleFunction = (properties, options, context = {}) => (root, result) => {
     ...options,
   }
   const {
-    ignoreVariables, ignoreFunctions, ignoreKeywords, message, disableFix, autoFixFunc,
+    ignoreVariables, ignoreFunctions, ignoreKeywords, ignoreValues, message, disableFix, autoFixFunc,
   } = config
   const autoFixFuncNormalized = getAutoFixFunc(autoFixFunc)
   const reKeywords = ignoreKeywords ? {} : null
+  const reValues = ignoreValues ? {} : null
 
   // loop through all properties
   properties.forEach((property) => {
     let propFilter = property
 
     // parse RegExp
-    if (propFilter.charAt(0) === '/' && propFilter.slice(-1) === '/') {
-      propFilter = new RegExp(propFilter.slice(1, -1))
+    if (isRegexString(propFilter)) {
+      propFilter = stringToRegex(propFilter)
     }
 
     // walk through all declarations filtered by configured properties
@@ -127,6 +141,7 @@ const ruleFunction = (properties, options, context = {}) => (root, result) => {
       let validVar = false
       let validFunc = false
       let validKeyword = false
+      let validValue = false
 
       // test variable
       if (ignoreVariables) {
@@ -146,7 +161,7 @@ const ruleFunction = (properties, options, context = {}) => (root, result) => {
           const ignoreKeyword = getIgnoredKeywords(ignoreKeywords, property)
 
           if (ignoreKeyword) {
-            reKeyword = new RegExp(`^${ignoreKeyword.join('|')}$`)
+            reKeyword = new RegExp(`^${ignoreKeyword.join('$|^')}$`)
             reKeywords[property] = reKeyword
           }
         }
@@ -156,15 +171,37 @@ const ruleFunction = (properties, options, context = {}) => (root, result) => {
         }
       }
 
+      if (ignoreValues && (!validVar || !validFunc || !validKeyword)) {
+        let reValueList = reValues[property]
+
+        if (!reValueList) {
+          const ignoreValue = getIgnoredValues(ignoreValues, property)
+
+          if (ignoreValue) {
+            reValueList = ignoreValue.map(mapIgnoreValue)
+            reValues[property] = reValueList
+          }
+        }
+
+        if (reValueList) {
+          validValue = reValueList.filter((reValue) => reValue.test(value)).length > 0
+        }
+      }
+
       // report only if all failed
-      if (!validVar && !validFunc && !validKeyword) {
+      if (!validVar && !validFunc && !validKeyword && !validValue) {
         const types = getTypes(config, property)
         const { raws } = node
         const { start } = node.source
 
         // support auto fixing
         if (context.fix && !disableFix) {
-          const fixedValue = autoFixFuncNormalized(node, { validVar, validFunc, validKeyword }, root, config)
+          const fixedValue = autoFixFuncNormalized(node, {
+            validVar,
+            validFunc,
+            validKeyword,
+            validValue,
+          }, root, config)
 
           // apply fixed value if returned
           if (fixedValue) {
