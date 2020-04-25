@@ -8,8 +8,8 @@
   "unpkg": "dist/index.umd.js",
   "scripts": {
     "build": "microbundle",
-    "release": "semantic-release",
-    "prerelease": "npm run build",
+    "release": "dotenv-cli semantic-release",
+    "prepack": "npm run build",
     "test": "node -r esm test",
     "eslint": "eslint 'src/**/*.js' 'test/**/*.js'",
     "docs": "documentation build src/index.js -f md -o API.md",
@@ -57,6 +57,7 @@
     "babel-preset-es2015": "^6.24.1",
     "doctoc": "^1.4.0",
     "documentation": "^12.3.0",
+    "dotenv-cli": "^3.1.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.18.2",
