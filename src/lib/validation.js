@@ -181,7 +181,7 @@ function getIgnoredKeywords(ignoreKeywords, property) {
  * Get the correct ignored values for a specific CSS declaration's property
  * out of a complex `ignoreValues` config hash or array.
  *
- * @param {null|object|Array|string} ignoreValues - The values/-s to ignore.
+ * @param {null|string|RegExp|object|Array} ignoreValues - The values/-s to ignore.
  * @param {string} property - The specific CSS declaration's property of the current iteration.
  * @returns {Array} - Returns ignored values for a specific CSS property.
  */
