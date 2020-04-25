@@ -12,10 +12,14 @@
     - [Secondary Options](#secondary-options)
       - [ignoreVariables](#ignorevariables)
       - [ignoreFunctions](#ignorefunctions)
-      - [ignoreKeywords](#ignorekeywords)
+      - [ignoreValues](#ignorevalues)
+        - [Simple single value](#simple-single-value)
+        - [List of values](#list-of-values)
+        - [Complex Mighty Hash Mapping](#complex-mighty-hash-mapping)
+      - [ignoreKeywords (DEPRECATED)](#ignorekeywords-deprecated)
         - [Simple single keyword](#simple-single-keyword)
         - [List of keywords](#list-of-keywords)
-        - [Complex Mighty Hash Mapping](#complex-mighty-hash-mapping)
+        - [Complex Mighty Hash Mapping](#complex-mighty-hash-mapping-1)
       - [message](#message)
       - [Autofix support](#autofix-support)
 - [API](#api)
@@ -102,12 +106,24 @@ The config scheme looks as follows:
 ```js
 [
   // primary options
-  "string" || "/RegExp/" || ["string", "/RegExp/" /* ... */],
+  "string" || "/RegExp/[gimsuy]" || ["string", "/RegExp/[gimsuy]" /* ... */],
 
   // secondary options (optional)
   {
     ignoreVariables: true || false,
     ignoreFunctions: true || false,
+    ignoreValues: "string" || "/RegExp/[gimsuy]" ||
+      ["string", "/RegExp/[gimsuy]", /* ... */] ||
+      {
+        // match all
+        "": "string" || "/RegExp/[gimsuy]" || ["string", "/RegExp/[gimsuy]", /* ... */],
+
+        // match specific prop
+        "color": "string" || "/RegExp/[gimsuy]" || ["string", "/RegExp/[gimsuy]", /* ... */],
+
+        // match pattern prop
+        "/RegExp/[gimsuy]": "string" || "/RegExp/[gimsuy]" || ["string", "/RegExp/[gimsuy]", /* ... */],
+      },
     ignoreKeywords: "string" ||
       ["string", "string", /* ... */] ||
       {
@@ -116,6 +132,9 @@ The config scheme looks as follows:
 
         // match specific prop
         "color": "string" || ["string", /* ... */],
+
+        // match pattern prop
+        "/RegExp/[gimsuy]": "string" || ["string", /* ... */],
       },
     autoFixFunc: './auto-fix-func.js' || function() {},
     disableFix: true || false,
@@ -126,7 +145,7 @@ The config scheme looks as follows:
 
 ### Primary Options
 
-Primary options represent either a single property or a list of multiple properties to check. Technically it's either a `"string"` or an `[array]` of simple strings or `/RegExp/`.
+Primary options represent either a single property or a list of multiple properties to check. Technically it's either a `"string"` or an `[array]` of simple strings or `/RegExp/[gimsuy]`.
 
 #### Multiple Properties
 
@@ -356,9 +375,340 @@ a { color: $color-white; }
 a { color: namespace.$color-white; }
 ```
 
-#### ignoreKeywords
+#### ignoreValues
 
-This allows you to ignore several CSS keywords like `currentColor`, `inherit`, `transparent`, etc.
+This allows you to ignore any CSS value like:
+
+- keywords `currentColor`, `inherit`, `transparent`, etc.
+- units `0`, `10px`, `1em`, `100%`, etc.
+- colors `#fff`, `#FFFFFF`, `red`, etc.
+
+This configuration can either be a simple `"string"`, `number`, `"/RegExp/[gimsuy]"`, an `[array]` of `"strings"`, `numbers`, `"/RegExp/[gimsuy]"` or a complex hash of property/keyword mappings.
+
+##### Simple single value
+
+To ignore a single `value` for all properties simply use a `"string"` or `"/RegExp/[gimsuy]"`, like:
+
+```js
+// .stylelintrc
+"rules": {
+  // ...
+  "scale-unlimited/declaration-strict-value": ["/color/", {
+    ignoreValues: "currentColor",
+  }],
+  // ...
+}
+```
+
+The following patterns are considered **warnings:**
+
+```css
+a {
+  color: #FFF;
+  background-color: #FFF;
+  border-color: #FFF;
+}
+
+a {
+  color: inherit;
+  background-color: inherit;
+  border-color: inherit;
+}
+```
+
+The following patterns are **not** considered **warnings:**
+
+```css
+a {
+  color: currentColor;
+  background-color: currentColor;
+  border-color: currentColor;
+}
+```
+
+Or with a `"/RegExp/[gimsuy]"` for hex colors:
+
+```js
+// .stylelintrc
+"rules": {
+  // ...
+  "scale-unlimited/declaration-strict-value": ["/color/", {
+    ignoreValues: "/^#[0-9a-fA-F]{3,6}$/",
+  }],
+  // ...
+}
+```
+
+The following patterns are considered **warnings:**
+
+```css
+a {
+  color: currentColor;
+  background-color: currentColor;
+  border-color: currentColor;
+}
+
+a {
+  color: inherit;
+  background-color: inherit;
+  border-color: inherit;
+}
+```
+
+The following patterns are **not** considered **warnings:**
+
+```css
+a {
+  color: #fff;
+  background-color: #FFF;
+  border-color: #FFFFFF;
+}
+```
+
+Or with **multiple** properties:
+
+```js
+// .stylelintrc
+"rules": {
+  // ...
+  "scale-unlimited/declaration-strict-value": [
+    ["/color/", "fill", "stroke"], {
+    ignoreValues: "currentColor",
+  }],
+  // ...
+}
+```
+
+The following patterns are considered **warnings:**
+
+```css
+a {
+  color: #FFF;
+  background-color: #FFF;
+  border-color: #FFF;
+  fill: #FFF;
+  stroke: #FFF;
+}
+
+a {
+  color: inherit;
+  background-color: inherit;
+  border-color: inherit;
+  fill: inherit;
+  stroke: inherit;
+}
+```
+
+The following patterns are **not** considered **warnings:**
+
+```css
+a {
+  color: currentColor;
+  background-color: currentColor;
+  border-color: currentColor;
+  fill: currentColor;
+  stroke: currentColor;
+}
+```
+
+##### List of values
+
+To ignore a list of `values` for all properties simply use an `[array]`, like:
+
+```js
+// .stylelintrc
+"rules": {
+  // ...
+  "scale-unlimited/declaration-strict-value": ["/color/", {
+    ignoreValues: ["currentColor", "/^#[0-9a-fA-F]{3,6}$/", "inherit"],
+  }],
+  // ...
+}
+```
+
+The following patterns are considered **warnings:**
+
+```css
+a {
+  color: transparent;
+  background-color: transparent;
+  border-color: transparent;
+}
+```
+
+The following patterns are **not** considered **warnings:**
+
+```css
+a {
+  color: currentColor;
+  background-color: currentColor;
+  border-color: currentColor;
+}
+
+a {
+  color: #FFF;
+  background-color: #FFF;
+  border-color: #FFF;
+}
+
+a {
+  color: inherit;
+  background-color: inherit;
+  border-color: inherit;
+}
+```
+
+Or with **multiple** properties:
+
+```js
+// .stylelintrc
+"rules": {
+  // ...
+  "scale-unlimited/declaration-strict-value": [
+    ["/color/", "fill", "stroke"], {
+    ignoreValues: ["currentColor", "/^#[0-9a-fA-F]{3,6}$/", "inherit"],
+  }],
+  // ...
+}
+```
+
+The following patterns are considered **warnings:**
+
+```css
+a {
+  color: transparent;
+  background-color: transparent;
+  border-color: transparent;
+  fill: transparent;
+  stroke: transparent;
+}
+```
+
+The following patterns are **not** considered **warnings:**
+
+```css
+a {
+  color: currentColor;
+  background-color: currentColor;
+  border-color: currentColor;
+  fill: currentColor;
+  stroke: currentColor;
+}
+
+a {
+  color: #FFF;
+  background-color: #FFF;
+  border-color: #FFF;
+  fill: #FFF;
+  stroke: #FFF;
+}
+
+a {
+  color: inherit;
+  background-color: inherit;
+  border-color: inherit;
+  fill: inherit;
+  stroke: inherit;
+}
+```
+
+##### Complex Mighty Hash Mapping
+
+You may noticed that the above methods do count for all properties. In case you wish more sophisticated control `{hash}` based configs is the right choice for you.
+
+The basic principle works the same as above - you either have one value or a list of values. This time you can define them for each property separately, like:
+
+```js
+// .stylelintrc
+"rules": {
+  // ...
+  "scale-unlimited/declaration-strict-value": [
+    ["/color/", "fill", "stroke"], {
+    ignoreValues: {
+        "/color/": ["currentColor",  "/^#[0-9a-fA-F]{3,6}$/", "inherit"],
+        "fill": ["currentColor", "inherit"],
+        "stroke": "currentColor",
+        "z-index":  "/^\\d+$/",
+    },
+  }],
+  // ...
+}
+```
+
+The following patterns are considered **warnings:**
+
+```css
+a {
+  color: transparent;
+  background-color: transparent;
+  border-color: transparent;
+  fill: #FFF;
+  stroke: #FFF;
+  z-index: inherit;
+}
+
+a {
+  fill: transparent;
+  stroke: transparent;
+}
+
+a {
+  stroke: inherit;
+}
+```
+
+The following patterns are **not** considered **warnings:**
+
+```css
+a {
+  color: currentColor;
+  background-color: currentColor;
+  border-color: currentColor;
+  fill: currentColor;
+  stroke: currentColor;
+  z-index: 0;
+}
+
+a {
+  color: #FFF;
+  background-color: #FFF;
+  border-color: #FFF;
+  z-index: 1;
+}
+
+a {
+  color: inherit;
+  background-color: inherit;
+  border-color: inherit;
+  fill: inherit;
+  z-index: 1000;
+}
+```
+
+**Note** In case you still want to define a default list of allowed values, you can with the empty `""` string property name, like:
+
+```js
+// .stylelintrc
+"rules": {
+  // ...
+  "scale-unlimited/declaration-strict-value": [
+    ["/color/", "fill", "stroke"], {
+    ignoreValues: {
+        // default, for all
+        "": ["currentColor"],
+
+        // specific mapping
+        "/color/": ["currentColor", "transparent", "inherit"],
+        "fill": ["currentColor", "inherit"],
+    },
+  }],
+  // ...
+}
+```
+
+#### ignoreKeywords (DEPRECATED)
+
+**DEPRECATED:** This allows you to ignore several CSS keywords like `currentColor`, `inherit`, `transparent`, etc.
 **Note:** for convenience also non-standard-keywords like `0` can be specified.
 
 This configuration can either be a simple `"string"`, `number`, an `[array]` of `"strings"`, `numbers` or a complex hash of property/keyword mappings.

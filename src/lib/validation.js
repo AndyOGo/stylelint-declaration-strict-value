@@ -56,6 +56,10 @@ function validOptions(actual) {
     && !validProperties(actual.ignoreKeywords)
     && !validHash(actual.ignoreKeywords)) return false
 
+  if ('ignoreValues' in actual
+    && !validProperties(actual.ignoreValues)
+    && !validHash(actual.ignoreValues)) return false
+
   if ('message' in actual
     && typeof actual.message !== 'string'
     && actual.message !== null) return false
@@ -123,7 +127,12 @@ function expected(types, value, property, customMessage) {
  * @returns {Array} - Returns a list of configured types.
  */
 function getTypes(config, property) {
-  const { ignoreVariables, ignoreFunctions, ignoreKeywords } = config
+  const {
+    ignoreVariables,
+    ignoreFunctions,
+    ignoreKeywords,
+    ignoreValues,
+  } = config
   const types = []
 
   if (ignoreVariables) {
@@ -138,17 +147,21 @@ function getTypes(config, property) {
     types.push('keyword')
   }
 
+  if (ignoreValues && getIgnoredValues(ignoreValues, property)) {
+    types.push('keyword')
+  }
+
   return types
 }
 
 /**
- * Get the correct ignored keywords for an specific CSS declaration's property
- * out of a complex ignoreKeywords config hash or array.
+ * Get the correct ignored keywords for a specific CSS declaration's property
+ * out of a complex `ignoreKeywords` config hash or array.
  *
  * @param {null|object|Array|string} ignoreKeywords - The keyword/-s to ignore.
  * @param {string} property - The specific CSS declaration's property of the current iteration.
  *
- * @returns {Array} - Returns the matching `ignoreKeywords` rules for a specific CSS property.
+ * @returns {Array} - Returns ignored keywords for a specific CSS property.
  */
 function getIgnoredKeywords(ignoreKeywords, property) {
   if (!ignoreKeywords) return null
@@ -162,6 +175,28 @@ function getIgnoredKeywords(ignoreKeywords, property) {
   }
 
   return Array.isArray(keywords) ? keywords : [keywords]
+}
+
+/**
+ * Get the correct ignored values for a specific CSS declaration's property
+ * out of a complex `ignoreValues` config hash or array.
+ *
+ * @param {null|string|RegExp|object|Array} ignoreValues - The values/-s to ignore.
+ * @param {string} property - The specific CSS declaration's property of the current iteration.
+ * @returns {Array} - Returns ignored values for a specific CSS property.
+ */
+function getIgnoredValues(ignoreValues, property) {
+  if (!ignoreValues) return null
+
+  let values = ignoreValues
+
+  if ({}.hasOwnProperty.call(values, property)) {
+    values = values[property]
+  } else if ({}.hasOwnProperty.call(values, '')) {
+    values = values['']
+  }
+
+  return Array.isArray(values) ? values : [values]
 }
 
 /**
@@ -200,5 +235,6 @@ export {
   expected,
   getTypes,
   getIgnoredKeywords,
+  getIgnoredValues,
   getAutoFixFunc,
 }
