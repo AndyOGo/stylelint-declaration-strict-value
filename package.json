@@ -8,7 +8,8 @@
   "unpkg": "dist/index.umd.js",
   "scripts": {
     "build": "microbundle",
-    "prepublish": "npm run build",
+    "release": "semantic-release",
+    "prerelease": "npm run build",
     "test": "node -r esm test",
     "eslint": "eslint 'src/**/*.js' 'test/**/*.js'",
     "docs": "documentation build src/index.js -f md -o API.md",
@@ -42,6 +43,10 @@
     "stylelint": ">=7 <=13"
   },
   "devDependencies": {
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4",
+    "@semantic-release/changelog": "^5.0.1",
+    "@semantic-release/git": "^9.0.0",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-eslint": "^10.0.3",
@@ -57,7 +62,10 @@
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jsdoc": "^24.0.0",
     "esm": "^3.2.25",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.1.7",
     "microbundle": "^0.11.0",
+    "semantic-release": "^17.0.7",
     "stylelint": "^13.0.0",
     "stylelint-test-rule-tape": "^0.2.0"
   }
