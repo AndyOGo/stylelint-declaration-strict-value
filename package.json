@@ -8,7 +8,7 @@
   "unpkg": "dist/index.umd.js",
   "scripts": {
     "build": "microbundle",
-    "release": "semantic-release",
+    "release": "dotenv-cli semantic-release",
     "prerelease": "npm run build",
     "test": "node -r esm test",
     "eslint": "eslint 'src/**/*.js' 'test/**/*.js'",
