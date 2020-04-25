@@ -24,9 +24,9 @@ const messages = utils.ruleMessages(ruleName, {
  */
 const reSkipProp = /^(?:@|\$|--).+$/
 /**
- * RegExp to parse CSS, SCSS and less variables
- * - allowing CSS variables to be multi line.
- * - Sass namespaces and CSS <ident-token> supported.
+ * RegExp to parse CSS, SCSS and less variables.
+ * - allowing CSS variables to be multi line
+ * - Sass namespaces and CSS <ident-token> supported
  *
  * @see https://github.com/sass/sass/blob/master/accepted/module-system.md#member-references
  * @see  https://drafts.csswg.org/css-syntax-3/#ident-token-diagram
@@ -38,12 +38,20 @@ const reVar = /^-?(?:@.+|(?:(?:[a-zA-Z_-]|[^\x00-\x7F])+(?:[a-zA-Z0-9_-]|[^\x00-
 /**
  * RegExp to parse functions.
  * - irgnoring CSS variables `var(--*)`
- * - allow multi line arguments.
+ * - allow multi line arguments
  *
  * @constant  {RegExp}
  * @default
  */
 const reFunc = /^(?!var\(\s*--)[\s\S]+\([\s\S]*\)$/
+/**
+ * RegExp to parse regular expressions.
+ * - supporting patterns
+ * - and optional flags
+ *
+ * @constant  {RegExp}
+ * @default
+ */
 const reRegex = /^\/(.*)\/([a-zA-Z]*)$/
 const isRegexString = (value) => reRegex.test(value)
 const getRegexString = (value) => value.match(reRegex).slice(1)
