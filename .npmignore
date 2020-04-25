@@ -4,12 +4,13 @@ test/
 .idea
 .vscode
 
+.babelrc
 .editorconfig
 .env
 .eslintrc.json
 .huskyrc
 .releaserc
-.tryvis.yml
+.travis.yml
 API.md
-commitlint.config.json
+commitlint.config.js
 lint-staged.config.js
