@@ -1,2 +1,15 @@
 src/
 test/
+
+.idea
+.vscode
+
+.editorconfig
+.env
+.eslintrc.json
+.huskyrc
+.releaserc
+.tryvis.yml
+API.md
+commitlint.config.json
+lint-staged.config.js
