@@ -1,3 +1,10 @@
+## [1.3.3](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.3.2...v1.3.3) (2020-04-25)
+
+
+### Bug Fixes
+
+* dev stuff published on npm ([1725fac](https://github.com/AndyOGo/stylelint-declaration-strict-value/commit/1725fac356a41b178baf1d9548ccae33dac7ca46))
+
 ## [1.3.2](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.3.1...v1.3.2) (2020-04-25)
 
 
