@@ -16,7 +16,7 @@
         - [Simple single value](#simple-single-value)
         - [List of values](#list-of-values)
         - [Complex Mighty Hash Mapping](#complex-mighty-hash-mapping)
-      - [ignoreKeywords](#ignorekeywords)
+      - [ignoreKeywords (DEPRECATED)](#ignorekeywords-deprecated)
         - [Simple single keyword](#simple-single-keyword)
         - [List of keywords](#list-of-keywords)
         - [Complex Mighty Hash Mapping](#complex-mighty-hash-mapping-1)
@@ -706,7 +706,7 @@ a {
 }
 ```
 
-#### ignoreKeywords
+#### ignoreKeywords (DEPRECATED)
 
 **DEPRECATED:** This allows you to ignore several CSS keywords like `currentColor`, `inherit`, `transparent`, etc.
 **Note:** for convenience also non-standard-keywords like `0` can be specified.
