@@ -44,10 +44,11 @@ const reVar = /^-?(?:@.+|(?:(?:[a-zA-Z_-]|[^\x00-\x7F])+(?:[a-zA-Z0-9_-]|[^\x00-
  * @default
  */
 const reFunc = /^(?!var\(\s*--)[\s\S]+\([\s\S]*\)$/
-const isRegexString = (value) => value.charAt(0) === '/' && value.slice(-1) === '/'
-const getRegexString = (value) => value.slice(1, -1)
-const stringToRegex = (value) => new RegExp(getRegexString(value))
-const mapIgnoreValue = (ignoreValue) => (isRegexString(ignoreValue) ? getRegexString(ignoreValue) : `^${ignoreValue}$`)
+const reRegex = /^\/(.*)\/([a-zA-Z]*)$/
+const isRegexString = (value) => reRegex.test(value)
+const getRegexString = (value) => value.match(reRegex).slice(1)
+const stringToRegex = (value) => new RegExp(...getRegexString(value))
+const mapIgnoreValue = (ignoreValue) => (isRegexString(ignoreValue) ? stringToRegex(ignoreValue) : new RegExp(`^${ignoreValue}$`))
 
 /**
  * A rule function essentially returns a little PostCSS plugin.
@@ -163,19 +164,19 @@ const ruleFunction = (properties, options, context = {}) => (root, result) => {
       }
 
       if (ignoreValues && (!validVar || !validFunc || !validKeyword)) {
-        let reValue = reValues[property]
+        let reValueList = reValues[property]
 
-        if (!reValue) {
-          const ignoreKeyword = getIgnoredValues(ignoreValues, property)
+        if (!reValueList) {
+          const ignoreValue = getIgnoredValues(ignoreValues, property)
 
-          if (ignoreKeyword) {
-            reValue = new RegExp(ignoreValues.map(mapIgnoreValue).join('|'))
-            reValues[property] = reValue
+          if (ignoreValue) {
+            reValueList = ignoreValue.map(mapIgnoreValue)
+            reValues[property] = reValueList
           }
         }
 
-        if (reValue) {
-          validValue = reValue.test(value)
+        if (reValueList) {
+          validValue = reValueList.filter((reValue) => reValue.test(value)).length > 0
         }
       }
 
