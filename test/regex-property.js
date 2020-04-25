@@ -127,4 +127,3 @@ testRule(rule, {
     },
   ],
 })
-
