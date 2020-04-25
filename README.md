@@ -708,7 +708,7 @@ a {
 
 #### ignoreKeywords
 
-This allows you to ignore several CSS keywords like `currentColor`, `inherit`, `transparent`, etc.
+**DEPRECATED:** This allows you to ignore several CSS keywords like `currentColor`, `inherit`, `transparent`, etc.
 **Note:** for convenience also non-standard-keywords like `0` can be specified.
 
 This configuration can either be a simple `"string"`, `number`, an `[array]` of `"strings"`, `numbers` or a complex hash of property/keyword mappings.

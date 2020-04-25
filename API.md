@@ -216,7 +216,7 @@ Type: [SecondaryOptions][41]
 
 -   `ignoreVariables` **[boolean][43]?** Ignore variables by default.
 -   `ignoreFunctions` **[boolean][43]?** Ignore function by default.
--   `ignoreKeywords` **null?** Forbid keywords by default.
+-   `ignoreKeywords` **null?** **DEPRECATED:** Forbid keywords by default.
 -   `ignoreValues` **null?** Forbid values by default.
 -   `severity` **[string][33]?** This rule's default severity is `'error'`.
 -   `message` **null?** Use default message.
@@ -233,7 +233,7 @@ Type: [object][38]
 
 -   `ignoreVariables` **[boolean][43]?** Wheter or not to ignore variables.
 -   `ignoreFunctions` **[boolean][43]?** Wheter or not to ignore function.
--   `ignoreKeywords` **(null | [number][44] \| [string][33] \| [Array][40] \| [object][38])?** A ignored keywords config.
+-   `ignoreKeywords` **(null | [number][44] \| [string][33] \| [Array][40] \| [object][38])?** **DEPRECATED:** A ignored keywords config.
 -   `severity` **[string][33]?** Adjust severity of the rule, `'warning'` or `'error'` (default).
 -   `message` **(null | [string][33])?** A custom message when a rule is violated, interpolated with `${types}`, `${value}` and `${property}`.
 -   `disableFix` **[boolean][43]?** Don't auto-fix if `--fix` option is applied.
