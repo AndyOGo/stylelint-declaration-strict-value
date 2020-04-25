@@ -102,7 +102,7 @@ The config scheme looks as follows:
 ```js
 [
   // primary options
-  "string" || "/RegExp/" || ["string", "/RegExp/" /* ... */],
+  "string" || "/RegExp/[gimsuy]" || ["string", "/RegExp/[gimsuy]" /* ... */],
 
   // secondary options (optional)
   {
@@ -126,7 +126,7 @@ The config scheme looks as follows:
 
 ### Primary Options
 
-Primary options represent either a single property or a list of multiple properties to check. Technically it's either a `"string"` or an `[array]` of simple strings or `/RegExp/`.
+Primary options represent either a single property or a list of multiple properties to check. Technically it's either a `"string"` or an `[array]` of simple strings or `/RegExp/[gimsuy]`.
 
 #### Multiple Properties
 
