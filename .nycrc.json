@@ -1,6 +1,6 @@
 {
   "require": [
-    "esm"
+    "babel-register"
   ],
   "all": true,
   "exclude": ["node_modules", "**/coverage/**", "commitlint.config.js", "test", "lint-staged.config.js"],
