@@ -10,19 +10,19 @@ testRule(rule, {
   skipBasicChecks: true,
 
   config: ['color', {
-    message: 'Custom expected ${types} for "${value}" of "${property}"', // eslint-disable-line no-template-curly-in-string
+    severity: 'warning',
   }],
 
   reject: [
     {
       code: '.foo { color: #fff; }',
-      message: `Custom expected variable or function for "#fff" of "color" (${ruleName})`,
+      message: `Expected variable or function for "#fff" of "color" (${ruleName})`,
       line: 1,
       column: 8,
     },
     {
       code: '.foo { color: red; }',
-      message: `Custom expected variable or function for "red" of "color" (${ruleName})`,
+      message: `Expected variable or function for "red" of "color" (${ruleName})`,
       line: 1,
       column: 8,
     },
@@ -34,13 +34,13 @@ testRule(rule, {
   skipBasicChecks: true,
 
   config: ['color', {
-    message: 1234,
+    severity: 1234,
   }],
 
   reject: [
     {
       code: '.foo { color: red; }',
-      message: `Invalid option "{"message":1234}" for rule ${ruleName}`,
+      message: `Invalid option "{"severity":1234}" for rule ${ruleName}`,
     },
   ],
 })

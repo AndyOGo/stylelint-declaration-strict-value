@@ -9,11 +9,12 @@ testRule(rule, {
   ruleName,
   skipBasicChecks: true,
 
-  config: [['/color$/', 'fill', 'z-index'], {
+  config: [['/color$/', 'fill', 'z-index', 'display'], {
     ignoreKeywords: {
       '/color$/': ['transparent', 'currentColor'],
       'fill': 'inherit',
       'z-index': 0,
+      '': 'initial',
     },
   }],
 
@@ -26,6 +27,7 @@ testRule(rule, {
     { code: '.foo { border-color: currentColor; }' },
     { code: '.foo { fill: inherit; }' },
     { code: '.foo { z-index: 0; }' },
+    { code: '.foo { display: initial; }' },
   ],
 
   reject: [
@@ -44,6 +46,12 @@ testRule(rule, {
     {
       code: '.foo { z-index: 1; }',
       message: `Expected variable, function or keyword for "1" of "z-index" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
+    {
+      code: '.foo { display: block; }',
+      message: `Expected variable, function or keyword for "block" of "display" (${ruleName})`,
       line: 1,
       column: 8,
     },
