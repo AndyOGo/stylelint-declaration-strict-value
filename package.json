@@ -11,7 +11,8 @@
     "release": "dotenv semantic-release",
     "prepack": "npm run build",
     "test": "node -r esm test",
-    "coverage": "nyc node test",
+    "coverage": "nyc --reporter lcov --reporter text node test",
+    "postcoverage": "codecov",
     "eslint": "eslint 'src/**/*.js' 'test/**/*.js'",
     "docs": "documentation build src/index.js -f md -o API.md",
     "toc": "doctoc README.md --title '**Table of Contents**'"
