@@ -17,6 +17,7 @@ testRule(rule, {
     { code: '.foo { color: transparent; }' },
     { code: '.foo { color: $color; }' },
     { code: '.foo { color: spacing(); }' },
+    { code: '.foo { color: transparent; } .bar { color: transparent; }' },
   ],
 
   reject: [
@@ -25,6 +26,12 @@ testRule(rule, {
       message: `Expected variable, function or keyword for "inherit" of "color" (${ruleName})`,
       line: 1,
       column: 8,
+    },
+    {
+      code: '.foo { color: transparent; } .bar { color: transparent; } .baz { color: inherit; }',
+      message: `Expected variable, function or keyword for "inherit" of "color" (${ruleName})`,
+      line: 1,
+      column: 66,
     },
   ],
 })
