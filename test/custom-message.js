@@ -28,3 +28,19 @@ testRule(rule, {
     },
   ],
 })
+
+testRule(rule, {
+  ruleName,
+  skipBasicChecks: true,
+
+  config: ['color', {
+    message: 1234,
+  }],
+
+  reject: [
+    {
+      code: '.foo { color: red; }',
+      message: `Invalid option "{"message":1234}" for rule ${ruleName}`,
+    },
+  ],
+})
