@@ -100,3 +100,35 @@ testRule(ruleWithContext({
     },
   ],
 })
+
+testRule(rule, {
+  ruleName,
+  skipBasicChecks: true,
+
+  config: ['color', {
+    autoFixFunc: true,
+  }],
+
+  reject: [
+    {
+      code: '.foo { color: red; }',
+      message: `Invalid option "{"autoFixFunc":true}" for rule ${ruleName}`,
+    },
+  ],
+})
+
+testRule(rule, {
+  ruleName,
+  skipBasicChecks: true,
+
+  config: ['color', {
+    disableFix: 1234,
+  }],
+
+  reject: [
+    {
+      code: '.foo { color: red; }',
+      message: `Invalid option "{"disableFix":1234}" for rule ${ruleName}`,
+    },
+  ],
+})
