@@ -26,3 +26,19 @@ testRule(rule, {
     },
   ],
 })
+
+testRule(rule, {
+  ruleName,
+  skipBasicChecks: true,
+
+  config: ['color', {
+    ignoreKeywords: true,
+  }],
+
+  reject: [
+    {
+      code: '.foo { color: red; }',
+      message: `Invalid option "{"ignoreKeywords":true}" for rule ${ruleName}`,
+    },
+  ],
+})
