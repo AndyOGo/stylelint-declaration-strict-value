@@ -15,6 +15,8 @@ testRule(rule, {
 
   accept: [
     { code: '.foo { color: transparent; }' },
+    { code: '.foo { color: $color; }' },
+    { code: '.foo { color: spacing(); }' },
   ],
 
   reject: [

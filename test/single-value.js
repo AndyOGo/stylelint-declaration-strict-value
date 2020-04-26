@@ -67,6 +67,8 @@ testRule(rule, {
     { code: '.foo { color: RED; }' },
     { code: '.foo { color: rED; }' },
     { code: '.foo { color: reD; }' },
+    { code: '.foo { color: $color; }' },
+    { code: '.foo { color: spacing(); }' },
   ],
 
   reject: [
