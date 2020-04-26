@@ -1,0 +1,14 @@
+{
+  "require": [
+    "babel-register"
+  ],
+  "all": true,
+  "exclude": ["node_modules", "**/coverage/**", "commitlint.config.js", "test", "lint-staged.config.js"],
+  "include": ["src/**/*"],
+  "check-coverage": true,
+  "per-file": true,
+  "branches": 85,
+  "lines": 85,
+  "functions": 85,
+  "statements": 85
+}

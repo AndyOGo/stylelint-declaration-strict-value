@@ -8,5 +8,6 @@ install:
 before_script:
   - npm run eslint
   - npm run test
+  - npm run coverage
 script:
   - npm run build

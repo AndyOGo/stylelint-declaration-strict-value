@@ -67,6 +67,9 @@ testRule(rule, {
     { code: '.foo { color: RED; }' },
     { code: '.foo { color: rED; }' },
     { code: '.foo { color: reD; }' },
+    { code: '.foo { color: $color; }' },
+    { code: '.foo { color: spacing(); }' },
+    { code: '.foo { color: red; } .bar { color: RED; }' },
   ],
 
   reject: [
@@ -75,6 +78,28 @@ testRule(rule, {
       message: `Expected variable, function or keyword for "inherit" of "color" (${ruleName})`,
       line: 1,
       column: 8,
+    },
+    {
+      code: '.foo { color: red; } .bar { color: RED; } .baz { color: inherit; }',
+      message: `Expected variable, function or keyword for "inherit" of "color" (${ruleName})`,
+      line: 1,
+      column: 50,
+    },
+  ],
+})
+
+testRule(rule, {
+  ruleName,
+  skipBasicChecks: true,
+
+  config: ['color', {
+    ignoreValues: true,
+  }],
+
+  reject: [
+    {
+      code: '.foo { color: red; }',
+      message: `Invalid option "{"ignoreValues":true}" for rule ${ruleName}`,
     },
   ],
 })
