@@ -1,36 +1,39 @@
 import testRule from 'stylelint-test-rule-tape'
 
 import declarationStrictValue, { ruleName } from '../src'
+import autoFixFunc from './helpers/auto-fix-func'
 
 const { rule } = declarationStrictValue
 
-// eslint-disable-next-line consistent-return, no-unused-vars
-function autoFixFunc(node, validation, root, config) {
-  const { value, prop } = node
-
-  if (prop === 'color') {
-    // eslint-disable-next-line default-case
-    switch (value) {
-      case '#fff':
-        // auto-fix by returned value
-        return '$color-white'
-
-      case 'red':
-        // auto-fix by PostCSS AST tranformation
-        // eslint-disable-next-line no-param-reassign
-        node.value = '$color-red'
-    }
-  }
-}
+const ruleWithContext = (context) => (properties, options) => rule(properties, options, context)
 
 // autofix by function property
-testRule(rule, {
+testRule(ruleWithContext({
+  fix: true,
+}), {
   ruleName,
   skipBasicChecks: true,
-  fix: true,
 
   config: ['color', {
     autoFixFunc,
+  }],
+
+  accept: [
+    { code: '.foo { color: #fff; }' },
+    { code: '.foo { color: red; }' },
+  ],
+})
+
+// autofix by function property disabled
+testRule(ruleWithContext({
+  fix: true,
+}), {
+  ruleName,
+  skipBasicChecks: true,
+
+  config: ['color', {
+    autoFixFunc,
+    disableFix: true,
   }],
 
   reject: [
@@ -52,13 +55,32 @@ testRule(rule, {
 })
 
 // autofix by file exporting function
-testRule(rule, {
+testRule(ruleWithContext({
+  fix: true,
+}), {
   ruleName,
   skipBasicChecks: true,
-  fix: true,
 
   config: ['color', {
     autoFixFunc: './test/helpers/auto-fix-func.js',
+  }],
+
+  accept: [
+    { code: '.foo { color: #fff; }' },
+    { code: '.foo { color: red; }' },
+  ],
+})
+
+// autofix by file exporting function disabled
+testRule(ruleWithContext({
+  fix: true,
+}), {
+  ruleName,
+  skipBasicChecks: true,
+
+  config: ['color', {
+    autoFixFunc: './test/helpers/auto-fix-func.js',
+    disableFix: true,
   }],
 
   reject: [
