@@ -11,7 +11,7 @@
     "release": "dotenv semantic-release",
     "prepack": "npm run build",
     "test": "node -r esm test",
-    "coverage": "nyc tape test",
+    "coverage": "nyc node test",
     "eslint": "eslint 'src/**/*.js' 'test/**/*.js'",
     "docs": "documentation build src/index.js -f md -o API.md",
     "toc": "doctoc README.md --title '**Table of Contents**'"
@@ -63,7 +63,7 @@
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jsdoc": "^24.0.0",
-    "esm": "^3.2.25",
+    "esm": "3.2.20",
     "husky": "^4.2.5",
     "lint-staged": "^10.1.7",
     "microbundle": "^0.11.0",
