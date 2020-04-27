@@ -1,4 +1,5 @@
 import stylelint from 'stylelint'
+import shortCSS from 'shortcss'
 
 import {
   validProperties, validOptions, expected, getTypes, getIgnoredKeywords, getIgnoredValues, getAutoFixFunc,
@@ -106,7 +107,7 @@ const ruleFunction = (properties, options, context = {}) => (root, result) => {
     ...options,
   }
   const {
-    ignoreVariables, ignoreFunctions, ignoreKeywords, ignoreValues, message, disableFix, autoFixFunc,
+    ignoreVariables, ignoreFunctions, ignoreKeywords, ignoreValues, message, disableFix, autoFixFunc, expandShorthand, recurseLonghand,
   } = config
   const autoFixFuncNormalized = getAutoFixFunc(autoFixFunc)
   const reKeywords = ignoreKeywords ? {} : null
@@ -122,7 +123,36 @@ const ruleFunction = (properties, options, context = {}) => (root, result) => {
     }
 
     // walk through all declarations filtered by configured properties
-    root.walkDecls(propFilter, lintDeclStrictValue)
+    root.walkDecls(filterDesls)
+
+    /**
+     * Filter declarations for matching properties and expand shorthand properties.
+     *
+     * @callback
+     * @param {object} node - A Declaration-Node from PostCSS AST-Parser.
+     */
+    function filterDesls(node) {
+      const { value: originalValue, prop: originalProp } = node
+
+      // skip variable declarations
+      if (reSkipProp.test(originalProp)) return
+
+      if (originalProp === propFilter || (propFilter instanceof RegExp && propFilter.test(originalProp))) {
+        lintDeclStrictValue(node)
+      } else if (expandShorthand && shortCSS.isShorthand(originalProp)) {
+        const expandedProps = shortCSS.expand(originalProp, originalValue, recurseLonghand)
+
+        Object.keys(expandedProps).forEach((prop) => {
+          const value = expandedProps[prop]
+
+          if (prop === propFilter || (propFilter instanceof RegExp && propFilter.test(prop))) {
+            const { raws } = node
+
+            lintDeclStrictValue(node.clone({ value, prop, raws }))
+          }
+        })
+      }
+    }
 
     /**
      * Lint usages of declarations values againts, variables, functions
@@ -133,9 +163,6 @@ const ruleFunction = (properties, options, context = {}) => (root, result) => {
      */
     function lintDeclStrictValue(node) {
       const { value, prop } = node
-
-      // skip variable declarations
-      if (reSkipProp.test(prop)) return
 
       // falsify everything by default
       let validVar = false
