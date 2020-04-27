@@ -1011,9 +1011,9 @@ This feature is baked by [`shortcss`](https://www.npmjs.com/package/shortcss), a
 
 If `true` and if no exact property match is found, shorthand CSS properties will be expanded and checked againtst your primary options.
 
-Let's you want to check `border-color`.
+Let's say you want to check `border-color`.
 
-You can either configure a direct longhand CSS property match.
+You can either configure a direct longhand CSS property to match.
 
 ```js
 // .stylelintrc
