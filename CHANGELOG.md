@@ -1,3 +1,16 @@
+# [1.4.0](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.3.6...v1.4.0) (2020-04-27)
+
+
+### Bug Fixes
+
+* shorthand config was not validated ([eb34f80](https://github.com/AndyOGo/stylelint-declaration-strict-value/commit/eb34f80d3952045a51ef20252d343268177a6c50))
+* typo ([34444f0](https://github.com/AndyOGo/stylelint-declaration-strict-value/commit/34444f0c57490aef41133c0d47092984f36a29a5))
+
+
+### Features
+
+* added shorthand support ([3cfd8af](https://github.com/AndyOGo/stylelint-declaration-strict-value/commit/3cfd8afad351d11ff77a9f7242cdb5cd44beef02))
+
 ## [1.3.6](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.3.5...v1.3.6) (2020-04-26)
 
 ## [1.3.5](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.3.4...v1.3.5) (2020-04-25)
