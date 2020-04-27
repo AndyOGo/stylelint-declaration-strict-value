@@ -11,7 +11,7 @@
     -   [Parameters][7]
 -   [PostCSSPlugin][8]
     -   [Parameters][9]
--   [filterDesls][10]
+-   [filterDecl][10]
     -   [Parameters][11]
 -   [lintDeclStrictValue][12]
     -   [Parameters][13]
@@ -109,7 +109,7 @@ Type: [Function][44]
 -   `root` **[object][45]** PostCSS root (the parsed AST).
 -   `result` **[object][45]** PostCSS lazy result.
 
-## filterDesls
+## filterDecl
 
 Filter declarations for matching properties and expand shorthand properties.
 
@@ -284,7 +284,7 @@ Type: [object][45]
 
 [9]: #parameters-1
 
-[10]: #filterdesls
+[10]: #filterdecl
 
 [11]: #parameters-2
 
