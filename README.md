@@ -30,6 +30,9 @@ A [stylelint](https://github.com/stylelint/stylelint) plugin that enforces eithe
         - [Simple single keyword](#simple-single-keyword)
         - [List of keywords](#list-of-keywords)
         - [Complex Mighty Hash Mapping](#complex-mighty-hash-mapping-1)
+      - [CSS shorthand Syntax](#css-shorthand-syntax)
+        - [expandShorthand](#expandshorthand)
+        - [recurseLonghand](#recurselonghand)
       - [message](#message)
       - [Autofix support](#autofix-support)
 - [API](#api)
@@ -140,6 +143,8 @@ The config scheme looks as follows:
         // match pattern prop
         "/RegExp/[gimsuy]": "string" || ["string", /* ... */],
       },
+    expandShorthand: true || false,
+    recurseLonghand: true || false,
     autoFixFunc: './auto-fix-func.js' || function() {},
     disableFix: true || false,
     message: "Custom expected ${types} for \"${value}\" of \"${property}\"",
@@ -996,6 +1001,155 @@ a {
   // ...
 }
 ```
+
+#### CSS shorthand Syntax
+
+CSS shorthand Syntax support is enabled by default.
+This feature is baked by [`shortcss`](https://www.npmjs.com/package/shortcss), a list of support shorthand properties can be found at [`css-shorthand-properties`](https://github.com/gilmoreorless/css-shorthand-properties).
+
+##### expandShorthand
+
+If `true` and if no exact property match is found, shorthand CSS properties will be expanded and checked againtst your primary options.
+
+Let's say you want to check `border-color`.
+
+You can either configure a direct longhand CSS property to match.
+
+```js
+// .stylelintrc
+{
+  "plugins": [
+    "stylelint-declaration-strict-value"
+  ],
+  "rules": {
+    // ...
+    "scale-unlimited/declaration-strict-value": "border-color",
+    // ...
+  }
+}
+```
+
+The following patterns are considered **warnings:**
+
+```css
+a { border: 1px solid #FFF; }
+
+a { border: 1px solid inherit; }
+
+a { border: 1px solid currentColor; }
+```
+
+The following patterns are **not** considered **warnings:**
+
+```css
+a { border: 1px solid var(--color-white); }
+
+a { border: 1px solid -var(--color-white); }
+
+a { border: 1px solid color(red alpha(-10%)); }
+```
+
+```less
+a { border: 1px solid @color-white; }
+
+a { border: 1px solid -@color-white; }
+
+a { border: 1px solid darken(#fff, 10%); }
+```
+
+```scss
+a { border: 1px solid $color-white; }
+
+a { border: 1px solid namespace.$color-white; }
+
+a { border: 1px solid -$color-white; }
+
+a { border: 1px solid darken(#fff, 10%); }
+```
+
+Or a simple regex for `/color/`.
+
+```js
+// .stylelintrc
+{
+  "plugins": [
+    "stylelint-declaration-strict-value"
+  ],
+  "rules": {
+    // ...
+    "scale-unlimited/declaration-strict-value": "/color/",
+    // ...
+  }
+}
+```
+
+The following patterns are considered **warnings:**
+
+```css
+a { border: 1px solid #FFF; }
+
+a { border: 1px solid inherit; }
+
+a { border: 1px solid currentColor; }
+
+a { color: #FFF; }
+
+a { color: inherit; }
+
+a { color: currentColor; }
+```
+
+The following patterns are **not** considered **warnings:**
+
+```css
+a { border: 1px solid var(--color-white); }
+
+a { border: 1px solid -var(--color-white); }
+
+a { border: 1px solid color(red alpha(-10%)); }
+
+a { color: var(--color-white); }
+
+a { color: -var(--color-white); }
+
+a { color: color(red alpha(-10%)); }
+```
+
+```less
+a { border: 1px solid @color-white; }
+
+a { border: 1px solid -@color-white; }
+
+a { border: 1px solid darken(#fff, 10%); }
+
+a { color: @color-white; }
+
+a { color: -@color-white; }
+
+a { color: darken(#fff, 10%); }
+```
+
+```scss
+a { border: 1px solid $color-white; }
+
+a { border: 1px solid namespace.$color-white; }
+
+a { border: 1px solid -$color-white; }
+
+a { border: 1px solid darken(#fff, 10%); }
+
+a { color: $color-white; }
+
+a { color: namespace.$color-white; }
+
+a { color: -$color-white; }
+
+a { color: darken(#fff, 10%); }
+```
+
+##### recurseLonghand
+
+If `true`, each longhand property will also be expanded. This is only useful for the `border` property.
 
 #### message
 

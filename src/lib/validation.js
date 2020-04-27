@@ -60,6 +60,14 @@ function validOptions(actual) {
     && !validProperties(actual.ignoreValues)
     && !validHash(actual.ignoreValues)) return false
 
+  if ('expandShorthand' in actual
+    && typeof actual.expandShorthand !== 'boolean'
+    && actual.expandShorthand !== null) return false
+
+  if ('recurseLonghand' in actual
+    && typeof actual.recurseLonghand !== 'boolean'
+    && actual.recurseLonghand !== null) return false
+
   if ('message' in actual
     && typeof actual.message !== 'string'
     && actual.message !== null) return false
