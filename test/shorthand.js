@@ -9,7 +9,7 @@ testRule(rule, {
   ruleName,
   skipBasicChecks: true,
 
-  config: [['/color/']],
+  config: ['/color/'],
 
   accept: [
     { code: '.foo { boder: 1px solid $bar; }' },
@@ -145,6 +145,120 @@ testRule(rule, {
       message: `Expected variable or function for "red" of "background-color" (${ruleName})`,
       line: 1,
       column: 8,
+    },
+  ],
+})
+
+testRule(rule, {
+  ruleName,
+  skipBasicChecks: true,
+
+  config: ['/color/', {
+    ignoreVariables: false,
+    ignoreKeywords: 'transparent',
+  }],
+
+  accept: [
+    { code: '.foo { boder: 1px solid transparent; }' },
+    { code: '.foo { background: transparent; }' },
+  ],
+
+  reject: [
+    {
+      code: '.foo { border: 1px solid $bar; }',
+      message: `Expected function or keyword for "$bar" of "border-color" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
+    {
+      code: '.foo { border: 1px solid namespace.$bar; }',
+      message: `Expected function or keyword for "namespace.$bar" of "border-color" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
+    {
+      code: '.foo { border: 1px solid @bar; }',
+      message: `Expected function or keyword for "@bar" of "border-color" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
+    {
+      code: '.foo { border: 1px solid var(--bar); }',
+      message: `Expected function or keyword for "var(--bar)" of "border-color" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
+    {
+      code: '.foo { background: $bar; }',
+      message: `Expected function or keyword for "$bar" of "background-color" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
+    {
+      code: '.foo { background: namespace.$bar; }',
+      message: `Expected function or keyword for "namespace.$bar" of "background-color" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
+    {
+      code: '.foo { background: @bar; }',
+      message: `Expected function or keyword for "@bar" of "background-color" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
+    {
+      code: '.foo { background: var(--bar); }',
+      message: `Expected function or keyword for "var(--bar)" of "background-color" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
+  ],
+})
+
+testRule(rule, {
+  ruleName,
+  skipBasicChecks: true,
+
+  config: ['/color/', {
+    expandShorthand: false,
+  }],
+
+  accept: [
+    { code: '.foo { boder: 1px solid #fff; }' },
+    { code: '.foo { border: 1px solid red; }' },
+    { code: '.foo { background: #fff; }' },
+    { code: '.foo { background: red; }' },
+  ],
+})
+
+testRule(rule, {
+  ruleName,
+  skipBasicChecks: true,
+
+  config: ['/color/', {
+    expandShorthand: 'foo',
+  }],
+
+  reject: [
+    {
+      code: '.foo { boder: red; }',
+      message: `Invalid option "{"expandShorthand":"foo"}" for rule ${ruleName}`,
+    },
+  ],
+})
+
+testRule(rule, {
+  ruleName,
+  skipBasicChecks: true,
+
+  config: ['/color/', {
+    recurseLonghand: 'foo',
+  }],
+
+  reject: [
+    {
+      code: '.foo { boder: red; }',
+      message: `Invalid option "{"recurseLonghand":"foo"}" for rule ${ruleName}`,
     },
   ],
 })
