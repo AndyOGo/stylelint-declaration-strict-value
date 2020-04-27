@@ -123,7 +123,7 @@ const ruleFunction = (properties, options, context = {}) => (root, result) => {
     }
 
     // walk through all declarations filtered by configured properties
-    root.walkDecls(filterDesls)
+    root.walkDecls(filterDecl)
 
     /**
      * Filter declarations for matching properties and expand shorthand properties.
@@ -131,7 +131,7 @@ const ruleFunction = (properties, options, context = {}) => (root, result) => {
      * @callback
      * @param {object} node - A Declaration-Node from PostCSS AST-Parser.
      */
-    function filterDesls(node) {
+    function filterDecl(node) {
       const { value: originalValue, prop: originalProp } = node
 
       // skip variable declarations
