@@ -132,23 +132,21 @@ const ruleFunction = (properties, options, context = {}) => (root, result) => {
      * @param {object} node - A Declaration-Node from PostCSS AST-Parser.
      */
     function filterDecl(node) {
-      const { value: originalValue, prop: originalProp } = node
+      const { value, prop } = node
 
       // skip variable declarations
-      if (reSkipProp.test(originalProp)) return
+      if (reSkipProp.test(prop)) return
 
-      if (originalProp === propFilter || (propFilter instanceof RegExp && propFilter.test(originalProp))) {
+      if (prop === propFilter || (propFilter instanceof RegExp && propFilter.test(prop))) {
         lintDeclStrictValue(node)
-      } else if (expandShorthand && shortCSS.isShorthand(originalProp)) {
-        const expandedProps = shortCSS.expand(originalProp, originalValue, recurseLonghand)
+      } else if (expandShorthand && shortCSS.isShorthand(prop)) {
+        const expandedProps = shortCSS.expand(prop, value, recurseLonghand)
 
-        Object.keys(expandedProps).forEach((prop) => {
-          const value = expandedProps[prop]
+        Object.keys(expandedProps).forEach((longhandProp) => {
+          const longhandValue = expandedProps[longhandProp]
 
-          if (prop === propFilter || (propFilter instanceof RegExp && propFilter.test(prop))) {
-            const { raws } = node
-
-            lintDeclStrictValue(node.clone({ value, prop, raws }))
+          if (longhandProp === propFilter || (propFilter instanceof RegExp && propFilter.test(longhandProp))) {
+            lintDeclStrictValue(node, longhandProp, longhandValue)
           }
         })
       }
@@ -160,9 +158,13 @@ const ruleFunction = (properties, options, context = {}) => (root, result) => {
      *
      * @callback
      * @param {object} node - A Declaration-Node from PostCSS AST-Parser.
+     * @param {string} [longhandProp] - A Declaration-Node from PostCSS AST-Parser.
+     * @param {string} [longhandValue] - A Declaration-Node from PostCSS AST-Parser.
      */
-    function lintDeclStrictValue(node) {
-      const { value, prop } = node
+    function lintDeclStrictValue(node, longhandProp, longhandValue) {
+      const { value: nodeValue, prop: nodeProp } = node
+      const value = longhandValue || nodeValue
+      const prop = longhandProp || nodeProp
 
       // falsify everything by default
       let validVar = false
@@ -218,8 +220,6 @@ const ruleFunction = (properties, options, context = {}) => (root, result) => {
       // report only if all failed
       if (!validVar && !validFunc && !validKeyword && !validValue) {
         const types = getTypes(config, property)
-        const { raws } = node
-        const { start } = node.source
 
         // support auto fixing
         if (context.fix && !disableFix) {
@@ -228,6 +228,8 @@ const ruleFunction = (properties, options, context = {}) => (root, result) => {
             validFunc,
             validKeyword,
             validValue,
+            longhandProp,
+            longhandValue,
           }, root, config)
 
           // apply fixed value if returned
@@ -236,12 +238,15 @@ const ruleFunction = (properties, options, context = {}) => (root, result) => {
             node.value = fixedValue
           }
         } else {
+          const { raws } = node
+          const { start } = node.source
+
           utils.report({
             ruleName,
             result,
             node,
             line: start.line,
-            column: start.column + prop.length + raws.between.length,
+            column: start.column + nodeProp.length + raws.between.length,
             message: messages.expected(types, value, prop, message),
           })
         }
