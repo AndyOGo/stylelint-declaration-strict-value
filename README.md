@@ -49,7 +49,7 @@ npm install stylelint-declaration-strict-value
 
 # Usage
 
-Add it to your stylelint config `plugins` array, then add `"declaration-strict-value"` to your rules,
+Add it to your stylelint config `plugins` array, then add `"scale-unlimited/declaration-strict-value"` to your rules,
 specifying the property for which you want to check the usage of variables, functions or keywords.
 
 Like so:
