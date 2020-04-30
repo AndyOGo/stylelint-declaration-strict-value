@@ -1,3 +1,10 @@
+## [1.4.3](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.4.2...v1.4.3) (2020-04-30)
+
+
+### Bug Fixes
+
+* disable expandShorthand by default ([5c1fe00](https://github.com/AndyOGo/stylelint-declaration-strict-value/commit/5c1fe00b821c986275cbc34e24fcf569c6016a4c))
+
 ## [1.4.2](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.4.1...v1.4.2) (2020-04-28)
 
 ## [1.4.1](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.4.0...v1.4.1) (2020-04-28)
