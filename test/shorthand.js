@@ -9,7 +9,7 @@ testRule(rule, {
   ruleName,
   skipBasicChecks: true,
 
-  config: ['/color/'],
+  config: ['/color/', { expandShorthand: true }],
 
   accept: [
     { code: '.foo { boder: 1px solid $bar; }' },
@@ -156,6 +156,7 @@ testRule(rule, {
   config: ['/color/', {
     ignoreVariables: false,
     ignoreKeywords: 'transparent',
+    expandShorthand: true,
   }],
 
   accept: [
