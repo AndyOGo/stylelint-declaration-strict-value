@@ -1007,6 +1007,41 @@ a {
 CSS shorthand Syntax support is disabled by default.
 This feature is baked by [`shortcss`](https://www.npmjs.com/package/shortcss), a list of support shorthand properties can be found at [`css-shorthand-properties`](https://github.com/gilmoreorless/css-shorthand-properties).
 
+How this works is:
+
+1. Try to lint a direct match
+2. If no direct match, check if the prop can be expanded and check the longhand props
+3. The expandsion by [`shortcss`](https://www.npmjs.com/package/shortcss) is not 100% standard conform, i.e. assigning correct default values if you omit some longhands like `text-decoration-color`.
+
+**Warning:** How do you determine, which longhand property is used by using a single shorthand?
+Like in this example:
+
+```css
+a {
+  background: white; // this is background-color
+  background: url('image.png'); // this is background-image
+
+  text-decoration: none; // this is text-decoration-style
+  text-decoration: #fff; // this is text-decoration-color
+}
+```
+
+Differentiating this would need a CSS value parser and curated list of valid CSS valid per prop.
+This is beyond the scope of [`shortcss`](https://www.npmjs.com/package/shortcss).
+
+All properties that are expand right now, can be found here:
+https://github.com/gilmoreorless/css-shorthand-properties/blob/master/index.js
+
+And it becomes even trickier if you consider dynamic values as variables or functions, like:
+
+```css {
+  background: get-bg(); // what does this function return? a longhand, or shorthand value?
+
+  text-decoration: $text-deco; // what is behind this var? is it a longhand, or shorthand value?
+  text-decoration: @text-deco; // what is behind this var? is it a longhand, or shorthand value?
+}
+```
+
 ##### expandShorthand
 
 If `true` and if no exact property match is found, shorthand CSS properties will be expanded and checked againtst your primary options.
