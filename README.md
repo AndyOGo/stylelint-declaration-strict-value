@@ -1004,7 +1004,7 @@ a {
 
 #### CSS shorthand Syntax
 
-CSS shorthand Syntax support is enabled by default.
+CSS shorthand Syntax support is disabled by default.
 This feature is baked by [`shortcss`](https://www.npmjs.com/package/shortcss), a list of support shorthand properties can be found at [`css-shorthand-properties`](https://github.com/gilmoreorless/css-shorthand-properties).
 
 ##### expandShorthand
@@ -1023,7 +1023,7 @@ You can either configure a direct longhand CSS property to match.
   ],
   "rules": {
     // ...
-    "scale-unlimited/declaration-strict-value": "border-color",
+    "scale-unlimited/declaration-strict-value": ["border-color", { "expandShorthand": true }]
     // ...
   }
 }
@@ -1077,7 +1077,7 @@ Or a simple regex for `/color/`.
   ],
   "rules": {
     // ...
-    "scale-unlimited/declaration-strict-value": "/color/",
+    "scale-unlimited/declaration-strict-value": ["/color/", { "expandShorthand": true }]
     // ...
   }
 }
@@ -1161,8 +1161,8 @@ You can provide your [custom `message`](https://stylelint.io/user-guide/configur
   // ...
   "scale-unlimited/declaration-strict-value": [
     ["/color/", "fill", "stroke"], {
-    message: "Custom expected ${types} for \"${value}\" of \"${property}\"",
-  }],
+      "message": "Custom expected ${types} for \"${value}\" of \"${property}\"",
+    }],
   // ...
 }
 ```
