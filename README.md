@@ -1026,13 +1026,13 @@ a {
 }
 ```
 
-Differentiating this would need a CSS value parser and curated list of valid CSS valid per prop.
+Differentiating this would need a CSS value parser and a curated list of valid CSS values per prop.
 This is beyond the scope of [`shortcss`](https://www.npmjs.com/package/shortcss).
 
-All properties that are expand right now, can be found here:
+All properties that are expanded right now, can be found here:
 https://github.com/gilmoreorless/css-shorthand-properties/blob/master/index.js
 
-And it becomes even trickier if you consider dynamic values as variables or functions, like:
+And it becomes even trickier if you consider dynamic values such as variables or functions, like:
 
 ```css {
   background: get-bg(); // what does this function return? a longhand, or shorthand value?
