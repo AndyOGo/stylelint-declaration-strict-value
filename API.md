@@ -129,6 +129,8 @@ Type: [Function][44]
 ### Parameters
 
 -   `node` **[object][45]** A Declaration-Node from PostCSS AST-Parser.
+-   `longhandProp` **[string][36]?** A Declaration-Node from PostCSS AST-Parser.
+-   `longhandValue` **[string][36]?** A Declaration-Node from PostCSS AST-Parser.
 
 ## isNumberOrString
 
