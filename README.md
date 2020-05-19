@@ -1011,7 +1011,7 @@ How this works is:
 
 1. Try to lint a direct match
 2. If no direct match, check if the prop can be expanded and check the longhand props
-3. The expandsion by [`shortcss`](https://www.npmjs.com/package/shortcss) is not 100% standard conform, i.e. assigning correct default values if you omit some longhands like `text-decoration-color`.
+3. The expansion by [`shortcss`](https://www.npmjs.com/package/shortcss) is not 100% standard conform, i.e. assigning correct default values if you omit some longhands like `text-decoration-color`.
 
 **Warning:** How do you determine, which longhand property is used by using a single shorthand?
 Like in this example:
