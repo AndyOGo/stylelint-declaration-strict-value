@@ -137,9 +137,11 @@ const ruleFunction = (properties, options, context = {}) => (root, result) => {
       // skip variable declarations
       if (reSkipProp.test(prop)) return
 
-      if (prop === propFilter || (propFilter instanceof RegExp && propFilter.test(prop))) {
+      const isShortHand = expandShorthand && shortCSS.isShorthand(prop)
+
+      if (prop === propFilter || (!isShortHand && propFilter instanceof RegExp && propFilter.test(prop))) {
         lintDeclStrictValue(node)
-      } else if (expandShorthand && shortCSS.isShorthand(prop)) {
+      } else if (isShortHand) {
         const expandedProps = shortCSS.expand(prop, value, recurseLonghand)
 
         Object.keys(expandedProps).forEach((longhandProp) => {
