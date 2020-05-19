@@ -143,12 +143,13 @@ const ruleFunction = (properties, options, context = {}) => (root, result) => {
         lintDeclStrictValue(node)
       } else if (isShortHand) {
         const expandedProps = shortCSS.expand(prop, value, recurseLonghand)
+        let failedFlag = false
 
         Object.keys(expandedProps).forEach((longhandProp) => {
           const longhandValue = expandedProps[longhandProp]
 
-          if (longhandProp === propFilter || (propFilter instanceof RegExp && propFilter.test(longhandProp))) {
-            lintDeclStrictValue(node, longhandProp, longhandValue)
+          if (!failedFlag && (longhandProp === propFilter || (propFilter instanceof RegExp && propFilter.test(longhandProp)))) {
+            failedFlag = lintDeclStrictValue(node, longhandProp, longhandValue)
           }
         })
       }
@@ -252,6 +253,8 @@ const ruleFunction = (properties, options, context = {}) => (root, result) => {
             message: messages.expected(types, value, nodeProp, message),
           })
         }
+
+        return true
       }
     }
   })
