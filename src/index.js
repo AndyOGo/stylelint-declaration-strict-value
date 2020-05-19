@@ -137,16 +137,19 @@ const ruleFunction = (properties, options, context = {}) => (root, result) => {
       // skip variable declarations
       if (reSkipProp.test(prop)) return
 
-      if (prop === propFilter || (propFilter instanceof RegExp && propFilter.test(prop))) {
+      const isShortHand = expandShorthand && shortCSS.isShorthand(prop)
+
+      if (prop === propFilter || (!isShortHand && propFilter instanceof RegExp && propFilter.test(prop))) {
         lintDeclStrictValue(node)
-      } else if (expandShorthand && shortCSS.isShorthand(prop)) {
+      } else if (isShortHand) {
         const expandedProps = shortCSS.expand(prop, value, recurseLonghand)
+        let failedFlag = false
 
         Object.keys(expandedProps).forEach((longhandProp) => {
           const longhandValue = expandedProps[longhandProp]
 
-          if (longhandProp === propFilter || (propFilter instanceof RegExp && propFilter.test(longhandProp))) {
-            lintDeclStrictValue(node, longhandProp, longhandValue)
+          if (!failedFlag && (longhandProp === propFilter || (propFilter instanceof RegExp && propFilter.test(longhandProp)))) {
+            failedFlag = lintDeclStrictValue(node, longhandProp, longhandValue)
           }
         })
       }
@@ -164,7 +167,6 @@ const ruleFunction = (properties, options, context = {}) => (root, result) => {
     function lintDeclStrictValue(node, longhandProp, longhandValue) {
       const { value: nodeValue, prop: nodeProp } = node
       const value = longhandValue || nodeValue
-      const prop = longhandProp || nodeProp
 
       // falsify everything by default
       let validVar = false
@@ -247,10 +249,14 @@ const ruleFunction = (properties, options, context = {}) => (root, result) => {
             node,
             line: start.line,
             column: start.column + nodeProp.length + raws.between.length,
-            message: messages.expected(types, value, prop, message),
+            message: messages.expected(types, value, nodeProp, message),
           })
         }
+
+        return true
       }
+
+      return false
     }
   })
 }

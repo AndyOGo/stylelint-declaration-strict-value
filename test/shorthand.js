@@ -124,25 +124,25 @@ testRule(rule, {
   reject: [
     {
       code: '.foo { border: 1px solid #fff; }',
-      message: `Expected variable or function for "#fff" of "border-color" (${ruleName})`,
+      message: `Expected variable or function for "#fff" of "border" (${ruleName})`,
       line: 1,
       column: 8,
     },
     {
       code: '.foo { border: 1px solid red; }',
-      message: `Expected variable or function for "red" of "border-color" (${ruleName})`,
+      message: `Expected variable or function for "red" of "border" (${ruleName})`,
       line: 1,
       column: 8,
     },
     {
       code: '.foo { background: #fff; }',
-      message: `Expected variable or function for "#fff" of "background-color" (${ruleName})`,
+      message: `Expected variable or function for "#fff" of "background" (${ruleName})`,
       line: 1,
       column: 8,
     },
     {
       code: '.foo { background: red; }',
-      message: `Expected variable or function for "red" of "background-color" (${ruleName})`,
+      message: `Expected variable or function for "red" of "background" (${ruleName})`,
       line: 1,
       column: 8,
     },
@@ -167,49 +167,76 @@ testRule(rule, {
   reject: [
     {
       code: '.foo { border: 1px solid $bar; }',
-      message: `Expected function or keyword for "$bar" of "border-color" (${ruleName})`,
+      message: `Expected function or keyword for "$bar" of "border" (${ruleName})`,
       line: 1,
       column: 8,
     },
     {
       code: '.foo { border: 1px solid namespace.$bar; }',
-      message: `Expected function or keyword for "namespace.$bar" of "border-color" (${ruleName})`,
+      message: `Expected function or keyword for "namespace.$bar" of "border" (${ruleName})`,
       line: 1,
       column: 8,
     },
     {
       code: '.foo { border: 1px solid @bar; }',
-      message: `Expected function or keyword for "@bar" of "border-color" (${ruleName})`,
+      message: `Expected function or keyword for "@bar" of "border" (${ruleName})`,
       line: 1,
       column: 8,
     },
     {
       code: '.foo { border: 1px solid var(--bar); }',
-      message: `Expected function or keyword for "var(--bar)" of "border-color" (${ruleName})`,
+      message: `Expected function or keyword for "var(--bar)" of "border" (${ruleName})`,
       line: 1,
       column: 8,
     },
     {
       code: '.foo { background: $bar; }',
-      message: `Expected function or keyword for "$bar" of "background-color" (${ruleName})`,
+      message: `Expected function or keyword for "$bar" of "background" (${ruleName})`,
       line: 1,
       column: 8,
     },
     {
       code: '.foo { background: namespace.$bar; }',
-      message: `Expected function or keyword for "namespace.$bar" of "background-color" (${ruleName})`,
+      message: `Expected function or keyword for "namespace.$bar" of "background" (${ruleName})`,
       line: 1,
       column: 8,
     },
     {
       code: '.foo { background: @bar; }',
-      message: `Expected function or keyword for "@bar" of "background-color" (${ruleName})`,
+      message: `Expected function or keyword for "@bar" of "background" (${ruleName})`,
       line: 1,
       column: 8,
     },
     {
       code: '.foo { background: var(--bar); }',
-      message: `Expected function or keyword for "var(--bar)" of "background-color" (${ruleName})`,
+      message: `Expected function or keyword for "var(--bar)" of "background" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
+  ],
+})
+
+testRule(rule, {
+  ruleName,
+  skipBasicChecks: true,
+
+  config: ['/margin-?(top|right|bottom|left)?/', {
+    ignoreValues: ['0', 'auto'],
+    expandShorthand: true,
+  }],
+
+  accept: [
+    { code: '.foo { margin: auto; }' },
+    { code: '.foo { margin: 0; }' },
+    { code: '.foo { margin: 0 auto; }' },
+    { code: '.foo { margin: 0 auto 0; }' },
+    { code: '.foo { margin: 0 auto 0 auto; }' },
+  ],
+
+  reject: [
+    {
+      code: '.foo { margin: inherit; }',
+      message: `Expected variable, function or keyword for "inherit" of "margin" (${ruleName})`,
       line: 1,
       column: 8,
     },
