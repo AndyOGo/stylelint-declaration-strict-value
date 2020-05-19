@@ -220,6 +220,33 @@ testRule(rule, {
   ruleName,
   skipBasicChecks: true,
 
+  config: ['/margin-?(top|right|bottom|left)?/', {
+    ignoreValues: ['0', 'auto'],
+    expandShorthand: true,
+  }],
+
+  accept: [
+    { code: '.foo { margin: auto; }' },
+    { code: '.foo { margin: 0; }' },
+    { code: '.foo { margin: 0 auto; }' },
+    { code: '.foo { margin: 0 auto 0; }' },
+    { code: '.foo { margin: 0 auto 0 auto; }' },
+  ],
+
+  reject: [
+    {
+      code: '.foo { margin: inherit; }',
+      message: `Expected variable, function or keyword for "inherit" of "margin" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
+  ],
+})
+
+testRule(rule, {
+  ruleName,
+  skipBasicChecks: true,
+
   config: ['/color/', {
     expandShorthand: false,
   }],
