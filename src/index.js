@@ -167,7 +167,6 @@ const ruleFunction = (properties, options, context = {}) => (root, result) => {
     function lintDeclStrictValue(node, longhandProp, longhandValue) {
       const { value: nodeValue, prop: nodeProp } = node
       const value = longhandValue || nodeValue
-      const prop = longhandProp || nodeProp
 
       // falsify everything by default
       let validVar = false
@@ -256,6 +255,8 @@ const ruleFunction = (properties, options, context = {}) => (root, result) => {
 
         return true
       }
+
+      return false
     }
   })
 }
