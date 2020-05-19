@@ -249,7 +249,7 @@ const ruleFunction = (properties, options, context = {}) => (root, result) => {
             node,
             line: start.line,
             column: start.column + nodeProp.length + raws.between.length,
-            message: messages.expected(types, value, prop, message),
+            message: messages.expected(types, value, nodeProp, message),
           })
         }
       }
