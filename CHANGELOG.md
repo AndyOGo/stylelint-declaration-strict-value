@@ -1,3 +1,13 @@
+## [1.4.5](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.4.4...v1.4.5) (2020-05-19)
+
+
+### Bug Fixes
+
+* always mark original node prop, also for shorthands ([9e4fd98](https://github.com/AndyOGo/stylelint-declaration-strict-value/commit/9e4fd9865cd9af2ccb073ab4f8756cf4daa43d1b))
+* check shorthand if configured ([05255fb](https://github.com/AndyOGo/stylelint-declaration-strict-value/commit/05255fbe8b6c4810c524a2614ef450ae87be38b1))
+* eslint error ([5f5d50d](https://github.com/AndyOGo/stylelint-declaration-strict-value/commit/5f5d50d449ba924c0a13c685b30f8c95e7dd798f))
+* shorthand should only reject once ([ce46c63](https://github.com/AndyOGo/stylelint-declaration-strict-value/commit/ce46c6337e45de106d4cb9c6ec47fc95cda47179))
+
 ## [1.4.4](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.4.3...v1.4.4) (2020-05-14)
 
 ## [1.4.3](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.4.2...v1.4.3) (2020-04-30)
