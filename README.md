@@ -165,7 +165,7 @@ Multiple properties can be linted by passing as an array. Regex can also be used
 "rules": {
   // ...
   "scale-unlimited/declaration-strict-value": [
-      ["/color/", "z-index", "font-size"]
+      ["/color$/", "z-index", "font-size"]
       ],
   // ...
 }
@@ -224,7 +224,7 @@ Passing a regex will lint the variable usage for all matching properties, like:
 // .stylelintrc
 "rules": {
   // ...
-  "scale-unlimited/declaration-strict-value": "/color/",
+  "scale-unlimited/declaration-strict-value": "/color$/",
   // ...
 }
 ```
@@ -302,7 +302,7 @@ Variables can be enabled or disabled, like:
 // .stylelintrc
 "rules": {
   // ...
-  "scale-unlimited/declaration-strict-value": ["/color/", {
+  "scale-unlimited/declaration-strict-value": ["/color$/", {
     ignoreVariables: false,
   }],
   // ...
@@ -347,7 +347,7 @@ Functions can be enabled or disabled, like:
 // .stylelintrc
 "rules": {
   // ...
-  "scale-unlimited/declaration-strict-value": ["/color/", {
+  "scale-unlimited/declaration-strict-value": ["/color$/", {
     ignoreFunctions: false,
   }],
   // ...
@@ -402,7 +402,7 @@ To ignore a single `value` for all properties simply use a `"string"` or `"/RegE
 // .stylelintrc
 "rules": {
   // ...
-  "scale-unlimited/declaration-strict-value": ["/color/", {
+  "scale-unlimited/declaration-strict-value": ["/color$/", {
     ignoreValues: "currentColor",
   }],
   // ...
@@ -441,7 +441,7 @@ Or with a `"/RegExp/[gimsuy]"` for hex colors:
 // .stylelintrc
 "rules": {
   // ...
-  "scale-unlimited/declaration-strict-value": ["/color/", {
+  "scale-unlimited/declaration-strict-value": ["/color$/", {
     ignoreValues: "/^#[0-9a-fA-F]{3,6}$/",
   }],
   // ...
@@ -481,7 +481,7 @@ Or with **multiple** properties:
 "rules": {
   // ...
   "scale-unlimited/declaration-strict-value": [
-    ["/color/", "fill", "stroke"], {
+    ["/color$/", "fill", "stroke"], {
     ignoreValues: "currentColor",
   }],
   // ...
@@ -528,7 +528,7 @@ To ignore a list of `values` for all properties simply use an `[array]`, like:
 // .stylelintrc
 "rules": {
   // ...
-  "scale-unlimited/declaration-strict-value": ["/color/", {
+  "scale-unlimited/declaration-strict-value": ["/color$/", {
     ignoreValues: ["currentColor", "/^#[0-9a-fA-F]{3,6}$/", "inherit"],
   }],
   // ...
@@ -574,7 +574,7 @@ Or with **multiple** properties:
 "rules": {
   // ...
   "scale-unlimited/declaration-strict-value": [
-    ["/color/", "fill", "stroke"], {
+    ["/color$/", "fill", "stroke"], {
     ignoreValues: ["currentColor", "/^#[0-9a-fA-F]{3,6}$/", "inherit"],
   }],
   // ...
@@ -632,9 +632,9 @@ The basic principle works the same as above - you either have one value or a lis
 "rules": {
   // ...
   "scale-unlimited/declaration-strict-value": [
-    ["/color/", "fill", "stroke"], {
+    ["/color$/", "fill", "stroke"], {
     ignoreValues: {
-        "/color/": ["currentColor",  "/^#[0-9a-fA-F]{3,6}$/", "inherit"],
+        "/color$/": ["currentColor",  "/^#[0-9a-fA-F]{3,6}$/", "inherit"],
         "fill": ["currentColor", "inherit"],
         "stroke": "currentColor",
         "z-index":  "/^\\d+$/",
@@ -701,13 +701,13 @@ a {
 "rules": {
   // ...
   "scale-unlimited/declaration-strict-value": [
-    ["/color/", "fill", "stroke"], {
+    ["/color$/", "fill", "stroke"], {
     ignoreValues: {
         // default, for all
         "": ["currentColor"],
 
         // specific mapping
-        "/color/": ["currentColor", "transparent", "inherit"],
+        "/color$/": ["currentColor", "transparent", "inherit"],
         "fill": ["currentColor", "inherit"],
     },
   }],
@@ -730,7 +730,7 @@ To ignore a single `keyword` for all properties simply use a `"string"`, like:
 // .stylelintrc
 "rules": {
   // ...
-  "scale-unlimited/declaration-strict-value": ["/color/", {
+  "scale-unlimited/declaration-strict-value": ["/color$/", {
     ignoreKeywords: "currentColor",
   }],
   // ...
@@ -770,7 +770,7 @@ Or with **multiple** properties:
 "rules": {
   // ...
   "scale-unlimited/declaration-strict-value": [
-    ["/color/", "fill", "stroke"], {
+    ["/color$/", "fill", "stroke"], {
     ignoreKeywords: "currentColor",
   }],
   // ...
@@ -817,7 +817,7 @@ To ignore a list of `keywords` for all properties simply use an `[array]`, like:
 // .stylelintrc
 "rules": {
   // ...
-  "scale-unlimited/declaration-strict-value": ["/color/", {
+  "scale-unlimited/declaration-strict-value": ["/color$/", {
     ignoreKeywords: ["currentColor", "transparent", "inherit"],
   }],
   // ...
@@ -863,7 +863,7 @@ Or with **multiple** properties:
 "rules": {
   // ...
   "scale-unlimited/declaration-strict-value": [
-    ["/color/", "fill", "stroke"], {
+    ["/color$/", "fill", "stroke"], {
     ignoreKeywords: ["currentColor", "transparent", "inherit"],
   }],
   // ...
@@ -921,9 +921,9 @@ The basic principle works the same as above - you either have one keyword or a l
 "rules": {
   // ...
   "scale-unlimited/declaration-strict-value": [
-    ["/color/", "fill", "stroke"], {
+    ["/color$/", "fill", "stroke"], {
     ignoreKeywords: {
-        "/color/": ["currentColor", "transparent", "inherit"],
+        "/color$/": ["currentColor", "transparent", "inherit"],
         "fill": ["currentColor", "inherit"],
         "stroke": "currentColor",
         "z-index": 0,
@@ -988,13 +988,13 @@ a {
 "rules": {
   // ...
   "scale-unlimited/declaration-strict-value": [
-    ["/color/", "fill", "stroke"], {
+    ["/color$/", "fill", "stroke"], {
     ignoreKeywords: {
         // default, for all
         "": ["currentColor"],
 
         // specific mapping
-        "/color/": ["currentColor", "transparent", "inherit"],
+        "/color$/": ["currentColor", "transparent", "inherit"],
         "fill": ["currentColor", "inherit"],
     },
   }],
@@ -1102,7 +1102,7 @@ a { border: 1px solid -$color-white; }
 a { border: 1px solid darken(#fff, 10%); }
 ```
 
-Or a simple regex for `/color/`.
+Or a simple regex for `/color$/`.
 
 ```js
 // .stylelintrc
@@ -1112,7 +1112,7 @@ Or a simple regex for `/color/`.
   ],
   "rules": {
     // ...
-    "scale-unlimited/declaration-strict-value": ["/color/", { "expandShorthand": true }]
+    "scale-unlimited/declaration-strict-value": ["/color$/", { "expandShorthand": true }]
     // ...
   }
 }
@@ -1195,7 +1195,7 @@ You can provide your [custom `message`](https://stylelint.io/user-guide/configur
 "rules": {
   // ...
   "scale-unlimited/declaration-strict-value": [
-    ["/color/", "fill", "stroke"], {
+    ["/color$/", "fill", "stroke"], {
       "message": "Custom expected ${types} for \"${value}\" of \"${property}\"",
     }],
   // ...
@@ -1238,7 +1238,7 @@ module.exports = {
   "rules": {
     // ...
     "scale-unlimited/declaration-strict-value": [
-      ["/color/"], {
+      ["/color$/"], {
       autoFixFunc: autoFixFunc,
       disableFix: true | false,
     }],
@@ -1275,7 +1275,7 @@ module.exports = autoFixFunc
 "rules": {
     // ...
     "scale-unlimited/declaration-strict-value": [
-      ["/color/"], {
+      ["/color$/"], {
       autoFixFunc: './auto-fix-func.js',
       disableFix: true | false,
     }],
