@@ -114,6 +114,13 @@ testRule(rule, {
       line: 1,
       column: 8,
     },
+    {
+      code: `@value bar: #000;
+            .foo { color: bar; }`,
+      message: `Expected function for "bar" of "color" (${ruleName})`,
+      line: 2,
+      column: 20,
+    },
   ],
 })
 

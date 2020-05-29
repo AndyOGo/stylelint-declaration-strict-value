@@ -31,10 +31,18 @@ testRule(rule, {
         fallback2
       ); }`,
     },
+    {
+      code: `@value bar: #000;
+            .foo { color: bar; }`,
+    },
     { code: '.foo { color: -$bar; }' },
     { code: '.foo { color: -namespace.$bar; }' },
     { code: '.foo { color: -@bar; }' },
     { code: '.foo { color: -var(--bar); }' },
+    {
+      code: `@value bar: #000;
+            .foo { color: -bar; }`,
+    },
     { code: '.foo { color: spacing(); }' },
     { code: '.foo { color: map-get($bar, baz); }' },
     { code: '.foo { color: map-get(namespace.$bar, baz); }' },
@@ -82,6 +90,12 @@ testRule(rule, {
     {
       code: '.foo { color: red; }',
       message: `Expected variable or function for "red" of "color" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
+    {
+      code: '.foo { color: bar; }',
+      message: `Expected variable or function for "bar" of "color" (${ruleName})`,
       line: 1,
       column: 8,
     },
@@ -146,6 +160,13 @@ testRule(rule, {
       )"" of "content" (${ruleName})`,
       line: 1,
       column: 8,
+    },
+    {
+      code: `@value bar: #000;
+            .foo { content: "bar"; }`,
+      message: `Expected variable or function for ""bar"" of "content" (${ruleName})`,
+      line: 2,
+      column: 20,
     },
     {
       code: '.foo { content: "-$bar"; }',
