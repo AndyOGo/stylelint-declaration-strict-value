@@ -112,6 +112,18 @@ const ruleFunction = (properties, options, context = {}) => (root, result) => {
   const autoFixFuncNormalized = getAutoFixFunc(autoFixFunc)
   const reKeywords = ignoreKeywords ? {} : null
   const reValues = ignoreValues ? {} : null
+  let cssLoaderValues = []
+
+  if (ignoreVariables) {
+    root.walkAtRules('value', (rule) => {
+      const { params } = rule
+      const name = params.split(':')[0].trim()
+
+      cssLoaderValues.push(name)
+    })
+
+    cssLoaderValues = new RegExp(`^-?(:?${cssLoaderValues.join('|')})$`)
+  }
 
   // loop through all properties
   properties.forEach((property) => {
@@ -163,6 +175,8 @@ const ruleFunction = (properties, options, context = {}) => (root, result) => {
      * @param {object} node - A Declaration-Node from PostCSS AST-Parser.
      * @param {string} [longhandProp] - A Declaration-Node from PostCSS AST-Parser.
      * @param {string} [longhandValue] - A Declaration-Node from PostCSS AST-Parser.
+     *
+     * @returns {boolean} Returns `true` if invalid declaration found, else `false`.
      */
     function lintDeclStrictValue(node, longhandProp, longhandValue) {
       const { value: nodeValue, prop: nodeProp } = node
@@ -176,7 +190,7 @@ const ruleFunction = (properties, options, context = {}) => (root, result) => {
 
       // test variable
       if (ignoreVariables) {
-        validVar = reVar.test(value)
+        validVar = reVar.test(value) || cssLoaderValues.test(value)
       }
 
       // test function

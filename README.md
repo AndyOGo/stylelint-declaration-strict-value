@@ -7,7 +7,7 @@
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
-A [stylelint](https://github.com/stylelint/stylelint) plugin that enforces either variables (`$sass`, `namespace.$sass`, `@less`, `var(--cssnext)`), functions or custom CSS values, like keywords (`inherit`, `none`, `currentColor` etc.), colors (`#fff`, `red`, etc.) or numbers incl. units (`0`, `1px`, `100%`, etc.) for CSS longhand and shorthand properties.
+A [stylelint](https://github.com/stylelint/stylelint) plugin that enforces either variables (`$sass`, `namespace.$sass`, `@less`, `var(--cssnext)`, `css-loader @value`), functions or custom CSS values, like keywords (`inherit`, `none`, `currentColor` etc.), colors (`#fff`, `red`, etc.) or numbers incl. units (`0`, `1px`, `100%`, etc.) for CSS longhand and shorthand properties.
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -104,6 +104,14 @@ a { color: namespace.$color-white; }
 a { color: -$color-white; }
 
 a { color: darken(#fff, 10%); }
+```
+
+```css
+@value v-color-white: #fff;
+
+a { color: v-color-white; }
+
+a { color: -v-color-white; }
 ```
 
 ### Scheme
@@ -214,6 +222,18 @@ a {
 }
 ```
 
+```css
+@value v-color-white: #fff;
+@value v-z-index: 123;
+@value v-font-size: 2em;
+
+a {
+  color: v-color-white;
+  z-index: v-z-index;
+  font-size: v-font-size;
+}
+```
+
 **Note:** Multiple Properties require you to use nested arrays `[[]]` in your configuration.
 
 #### Regex support
@@ -279,6 +299,16 @@ a {
 }
 ```
 
+```css
+@value v-color-white: #fff;
+
+a {
+  color: v-color-white;
+  background-color: v-color-white;
+  border-color: v-color-white;
+}
+```
+
 ### Secondary Options
 
 Additionally you can pass an optional second options hash to enable/disable variables, functions and custom keywords.
@@ -323,6 +353,12 @@ a { color: @color-white; }
 a { color: $color-white; }
 
 a { color: namespace.$color-white; }
+```
+
+```css
+@value v-color-white: #fff;
+
+a { color: v-color-white; }
 ```
 
 The following patterns are **not** considered **warnings:**

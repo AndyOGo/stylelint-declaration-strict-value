@@ -132,6 +132,8 @@ Type: [Function][44]
 -   `longhandProp` **[string][36]?** A Declaration-Node from PostCSS AST-Parser.
 -   `longhandValue` **[string][36]?** A Declaration-Node from PostCSS AST-Parser.
 
+Returns **[boolean][46]** Returns `true` if invalid declaration found, else `false`.
+
 ## isNumberOrString
 
 Check if type is either `number` or `string`.
