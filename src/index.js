@@ -112,6 +112,14 @@ const ruleFunction = (properties, options, context = {}) => (root, result) => {
   const autoFixFuncNormalized = getAutoFixFunc(autoFixFunc)
   const reKeywords = ignoreKeywords ? {} : null
   const reValues = ignoreValues ? {} : null
+  const cssLoaderValues = {}
+
+  root.walkAtRules('value', (rule) => {
+    const { params } = rule
+    const name = params.split(':')[0].trim()
+
+    cssLoaderValues[name] = true
+  })
 
   // loop through all properties
   properties.forEach((property) => {
@@ -176,7 +184,7 @@ const ruleFunction = (properties, options, context = {}) => (root, result) => {
 
       // test variable
       if (ignoreVariables) {
-        validVar = reVar.test(value)
+        validVar = reVar.test(value) || cssLoaderValues[value]
       }
 
       // test function
