@@ -1,3 +1,16 @@
+# [1.5.0](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.4.7...v1.5.0) (2020-05-29)
+
+
+### Bug Fixes
+
+* eslint missing return doclet ([437f671](https://github.com/AndyOGo/stylelint-declaration-strict-value/commit/437f671eae39f88bacb794b43f610ab9b569167a))
+
+
+### Features
+
+* support css-loader [@value](https://github.com/value) ([a466b38](https://github.com/AndyOGo/stylelint-declaration-strict-value/commit/a466b38cdbc7762cb4d2ca93e0a1082f190a55f2))
+* support css-loader [@value](https://github.com/value) ([8931d2f](https://github.com/AndyOGo/stylelint-declaration-strict-value/commit/8931d2f2d14286819e4e39e55e826d2cdecc962f))
+
 ## [1.4.7](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.4.6...v1.4.7) (2020-05-25)
 
 ## [1.4.6](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.4.5...v1.4.6) (2020-05-19)
