@@ -175,6 +175,8 @@ const ruleFunction = (properties, options, context = {}) => (root, result) => {
      * @param {object} node - A Declaration-Node from PostCSS AST-Parser.
      * @param {string} [longhandProp] - A Declaration-Node from PostCSS AST-Parser.
      * @param {string} [longhandValue] - A Declaration-Node from PostCSS AST-Parser.
+     *
+     * @returns {boolean} Returns `true` if invalid declaration found, else `false`.
      */
     function lintDeclStrictValue(node, longhandProp, longhandValue) {
       const { value: nodeValue, prop: nodeProp } = node
