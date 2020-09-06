@@ -2,7 +2,7 @@ import stylelint from 'stylelint'
 import shortCSS from 'shortcss'
 
 import {
-  validProperties, validOptions, expected, getTypes, getIgnoredKeywords, getIgnoredValues, getAutoFixFunc,
+  validProperties, validOptions, expected, getTypes, getIgnoredVariablesOrFunctions, getIgnoredKeywords, getIgnoredValues, getAutoFixFunc,
 } from './lib/validation'
 import defaults from './defaults'
 
@@ -190,12 +190,20 @@ const ruleFunction = (properties, options, context = {}) => (root, result) => {
 
       // test variable
       if (ignoreVariables) {
-        validVar = reVar.test(value) || cssLoaderValues.test(value)
+        const ignoreVariable = getIgnoredVariablesOrFunctions(ignoreVariables, property)
+
+        if (ignoreVariable) {
+          validVar = reVar.test(value) || cssLoaderValues.test(value)
+        }
       }
 
       // test function
       if (ignoreFunctions && !validVar) {
-        validFunc = reFunc.test(value)
+        const ignoreFunction = getIgnoredVariablesOrFunctions(ignoreFunctions, property)
+
+        if (ignoreFunction) {
+          validFunc = reFunc.test(value)
+        }
       }
 
       // test keywords
