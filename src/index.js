@@ -190,6 +190,7 @@ const ruleFunction = (properties, options, context = {}) => (root, result) => {
 
       // test variable
       if (ignoreVariables) {
+        // @TODO: deviant regexes to primary options need to be evaluated
         const ignoreVariable = getIgnoredVariablesOrFunctions(ignoreVariables, property)
 
         if (ignoreVariable) {
@@ -199,6 +200,7 @@ const ruleFunction = (properties, options, context = {}) => (root, result) => {
 
       // test function
       if (ignoreFunctions && !validVar) {
+        // @TODO: deviant regexes to primary options need to be evaluated
         const ignoreFunction = getIgnoredVariablesOrFunctions(ignoreFunctions, property)
 
         if (ignoreFunction) {
