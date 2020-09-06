@@ -28,6 +28,32 @@ function validProperties(actual) {
 }
 
 /**
+ * Validate optional hash keyword config.
+ *
+ * @param {object} actual - A keyword config.
+ *
+ * @returns {boolean} - Returns `true` if hash keyword config is valid, else `false`.
+ */
+function validHash(actual) {
+  if (typeof actual !== 'object') return false
+
+  return Object.keys(actual).every((key) => validProperties(actual[key]))
+}
+
+/**
+ * Validate optional boolean hash variable/function config.
+ *
+ * @param {object} actual - A variable/function config.
+ *
+ * @returns {boolean} - Returns `true` if hash variable/function config is valid, else `false`.
+ */
+function validBooleanHash(actual) {
+  if (typeof actual !== 'object') return false
+
+  return Object.keys(actual).every((key) => typeof actual[key] === 'boolean')
+}
+
+/**
  * Validate optional secondary options of stylelint plugin config.
  *
  * @param {SecondaryOptions} actual - The actual config to validate.
@@ -42,10 +68,12 @@ function validOptions(actual) {
 
   if ('ignoreVariables' in actual
     && typeof actual.ignoreVariables !== 'boolean'
+    && !validBooleanHash(actual.ignoreVariables)
     && actual.ignoreVariables !== null) return false
 
   if ('ignoreFunctions' in actual
     && typeof actual.ignoreFunctions !== 'boolean'
+    && !validBooleanHash(actual.ignoreFunctions)
     && actual.ignoreFunctions !== null) return false
 
   if ('severity' in actual
@@ -82,19 +110,6 @@ function validOptions(actual) {
     && actual.autoFixFunc !== null) return false
 
   return true
-}
-
-/**
- * Validate optional hash keyword config.
- *
- * @param {object} actual - A keyword config.
- *
- * @returns {boolean} - Returns `true` if hash keyword config is valid, else `false`.
- */
-function validHash(actual) {
-  if (typeof actual !== 'object') return false
-
-  return Object.keys(actual).every((key) => validProperties(actual[key]))
 }
 
 /**
@@ -160,6 +175,29 @@ function getTypes(config, property) {
   }
 
   return types
+}
+
+/**
+ * Get the correct ignored variable or function for a specific CSS declaration's property
+ * out of a complex `ignoreVariablesOrFunctions` config hash or boolean.
+ *
+ * @param {boolean|object} ignoreVariablesOrFunctions - The variables or functions to ignore.
+ * @param {string} property - The specific CSS declaration's property of the current iteration.
+ *
+ * @returns {boolean} - Returns ignored variable or function for a specific CSS property.
+ */
+function getIgnoredVariablesOrFunctions(ignoreVariablesOrFunctions, property) {
+  const type = typeof ignoreVariablesOrFunctions
+
+  if (type === 'boolean') {
+    return ignoreVariablesOrFunctions
+  }
+
+  if (type === 'object' && ignoreVariablesOrFunctions && {}.hasOwnProperty.call(ignoreVariablesOrFunctions, property)) {
+    return ignoreVariablesOrFunctions[property]
+  }
+
+  return !!ignoreVariablesOrFunctions
 }
 
 /**
@@ -242,6 +280,7 @@ export {
   validOptions,
   expected,
   getTypes,
+  getIgnoredVariablesOrFunctions,
   getIgnoredKeywords,
   getIgnoredValues,
   getAutoFixFunc,
