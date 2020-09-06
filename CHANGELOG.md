@@ -1,3 +1,11 @@
+# [1.6.0](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.5.0...v1.6.0) (2020-09-06)
+
+
+### Features
+
+* support basic var and func hash ([2a097bc](https://github.com/AndyOGo/stylelint-declaration-strict-value/commit/2a097bcdd0db4638ac2144580ad7e084ee5d8a93))
+* validate var und func options for optional hash ([873ab5d](https://github.com/AndyOGo/stylelint-declaration-strict-value/commit/873ab5d4df622b12e5ed4100a2b4219168c36d6a))
+
 # [1.5.0](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.4.7...v1.5.0) (2020-05-29)
 
 
