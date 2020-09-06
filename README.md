@@ -139,6 +139,7 @@ The config scheme looks as follows:
         // match pattern prop
         "/RegExp/[gimsuy]": "string" || "/RegExp/[gimsuy]" || ["string", "/RegExp/[gimsuy]", /* ... */],
       },
+    // DEPRECATED (use ignoreValues)
     ignoreKeywords: "string" ||
       ["string", "string", /* ... */] ||
       {
@@ -320,6 +321,8 @@ The default config is:
 {
   ignoreVariables: true,
   ignoreFunctions: true,
+  ignoreValues: null,
+  // DEPRECATED (use ignoreValues)
   ignoreKeywords: null,
 }
 ```
