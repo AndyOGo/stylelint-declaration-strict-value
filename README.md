@@ -21,7 +21,9 @@ A [stylelint](https://github.com/stylelint/stylelint) plugin that enforces eithe
       - [Regex support](#regex-support)
     - [Secondary Options](#secondary-options)
       - [ignoreVariables](#ignorevariables)
+        - [Disable variables for specific props](#disable-variables-for-specific-props)
       - [ignoreFunctions](#ignorefunctions)
+        - [Disable functions for specific props](#disable-functions-for-specific-props)
       - [ignoreValues](#ignorevalues)
         - [Simple single value](#simple-single-value)
         - [List of values](#list-of-values)
@@ -125,8 +127,8 @@ The config scheme looks as follows:
 
   // secondary options (optional)
   {
-    ignoreVariables: true || false,
-    ignoreFunctions: true || false,
+    ignoreVariables: true || false || { "color": true || false },
+    ignoreFunctions: true || false || { "color": true || false },
     ignoreValues: "string" || "/RegExp/[gimsuy]" ||
       ["string", "/RegExp/[gimsuy]", /* ... */] ||
       {
@@ -378,6 +380,67 @@ a { color: darken(#fff, 10%); }
 a { color: darken(#fff, 10%); }
 ```
 
+##### Disable variables for specific props
+
+Variables can be enabled for all props, except those listed in a hash, like:
+
+```js
+// .stylelintrc
+"rules": {
+  // ...
+  "scale-unlimited/declaration-strict-value": ["/color$/", "margin", {
+    ignoreVariables: {
+      "margin": false,
+    },
+  }],
+  // ...
+}
+```
+
+The following patterns are considered **warnings:**
+
+```css
+a { margin: var(--margin); }
+```
+
+```less
+a { margin: @margin; }
+```
+
+```scss
+a { margin: $margin; }
+
+a { margin: namespace.$margin; }
+```
+
+```css
+@value v-margin: 10px;
+
+a { margin: v-margin; }
+```
+
+The following patterns are **not** considered **warnings:**
+
+```css
+a { color: var(--color-white); }
+```
+
+```less
+a { color: @color-white; }
+```
+
+```scss
+a { color: $color-white; }
+
+a { color: namespace.$color-white; }
+```
+
+```css
+@value v-color-white: #fff;
+
+a { color: v-color-white; }
+```
+
 #### ignoreFunctions
 
 Functions can be enabled or disabled, like:
@@ -421,6 +484,51 @@ a { color: @color-white; }
 a { color: $color-white; }
 
 a { color: namespace.$color-white; }
+```
+
+##### Disable functions for specific props
+
+Functions can be enabled for all props, except those listed in a hash, like:
+
+```js
+// .stylelintrc
+"rules": {
+  // ...
+  "scale-unlimited/declaration-strict-value": ["/color$/", "margin", {
+    ignoreFunctions: {
+      "margin": false,
+    },
+  }],
+  // ...
+}
+```
+
+The following patterns are considered **warnings:**
+
+```css
+a { margin: calc(10% - 5px); }
+```
+
+```less
+a { margin: ceil(4.9); }
+```
+
+```scss
+a { margin: math.ceil(4.9); }
+```
+
+The following patterns are **not** considered **warnings:**
+
+```css
+a { color: color(red alpha(-10%)); }
+```
+
+```less
+a { color: darken(#fff, 10%); }
+```
+
+```scss
+a { color: darken(#fff, 10%); }
 ```
 
 #### ignoreValues
