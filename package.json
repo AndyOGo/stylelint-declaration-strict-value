@@ -75,6 +75,7 @@
     "stylelint-test-rule-tape": "^0.2.0"
   },
   "dependencies": {
+    "css-values": "^0.1.0",
     "shortcss": "^0.1.3"
   }
 }
