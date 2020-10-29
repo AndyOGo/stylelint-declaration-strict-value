@@ -1,3 +1,10 @@
+## [1.6.1](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.6.0...v1.6.1) (2020-10-29)
+
+
+### Bug Fixes
+
+* skip expanded shorthan if invalid and not variable or function ([0d69d33](https://github.com/AndyOGo/stylelint-declaration-strict-value/commit/0d69d3376b8d153e5818153b0a454715586ac012))
+
 # [1.6.0](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.5.0...v1.6.0) (2020-09-06)
 
 
