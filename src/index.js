@@ -1,5 +1,6 @@
 import stylelint from 'stylelint'
 import shortCSS from 'shortcss'
+import cssValues from 'css-values'
 
 import {
   validProperties, validOptions, expected, getTypes, getIgnoredVariablesOrFunctions, getIgnoredKeywords, getIgnoredValues, getAutoFixFunc,
@@ -161,7 +162,7 @@ const ruleFunction = (properties, options, context = {}) => (root, result) => {
           const longhandValue = expandedProps[longhandProp]
 
           if (!failedFlag && (longhandProp === propFilter || (propFilter instanceof RegExp && propFilter.test(longhandProp)))) {
-            failedFlag = lintDeclStrictValue(node, longhandProp, longhandValue)
+            failedFlag = lintDeclStrictValue(node, longhandProp, longhandValue, true)
           }
         })
       }
@@ -174,11 +175,11 @@ const ruleFunction = (properties, options, context = {}) => (root, result) => {
      * @callback
      * @param {object} node - A Declaration-Node from PostCSS AST-Parser.
      * @param {string} [longhandProp] - A Declaration-Node from PostCSS AST-Parser.
+     * @param isExpanded
      * @param {string} [longhandValue] - A Declaration-Node from PostCSS AST-Parser.
-     *
      * @returns {boolean} Returns `true` if invalid declaration found, else `false`.
      */
-    function lintDeclStrictValue(node, longhandProp, longhandValue) {
+    function lintDeclStrictValue(node, longhandProp, longhandValue, isExpanded = false) {
       const { value: nodeValue, prop: nodeProp } = node
       const value = longhandValue || nodeValue
 
@@ -206,6 +207,11 @@ const ruleFunction = (properties, options, context = {}) => (root, result) => {
         if (ignoreFunction) {
           validFunc = reFunc.test(value)
         }
+      }
+
+      // test expanded shorthands are valid
+      if (isExpanded && ignoreVariables && !validVar && ignoreFunctions && !validFunc && cssValues(longhandProp, longhandValue) !== true) {
+        return false
       }
 
       // test keywords
