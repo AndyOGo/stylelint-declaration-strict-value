@@ -12,6 +12,7 @@ testRule(rule, {
   config: ['/color/', { expandShorthand: true }],
 
   accept: [
+    { code: '.foo { border: 0; }' },
     { code: '.foo { boder: 1px solid $bar; }' },
     { code: '.foo { boder: 1px solid $bar; }' },
     { code: '.foo { boder: 1px solid namespace.$bar; }' },
