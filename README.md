@@ -1152,13 +1152,14 @@ a {
 #### CSS shorthand Syntax
 
 CSS shorthand Syntax support is disabled by default.
-This feature is baked by [`shortcss`](https://www.npmjs.com/package/shortcss), a list of support shorthand properties can be found at [`css-shorthand-properties`](https://github.com/gilmoreorless/css-shorthand-properties).
+This feature is baked by [`shortcss`](https://www.npmjs.com/package/shortcss) and [`css-values`](https://www.npmjs.com/package/css-values), a list of support shorthand properties can be found at [`css-shorthand-properties`](https://github.com/gilmoreorless/css-shorthand-properties) and a list of validated CSS property/value pairs at [`property-support`](https://github.com/ben-eb/css-values#property-support).
 
 How this works is:
 
 1. Try to lint a direct match
 2. If no direct match, check if the prop can be expanded and check the longhand props
 3. The expansion by [`shortcss`](https://www.npmjs.com/package/shortcss) is not 100% standard conform, i.e. assigning correct default values if you omit some longhands like `text-decoration-color`.
+4. So CSS validity check by [`css-values`](https://www.npmjs.com/package/css-values) is performed for each exapnded longhand property to avoid wrong linting errors
 
 **Warning:** How do you determine, which longhand property is used by using a single shorthand?
 Like in this example:
