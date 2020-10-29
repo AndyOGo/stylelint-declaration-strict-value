@@ -135,6 +135,7 @@ Type: [Function][44]
 -   `node` **[object][45]** A Declaration-Node from PostCSS AST-Parser.
 -   `longhandProp` **[string][40]?** A Declaration-Node from PostCSS AST-Parser.
 -   `longhandValue` **[string][40]?** A Declaration-Node from PostCSS AST-Parser.
+-   `isExpanded` **[boolean][50]** Whether or not this declaration was expanded. (optional, default `false`)
 
 Returns **[boolean][50]** Returns `true` if invalid declaration found, else `false`.
 
