@@ -175,8 +175,8 @@ const ruleFunction = (properties, options, context = {}) => (root, result) => {
      * @callback
      * @param {object} node - A Declaration-Node from PostCSS AST-Parser.
      * @param {string} [longhandProp] - A Declaration-Node from PostCSS AST-Parser.
-     * @param {boolean} isExpanded - Whether or not this declaration was expanded.
      * @param {string} [longhandValue] - A Declaration-Node from PostCSS AST-Parser.
+     * @param {boolean} [isExpanded=false] - Whether or not this declaration was expanded.
      * @returns {boolean} Returns `true` if invalid declaration found, else `false`.
      */
     function lintDeclStrictValue(node, longhandProp, longhandValue, isExpanded = false) {
