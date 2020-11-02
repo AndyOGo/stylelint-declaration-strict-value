@@ -13,6 +13,7 @@ testRule(rule, {
 
   accept: [
     { code: '.foo { border: 0; }' },
+    { code: '.foo { border: $foo; }' },
     { code: '.foo { boder: 1px solid $bar; }' },
     { code: '.foo { boder: 1px solid $bar; }' },
     { code: '.foo { boder: 1px solid namespace.$bar; }' },
@@ -161,11 +162,19 @@ testRule(rule, {
   }],
 
   accept: [
+    { code: '.foo { boder: 0; }' },
+    { code: '.foo { boder: transparent; }' },
     { code: '.foo { boder: 1px solid transparent; }' },
     { code: '.foo { background: transparent; }' },
   ],
 
   reject: [
+    {
+      code: '.foo { border: $foo; }',
+      message: `Expected function or keyword for "$foo" of "border" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
     {
       code: '.foo { border: 1px solid $bar; }',
       message: `Expected function or keyword for "$bar" of "border" (${ruleName})`,
