@@ -27,6 +27,32 @@ testRule(rule, {
   ],
 })
 
+testRule(rule, {
+  ruleName,
+  skipBasicChecks: true,
+
+  config: ['/color/', {
+    ignoreValues: 'transparent',
+  }],
+
+  accept: [
+    { code: '.foo { scrollbar-color: var(--color) transparent;  }' },
+    { code: '.foo { scrollbar-color: $color transparent; }' },
+    { code: '.foo { scrollbar-color: transparent @color; }' },
+    { code: '.foo { scrollbar-color: transparent darken(#fff, 10%); }' },
+    { code: '.foo { scrollbar-color: transparent darken(var(--color), 10%); }' },
+  ],
+
+  reject: [
+    {
+      code: '.foo { scrollbar-color: var(--color) inherit; }',
+      message: `Expected variable, function or keyword for "inherit" of "scrollbar-color" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
+  ],
+})
+
 // ignore single value regex
 testRule(rule, {
   ruleName,

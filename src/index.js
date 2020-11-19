@@ -1,5 +1,6 @@
 import stylelint from 'stylelint'
 import shortCSS from 'shortcss'
+import list from 'shortcss/lib/list'
 import cssValues from 'css-values'
 
 import {
@@ -153,7 +154,20 @@ const ruleFunction = (properties, options, context = {}) => (root, result) => {
       const isShortHand = expandShorthand && shortCSS.isShorthand(prop)
 
       if (prop === propFilter || (!isShortHand && propFilter instanceof RegExp && propFilter.test(prop))) {
-        lintDeclStrictValue(node)
+        const values = list.space(value)
+
+        // handle multi-value props, like scrollbar-color
+        if (values.length > 1) {
+          let failedFlag = false
+
+          values.forEach((valueItem) => {
+            if (!failedFlag) {
+              failedFlag = lintDeclStrictValue(node, prop, valueItem)
+            }
+          })
+        } else {
+          lintDeclStrictValue(node)
+        }
       } else if (isShortHand) {
         const expandedProps = shortCSS.expand(prop, value, recurseLonghand)
         let failedFlag = false

@@ -12,6 +12,9 @@ testRule(rule, {
   config: ['/color/', { expandShorthand: true }],
 
   accept: [
+    { code: '.foo { scrollbar-color: $foo @bar; }' },
+    { code: '.foo { scrollbar-color: namespace.$bar var(--bar); }' },
+    { code: '.foo { border-color: $color; }' },
     { code: '.foo { border: 0; }' },
     { code: '.foo { border: $foo; }' },
     { code: '.foo { boder: 1px solid $bar; }' },
@@ -125,6 +128,18 @@ testRule(rule, {
 
   reject: [
     {
+      code: '.foo { scrollbar-color: $foo #fff; }',
+      message: `Expected variable or function for "#fff" of "scrollbar-color" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
+    {
+      code: '.foo { scrollbar-color: transparent @bar; }',
+      message: `Expected variable or function for "transparent" of "scrollbar-color" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
+    {
       code: '.foo { border: 1px solid #fff; }',
       message: `Expected variable or function for "#fff" of "border" (${ruleName})`,
       line: 1,
@@ -162,6 +177,10 @@ testRule(rule, {
   }],
 
   accept: [
+    { code: '.foo { scrollbar-color: transparent transparent; }' },
+    { code: '.foo { scrollbar-color: transparent darken(#fff, 10%); }' },
+    { code: '.foo { scrollbar-color: darken(#fff, 10%) darken(#fff, 10%); }' },
+    { code: '.foo { scrollbar-color: darken(#fff, 10%) transparent; }' },
     { code: '.foo { boder: 0; }' },
     { code: '.foo { boder: transparent; }' },
     { code: '.foo { boder: 1px solid transparent; }' },
@@ -169,6 +188,18 @@ testRule(rule, {
   ],
 
   reject: [
+    {
+      code: '.foo { scrollbar-color: transparent $foo; }',
+      message: `Expected function or keyword for "$foo" of "scrollbar-color" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
+    {
+      code: '.foo { scrollbar-color: var(--bar) darken(#fff, 10%); }',
+      message: `Expected function or keyword for "var(--bar)" of "scrollbar-color" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
     {
       code: '.foo { border: $foo; }',
       message: `Expected function or keyword for "$foo" of "border" (${ruleName})`,
