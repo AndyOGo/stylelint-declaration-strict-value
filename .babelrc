@@ -1,11 +1,12 @@
 {
   "plugins": [
-    "transform-object-assign",
-    "transform-class-properties",
-    "transform-es2015-destructuring",
-    "transform-object-rest-spread"
+    "@babel/plugin-transform-object-assign",
+    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-transform-destructuring",
+    "@babel/plugin-proposal-object-rest-spread"
   ],
   "presets": [
-    "es2015"
+    "@babel/preset-typescript",
+    "@babel/env"
   ]
 }

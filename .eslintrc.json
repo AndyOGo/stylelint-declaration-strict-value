@@ -1,14 +1,16 @@
 {
-  "extends": ["airbnb-base", "plugin:jsdoc/recommended"],
-  "parser": "babel-eslint",
+  "extends": ["airbnb-typescript/base", "plugin:jsdoc/recommended", "plugin:@typescript-eslint/recommended", "prettier", "prettier/@typescript-eslint"],
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": 6,
     "ecmaFeatures": {
       "experimentalObjectRestSpread": true,
       "classes": true
-    }
+    },
+    "project": "./tsconfig.json"
   },
   "plugins": [
+    "@typescript-eslint",
     "jsdoc"
   ],
   "rules": {
@@ -16,7 +18,9 @@
     "max-len": ["warn", { "ignoreComments": true, "code": 140, "tabWidth": 2 }],
     "no-cond-assign": ["error", "except-parens"],
     "no-else-return": "warn",
-    "no-use-before-define": ["error", { "functions": false, "classes": false }],
+    "no-use-before-define": "off",
+    "@typescript-eslint/no-use-before-define": ["error", { "functions": false, "classes": false }],
+    "@typescript-eslint/no-non-null-assertion": "off",
     "semi": ["error", "never"],
     "quote-props": ["error", "consistent"],
     "jsdoc/no-undefined-types": ["warn", { "definedTypes": ["SecondaryOptions"] }]
