@@ -1,4 +1,4 @@
-// eslint-disable-next-line consistent-return, no-unused-vars
+// eslint-disable-next-line consistent-return, no-unused-vars, @typescript-eslint/no-unused-vars
 function autoFixFunc(node, validation, root, config) {
   const { value, prop } = node
 

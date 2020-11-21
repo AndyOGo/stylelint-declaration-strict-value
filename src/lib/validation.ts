@@ -1,6 +1,17 @@
 import path from 'path'
 
-import defaults from '../defaults'
+import defaults, {
+  ISecondaryOptions,
+  TOptionPrimitive,
+  TOptionArray,
+  IOptionHash,
+  IBoolOption,
+  IBoolHash,
+  TOption,
+  TAutoFixFunc,
+  TAutoFixFuncOrPath,
+  isIOptionHash,
+} from '../defaults'
 
 /**
  * Check if type is either `number` or `string`.
@@ -9,7 +20,7 @@ import defaults from '../defaults'
  *
  * @returns {boolean} - Returns `true` if `value`'s type is either `number` or `string`, else `false`.
  */
-function isNumberOrString(value) {
+function isNumberOrString(value: unknown): value is TOptionPrimitive {
   const type = typeof value
 
   return type === 'string' || type === 'number'
@@ -20,9 +31,9 @@ function isNumberOrString(value) {
  *
  * @param {string|string[]} actual - The actual config to validate.
  *
- * @returns {boolean} - Returns `true` if primary options are valied, else `false`.
+ * @returns {boolean} - Returns `true` if primary options are valid, else `false`.
  */
-function validProperties(actual) {
+function validProperties(actual: unknown): actual is TOptionPrimitive | TOptionArray {
   return isNumberOrString(actual)
     || (Array.isArray(actual) && actual.every((item) => isNumberOrString(item)))
 }
@@ -34,10 +45,10 @@ function validProperties(actual) {
  *
  * @returns {boolean} - Returns `true` if hash keyword config is valid, else `false`.
  */
-function validHash(actual) {
-  if (typeof actual !== 'object') return false
+function validHash(actual: unknown): actual is IOptionHash  {
+  if (typeof actual !== 'object' || !actual) return false
 
-  return Object.keys(actual).every((key) => validProperties(actual[key]))
+  return Object.keys(actual).every((key) => validProperties((actual as IOptionHash)[key as keyof IOptionHash]))
 }
 
 /**
@@ -47,10 +58,10 @@ function validHash(actual) {
  *
  * @returns {boolean} - Returns `true` if hash variable/function config is valid, else `false`.
  */
-function validBooleanHash(actual) {
-  if (typeof actual !== 'object') return false
+function validBooleanHash(actual: unknown): actual is IBoolHash {
+  if (typeof actual !== 'object' || !actual) return false
 
-  return Object.keys(actual).every((key) => typeof actual[key] === 'boolean')
+  return Object.keys(actual).every((key) => typeof (actual as IBoolHash)[key as keyof IBoolHash] === 'boolean')
 }
 
 /**
@@ -60,7 +71,7 @@ function validBooleanHash(actual) {
  *
  * @returns {boolean} - Returns `true` if secondary options are valied, else `false`.
  */
-function validOptions(actual) {
+function validOptions(actual: ISecondaryOptions): boolean {
   if (typeof actual !== 'object') return false
 
   const allowedKeys = Object.keys(defaults)
@@ -112,51 +123,57 @@ function validOptions(actual) {
   return true
 }
 
+type TExpectedType = "variable" | "function" | "keyword";
+type TExpectedTypes = Array<TExpectedType>;
 /**
  * Build expected message for stylelint report.
  *
- * @param {Array} types - Either `variable`, `function` and/or `keyword`.
+ * @param {Array.<string>} types - Either `variable`, `function` and/or `keyword`.
  * @param {string} value - The CSS declaration's value.
  * @param {string} property - The CSS declaration's property.
  * @param {string} [customMessage] - A custom message to be delivered upon error interpolated with `${types}`, `${value}` and `${property}`.
  *
  * @returns {string} - Returns an expected message for stylelint report.
  */
-function expected(types, value, property, customMessage) {
+function expected(types: TExpectedType | TExpectedTypes, value: string, property: string, customMessage = ""): string {
+  let typesMessage: string
+
   if (Array.isArray(types)) {
     const typesLast = types.pop()
 
     // eslint-disable-next-line no-param-reassign
-    types = types.length ? `${types.join(', ')} or ${typesLast}` : typesLast
+    typesMessage = types.length ? `${types.join(', ')} or ${typesLast}` : typesLast as string
+  } else {
+    typesMessage = types
   }
 
   if (typeof customMessage === 'string' && customMessage.length) {
     /* eslint-disable no-template-curly-in-string */
-    return customMessage.replace('${types}', types)
+    return customMessage.replace('${types}', typesMessage)
       .replace('${value}', value)
       .replace('${property}', property)
     /* eslint-enable no-template-curly-in-string */
   }
 
-  return `Expected ${types} for "${value}" of "${property}"`
+  return `Expected ${typesMessage} for "${value}" of "${property}"`
 }
 
 /**
  * Get configured types for stylelint report message.
  *
- * @param {object} config - The secondary stylelint-plugin config.
+ * @param {SecondaryOptions} config - The secondary stylelint-plugin config.
  * @param {string} property - The specific CSS declaration's property of the current iteration.
  *
  * @returns {Array} - Returns a list of configured types.
  */
-function getTypes(config, property) {
+function getTypes(config: ISecondaryOptions, property: string): TExpectedTypes {
   const {
     ignoreVariables,
     ignoreFunctions,
     ignoreKeywords,
     ignoreValues,
   } = config
-  const types = []
+  const types: TExpectedTypes = []
 
   if (ignoreVariables) {
     types.push('variable')
@@ -181,19 +198,21 @@ function getTypes(config, property) {
  * Get the correct ignored variable or function for a specific CSS declaration's property
  * out of a complex `ignoreVariablesOrFunctions` config hash or boolean.
  *
- * @param {boolean|object} ignoreVariablesOrFunctions - The variables or functions to ignore.
+ * @param {boolean|Object.<string, boolean>} ignoreVariablesOrFunctions - The variables or functions to ignore.
  * @param {string} property - The specific CSS declaration's property of the current iteration.
  *
  * @returns {boolean} - Returns ignored variable or function for a specific CSS property.
  */
-function getIgnoredVariablesOrFunctions(ignoreVariablesOrFunctions, property) {
-  const type = typeof ignoreVariablesOrFunctions
+function getIgnoredVariablesOrFunctions(ignoreVariablesOrFunctions: IBoolOption, property: string): boolean {
+  // @see: https://github.com/microsoft/TypeScript/issues/41627
+  // const type = typeof ignoreVariablesOrFunctions
 
-  if (type === 'boolean') {
+  if (typeof ignoreVariablesOrFunctions === 'boolean') {
     return ignoreVariablesOrFunctions
   }
 
-  if (type === 'object' && ignoreVariablesOrFunctions && {}.hasOwnProperty.call(ignoreVariablesOrFunctions, property)) {
+  if (typeof ignoreVariablesOrFunctions === 'object' && ignoreVariablesOrFunctions &&
+    {}.hasOwnProperty.call(ignoreVariablesOrFunctions, property)) {
     return ignoreVariablesOrFunctions[property]
   }
 
@@ -209,14 +228,14 @@ function getIgnoredVariablesOrFunctions(ignoreVariablesOrFunctions, property) {
  *
  * @returns {Array} - Returns ignored keywords for a specific CSS property.
  */
-function getIgnoredKeywords(ignoreKeywords, property) {
+function getIgnoredKeywords(ignoreKeywords: TOption, property: string): null | TOptionArray {
   if (!ignoreKeywords) return null
 
   let keywords = ignoreKeywords
 
-  if ({}.hasOwnProperty.call(keywords, property)) {
+  if (isIOptionHash(keywords, property)) {
     keywords = keywords[property]
-  } else if ({}.hasOwnProperty.call(keywords, '')) {
+  } else if (isIOptionHash(keywords, '')) {
     keywords = keywords['']
   }
 
@@ -231,14 +250,14 @@ function getIgnoredKeywords(ignoreKeywords, property) {
  * @param {string} property - The specific CSS declaration's property of the current iteration.
  * @returns {Array} - Returns ignored values for a specific CSS property.
  */
-function getIgnoredValues(ignoreValues, property) {
+function getIgnoredValues(ignoreValues: TOption, property: string): null | TOptionArray {
   if (!ignoreValues) return null
 
   let values = ignoreValues
 
-  if ({}.hasOwnProperty.call(values, property)) {
+  if (isIOptionHash(values, property)) {
     values = values[property]
-  } else if ({}.hasOwnProperty.call(values, '')) {
+  } else if (isIOptionHash(values, '')) {
     values = values['']
   }
 
@@ -252,14 +271,16 @@ function getIgnoredValues(ignoreValues, property) {
  *
  * @returns {Function|null} - Returns the auto-fix function if found, else `null`.
  */
-function getAutoFixFunc(autoFixFunc) {
-  const type = typeof autoFixFunc
+function getAutoFixFunc(autoFixFunc: TAutoFixFuncOrPath): null | TAutoFixFunc {
+  // @see: https://github.com/microsoft/TypeScript/issues/41627
+  // const type = typeof autoFixFunc
+  
 
-  if (type === 'function') {
+  if (typeof autoFixFunc === 'function') {
     return autoFixFunc
   }
 
-  if (type === 'string') {
+  if (typeof autoFixFunc === 'string') {
     let resolveAutoFixfunc
 
     try {
