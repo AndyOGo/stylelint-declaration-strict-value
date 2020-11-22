@@ -2,6 +2,7 @@
 .vscode
 .env
 .nyc_output
+.rts2_cache_*
 /node_modules/
 /coverage/
 
