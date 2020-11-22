@@ -95,14 +95,14 @@ type PostCSSPlugin = (root: Root, result: Result) => void | PromiseLike<void>;
  *
  * @returns {PostCSSPlugin} - Returns a PostCSS Plugin.
  */
-type StylelintRuleFunction = {
+interface StylelintRuleFunction {
   (
     primaryOption: string | string[],
     secondaryOptions?: ISecondaryOptions,
     context?: LinterOptions
   ): PostCSSPlugin;
   primaryOptionArray: boolean;
-};
+}
 const ruleFunction: StylelintRuleFunction = (
   properties: string | string[],
   options: ISecondaryOptions,
