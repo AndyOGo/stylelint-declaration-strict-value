@@ -1,8 +1,8 @@
-import testRule from 'stylelint-test-rule-tape'
+import testRule from 'stylelint-test-rule-tape';
 
-import declarationStrictValue, { ruleName } from '../src'
+import declarationStrictValue, { ruleName } from '../src';
 
-const { rule } = declarationStrictValue
+const { rule } = declarationStrictValue;
 
 // default config
 testRule(rule, {
@@ -164,17 +164,20 @@ testRule(rule, {
       column: 8,
     },
   ],
-})
+});
 
 testRule(rule, {
   ruleName,
   skipBasicChecks: true,
 
-  config: ['/color/', {
-    ignoreVariables: false,
-    ignoreKeywords: 'transparent',
-    expandShorthand: true,
-  }],
+  config: [
+    '/color/',
+    {
+      ignoreVariables: false,
+      ignoreKeywords: 'transparent',
+      expandShorthand: true,
+    },
+  ],
 
   accept: [
     { code: '.foo { scrollbar-color: transparent transparent; }' },
@@ -255,16 +258,19 @@ testRule(rule, {
       column: 8,
     },
   ],
-})
+});
 
 testRule(rule, {
   ruleName,
   skipBasicChecks: true,
 
-  config: ['/margin-?(top|right|bottom|left)?/', {
-    ignoreValues: ['0', 'auto'],
-    expandShorthand: true,
-  }],
+  config: [
+    '/margin-?(top|right|bottom|left)?/',
+    {
+      ignoreValues: ['0', 'auto'],
+      expandShorthand: true,
+    },
+  ],
 
   accept: [
     { code: '.foo { margin: auto; }' },
@@ -282,15 +288,18 @@ testRule(rule, {
       column: 8,
     },
   ],
-})
+});
 
 testRule(rule, {
   ruleName,
   skipBasicChecks: true,
 
-  config: ['/color/', {
-    expandShorthand: false,
-  }],
+  config: [
+    '/color/',
+    {
+      expandShorthand: false,
+    },
+  ],
 
   accept: [
     { code: '.foo { boder: 1px solid #fff; }' },
@@ -298,15 +307,18 @@ testRule(rule, {
     { code: '.foo { background: #fff; }' },
     { code: '.foo { background: red; }' },
   ],
-})
+});
 
 testRule(rule, {
   ruleName,
   skipBasicChecks: true,
 
-  config: ['/color/', {
-    expandShorthand: 'foo',
-  }],
+  config: [
+    '/color/',
+    {
+      expandShorthand: 'foo',
+    },
+  ],
 
   reject: [
     {
@@ -314,15 +326,18 @@ testRule(rule, {
       message: `Invalid option "{"expandShorthand":"foo"}" for rule ${ruleName}`,
     },
   ],
-})
+});
 
 testRule(rule, {
   ruleName,
   skipBasicChecks: true,
 
-  config: ['/color/', {
-    recurseLonghand: 'foo',
-  }],
+  config: [
+    '/color/',
+    {
+      recurseLonghand: 'foo',
+    },
+  ],
 
   reject: [
     {
@@ -330,4 +345,4 @@ testRule(rule, {
       message: `Invalid option "{"recurseLonghand":"foo"}" for rule ${ruleName}`,
     },
   ],
-})
+});

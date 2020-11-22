@@ -1,4 +1,4 @@
-import type { Node, Root } from 'postcss'
+import type { Node, Root } from 'postcss';
 
 /**
  * Plugin secondary options.
@@ -18,24 +18,32 @@ import type { Node, Root } from 'postcss'
 export interface IBoolHash {
   [key: string]: boolean;
 }
-export type IBoolOption = boolean | IBoolHash
+export type IBoolOption = boolean | IBoolHash;
 export type TOptionPrimitive = number | string;
 export type TOptionArray = Array<TOptionPrimitive>;
 export interface IOptionHash {
   [key: string]: TOptionPrimitive | TOptionArray;
 }
-export const isIOptionHash = (key: unknown, value: unknown): key is IOptionHash =>
-  typeof key === "object" && Object.hasOwnProperty.call(key, value)
+export const isIOptionHash = (
+  key: unknown,
+  value: unknown
+): key is IOptionHash =>
+  typeof key === 'object' && Object.hasOwnProperty.call(key, value);
 export type TOption = TOptionPrimitive | TOptionArray | IOptionHash;
 export interface IResult {
-  validVar: boolean,
-  validFunc: boolean,
-  validKeyword: boolean,
-  validValue: boolean,
-  longhandProp?: string,
-  longhandValue?: string,
+  validVar: boolean;
+  validFunc: boolean;
+  validKeyword: boolean;
+  validValue: boolean;
+  longhandProp?: string;
+  longhandValue?: string;
 }
-export type TAutoFixFunc = (node: Node, result: IResult, root: Root, config: ISecondaryOptions) => string;
+export type TAutoFixFunc = (
+  node: Node,
+  result: IResult,
+  root: Root,
+  config: ISecondaryOptions
+) => string;
 export type TAutoFixFuncOrPath = null | undefined | string | TAutoFixFunc;
 export interface ISecondaryOptions {
   ignoreVariables?: IBoolOption;
@@ -77,6 +85,6 @@ const defaults = {
   message: undefined,
   disableFix: false,
   autoFixFunc: null,
-} as ISecondaryOptions
+} as ISecondaryOptions;
 
-export default defaults
+export default defaults;

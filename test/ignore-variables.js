@@ -1,17 +1,20 @@
-import testRule from 'stylelint-test-rule-tape'
+import testRule from 'stylelint-test-rule-tape';
 
-import declarationStrictValue, { ruleName } from '../src'
+import declarationStrictValue, { ruleName } from '../src';
 
-const { rule } = declarationStrictValue
+const { rule } = declarationStrictValue;
 
 // disabling ignoreVariables
 testRule(rule, {
   ruleName,
   skipBasicChecks: true,
 
-  config: [['color', 'margin'], {
-    ignoreVariables: false,
-  }],
+  config: [
+    ['color', 'margin'],
+    {
+      ignoreVariables: false,
+    },
+  ],
 
   accept: [
     { code: '.foo { color: spacing(); }' },
@@ -122,17 +125,20 @@ testRule(rule, {
       column: 20,
     },
   ],
-})
+});
 
 testRule(rule, {
   ruleName,
   skipBasicChecks: true,
 
-  config: [['color', 'margin'], {
-    ignoreVariables: {
-      color: false,
+  config: [
+    ['color', 'margin'],
+    {
+      ignoreVariables: {
+        color: false,
+      },
     },
-  }],
+  ],
 
   accept: [
     { code: '.foo { color: spacing(); }' },
@@ -246,15 +252,18 @@ testRule(rule, {
       column: 20,
     },
   ],
-})
+});
 
 testRule(rule, {
   ruleName,
   skipBasicChecks: true,
 
-  config: ['color', {
-    ignoreVariables: 'foo',
-  }],
+  config: [
+    'color',
+    {
+      ignoreVariables: 'foo',
+    },
+  ],
 
   reject: [
     {
@@ -262,4 +271,4 @@ testRule(rule, {
       message: `Invalid option "{"ignoreVariables":"foo"}" for rule ${ruleName}`,
     },
   ],
-})
+});

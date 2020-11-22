@@ -1,8 +1,8 @@
-import testRule from 'stylelint-test-rule-tape'
+import testRule from 'stylelint-test-rule-tape';
 
-import declarationStrictValue, { ruleName } from '../src'
+import declarationStrictValue, { ruleName } from '../src';
 
-const { rule } = declarationStrictValue
+const { rule } = declarationStrictValue;
 
 // default config
 testRule(rule, {
@@ -317,4 +317,4 @@ testRule(rule, {
       column: 8,
     },
   ],
-})
+});

@@ -1,21 +1,22 @@
-import testRule from 'stylelint-test-rule-tape'
+import testRule from 'stylelint-test-rule-tape';
 
-import declarationStrictValue, { ruleName } from '../src'
+import declarationStrictValue, { ruleName } from '../src';
 
-const { rule } = declarationStrictValue
+const { rule } = declarationStrictValue;
 
 // ignore single value
 testRule(rule, {
   ruleName,
   skipBasicChecks: true,
 
-  config: ['color', {
-    ignoreValues: 'transparent',
-  }],
-
-  accept: [
-    { code: '.foo { color: transparent; }' },
+  config: [
+    'color',
+    {
+      ignoreValues: 'transparent',
+    },
   ],
+
+  accept: [{ code: '.foo { color: transparent; }' }],
 
   reject: [
     {
@@ -25,22 +26,27 @@ testRule(rule, {
       column: 8,
     },
   ],
-})
+});
 
 testRule(rule, {
   ruleName,
   skipBasicChecks: true,
 
-  config: ['/color/', {
-    ignoreValues: 'transparent',
-  }],
+  config: [
+    '/color/',
+    {
+      ignoreValues: 'transparent',
+    },
+  ],
 
   accept: [
     { code: '.foo { scrollbar-color: var(--color) transparent;  }' },
     { code: '.foo { scrollbar-color: $color transparent; }' },
     { code: '.foo { scrollbar-color: transparent @color; }' },
     { code: '.foo { scrollbar-color: transparent darken(#fff, 10%); }' },
-    { code: '.foo { scrollbar-color: transparent darken(var(--color), 10%); }' },
+    {
+      code: '.foo { scrollbar-color: transparent darken(var(--color), 10%); }',
+    },
   ],
 
   reject: [
@@ -51,16 +57,19 @@ testRule(rule, {
       column: 8,
     },
   ],
-})
+});
 
 // ignore single value regex
 testRule(rule, {
   ruleName,
   skipBasicChecks: true,
 
-  config: ['color', {
-    ignoreValues: '/^#[0-9a-fA-F]{3,6}$/',
-  }],
+  config: [
+    'color',
+    {
+      ignoreValues: '/^#[0-9a-fA-F]{3,6}$/',
+    },
+  ],
 
   accept: [
     { code: '.foo { color: #fff; }' },
@@ -75,16 +84,19 @@ testRule(rule, {
       column: 8,
     },
   ],
-})
+});
 
 // ignore single value regex with i flag
 testRule(rule, {
   ruleName,
   skipBasicChecks: true,
 
-  config: ['color', {
-    ignoreValues: '/^red$/i',
-  }],
+  config: [
+    'color',
+    {
+      ignoreValues: '/^red$/i',
+    },
+  ],
 
   accept: [
     { code: '.foo { color: red; }' },
@@ -106,21 +118,25 @@ testRule(rule, {
       column: 8,
     },
     {
-      code: '.foo { color: red; } .bar { color: RED; } .baz { color: inherit; }',
+      code:
+        '.foo { color: red; } .bar { color: RED; } .baz { color: inherit; }',
       message: `Expected variable, function or keyword for "inherit" of "color" (${ruleName})`,
       line: 1,
       column: 50,
     },
   ],
-})
+});
 
 testRule(rule, {
   ruleName,
   skipBasicChecks: true,
 
-  config: ['color', {
-    ignoreValues: true,
-  }],
+  config: [
+    'color',
+    {
+      ignoreValues: true,
+    },
+  ],
 
   reject: [
     {
@@ -128,4 +144,4 @@ testRule(rule, {
       message: `Invalid option "{"ignoreValues":true}" for rule ${ruleName}`,
     },
   ],
-})
+});

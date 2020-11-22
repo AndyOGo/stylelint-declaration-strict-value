@@ -1,17 +1,20 @@
-import testRule from 'stylelint-test-rule-tape'
+import testRule from 'stylelint-test-rule-tape';
 
-import declarationStrictValue, { ruleName } from '../src'
+import declarationStrictValue, { ruleName } from '../src';
 
-const { rule } = declarationStrictValue
+const { rule } = declarationStrictValue;
 
 // ignore multiple keywords
 testRule(rule, {
   ruleName,
   skipBasicChecks: true,
 
-  config: ['color', {
-    ignoreValues: ['transparent', '/^#[0-9a-fA-F]{3,6}$/', '/^red$/i'],
-  }],
+  config: [
+    'color',
+    {
+      ignoreValues: ['transparent', '/^#[0-9a-fA-F]{3,6}$/', '/^red$/i'],
+    },
+  ],
 
   accept: [
     { code: '.foo { color: transparent; }' },
@@ -33,4 +36,4 @@ testRule(rule, {
       column: 8,
     },
   ],
-})
+});
