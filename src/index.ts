@@ -66,7 +66,10 @@ const reFunc = /^(?!var\(\s*--)[\s\S]+\([\s\S]*\)$/;
 const reRegex = /^\/(.*)\/([a-zA-Z]*)$/;
 const isRegexString = (value: string) => reRegex.test(value);
 const getRegexString = (value: string) => value.match(reRegex)!.slice(1);
-const stringToRegex = (value: string) => new RegExp(...getRegexString(value));
+const stringToRegex = (value: string) => {
+  const [pattern, flags] = getRegexString(value);
+  return new RegExp(pattern, flags);
+};
 const mapIgnoreValue = (ignoreValue: TOptionPrimitive) =>
   isRegexString(`${ignoreValue}`)
     ? stringToRegex(`${ignoreValue}`)
@@ -80,6 +83,7 @@ const mapIgnoreValue = (ignoreValue: TOptionPrimitive) =>
  * @param {object} root - PostCSS root (the parsed AST).
  * @param {object} result - PostCSS lazy result.
  */
+type PostCSSPlugin = (root: Root, result: Result) => void | PromiseLike<void>;
 
 /**
  * Stylelint declaration strict value rule function.
@@ -91,11 +95,19 @@ const mapIgnoreValue = (ignoreValue: TOptionPrimitive) =>
  *
  * @returns {PostCSSPlugin} - Returns a PostCSS Plugin.
  */
-const ruleFunction = (
+type StylelintRuleFunction = {
+  (
+    primaryOption: string | string[],
+    secondaryOptions?: ISecondaryOptions,
+    context?: LinterOptions
+  ): PostCSSPlugin;
+  primaryOptionArray: boolean;
+};
+const ruleFunction: StylelintRuleFunction = (
   properties: string | string[],
   options: ISecondaryOptions,
   context: LinterOptions
-): PostCSSPlugin => (root: Root, result: Result) => {
+) => (root: Root, result: Result) => {
   // validate stylelint plugin options
   const hasValidOptions = utils.validateOptions(
     result,
@@ -360,7 +372,7 @@ const ruleFunction = (
             result,
             node,
             line: start!.line,
-            column: start!.column + nodeProp.length + raws.between!.length,
+            // column: start!.column + nodeProp.length + raws.between!.length,
             message: messages.expected(types, value, nodeProp, message),
           });
         }
