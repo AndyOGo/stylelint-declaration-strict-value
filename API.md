@@ -15,50 +15,24 @@
     -   [Parameters][11]
 -   [lintDeclStrictValue][12]
     -   [Parameters][13]
--   [isNumberOrString][14]
-    -   [Parameters][15]
--   [validProperties][16]
-    -   [Parameters][17]
--   [validHash][18]
-    -   [Parameters][19]
--   [validBooleanHash][20]
-    -   [Parameters][21]
--   [validOptions][22]
-    -   [Parameters][23]
--   [expected][24]
-    -   [Parameters][25]
--   [getTypes][26]
-    -   [Parameters][27]
--   [getIgnoredVariablesOrFunctions][28]
-    -   [Parameters][29]
--   [getIgnoredKeywords][30]
-    -   [Parameters][31]
--   [getIgnoredValues][32]
-    -   [Parameters][33]
--   [getAutoFixFunc][34]
-    -   [Parameters][35]
--   [defaults][36]
-    -   [Properties][37]
--   [SecondaryOptions][38]
-    -   [Properties][39]
 
 ## ruleName
 
 Rule Name.
 
-Type: [string][40]
+Type: [string][14]
 
 ## reSkipProp
 
 RegExp to skip non-CSS properties.
 
-Type: [RegExp][41]
+Type: [RegExp][15]
 
 ## reVar
 
--   **See: [https://github.com/sass/sass/blob/master/accepted/module-system.md#member-references][42]
+-   **See: [https://github.com/sass/sass/blob/master/accepted/module-system.md#member-references][16]
     **
--   **See: [https://drafts.csswg.org/css-syntax-3/#ident-token-diagram][43]
+-   **See: [https://drafts.csswg.org/css-syntax-3/#ident-token-diagram][17]
     **
 
 RegExp to parse CSS, SCSS and less variables.
@@ -66,7 +40,7 @@ RegExp to parse CSS, SCSS and less variables.
 -   allowing CSS variables to be multi line
 -   Sass namespaces and CSS <ident-token> supported
 
-Type: [RegExp][41]
+Type: [RegExp][15]
 
 ## reFunc
 
@@ -75,7 +49,7 @@ RegExp to parse functions.
 -   irgnoring CSS variables `var(--*)`
 -   allow multi line arguments
 
-Type: [RegExp][41]
+Type: [RegExp][15]
 
 ## reRegex
 
@@ -84,218 +58,60 @@ RegExp to parse regular expressions.
 -   supporting patterns
 -   and optional flags
 
-Type: [RegExp][41]
+Type: [RegExp][15]
 
 ## PostCSSPlugin
 
 A rule function essentially returns a little PostCSS plugin.
 It will report violations of this rule.
 
-Type: [Function][44]
+Type: [Function][18]
 
 ### Parameters
 
--   `root` **[object][45]** PostCSS root (the parsed AST).
--   `result` **[object][45]** PostCSS lazy result.
+-   `root` **[object][19]** PostCSS root (the parsed AST).
+-   `result` **[object][19]** PostCSS lazy result.
 
 ## ruleFunction
 
--   **See: [https://stylelint.io/developer-guide/plugins][46]
+-   **See: [https://stylelint.io/developer-guide/plugins][20]
     **
 
 Stylelint declaration strict value rule function.
 
 ### Parameters
 
--   `properties` **([string][40] \| [Array][47]&lt;[string][40]>)** Primary options, a CSS property or list of CSS properties to lint.
--   `options` **[SecondaryOptions][48]** Secondary options, configure edge cases. (optional, default `defaults`)
--   `context` **any?** Only used for autofixing. (optional, default `{}`)
+-   `properties` **([string][14] \| [Array][21]&lt;[string][14]>)** Primary options, a CSS property or list of CSS properties to lint.
+-   `options` **SecondaryOptions** Secondary options, configure edge cases. (optional, default `defaults`)
+-   `context` **any?** Only used for autofixing.
 
-Returns **[PostCSSPlugin][49]** Returns a PostCSS Plugin.
+Returns **[PostCSSPlugin][22]** Returns a PostCSS Plugin.
 
 ## filterDecl
 
 Filter declarations for matching properties and expand shorthand properties.
 
-Type: [Function][44]
+Type: [Function][18]
 
 ### Parameters
 
--   `node` **[object][45]** A Declaration-Node from PostCSS AST-Parser.
+-   `node` **[object][19]** A Declaration-Node from PostCSS AST-Parser.
 
 ## lintDeclStrictValue
 
 Lint usages of declarations values againts, variables, functions
 or custum keywords - as configured.
 
-Type: [Function][44]
+Type: [Function][18]
 
 ### Parameters
 
--   `node` **[object][45]** A Declaration-Node from PostCSS AST-Parser.
--   `longhandProp` **[string][40]?** A Declaration-Node from PostCSS AST-Parser.
--   `longhandValue` **[string][40]?** A Declaration-Node from PostCSS AST-Parser.
--   `isExpanded` **[boolean][50]** Whether or not this declaration was expanded. (optional, default `false`)
-
-Returns **[boolean][50]** Returns `true` if invalid declaration found, else `false`.
-
-## isNumberOrString
-
-Check if type is either `number` or `string`.
-
-### Parameters
-
--   `value` **any** Any value.
-
-Returns **[boolean][50]** Returns `true` if `value`'s type is either `number` or `string`, else `false`.
-
-## validProperties
-
-Validate primary options of stylelint plugin config.
-
-### Parameters
-
--   `actual` **([string][40] \| [Array][47]&lt;[string][40]>)** The actual config to validate.
-
-Returns **[boolean][50]** Returns `true` if primary options are valied, else `false`.
-
-## validHash
-
-Validate optional hash keyword config.
-
-### Parameters
-
--   `actual` **[object][45]** A keyword config.
-
-Returns **[boolean][50]** Returns `true` if hash keyword config is valid, else `false`.
-
-## validBooleanHash
-
-Validate optional boolean hash variable/function config.
-
-### Parameters
-
--   `actual` **[object][45]** A variable/function config.
-
-Returns **[boolean][50]** Returns `true` if hash variable/function config is valid, else `false`.
-
-## validOptions
-
-Validate optional secondary options of stylelint plugin config.
-
-### Parameters
-
--   `actual` **[SecondaryOptions][48]** The actual config to validate.
-
-Returns **[boolean][50]** Returns `true` if secondary options are valied, else `false`.
-
-## expected
-
-Build expected message for stylelint report.
-
-### Parameters
-
--   `types` **[Array][47]** Either `variable`, `function` and/or `keyword`.
--   `value` **[string][40]** The CSS declaration's value.
--   `property` **[string][40]** The CSS declaration's property.
--   `customMessage` **[string][40]?** A custom message to be delivered upon error interpolated with `${types}`, `${value}` and `${property}`.
-
-Returns **[string][40]** Returns an expected message for stylelint report.
-
-## getTypes
-
-Get configured types for stylelint report message.
-
-### Parameters
-
--   `config` **[object][45]** The secondary stylelint-plugin config.
--   `property` **[string][40]** The specific CSS declaration's property of the current iteration.
-
-Returns **[Array][47]** Returns a list of configured types.
-
-## getIgnoredVariablesOrFunctions
-
-Get the correct ignored variable or function for a specific CSS declaration's property
-out of a complex `ignoreVariablesOrFunctions` config hash or boolean.
-
-### Parameters
-
--   `ignoreVariablesOrFunctions` **([boolean][50] \| [object][45])** The variables or functions to ignore.
--   `property` **[string][40]** The specific CSS declaration's property of the current iteration.
-
-Returns **[boolean][50]** Returns ignored variable or function for a specific CSS property.
-
-## getIgnoredKeywords
-
-Get the correct ignored keywords for a specific CSS declaration's property
-out of a complex `ignoreKeywords` config hash or array.
-
-### Parameters
-
--   `ignoreKeywords` **(null | [object][45] \| [Array][47] \| [string][40])** The keyword/-s to ignore.
--   `property` **[string][40]** The specific CSS declaration's property of the current iteration.
-
-Returns **[Array][47]** Returns ignored keywords for a specific CSS property.
-
-## getIgnoredValues
-
-Get the correct ignored values for a specific CSS declaration's property
-out of a complex `ignoreValues` config hash or array.
-
-### Parameters
-
--   `ignoreValues` **(null | [string][40] \| [RegExp][41] \| [object][45] \| [Array][47])** The values/-s to ignore.
--   `property` **[string][40]** The specific CSS declaration's property of the current iteration.
-
-Returns **[Array][47]** Returns ignored values for a specific CSS property.
-
-## getAutoFixFunc
-
-Get the auto-fix function either by a function directly or from source file.
-
-### Parameters
-
--   `autoFixFunc` **([Function][44] \| [string][40])** A JavaScript function or a module path to resolve it, also from cwd.
-
-Returns **([Function][44] | null)** Returns the auto-fix function if found, else `null`.
-
-## defaults
-
-Default options.
-
-Type: [SecondaryOptions][48]
-
-### Properties
-
--   `ignoreVariables` **[boolean][50]?** Ignore variables by default.
--   `ignoreFunctions` **[boolean][50]?** Ignore function by default.
--   `ignoreKeywords` **null?** **DEPRECATED:** Forbid keywords by default.
--   `ignoreValues` **null?** Forbid values by default.
--   `expandShorthand` **[boolean][50]?** Expand shorthand CSS properties.
--   `recurseLonghand` **[boolean][50]?** Do not expand longhand properties recursivly - only useful for `border`.
--   `severity` **[string][40]?** This rule's default severity is `'error'`.
--   `message` **null?** Use default message.
--   `disableFix` **null?** Don't auto-fix if `--fix` option is applied.
--   `autoFixFunc` **null?** By default no auto-fix feature.
-
-## SecondaryOptions
-
-Plugin secondary options.
-
-Type: [object][45]
-
-### Properties
-
--   `ignoreVariables` **[boolean][50]?** Wheter or not to ignore variables.
--   `ignoreFunctions` **[boolean][50]?** Wheter or not to ignore function.
--   `ignoreKeywords` **(null | [number][51] \| [string][40] \| [Array][47] \| [object][45])?** **DEPRECATED:** An ignored keywords config.
--   `ignoreValues` **([number][51] \| [string][40] \| [RegExp][41] \| [Array][47] \| [object][45])?** An ignored values config.
--   `expandShorthand` **[boolean][50]?** Wheter or not to expand shorthand CSS properties.
--   `recurseLonghand` **[boolean][50]?** Wheter or not to expand longhand CSS properties recursivly - this is only useful for the border property.
--   `severity` **[string][40]?** Adjust severity of the rule, `'warning'` or `'error'` (default).
--   `message` **(null | [string][40])?** A custom message when a rule is violated, interpolated with `${types}`, `${value}` and `${property}`.
--   `disableFix` **[boolean][50]?** Don't auto-fix if `--fix` option is applied.
--   `autoFixFunc` **(null | [Function][44])?** By default no auto-fix feature.
+-   `node` **[object][19]** A Declaration-Node from PostCSS AST-Parser.
+-   `longhandProp` **[string][14]?** A Declaration-Node from PostCSS AST-Parser.
+-   `longhandValue` **[string][14]?** A Declaration-Node from PostCSS AST-Parser.
+-   `isExpanded` **[boolean][23]** Whether or not this declaration was expanded. (optional, default `false`)
+
+Returns **[boolean][23]** Returns `true` if invalid declaration found, else `false`.
 
 [1]: #rulename
 
@@ -323,78 +139,22 @@ Type: [object][45]
 
 [13]: #parameters-3
 
-[14]: #isnumberorstring
+[14]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
 
-[15]: #parameters-4
+[15]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/RegExp
 
-[16]: #validproperties
+[16]: https://github.com/sass/sass/blob/master/accepted/module-system.md#member-references
 
-[17]: #parameters-5
+[17]: https://drafts.csswg.org/css-syntax-3/#ident-token-diagram
 
-[18]: #validhash
+[18]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
 
-[19]: #parameters-6
+[19]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
 
-[20]: #validbooleanhash
+[20]: https://stylelint.io/developer-guide/plugins
 
-[21]: #parameters-7
+[21]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
 
-[22]: #validoptions
+[22]: #postcssplugin
 
-[23]: #parameters-8
-
-[24]: #expected
-
-[25]: #parameters-9
-
-[26]: #gettypes
-
-[27]: #parameters-10
-
-[28]: #getignoredvariablesorfunctions
-
-[29]: #parameters-11
-
-[30]: #getignoredkeywords
-
-[31]: #parameters-12
-
-[32]: #getignoredvalues
-
-[33]: #parameters-13
-
-[34]: #getautofixfunc
-
-[35]: #parameters-14
-
-[36]: #defaults
-
-[37]: #properties
-
-[38]: #secondaryoptions
-
-[39]: #properties-1
-
-[40]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
-
-[41]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/RegExp
-
-[42]: https://github.com/sass/sass/blob/master/accepted/module-system.md#member-references
-
-[43]: https://drafts.csswg.org/css-syntax-3/#ident-token-diagram
-
-[44]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
-
-[45]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
-
-[46]: https://stylelint.io/developer-guide/plugins
-
-[47]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
-
-[48]: #secondaryoptions
-
-[49]: #postcssplugin
-
-[50]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
-
-[51]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
+[23]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean

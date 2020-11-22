@@ -14,7 +14,7 @@
     "coverage": "nyc --reporter lcov --reporter text node test",
     "postcoverage": "dotenv codecov",
     "eslint": "eslint 'src/**/*.[tj]s' 'test/**/*.[tj]s'",
-    "docs": "documentation build src/index.js -f md -o API.md",
+    "docs": "documentation build src/index.ts --parse-extension ts -f md -o API.md",
     "toc": "doctoc README.md --title '**Table of Contents**'"
   },
   "repository": {
