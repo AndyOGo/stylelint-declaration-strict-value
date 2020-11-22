@@ -33,7 +33,7 @@ function isNumberOrString(value: unknown): value is TOptionPrimitive {
  *
  * @returns {boolean} - Returns `true` if primary options are valid, else `false`.
  */
-function validProperties(
+export function validProperties(
   actual: unknown
 ): actual is TOptionPrimitive | TOptionArray {
   return (
@@ -79,7 +79,7 @@ function validBooleanHash(actual: unknown): actual is IBoolHash {
  *
  * @returns {boolean} - Returns `true` if secondary options are valied, else `false`.
  */
-function validOptions(actual: ISecondaryOptions): boolean {
+export function validOptions(actual: ISecondaryOptions): boolean {
   if (typeof actual !== 'object') return false;
 
   const allowedKeys = Object.keys(defaults);
@@ -174,7 +174,7 @@ type TExpectedTypes = Array<TExpectedType>;
  *
  * @returns {string} - Returns an expected message for stylelint report.
  */
-function expected(
+export function expected(
   types: TExpectedType | TExpectedTypes,
   value: string,
   property: string,
@@ -213,7 +213,10 @@ function expected(
  *
  * @returns {Array} - Returns a list of configured types.
  */
-function getTypes(config: ISecondaryOptions, property: string): TExpectedTypes {
+export function getTypes(
+  config: ISecondaryOptions,
+  property: string
+): TExpectedTypes {
   const {
     ignoreVariables,
     ignoreFunctions,
@@ -250,7 +253,7 @@ function getTypes(config: ISecondaryOptions, property: string): TExpectedTypes {
  *
  * @returns {boolean} - Returns ignored variable or function for a specific CSS property.
  */
-function getIgnoredVariablesOrFunctions(
+export function getIgnoredVariablesOrFunctions(
   ignoreVariablesOrFunctions: IBoolOption,
   property: string
 ): boolean {
@@ -281,7 +284,7 @@ function getIgnoredVariablesOrFunctions(
  *
  * @returns {Array} - Returns ignored keywords for a specific CSS property.
  */
-function getIgnoredKeywords(
+export function getIgnoredKeywords(
   ignoreKeywords: TOption,
   property: string
 ): null | TOptionArray {
@@ -306,7 +309,7 @@ function getIgnoredKeywords(
  * @param {string} property - The specific CSS declaration's property of the current iteration.
  * @returns {Array} - Returns ignored values for a specific CSS property.
  */
-function getIgnoredValues(
+export function getIgnoredValues(
   ignoreValues: TOption,
   property: string
 ): null | TOptionArray {
@@ -330,7 +333,9 @@ function getIgnoredValues(
  *
  * @returns {Function|null} - Returns the auto-fix function if found, else `null`.
  */
-function getAutoFixFunc(autoFixFunc: TAutoFixFuncOrPath): null | TAutoFixFunc {
+export function getAutoFixFunc(
+  autoFixFunc: TAutoFixFuncOrPath
+): null | TAutoFixFunc {
   // @see: https://github.com/microsoft/TypeScript/issues/41627
   // const type = typeof autoFixFunc
 
@@ -355,14 +360,3 @@ function getAutoFixFunc(autoFixFunc: TAutoFixFuncOrPath): null | TAutoFixFunc {
 
   return null;
 }
-
-export {
-  validProperties,
-  validOptions,
-  expected,
-  getTypes,
-  getIgnoredVariablesOrFunctions,
-  getIgnoredKeywords,
-  getIgnoredValues,
-  getAutoFixFunc,
-};
