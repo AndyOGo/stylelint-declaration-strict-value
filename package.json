@@ -8,7 +8,7 @@
   "unpkg": "dist/index.umd.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "microbundle --tsconfig tsconfig.json",
+    "build": "microbundle --tsconfig tsconfig.build.json --no-compress",
     "release": "dotenv semantic-release",
     "prepack": "npm run build",
     "test": "node --require babel-register-ts test",
