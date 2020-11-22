@@ -1,5 +1,5 @@
-import type { Declaration, Root, Result } from 'postcss';
-import stylelint, { LinterOptions, Plugin } from 'stylelint';
+import type { Declaration, Root, Result, AtRule } from 'postcss';
+import stylelint from 'stylelint';
 import shortCSS from 'shortcss';
 import list from 'shortcss/lib/list';
 import cssValues from 'css-values';
@@ -84,6 +84,9 @@ const mapIgnoreValue = (ignoreValue: TOptionPrimitive) =>
  * @param {object} result - PostCSS lazy result.
  */
 type PostCSSPlugin = (root: Root, result: Result) => void | PromiseLike<void>;
+interface StylelintContext {
+  fix?: boolean;
+}
 
 /**
  * Stylelint declaration strict value rule function.
@@ -99,14 +102,14 @@ interface StylelintRuleFunction {
   (
     primaryOption: string | string[],
     secondaryOptions?: ISecondaryOptions,
-    context?: LinterOptions
+    context?: StylelintContext
   ): PostCSSPlugin;
   primaryOptionArray: boolean;
 }
 const ruleFunction: StylelintRuleFunction = (
   properties: string | string[],
   options: ISecondaryOptions,
-  context: LinterOptions
+  context: StylelintContext = {}
 ) => (root: Root, result: Result) => {
   // validate stylelint plugin options
   const hasValidOptions = utils.validateOptions(
@@ -161,7 +164,7 @@ const ruleFunction: StylelintRuleFunction = (
 
   if (ignoreVariables) {
     const cssLoaderValuesNames: string[] = [];
-    root.walkAtRules('value', (rule) => {
+    root.walkAtRules('value', (rule: AtRule) => {
       const { params } = rule;
       const name = params.split(':')[0].trim();
 
@@ -343,7 +346,7 @@ const ruleFunction: StylelintRuleFunction = (
         const types = getTypes(config, property);
 
         // support auto fixing
-        if (context?.fix && !disableFix) {
+        if (context.fix && !disableFix) {
           const fixedValue = autoFixFuncNormalized!(
             node,
             {
@@ -365,7 +368,8 @@ const ruleFunction: StylelintRuleFunction = (
           }
         } else {
           const { raws } = node;
-          const { start } = node.source!;
+          // eslint-disable-next-line prefer-destructuring
+          const start = node.source!.start;
 
           utils.report({
             ruleName,
@@ -389,7 +393,7 @@ ruleFunction.primaryOptionArray = true;
 
 const declarationStrictValuePlugin = stylelint.createPlugin(
   ruleName,
-  (ruleFunction as unknown) as Plugin
+  ruleFunction
 );
 
 export default declarationStrictValuePlugin;
