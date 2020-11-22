@@ -9,7 +9,7 @@
 -   [reRegex][5]
 -   [PostCSSPlugin][6]
     -   [Parameters][7]
--   [ruleFunction][8]
+-   [StylelintRuleFunction][8]
     -   [Parameters][9]
 -   [filterDecl][10]
     -   [Parameters][11]
@@ -72,7 +72,7 @@ Type: [Function][18]
 -   `root` **[object][19]** PostCSS root (the parsed AST).
 -   `result` **[object][19]** PostCSS lazy result.
 
-## ruleFunction
+## StylelintRuleFunction
 
 -   **See: [https://stylelint.io/developer-guide/plugins][20]
     **
@@ -127,7 +127,7 @@ Returns **[boolean][23]** Returns `true` if invalid declaration found, else `fal
 
 [7]: #parameters
 
-[8]: #rulefunction
+[8]: #stylelintrulefunction
 
 [9]: #parameters-1
 

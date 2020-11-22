@@ -1,12 +1,13 @@
 {
   "compilerOptions": {
     "declaration": true,
-    "emitDeclarationOnly": false,
+    "emitDeclarationOnly": true,
     "isolatedModules": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
     "noImplicitThis": true,
     "esModuleInterop": true,
-    "target": "es5"
+    "target": "ESNext",
+    "module": "ESNext"
   },
 }
