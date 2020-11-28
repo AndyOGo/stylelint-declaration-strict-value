@@ -1,22 +1,25 @@
-import testRule from 'stylelint-test-rule-tape'
+import testRule from 'stylelint-test-rule-tape';
 
-import declarationStrictValue, { ruleName } from '../src'
+import declarationStrictValue, { ruleName } from '../src';
 
-const { rule } = declarationStrictValue
+const { rule } = declarationStrictValue;
 
 // ignore keywords hash
 testRule(rule, {
   ruleName,
   skipBasicChecks: true,
 
-  config: [['/color$/', 'fill', 'z-index', 'display'], {
-    ignoreKeywords: {
-      '/color$/': ['transparent', 'currentColor'],
-      'fill': 'inherit',
-      'z-index': 0,
-      '': 'initial',
+  config: [
+    ['/color$/', 'fill', 'z-index', 'display'],
+    {
+      ignoreKeywords: {
+        '/color$/': ['transparent', 'currentColor'],
+        fill: 'inherit',
+        'z-index': 0,
+        '': 'initial',
+      },
     },
-  }],
+  ],
 
   accept: [
     { code: '.foo { color: transparent; }' },
@@ -56,4 +59,4 @@ testRule(rule, {
       column: 8,
     },
   ],
-})
+});

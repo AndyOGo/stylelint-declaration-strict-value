@@ -1,17 +1,20 @@
-import testRule from 'stylelint-test-rule-tape'
+import testRule from 'stylelint-test-rule-tape';
 
-import declarationStrictValue, { ruleName } from '../src'
+import declarationStrictValue, { ruleName } from '../src';
 
-const { rule } = declarationStrictValue
+const { rule } = declarationStrictValue;
 
 // disabling ignoreFunction
 testRule(rule, {
   ruleName,
   skipBasicChecks: true,
 
-  config: [['color', 'margin'], {
-    ignoreFunctions: false,
-  }],
+  config: [
+    ['color', 'margin'],
+    {
+      ignoreFunctions: false,
+    },
+  ],
 
   accept: [
     { code: '.foo { color: $bar; }' },
@@ -129,17 +132,20 @@ testRule(rule, {
       column: 8,
     },
   ],
-})
+});
 
 testRule(rule, {
   ruleName,
   skipBasicChecks: true,
 
-  config: [['color', 'margin'], {
-    ignoreFunctions: {
-      margin: false,
+  config: [
+    ['color', 'margin'],
+    {
+      ignoreFunctions: {
+        margin: false,
+      },
     },
-  }],
+  ],
 
   accept: [
     { code: '.foo { color: $bar; }' },
@@ -225,15 +231,18 @@ testRule(rule, {
       column: 8,
     },
   ],
-})
+});
 
 testRule(rule, {
   ruleName,
   skipBasicChecks: true,
 
-  config: ['color', {
-    ignoreFunctions: 'foo',
-  }],
+  config: [
+    'color',
+    {
+      ignoreFunctions: 'foo',
+    },
+  ],
 
   reject: [
     {
@@ -241,4 +250,4 @@ testRule(rule, {
       message: `Invalid option "{"ignoreFunctions":"foo"}" for rule ${ruleName}`,
     },
   ],
-})
+});

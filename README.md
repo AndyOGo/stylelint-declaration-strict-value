@@ -6,6 +6,7 @@
 ![npm bundle size](https://img.shields.io/bundlephobia/minzip/stylelint-declaration-strict-value)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
+![ts](https://badgen.net/badge/-/TypeScript/blue?icon=typescript&label)
 
 A [stylelint](https://github.com/stylelint/stylelint) plugin that enforces either variables (`$sass`, `namespace.$sass`, `@less`, `var(--cssnext)`, `css-loader @value`), functions or custom CSS values, like keywords (`inherit`, `none`, `currentColor` etc.), colors (`#fff`, `red`, etc.) or numbers incl. units (`0`, `1px`, `100%`, etc.) for CSS longhand and shorthand properties.
 
@@ -1433,7 +1434,7 @@ module.exports = autoFixFunc
 
 # API
 
-Please find the API docs at [`./API.md`](./API.md).
+Please find the API docs at [`./docs/README.md`](./docs/README.md).
 
 ## Credit / Inspiration
 

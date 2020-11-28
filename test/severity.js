@@ -1,17 +1,20 @@
-import testRule from 'stylelint-test-rule-tape'
+import testRule from 'stylelint-test-rule-tape';
 
-import declarationStrictValue, { ruleName } from '../src'
+import declarationStrictValue, { ruleName } from '../src';
 
-const { rule } = declarationStrictValue
+const { rule } = declarationStrictValue;
 
 // custom message
 testRule(rule, {
   ruleName,
   skipBasicChecks: true,
 
-  config: ['color', {
-    severity: 'warning',
-  }],
+  config: [
+    'color',
+    {
+      severity: 'warning',
+    },
+  ],
 
   reject: [
     {
@@ -27,15 +30,18 @@ testRule(rule, {
       column: 8,
     },
   ],
-})
+});
 
 testRule(rule, {
   ruleName,
   skipBasicChecks: true,
 
-  config: ['color', {
-    severity: 1234,
-  }],
+  config: [
+    'color',
+    {
+      severity: 1234,
+    },
+  ],
 
   reject: [
     {
@@ -43,4 +49,4 @@ testRule(rule, {
       message: `Invalid option "{"severity":1234}" for rule ${ruleName}`,
     },
   ],
-})
+});

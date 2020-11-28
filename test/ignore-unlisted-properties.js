@@ -1,8 +1,8 @@
-import testRule from 'stylelint-test-rule-tape'
+import testRule from 'stylelint-test-rule-tape';
 
-import declarationStrictValue, { ruleName } from '../src'
+import declarationStrictValue, { ruleName } from '../src';
 
-const { rule } = declarationStrictValue
+const { rule } = declarationStrictValue;
 
 // ignore unlisted properties
 testRule(rule, {
@@ -15,4 +15,4 @@ testRule(rule, {
     { code: '.foo { display: block; }' },
     { code: '.foo { position: absolute; }' },
   ],
-})
+});

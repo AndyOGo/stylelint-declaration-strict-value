@@ -1,8 +1,8 @@
-import testRule from 'stylelint-test-rule-tape'
+import testRule from 'stylelint-test-rule-tape';
 
-import declarationStrictValue, { ruleName } from '../src'
+import declarationStrictValue, { ruleName } from '../src';
 
-const { rule } = declarationStrictValue
+const { rule } = declarationStrictValue;
 
 // RegExp properties
 testRule(rule, {
@@ -64,7 +64,7 @@ testRule(rule, {
       column: 8,
     },
   ],
-})
+});
 
 // RegExp properties with i flag
 testRule(rule, {
@@ -126,4 +126,4 @@ testRule(rule, {
       column: 8,
     },
   ],
-})
+});
