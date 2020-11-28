@@ -1,4 +1,4 @@
-import { ISecondaryOptions, TOptionPrimitive, TOptionArray, IBoolOption, TOption, TAutoFixFunc, TAutoFixFuncOrPath } from '../defaults';
+import { ISecondaryOptions, TIgnoreValue, TIgnoreValueList, TIgnoreVariableOrFunctionConfig, TIgnoreValueConfig, TAutoFixFunc, TAutoFixFuncConfig } from '../defaults';
 /**
  * Validate primary options of stylelint plugin config.
  *
@@ -7,7 +7,7 @@ import { ISecondaryOptions, TOptionPrimitive, TOptionArray, IBoolOption, TOption
  *
  * @returns Returns `true` if primary options are valid, else `false`.
  */
-export declare function validProperties(actual: unknown): actual is TOptionPrimitive | TOptionArray;
+export declare function validProperties(actual: unknown): actual is TIgnoreValue | TIgnoreValueList;
 /**
  * Validate optional secondary options of stylelint plugin config.
  *
@@ -17,7 +17,13 @@ export declare function validProperties(actual: unknown): actual is TOptionPrimi
  * @returns Returns `true` if secondary options are valied, else `false`.
  */
 export declare function validOptions(actual: ISecondaryOptions): boolean;
+/**
+ * @internal
+ */
 declare type TExpectedType = 'variable' | 'function' | 'keyword';
+/**
+ * @internal
+ */
 declare type TExpectedTypes = Array<TExpectedType>;
 /**
  * Build expected message for stylelint report.
@@ -51,7 +57,7 @@ export declare function getTypes(config: ISecondaryOptions, property: string): T
  *
  * @returns Returns ignored variable or function for a specific CSS property.
  */
-export declare function getIgnoredVariablesOrFunctions(ignoreVariablesOrFunctions: IBoolOption, property: string): boolean;
+export declare function getIgnoredVariablesOrFunctions(ignoreVariablesOrFunctions: TIgnoreVariableOrFunctionConfig, property: string): boolean;
 /**
  * Get the correct ignored keywords for a specific CSS declaration's property
  * out of a complex `ignoreKeywords` config hash or array.
@@ -62,7 +68,7 @@ export declare function getIgnoredVariablesOrFunctions(ignoreVariablesOrFunction
  *
  * @returns Returns ignored keywords for a specific CSS property, or `null`.
  */
-export declare function getIgnoredKeywords(ignoreKeywords: TOption, property: string): null | TOptionArray;
+export declare function getIgnoredKeywords(ignoreKeywords: TIgnoreValueConfig, property: string): null | TIgnoreValueList;
 /**
  * Get the correct ignored values for a specific CSS declaration's property
  * out of a complex `ignoreValues` config hash or array.
@@ -72,7 +78,7 @@ export declare function getIgnoredKeywords(ignoreKeywords: TOption, property: st
  * @param property - The specific CSS declaration's property of the current iteration.
  * @returns Returns ignored values for a specific CSS property, or `null`.
  */
-export declare function getIgnoredValues(ignoreValues: TOption, property: string): null | TOptionArray;
+export declare function getIgnoredValues(ignoreValues: TIgnoreValueConfig, property: string): null | TIgnoreValueList;
 /**
  * Get the auto-fix function either by a function directly or from source file.
  *
@@ -81,5 +87,5 @@ export declare function getIgnoredValues(ignoreValues: TOption, property: string
  *
  * @returns Returns the auto-fix function if found, else `null`.
  */
-export declare function getAutoFixFunc(autoFixFunc: TAutoFixFuncOrPath): null | TAutoFixFunc;
+export declare function getAutoFixFunc(autoFixFunc: TAutoFixFuncConfig): null | TAutoFixFunc;
 export {};
