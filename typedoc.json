@@ -1,0 +1,7 @@
+{
+  "inputFiles": ["./src/"],
+  "entryPoint": "declarationStrictValuePlugin",
+  "mode": "modules",
+  "readme": "none",
+  "out": "docs"
+}

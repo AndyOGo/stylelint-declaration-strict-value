@@ -1434,7 +1434,7 @@ module.exports = autoFixFunc
 
 # API
 
-Please find the API docs at [`./API.md`](./API.md).
+Please find the API docs at [`./docs/README.md`](./docs/README.md).
 
 ## Credit / Inspiration
 

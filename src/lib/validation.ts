@@ -16,9 +16,10 @@ import defaults, {
 /**
  * Check if type is either `number` or `string`.
  *
- * @param {*} value - Any value.
+ * @internal
+ * @param value - Any value.
  *
- * @returns {boolean} - Returns `true` if `value`'s type is either `number` or `string`, else `false`.
+ * @returns Returns `true` if `value`'s type is either `number` or `string`, else `false`.
  */
 function isNumberOrString(value: unknown): value is TOptionPrimitive {
   const type = typeof value;
@@ -29,9 +30,10 @@ function isNumberOrString(value: unknown): value is TOptionPrimitive {
 /**
  * Validate primary options of stylelint plugin config.
  *
- * @param {string|string[]} actual - The actual config to validate.
+ * @internal
+ * @param actual - The actual config to validate.
  *
- * @returns {boolean} - Returns `true` if primary options are valid, else `false`.
+ * @returns Returns `true` if primary options are valid, else `false`.
  */
 export function validProperties(
   actual: unknown
@@ -45,9 +47,10 @@ export function validProperties(
 /**
  * Validate optional hash keyword config.
  *
- * @param {object} actual - A keyword config.
+ * @internal
+ * @param actual - A keyword config.
  *
- * @returns {boolean} - Returns `true` if hash keyword config is valid, else `false`.
+ * @returns Returns `true` if hash keyword config is valid, else `false`.
  */
 function validHash(actual: unknown): actual is IOptionHash {
   if (typeof actual !== 'object' || !actual) return false;
@@ -60,9 +63,10 @@ function validHash(actual: unknown): actual is IOptionHash {
 /**
  * Validate optional boolean hash variable/function config.
  *
- * @param {object} actual - A variable/function config.
+ * @internal
+ * @param actual - A variable/function config.
  *
- * @returns {boolean} - Returns `true` if hash variable/function config is valid, else `false`.
+ * @returns Returns `true` if hash variable/function config is valid, else `false`.
  */
 function validBooleanHash(actual: unknown): actual is IBoolHash {
   if (typeof actual !== 'object' || !actual) return false;
@@ -75,9 +79,10 @@ function validBooleanHash(actual: unknown): actual is IBoolHash {
 /**
  * Validate optional secondary options of stylelint plugin config.
  *
- * @param {SecondaryOptions} actual - The actual config to validate.
+ * @internal
+ * @param actual - The actual config to validate.
  *
- * @returns {boolean} - Returns `true` if secondary options are valied, else `false`.
+ * @returns Returns `true` if secondary options are valied, else `false`.
  */
 export function validOptions(actual: ISecondaryOptions): boolean {
   if (typeof actual !== 'object') return false;
@@ -164,15 +169,17 @@ export function validOptions(actual: ISecondaryOptions): boolean {
 
 type TExpectedType = 'variable' | 'function' | 'keyword';
 type TExpectedTypes = Array<TExpectedType>;
+
 /**
  * Build expected message for stylelint report.
  *
- * @param {Array.<string>} types - Either `variable`, `function` and/or `keyword`.
- * @param {string} value - The CSS declaration's value.
- * @param {string} property - The CSS declaration's property.
- * @param {string} [customMessage] - A custom message to be delivered upon error interpolated with `${types}`, `${value}` and `${property}`.
+ * @internal
+ * @param types - Either `variable`, `function` and/or `keyword`.
+ * @param value - The CSS declaration's value.
+ * @param property - The CSS declaration's property.
+ * @param customMessage - A custom message to be delivered upon error interpolated with `${types}`, `${value}` and `${property}`.
  *
- * @returns {string} - Returns an expected message for stylelint report.
+ * @returns Returns an expected message for stylelint report.
  */
 export function expected(
   types: TExpectedType | TExpectedTypes,
@@ -208,10 +215,11 @@ export function expected(
 /**
  * Get configured types for stylelint report message.
  *
- * @param {SecondaryOptions} config - The secondary stylelint-plugin config.
- * @param {string} property - The specific CSS declaration's property of the current iteration.
+ * @internal
+ * @param config - The secondary stylelint-plugin config.
+ * @param property - The specific CSS declaration's property of the current iteration.
  *
- * @returns {Array} - Returns a list of configured types.
+ * @returns Returns a list of configured types.
  */
 export function getTypes(
   config: ISecondaryOptions,
@@ -248,10 +256,11 @@ export function getTypes(
  * Get the correct ignored variable or function for a specific CSS declaration's property
  * out of a complex `ignoreVariablesOrFunctions` config hash or boolean.
  *
- * @param {boolean|Object.<string, boolean>} ignoreVariablesOrFunctions - The variables or functions to ignore.
- * @param {string} property - The specific CSS declaration's property of the current iteration.
+ * @internal
+ * @param ignoreVariablesOrFunctions - The variables or functions to ignore.
+ * @param property - The specific CSS declaration's property of the current iteration.
  *
- * @returns {boolean} - Returns ignored variable or function for a specific CSS property.
+ * @returns Returns ignored variable or function for a specific CSS property.
  */
 export function getIgnoredVariablesOrFunctions(
   ignoreVariablesOrFunctions: IBoolOption,
@@ -279,10 +288,11 @@ export function getIgnoredVariablesOrFunctions(
  * Get the correct ignored keywords for a specific CSS declaration's property
  * out of a complex `ignoreKeywords` config hash or array.
  *
- * @param {null|object|Array|string} ignoreKeywords - The keyword/-s to ignore.
- * @param {string} property - The specific CSS declaration's property of the current iteration.
+ * @internal
+ * @param ignoreKeywords - The keyword/-s to ignore.
+ * @param property - The specific CSS declaration's property of the current iteration.
  *
- * @returns {Array} - Returns ignored keywords for a specific CSS property.
+ * @returns Returns ignored keywords for a specific CSS property, or `null`.
  */
 export function getIgnoredKeywords(
   ignoreKeywords: TOption,
@@ -305,9 +315,10 @@ export function getIgnoredKeywords(
  * Get the correct ignored values for a specific CSS declaration's property
  * out of a complex `ignoreValues` config hash or array.
  *
- * @param {null|string|RegExp|object|Array} ignoreValues - The values/-s to ignore.
- * @param {string} property - The specific CSS declaration's property of the current iteration.
- * @returns {Array} - Returns ignored values for a specific CSS property.
+ * @internal
+ * @param ignoreValues - The values/-s to ignore.
+ * @param property - The specific CSS declaration's property of the current iteration.
+ * @returns Returns ignored values for a specific CSS property, or `null`.
  */
 export function getIgnoredValues(
   ignoreValues: TOption,
@@ -329,9 +340,10 @@ export function getIgnoredValues(
 /**
  * Get the auto-fix function either by a function directly or from source file.
  *
- * @param {Function|string} autoFixFunc - A JavaScript function or a module path to resolve it, also from cwd.
+ * @internal
+ * @param autoFixFunc - A JavaScript function or a module path to resolve it, also from cwd.
  *
- * @returns {Function|null} - Returns the auto-fix function if found, else `null`.
+ * @returns Returns the auto-fix function if found, else `null`.
  */
 export function getAutoFixFunc(
   autoFixFunc: TAutoFixFuncOrPath

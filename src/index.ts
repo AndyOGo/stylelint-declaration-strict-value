@@ -18,9 +18,6 @@ import defaults, { ISecondaryOptions, TOptionPrimitive } from './defaults';
 
 /**
  * Rule Name.
- *
- * @constant {string}
- * @default
  */
 const ruleName = 'scale-unlimited/declaration-strict-value';
 const { utils } = stylelint;
@@ -30,8 +27,7 @@ const messages = utils.ruleMessages(ruleName, {
 /**
  * RegExp to skip non-CSS properties.
  *
- * @constant  {RegExp}
- * @default
+ * @internal
  */
 const reSkipProp = /^(?:@|\$|--).+$/;
 /**
@@ -39,10 +35,9 @@ const reSkipProp = /^(?:@|\$|--).+$/;
  * - allowing CSS variables to be multi line
  * - Sass namespaces and CSS <ident-token> supported
  *
+ * @internal
  * @see https://github.com/sass/sass/blob/master/accepted/module-system.md#member-references
  * @see  https://drafts.csswg.org/css-syntax-3/#ident-token-diagram
- * @constant {RegExp}
- * @default
  */
 // eslint-disable-next-line no-control-regex
 const reVar = /^-?(?:@.+|(?:(?:[a-zA-Z_-]|[^\x00-\x7F])+(?:[a-zA-Z0-9_-]|[^\x00-\x7F])*\.)?\$.+|var\(\s*--[\s\S]+\))$/;
@@ -51,8 +46,7 @@ const reVar = /^-?(?:@.+|(?:(?:[a-zA-Z_-]|[^\x00-\x7F])+(?:[a-zA-Z0-9_-]|[^\x00-
  * - irgnoring CSS variables `var(--*)`
  * - allow multi line arguments
  *
- * @constant  {RegExp}
- * @default
+ * @internal
  */
 const reFunc = /^(?!var\(\s*--)[\s\S]+\([\s\S]*\)$/;
 /**
@@ -60,16 +54,46 @@ const reFunc = /^(?!var\(\s*--)[\s\S]+\([\s\S]*\)$/;
  * - supporting patterns
  * - and optional flags
  *
- * @constant  {RegExp}
- * @default
+ * @internal
  */
 const reRegex = /^\/(.*)\/([a-zA-Z]*)$/;
-const isRegexString = (value: string) => reRegex.test(value);
-const getRegexString = (value: string) => value.match(reRegex)!.slice(1);
-const stringToRegex = (value: string) => {
+type RegExpString = string;
+type RegExpArray = [string, string?];
+/**
+ * Checks if string is a Regular Expression.
+ *
+ * @internal
+ * @param value - Any string.
+ */
+const isRegexString = (value: string): value is RegExpString =>
+  reRegex.test(value);
+/**
+ * Get pattern and flags of a Regular Expression string.
+ *
+ * @internal
+ * @param value - Any string representing a Regular Expression.
+ * @returns An Array of pattern and flags of a Regular Expression string.
+ */
+const getRegexString = (value: string): RegExpArray =>
+  value.match(reRegex)!.slice(1) as RegExpArray;
+/**
+ * Convert a Regular Expression string to an RegExp object.
+ *
+ * @internal
+ * @param value - Any string representing a Regular Expression.
+ * @returns A Regular Expression object.
+ */
+const stringToRegex = (value: RegExpString) => {
   const [pattern, flags] = getRegexString(value);
   return new RegExp(pattern, flags);
 };
+/**
+ * Map ignored value config to a Regular expression.
+ *
+ * @internal
+ * @param ignoreValue - A ignored value property.
+ * @returns A Regular Expression to match ignored values.
+ */
 const mapIgnoreValue = (ignoreValue: TOptionPrimitive) =>
   isRegexString(`${ignoreValue}`)
     ? stringToRegex(`${ignoreValue}`)
@@ -79,12 +103,20 @@ const mapIgnoreValue = (ignoreValue: TOptionPrimitive) =>
  * A rule function essentially returns a little PostCSS plugin.
  * It will report violations of this rule.
  *
- * @typedef {Function} PostCSSPlugin
- * @param {object} root - PostCSS root (the parsed AST).
- * @param {object} result - PostCSS lazy result.
+ * @param root - PostCSS root (the parsed AST).
+ * @param result - PostCSS lazy result.
  */
 type PostCSSPlugin = (root: Root, result: Result) => void | PromiseLike<void>;
+
+/**
+ * Third Stylelint plugin context parameter.
+ */
 interface StylelintContext {
+  /**
+   * Wheter or not stylelint was executed with `--fix` option.
+   *
+   * @defaultValue false
+   */
   fix?: boolean;
 }
 
@@ -92,11 +124,11 @@ interface StylelintContext {
  * Stylelint declaration strict value rule function.
  *
  * @see https://stylelint.io/developer-guide/plugins
- * @param {string|string[]} properties - Primary options, a CSS property or list of CSS properties to lint.
- * @param {SecondaryOptions} [options=defaults] - Secondary options, configure edge cases.
- * @param {*} [context] - Only used for autofixing.
+ * @param properties - Primary options, a CSS property or list of CSS properties to lint.
+ * @param options- Secondary options, configure edge cases.
+ * @param context - Only used for autofixing.
  *
- * @returns {PostCSSPlugin} - Returns a PostCSS Plugin.
+ * @returns Returns a PostCSS Plugin.
  */
 interface StylelintRuleFunction {
   (
@@ -189,8 +221,8 @@ const ruleFunction: StylelintRuleFunction = (
     /**
      * Filter declarations for matching properties and expand shorthand properties.
      *
-     * @callback filterDecl
-     * @param {object} node - A Declaration-Node from PostCSS AST-Parser.
+     * @internal
+     * @param node - A Declaration-Node from PostCSS AST-Parser.
      */
     function filterDecl(node: Declaration) {
       const { value, prop } = node;
@@ -242,15 +274,15 @@ const ruleFunction: StylelintRuleFunction = (
     }
 
     /**
-     * Lint usages of declarations values againts, variables, functions
-     * or custum keywords - as configured.
+     * Lint usages of declarations values against, variables, functions
+     * or custom keywords - as configured.
      *
-     * @callback lintDeclStrictValue
-     * @param {object} node - A Declaration-Node from PostCSS AST-Parser.
-     * @param {string} [longhandProp] - A Declaration-Node from PostCSS AST-Parser.
-     * @param {string} [longhandValue] - A Declaration-Node from PostCSS AST-Parser.
-     * @param {boolean} [isExpanded=false] - Whether or not this declaration was expanded.
-     * @returns {boolean} Returns `true` if invalid declaration found, else `false`.
+     * @internal
+     * @param node - A Declaration-Node from PostCSS AST-Parser.
+     * @param longhandProp - A Declaration-Node from PostCSS AST-Parser.
+     * @param longhandValue - A Declaration-Node from PostCSS AST-Parser.
+     * @param isExpanded - Whether or not this declaration was expanded.
+     * @returns Returns `true` if invalid declaration found, else `false`.
      */
     function lintDeclStrictValue(
       node: Declaration,
