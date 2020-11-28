@@ -1,55 +1,128 @@
 import type { Node, Root } from 'postcss';
 
-export interface IBoolHash {
+/**
+ * A hash of CSS properties to ignore variables or functions.
+ */
+export interface IIgnoreVariableOrFunctionHash {
   [key: string]: boolean;
 }
-export type IBoolOption = boolean | IBoolHash;
-export type TOptionPrimitive = number | string;
-export type TOptionArray = Array<TOptionPrimitive>;
-export interface IOptionHash {
-  [key: string]: TOptionPrimitive | TOptionArray;
+/**
+ * Possible config for `ignoreVariables` and `ignoreFunctions` option.
+ */
+export type TIgnoreVariableOrFunctionConfig =
+  | boolean
+  | IIgnoreVariableOrFunctionHash;
+/**
+ * A Regular Expression string to match a CSS property or value.
+ */
+export type TRegExpString = string;
+/**
+ * A CSS value to be ignored.
+ */
+export type TIgnoreValue = number | string | TRegExpString;
+/**
+ * A list of CSS values to be ignored.
+ */
+export type TIgnoreValueList = Array<TIgnoreValue>;
+/**
+ * A hash of CSS properties with ignored values.
+ * - `''` key applies to all configured CSS properties.
+ * - key can also be Regular Expression string.
+ */
+export interface IIgnoreValueHash {
+  '': TIgnoreValue | TIgnoreValueList;
+  [CSSPropertyName: string]: TIgnoreValue | TIgnoreValueList;
+  // [CSSPropertyName: TRegExpString]: TIgnoreValue | TIgnoreValueList;
 }
-export const isIOptionHash = (
+/**
+ * @internal
+ */
+export const isIIgnoreValueHash = (
   key: unknown,
   value: unknown
-): key is IOptionHash =>
+): key is IIgnoreValueHash =>
   typeof key === 'object' && Object.hasOwnProperty.call(key, value);
-export type TOption = TOptionPrimitive | TOptionArray | IOptionHash;
-export interface IResult {
+/**
+ * Possible config for `ignoreValues` and ~~`ignoreKeywords`~~ option.
+ */
+export type TIgnoreValueConfig =
+  | null
+  | TIgnoreValue
+  | TIgnoreValueList
+  | IIgnoreValueHash;
+/**
+ * Result of CSS value validation.
+ */
+export interface IDeclarationStrictValueResult {
+  /**
+   * Whether or not variable is valid.
+   */
   validVar: boolean;
+
+  /**
+   * Whether or not function is valid.
+   */
   validFunc: boolean;
+
+  /**
+   * Whether or not keyword is valid.
+   */
   validKeyword: boolean;
+
+  /**
+   * Whether or not value is valid.
+   */
   validValue: boolean;
+
+  /**
+   * Longhand CSS Property, if expanded.
+   */
   longhandProp?: string;
+
+  /**
+   * Longhand CSS value, if expanded.
+   */
   longhandValue?: string;
 }
+/**
+ * A autofix function.
+ */
 export type TAutoFixFunc = (
   node: Node,
-  result: IResult,
+  result: IDeclarationStrictValueResult,
   root: Root,
   config: ISecondaryOptions
 ) => string;
-export type TAutoFixFuncOrPath = null | undefined | string | TAutoFixFunc;
+/**
+ * Path to autofix function module.
+ */
+export type TAutoFixModule = string;
+/**
+ * Possible config for `autoFixFunc` option.
+ */
+export type TAutoFixFuncConfig =
+  | null
+  | undefined
+  | TAutoFixModule
+  | TAutoFixFunc;
 
 /**
  * Plugin secondary options.
- *
- * @internal
  */
 export interface ISecondaryOptions {
   /**
-   * Wheter or not to ignore variables.
+   * Whether or not to ignore variables.
    *
    * @defaultValue true
    */
-  ignoreVariables?: IBoolOption;
+  ignoreVariables?: TIgnoreVariableOrFunctionConfig;
 
   /**
-   * Wheter or not to ignore function.
+   * Whether or not to ignore function.
    *
    * @defaultValue true
    */
-  ignoreFunctions?: IBoolOption;
+  ignoreFunctions?: TIgnoreVariableOrFunctionConfig;
 
   /**
    * An ignored keywords config.
@@ -57,24 +130,24 @@ export interface ISecondaryOptions {
    * @defaultValue null
    * @deprecated use `ignoreValues` option.
    */
-  ignoreKeywords?: null | TOption;
+  ignoreKeywords?: TIgnoreValueConfig;
 
   /**
    * An ignored values config.
    *
    * @defaultValue null
    */
-  ignoreValues?: null | TOption;
+  ignoreValues?: TIgnoreValueConfig;
 
   /**
-   * Wheter or not to expand shorthand CSS properties.
+   * Whether or not to expand shorthand CSS properties.
    *
    * @defaultValue false
    */
   expandShorthand?: boolean;
 
   /**
-   * Wheter or not to expand longhand CSS properties recursivly - this is only useful for the `border` property.
+   * Whether or not to expand longhand CSS properties recursivly - this is only useful for the `border` property.
    *
    * @defaultValue false
    */
@@ -106,7 +179,7 @@ export interface ISecondaryOptions {
    *
    * @defaultValue null
    */
-  autoFixFunc?: TAutoFixFuncOrPath;
+  autoFixFunc?: TAutoFixFuncConfig;
 }
 
 const defaults: ISecondaryOptions = {

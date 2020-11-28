@@ -16,7 +16,7 @@ Stylelint declaration strict value rule function.
 
 ▸ (`primaryOption`: string \| string[], `secondaryOptions?`: [ISecondaryOptions](_defaults_.isecondaryoptions.md), `context?`: [StylelintContext](_index_.stylelintcontext.md)): [PostCSSPlugin](../modules/_index_.md#postcssplugin)
 
-*Defined in [index.ts:133](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/9dd516f/src/index.ts#L133)*
+*Defined in [index.ts:139](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/46350e5/src/index.ts#L139)*
 
 Stylelint declaration strict value rule function.
 
@@ -46,4 +46,4 @@ Returns a PostCSS Plugin.
 
 •  **primaryOptionArray**: boolean
 
-*Defined in [index.ts:139](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/9dd516f/src/index.ts#L139)*
+*Defined in [index.ts:145](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/46350e5/src/index.ts#L145)*

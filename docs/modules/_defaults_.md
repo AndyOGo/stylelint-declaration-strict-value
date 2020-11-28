@@ -8,23 +8,25 @@
 
 ### Interfaces
 
-* [IBoolHash](../interfaces/_defaults_.iboolhash.md)
-* [IOptionHash](../interfaces/_defaults_.ioptionhash.md)
-* [IResult](../interfaces/_defaults_.iresult.md)
+* [IDeclarationStrictValueResult](../interfaces/_defaults_.ideclarationstrictvalueresult.md)
+* [IIgnoreValueHash](../interfaces/_defaults_.iignorevaluehash.md)
+* [IIgnoreVariableOrFunctionHash](../interfaces/_defaults_.iignorevariableorfunctionhash.md)
 * [ISecondaryOptions](../interfaces/_defaults_.isecondaryoptions.md)
 
 ### Type aliases
 
-* [IBoolOption](_defaults_.md#ibooloption)
 * [TAutoFixFunc](_defaults_.md#tautofixfunc)
-* [TAutoFixFuncOrPath](_defaults_.md#tautofixfuncorpath)
-* [TOption](_defaults_.md#toption)
-* [TOptionArray](_defaults_.md#toptionarray)
-* [TOptionPrimitive](_defaults_.md#toptionprimitive)
+* [TAutoFixFuncConfig](_defaults_.md#tautofixfuncconfig)
+* [TAutoFixModule](_defaults_.md#tautofixmodule)
+* [TIgnoreValue](_defaults_.md#tignorevalue)
+* [TIgnoreValueConfig](_defaults_.md#tignorevalueconfig)
+* [TIgnoreValueList](_defaults_.md#tignorevaluelist)
+* [TIgnoreVariableOrFunctionConfig](_defaults_.md#tignorevariableorfunctionconfig)
+* [TRegExpString](_defaults_.md#tregexpstring)
 
 ### Functions
 
-* [isIOptionHash](_defaults_.md#isioptionhash)
+* [isIIgnoreValueHash](_defaults_.md#isiignorevaluehash)
 
 ### Object literals
 
@@ -32,59 +34,93 @@
 
 ## Type aliases
 
-### IBoolOption
-
-Ƭ  **IBoolOption**: boolean \| [IBoolHash](../interfaces/_defaults_.iboolhash.md)
-
-*Defined in [defaults.ts:6](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/9dd516f/src/defaults.ts#L6)*
-
-___
-
 ### TAutoFixFunc
 
-Ƭ  **TAutoFixFunc**: (node: Node, result: [IResult](../interfaces/_defaults_.iresult.md), root: Root, config: [ISecondaryOptions](../interfaces/_defaults_.isecondaryoptions.md)) => string
+Ƭ  **TAutoFixFunc**: (node: Node, result: [IDeclarationStrictValueResult](../interfaces/_defaults_.ideclarationstrictvalueresult.md), root: Root, config: [ISecondaryOptions](../interfaces/_defaults_.isecondaryoptions.md)) => string
 
-*Defined in [defaults.ts:26](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/9dd516f/src/defaults.ts#L26)*
+*Defined in [defaults.ts:90](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/46350e5/src/defaults.ts#L90)*
 
-___
-
-### TAutoFixFuncOrPath
-
-Ƭ  **TAutoFixFuncOrPath**: null \| undefined \| string \| [TAutoFixFunc](_defaults_.md#tautofixfunc)
-
-*Defined in [defaults.ts:32](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/9dd516f/src/defaults.ts#L32)*
+A autofix function.
 
 ___
 
-### TOption
+### TAutoFixFuncConfig
 
-Ƭ  **TOption**: [TOptionPrimitive](_defaults_.md#toptionprimitive) \| [TOptionArray](_defaults_.md#toptionarray) \| [IOptionHash](../interfaces/_defaults_.ioptionhash.md)
+Ƭ  **TAutoFixFuncConfig**: null \| undefined \| [TAutoFixModule](_defaults_.md#tautofixmodule) \| [TAutoFixFunc](_defaults_.md#tautofixfunc)
 
-*Defined in [defaults.ts:17](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/9dd516f/src/defaults.ts#L17)*
+*Defined in [defaults.ts:103](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/46350e5/src/defaults.ts#L103)*
 
-___
-
-### TOptionArray
-
-Ƭ  **TOptionArray**: Array\<[TOptionPrimitive](_defaults_.md#toptionprimitive)>
-
-*Defined in [defaults.ts:8](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/9dd516f/src/defaults.ts#L8)*
+Possible config for `autoFixFunc` option.
 
 ___
 
-### TOptionPrimitive
+### TAutoFixModule
 
-Ƭ  **TOptionPrimitive**: number \| string
+Ƭ  **TAutoFixModule**: string
 
-*Defined in [defaults.ts:7](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/9dd516f/src/defaults.ts#L7)*
+*Defined in [defaults.ts:99](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/46350e5/src/defaults.ts#L99)*
+
+Path to autofix function module.
+
+___
+
+### TIgnoreValue
+
+Ƭ  **TIgnoreValue**: number \| string \| [TRegExpString](_defaults_.md#tregexpstring)
+
+*Defined in [defaults.ts:22](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/46350e5/src/defaults.ts#L22)*
+
+A CSS value to be ignored.
+
+___
+
+### TIgnoreValueConfig
+
+Ƭ  **TIgnoreValueConfig**: null \| [TIgnoreValue](_defaults_.md#tignorevalue) \| [TIgnoreValueList](_defaults_.md#tignorevaluelist) \| [IIgnoreValueHash](../interfaces/_defaults_.iignorevaluehash.md)
+
+*Defined in [defaults.ts:48](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/46350e5/src/defaults.ts#L48)*
+
+Possible config for `ignoreValues` and ~~`ignoreKeywords`~~ option.
+
+___
+
+### TIgnoreValueList
+
+Ƭ  **TIgnoreValueList**: Array\<[TIgnoreValue](_defaults_.md#tignorevalue)>
+
+*Defined in [defaults.ts:26](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/46350e5/src/defaults.ts#L26)*
+
+A list of CSS values to be ignored.
+
+___
+
+### TIgnoreVariableOrFunctionConfig
+
+Ƭ  **TIgnoreVariableOrFunctionConfig**: boolean \| [IIgnoreVariableOrFunctionHash](../interfaces/_defaults_.iignorevariableorfunctionhash.md)
+
+*Defined in [defaults.ts:12](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/46350e5/src/defaults.ts#L12)*
+
+Possible config for `ignoreVariables` and `ignoreFunctions` option.
+
+___
+
+### TRegExpString
+
+Ƭ  **TRegExpString**: string
+
+*Defined in [defaults.ts:18](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/46350e5/src/defaults.ts#L18)*
+
+A Regular Expression string to match a CSS property or value.
 
 ## Functions
 
-### isIOptionHash
+### isIIgnoreValueHash
 
-▸ `Const`**isIOptionHash**(`key`: unknown, `value`: unknown): key is IOptionHash
+▸ `Const`**isIIgnoreValueHash**(`key`: unknown, `value`: unknown): key is IIgnoreValueHash
 
-*Defined in [defaults.ts:12](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/9dd516f/src/defaults.ts#L12)*
+*Defined in [defaults.ts:40](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/46350e5/src/defaults.ts#L40)*
+
+**`internal`** 
 
 #### Parameters:
 
@@ -93,7 +129,7 @@ Name | Type |
 `key` | unknown |
 `value` | unknown |
 
-**Returns:** key is IOptionHash
+**Returns:** key is IIgnoreValueHash
 
 ## Object literals
 
@@ -101,7 +137,7 @@ Name | Type |
 
 ▪ `Const` **defaults**: object
 
-*Defined in [defaults.ts:112](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/9dd516f/src/defaults.ts#L112)*
+*Defined in [defaults.ts:185](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/46350e5/src/defaults.ts#L185)*
 
 #### Properties:
 
