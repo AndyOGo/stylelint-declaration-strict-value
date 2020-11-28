@@ -14,7 +14,11 @@ import {
   getIgnoredValues,
   getAutoFixFunc,
 } from './lib/validation';
-import defaults, { ISecondaryOptions, TOptionPrimitive } from './defaults';
+import defaults, {
+  ISecondaryOptions,
+  TIgnoreValue,
+  TRegExpString,
+} from './defaults';
 
 /**
  * Rule Name.
@@ -57,15 +61,17 @@ const reFunc = /^(?!var\(\s*--)[\s\S]+\([\s\S]*\)$/;
  * @internal
  */
 const reRegex = /^\/(.*)\/([a-zA-Z]*)$/;
-type RegExpString = string;
-type RegExpArray = [string, string?];
+/**
+ * @internal
+ */
+type TRegExpArray = [string, string?];
 /**
  * Checks if string is a Regular Expression.
  *
  * @internal
  * @param value - Any string.
  */
-const isRegexString = (value: string): value is RegExpString =>
+const isRegexString = (value: string): value is TRegExpString =>
   reRegex.test(value);
 /**
  * Get pattern and flags of a Regular Expression string.
@@ -74,8 +80,8 @@ const isRegexString = (value: string): value is RegExpString =>
  * @param value - Any string representing a Regular Expression.
  * @returns An Array of pattern and flags of a Regular Expression string.
  */
-const getRegexString = (value: string): RegExpArray =>
-  value.match(reRegex)!.slice(1) as RegExpArray;
+const getRegexString = (value: string): TRegExpArray =>
+  value.match(reRegex)!.slice(1) as TRegExpArray;
 /**
  * Convert a Regular Expression string to an RegExp object.
  *
@@ -83,7 +89,7 @@ const getRegexString = (value: string): RegExpArray =>
  * @param value - Any string representing a Regular Expression.
  * @returns A Regular Expression object.
  */
-const stringToRegex = (value: RegExpString) => {
+const stringToRegex = (value: TRegExpString) => {
   const [pattern, flags] = getRegexString(value);
   return new RegExp(pattern, flags);
 };
@@ -94,7 +100,7 @@ const stringToRegex = (value: RegExpString) => {
  * @param ignoreValue - A ignored value property.
  * @returns A Regular Expression to match ignored values.
  */
-const mapIgnoreValue = (ignoreValue: TOptionPrimitive) =>
+const mapIgnoreValue = (ignoreValue: TIgnoreValue) =>
   isRegexString(`${ignoreValue}`)
     ? stringToRegex(`${ignoreValue}`)
     : new RegExp(`^${ignoreValue}$`);

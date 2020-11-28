@@ -1358,7 +1358,7 @@ This plugin supports **configurable** [autofixing enabled by `--fix` option](htt
 **Important:** it's up to you to specify how autofixing should take place, this is because this plugin has to deal with **dynamic** values not static ones (which are predictable and very easy to autofix).
 
 So you have to supply an `autoFixFunc` function and **implement each fix you want by yourself**. To help you with that this function receives the whole [PostCSS API](http://api.postcss.org/postcss.html), all validations and configuration of this plugin, as follows [`node`](http://api.postcss.org/Node.html), `validation`, [`root`](http://api.postcss.org/Declaration.html#root) and `config`.
-`validation` is a hash of `{ validVar, validFunc, validKeyword }`, which tells you which aspect of the rule failed validation.
+`validation` is a hash of `{ validVar, validFunc, validValue, validKeyword, longhandProp, longhandValue }`, which tells you which aspect of the rule failed validation.
 
 **Note:** it's best you use a JavaScript based config file, which is easy because Stylelint utilizes [cosmiconfig](https://github.com/davidtheclark/cosmiconfig).
 Alternatively you can specify a common JS module, which will be resolved by [standard `require`](https://nodejs.org/api/modules.html#modules_file_modules) calls including support for `CWD`.

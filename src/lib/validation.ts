@@ -2,15 +2,15 @@ import path from 'path';
 
 import defaults, {
   ISecondaryOptions,
-  TOptionPrimitive,
-  TOptionArray,
-  IOptionHash,
-  IBoolOption,
-  IBoolHash,
-  TOption,
+  TIgnoreValue,
+  TIgnoreValueList,
+  IIgnoreValueHash,
+  TIgnoreVariableOrFunctionConfig,
+  IIgnoreVariableOrFunctionHash,
+  TIgnoreValueConfig,
   TAutoFixFunc,
-  TAutoFixFuncOrPath,
-  isIOptionHash,
+  TAutoFixFuncConfig,
+  isIIgnoreValueHash,
 } from '../defaults';
 
 /**
@@ -21,7 +21,7 @@ import defaults, {
  *
  * @returns Returns `true` if `value`'s type is either `number` or `string`, else `false`.
  */
-function isNumberOrString(value: unknown): value is TOptionPrimitive {
+function isNumberOrString(value: unknown): value is TIgnoreValue {
   const type = typeof value;
 
   return type === 'string' || type === 'number';
@@ -37,7 +37,7 @@ function isNumberOrString(value: unknown): value is TOptionPrimitive {
  */
 export function validProperties(
   actual: unknown
-): actual is TOptionPrimitive | TOptionArray {
+): actual is TIgnoreValue | TIgnoreValueList {
   return (
     isNumberOrString(actual) ||
     (Array.isArray(actual) && actual.every((item) => isNumberOrString(item)))
@@ -52,11 +52,11 @@ export function validProperties(
  *
  * @returns Returns `true` if hash keyword config is valid, else `false`.
  */
-function validHash(actual: unknown): actual is IOptionHash {
+function validHash(actual: unknown): actual is IIgnoreValueHash {
   if (typeof actual !== 'object' || !actual) return false;
 
   return Object.keys(actual).every((key) =>
-    validProperties((actual as IOptionHash)[key as keyof IOptionHash])
+    validProperties((actual as IIgnoreValueHash)[key as keyof IIgnoreValueHash])
   );
 }
 
@@ -68,11 +68,16 @@ function validHash(actual: unknown): actual is IOptionHash {
  *
  * @returns Returns `true` if hash variable/function config is valid, else `false`.
  */
-function validBooleanHash(actual: unknown): actual is IBoolHash {
+function validBooleanHash(
+  actual: unknown
+): actual is IIgnoreVariableOrFunctionHash {
   if (typeof actual !== 'object' || !actual) return false;
 
   return Object.keys(actual).every(
-    (key) => typeof (actual as IBoolHash)[key as keyof IBoolHash] === 'boolean'
+    (key) =>
+      typeof (actual as IIgnoreVariableOrFunctionHash)[
+        key as keyof IIgnoreVariableOrFunctionHash
+      ] === 'boolean'
   );
 }
 
@@ -167,7 +172,13 @@ export function validOptions(actual: ISecondaryOptions): boolean {
   return true;
 }
 
+/**
+ * @internal
+ */
 type TExpectedType = 'variable' | 'function' | 'keyword';
+/**
+ * @internal
+ */
 type TExpectedTypes = Array<TExpectedType>;
 
 /**
@@ -263,7 +274,7 @@ export function getTypes(
  * @returns Returns ignored variable or function for a specific CSS property.
  */
 export function getIgnoredVariablesOrFunctions(
-  ignoreVariablesOrFunctions: IBoolOption,
+  ignoreVariablesOrFunctions: TIgnoreVariableOrFunctionConfig,
   property: string
 ): boolean {
   // @see: https://github.com/microsoft/TypeScript/issues/41627
@@ -295,16 +306,16 @@ export function getIgnoredVariablesOrFunctions(
  * @returns Returns ignored keywords for a specific CSS property, or `null`.
  */
 export function getIgnoredKeywords(
-  ignoreKeywords: TOption,
+  ignoreKeywords: TIgnoreValueConfig,
   property: string
-): null | TOptionArray {
+): null | TIgnoreValueList {
   if (!ignoreKeywords) return null;
 
   let keywords = ignoreKeywords;
 
-  if (isIOptionHash(keywords, property)) {
+  if (isIIgnoreValueHash(keywords, property)) {
     keywords = keywords[property];
-  } else if (isIOptionHash(keywords, '')) {
+  } else if (isIIgnoreValueHash(keywords, '')) {
     keywords = keywords[''];
   }
 
@@ -321,16 +332,16 @@ export function getIgnoredKeywords(
  * @returns Returns ignored values for a specific CSS property, or `null`.
  */
 export function getIgnoredValues(
-  ignoreValues: TOption,
+  ignoreValues: TIgnoreValueConfig,
   property: string
-): null | TOptionArray {
+): null | TIgnoreValueList {
   if (!ignoreValues) return null;
 
   let values = ignoreValues;
 
-  if (isIOptionHash(values, property)) {
+  if (isIIgnoreValueHash(values, property)) {
     values = values[property];
-  } else if (isIOptionHash(values, '')) {
+  } else if (isIIgnoreValueHash(values, '')) {
     values = values[''];
   }
 
@@ -346,7 +357,7 @@ export function getIgnoredValues(
  * @returns Returns the auto-fix function if found, else `null`.
  */
 export function getAutoFixFunc(
-  autoFixFunc: TAutoFixFuncOrPath
+  autoFixFunc: TAutoFixFuncConfig
 ): null | TAutoFixFunc {
   // @see: https://github.com/microsoft/TypeScript/issues/41627
   // const type = typeof autoFixFunc
