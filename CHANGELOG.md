@@ -1,3 +1,13 @@
+## [1.7.1](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.7.0...v1.7.1) (2020-11-28)
+
+
+### Bug Fixes
+
+* broken terser minification ([5cb14c4](https://github.com/AndyOGo/stylelint-declaration-strict-value/commit/5cb14c418db74c453acffedd79651254bb7119cc))
+* charAt undefined error documentationjs ([9a695bb](https://github.com/AndyOGo/stylelint-declaration-strict-value/commit/9a695bb6ec05e20c817e0852a9f1cc1fd9c5fe95))
+* lint error ([c362de1](https://github.com/AndyOGo/stylelint-declaration-strict-value/commit/c362de14270535b9756badb1ac0f4991507340cb))
+* types of StyleLint/PostCSS ([2ae40b9](https://github.com/AndyOGo/stylelint-declaration-strict-value/commit/2ae40b9a9d880a4c2f5c329f726fcf25c3cde762))
+
 # [1.7.0](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.6.0...v1.7.0) (2020-11-19)
 
 
