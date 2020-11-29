@@ -14,6 +14,7 @@
 ### Type aliases
 
 * [PostCSSPlugin](_index_.md#postcssplugin)
+* [TCSSPropertyName](_index_.md#tcsspropertyname)
 * [TPrimaryOptions](_index_.md#tprimaryoptions)
 * [TRegExpArray](_index_.md#tregexparray)
 
@@ -42,7 +43,7 @@
 
 Ƭ  **PostCSSPlugin**: (root: Root, result: Result) => void \| PromiseLike\<void>
 
-*Defined in [index.ts:115](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/99cea2d/src/index.ts#L115)*
+*Defined in [index.ts:115](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/f68286d/src/index.ts#L115)*
 
 A rule function essentially returns a little PostCSS plugin.
 It will report violations of this rule.
@@ -53,11 +54,21 @@ It will report violations of this rule.
 
 ___
 
+### TCSSPropertyName
+
+Ƭ  **TCSSPropertyName**: string \| [TRegExpString](_defaults_.md#tregexpstring)
+
+*Defined in [index.ts:132](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/f68286d/src/index.ts#L132)*
+
+A string or regular expression matching a CSS property name.
+
+___
+
 ### TPrimaryOptions
 
-Ƭ  **TPrimaryOptions**: string \| [TRegExpString](_defaults_.md#tregexpstring) \| [TPrimaryOptions](_index_.md#tprimaryoptions)[]
+Ƭ  **TPrimaryOptions**: [TCSSPropertyName](_index_.md#tcsspropertyname) \| [TCSSPropertyName](_index_.md#tcsspropertyname)[]
 
-*Defined in [index.ts:133](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/99cea2d/src/index.ts#L133)*
+*Defined in [index.ts:138](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/f68286d/src/index.ts#L138)*
 
 Primary options, a CSS property or list of CSS properties to lint.
 - Regular Expression strings are supported
@@ -68,7 +79,7 @@ ___
 
 Ƭ  **TRegExpArray**: [string, undefined \| string]
 
-*Defined in [index.ts:67](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/99cea2d/src/index.ts#L67)*
+*Defined in [index.ts:67](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/f68286d/src/index.ts#L67)*
 
 **`internal`** 
 
@@ -78,7 +89,7 @@ ___
 
 • `Const` **declarationStrictValuePlugin**: any = stylelint.createPlugin( ruleName, ruleFunction)
 
-*Defined in [index.ts:438](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/99cea2d/src/index.ts#L438)*
+*Defined in [index.ts:443](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/f68286d/src/index.ts#L443)*
 
 ___
 
@@ -86,7 +97,7 @@ ___
 
 • `Const` **messages**: object = utils.ruleMessages(ruleName, { expected,})
 
-*Defined in [index.ts:28](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/99cea2d/src/index.ts#L28)*
+*Defined in [index.ts:28](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/f68286d/src/index.ts#L28)*
 
 #### Type declaration:
 
@@ -100,7 +111,7 @@ ___
 
 • `Const` **reFunc**: RegExp = /^(?!var\(\s*--)[\s\S]+\([\s\S]*\)$/
 
-*Defined in [index.ts:55](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/99cea2d/src/index.ts#L55)*
+*Defined in [index.ts:55](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/f68286d/src/index.ts#L55)*
 
 RegExp to parse functions.
 - irgnoring CSS variables `var(--*)`
@@ -114,7 +125,7 @@ ___
 
 • `Const` **reRegex**: RegExp = /^\/(.*)\/([a-zA-Z]*)$/
 
-*Defined in [index.ts:63](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/99cea2d/src/index.ts#L63)*
+*Defined in [index.ts:63](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/f68286d/src/index.ts#L63)*
 
 RegExp to parse regular expressions.
 - supporting patterns
@@ -128,7 +139,7 @@ ___
 
 • `Const` **reSkipProp**: RegExp = /^(?:@\|\$\|--).+$/
 
-*Defined in [index.ts:36](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/99cea2d/src/index.ts#L36)*
+*Defined in [index.ts:36](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/f68286d/src/index.ts#L36)*
 
 RegExp to skip non-CSS properties.
 
@@ -140,7 +151,7 @@ ___
 
 • `Const` **reVar**: RegExp = /^-?(?:@.+\|(?:(?:[a-zA-Z\_-]\|[^\x00-\x7F])+(?:[a-zA-Z0-9\_-]\|[^\x00-\x7F])*\.)?\$.+\|var\(\s*--[\s\S]+\))$/
 
-*Defined in [index.ts:47](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/99cea2d/src/index.ts#L47)*
+*Defined in [index.ts:47](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/f68286d/src/index.ts#L47)*
 
 RegExp to parse CSS, SCSS and less variables.
 - allowing CSS variables to be multi line
@@ -158,7 +169,7 @@ ___
 
 • `Const` **ruleName**: \"scale-unlimited/declaration-strict-value\" = "scale-unlimited/declaration-strict-value"
 
-*Defined in [index.ts:26](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/99cea2d/src/index.ts#L26)*
+*Defined in [index.ts:26](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/f68286d/src/index.ts#L26)*
 
 Rule Name.
 
@@ -168,7 +179,7 @@ ___
 
 •  **utils**: utils
 
-*Defined in [index.ts:27](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/99cea2d/src/index.ts#L27)*
+*Defined in [index.ts:27](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/f68286d/src/index.ts#L27)*
 
 ## Functions
 
@@ -176,7 +187,7 @@ ___
 
 ▸ `Const`**getRegexString**(`value`: string): [TRegExpArray](_index_.md#tregexparray)
 
-*Defined in [index.ts:83](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/99cea2d/src/index.ts#L83)*
+*Defined in [index.ts:83](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/f68286d/src/index.ts#L83)*
 
 Get pattern and flags of a Regular Expression string.
 
@@ -198,7 +209,7 @@ ___
 
 ▸ `Const`**isRegexString**(`value`: string): value is TRegExpString
 
-*Defined in [index.ts:74](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/99cea2d/src/index.ts#L74)*
+*Defined in [index.ts:74](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/f68286d/src/index.ts#L74)*
 
 Checks if string is a Regular Expression.
 
@@ -218,7 +229,7 @@ ___
 
 ▸ `Const`**mapIgnoreValue**(`ignoreValue`: [TIgnoreValue](_defaults_.md#tignorevalue)): RegExp
 
-*Defined in [index.ts:103](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/99cea2d/src/index.ts#L103)*
+*Defined in [index.ts:103](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/f68286d/src/index.ts#L103)*
 
 Map ignored value config to a Regular expression.
 
@@ -240,7 +251,7 @@ ___
 
 ▸ `Const`**ruleFunction**(`properties`: string \| string[], `options`: [ISecondaryOptions](../interfaces/_defaults_.isecondaryoptions.md), `context?`: [StylelintContext](../interfaces/_index_.stylelintcontext.md)): (Anonymous function)
 
-*Defined in [index.ts:153](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/99cea2d/src/index.ts#L153)*
+*Defined in [index.ts:158](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/f68286d/src/index.ts#L158)*
 
 #### Parameters:
 
@@ -258,7 +269,7 @@ ___
 
 ▸ `Const`**stringToRegex**(`value`: [TRegExpString](_defaults_.md#tregexpstring)): RegExp
 
-*Defined in [index.ts:92](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/99cea2d/src/index.ts#L92)*
+*Defined in [index.ts:92](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/f68286d/src/index.ts#L92)*
 
 Convert a Regular Expression string to an RegExp object.
 

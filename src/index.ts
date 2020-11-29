@@ -127,10 +127,15 @@ interface StylelintContext {
 }
 
 /**
+ * A string or regular expression matching a CSS property name.
+ */
+type TCSSPropertyName = string | TRegExpString;
+
+/**
  * Primary options, a CSS property or list of CSS properties to lint.
  * - Regular Expression strings are supported
  */
-type TPrimaryOptions = string | TRegExpString | TPrimaryOptions[];
+type TPrimaryOptions = TCSSPropertyName | TCSSPropertyName[];
 
 /**
  * Stylelint declaration strict value rule function.
