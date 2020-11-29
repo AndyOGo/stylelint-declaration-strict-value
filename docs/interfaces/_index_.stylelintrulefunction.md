@@ -14,9 +14,9 @@ Stylelint declaration strict value rule function.
 
 ## Callable
 
-▸ (`primaryOption`: string \| string[], `secondaryOptions?`: [ISecondaryOptions](_defaults_.isecondaryoptions.md), `context?`: [StylelintContext](_index_.stylelintcontext.md)): [PostCSSPlugin](../modules/_index_.md#postcssplugin)
+▸ (`primaryOption`: [TPrimaryOptions](../modules/_index_.md#tprimaryoptions), `secondaryOptions?`: [ISecondaryOptions](_defaults_.isecondaryoptions.md), `context?`: [StylelintContext](_index_.stylelintcontext.md)): [PostCSSPlugin](../modules/_index_.md#postcssplugin)
 
-*Defined in [index.ts:139](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/46350e5/src/index.ts#L139)*
+*Defined in [index.ts:145](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/99cea2d/src/index.ts#L145)*
 
 Stylelint declaration strict value rule function.
 
@@ -26,7 +26,7 @@ Stylelint declaration strict value rule function.
 
 Name | Type | Description |
 ------ | ------ | ------ |
-`primaryOption` | string \| string[] | - |
+`primaryOption` | [TPrimaryOptions](../modules/_index_.md#tprimaryoptions) | - |
 `secondaryOptions?` | [ISecondaryOptions](_defaults_.isecondaryoptions.md) | - |
 `context?` | [StylelintContext](_index_.stylelintcontext.md) | Only used for autofixing.  |
 
@@ -46,4 +46,4 @@ Returns a PostCSS Plugin.
 
 •  **primaryOptionArray**: boolean
 
-*Defined in [index.ts:145](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/46350e5/src/index.ts#L145)*
+*Defined in [index.ts:151](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/99cea2d/src/index.ts#L151)*
