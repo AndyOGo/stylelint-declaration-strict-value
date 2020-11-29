@@ -1,4 +1,4 @@
-import { ISecondaryOptions, TIgnoreValue, TIgnoreValueList, TIgnoreVariableOrFunctionConfig, TIgnoreValueConfig, TAutoFixFunc, TAutoFixFuncConfig } from '../defaults';
+import { SecondaryOptions, IgnoreValue, IgnoreValueList, IgnoreVariableOrFunctionConfig, IgnoreValueConfig, AutoFixFunc, AutoFixFuncConfig } from '../defaults';
 /**
  * Validate primary options of stylelint plugin config.
  *
@@ -7,7 +7,7 @@ import { ISecondaryOptions, TIgnoreValue, TIgnoreValueList, TIgnoreVariableOrFun
  *
  * @returns Returns `true` if primary options are valid, else `false`.
  */
-export declare function validProperties(actual: unknown): actual is TIgnoreValue | TIgnoreValueList;
+export declare function validProperties(actual: unknown): actual is IgnoreValue | IgnoreValueList;
 /**
  * Validate optional secondary options of stylelint plugin config.
  *
@@ -16,15 +16,17 @@ export declare function validProperties(actual: unknown): actual is TIgnoreValue
  *
  * @returns Returns `true` if secondary options are valied, else `false`.
  */
-export declare function validOptions(actual: ISecondaryOptions): boolean;
+export declare function validOptions(actual: SecondaryOptions): boolean;
 /**
+ * Expected type of CSS value, available by configuration.
  * @internal
  */
-declare type TExpectedType = 'variable' | 'function' | 'keyword';
+declare type ExpectedType = 'variable' | 'function' | 'keyword';
 /**
+ * Expected types of CSS value, as configured.
  * @internal
  */
-declare type TExpectedTypes = Array<TExpectedType>;
+declare type ExpectedTypes = Array<ExpectedType>;
 /**
  * Build expected message for stylelint report.
  *
@@ -36,7 +38,7 @@ declare type TExpectedTypes = Array<TExpectedType>;
  *
  * @returns Returns an expected message for stylelint report.
  */
-export declare function expected(types: TExpectedType | TExpectedTypes, value: string, property: string, customMessage?: string): string;
+export declare function expected(types: ExpectedType | ExpectedTypes, value: string, property: string, customMessage?: string): string;
 /**
  * Get configured types for stylelint report message.
  *
@@ -46,7 +48,7 @@ export declare function expected(types: TExpectedType | TExpectedTypes, value: s
  *
  * @returns Returns a list of configured types.
  */
-export declare function getTypes(config: ISecondaryOptions, property: string): TExpectedTypes;
+export declare function getTypes(config: SecondaryOptions, property: string): ExpectedTypes;
 /**
  * Get the correct ignored variable or function for a specific CSS declaration's property
  * out of a complex `ignoreVariablesOrFunctions` config hash or boolean.
@@ -57,7 +59,7 @@ export declare function getTypes(config: ISecondaryOptions, property: string): T
  *
  * @returns Returns ignored variable or function for a specific CSS property.
  */
-export declare function getIgnoredVariablesOrFunctions(ignoreVariablesOrFunctions: TIgnoreVariableOrFunctionConfig, property: string): boolean;
+export declare function getIgnoredVariablesOrFunctions(ignoreVariablesOrFunctions: IgnoreVariableOrFunctionConfig, property: string): boolean;
 /**
  * Get the correct ignored keywords for a specific CSS declaration's property
  * out of a complex `ignoreKeywords` config hash or array.
@@ -68,7 +70,7 @@ export declare function getIgnoredVariablesOrFunctions(ignoreVariablesOrFunction
  *
  * @returns Returns ignored keywords for a specific CSS property, or `null`.
  */
-export declare function getIgnoredKeywords(ignoreKeywords: TIgnoreValueConfig, property: string): null | TIgnoreValueList;
+export declare function getIgnoredKeywords(ignoreKeywords: IgnoreValueConfig, property: string): null | IgnoreValueList;
 /**
  * Get the correct ignored values for a specific CSS declaration's property
  * out of a complex `ignoreValues` config hash or array.
@@ -78,7 +80,7 @@ export declare function getIgnoredKeywords(ignoreKeywords: TIgnoreValueConfig, p
  * @param property - The specific CSS declaration's property of the current iteration.
  * @returns Returns ignored values for a specific CSS property, or `null`.
  */
-export declare function getIgnoredValues(ignoreValues: TIgnoreValueConfig, property: string): null | TIgnoreValueList;
+export declare function getIgnoredValues(ignoreValues: IgnoreValueConfig, property: string): null | IgnoreValueList;
 /**
  * Get the auto-fix function either by a function directly or from source file.
  *
@@ -87,5 +89,5 @@ export declare function getIgnoredValues(ignoreValues: TIgnoreValueConfig, prope
  *
  * @returns Returns the auto-fix function if found, else `null`.
  */
-export declare function getAutoFixFunc(autoFixFunc: TAutoFixFuncConfig): null | TAutoFixFunc;
+export declare function getAutoFixFunc(autoFixFunc: AutoFixFuncConfig): null | AutoFixFunc;
 export {};
