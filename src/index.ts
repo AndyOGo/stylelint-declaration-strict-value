@@ -127,6 +127,12 @@ interface StylelintContext {
 }
 
 /**
+ * Primary options, a CSS property or list of CSS properties to lint.
+ * - Regular Expression strings are supported
+ */
+type TPrimaryOptions = string | TRegExpString | TPrimaryOptions[];
+
+/**
  * Stylelint declaration strict value rule function.
  *
  * @see https://stylelint.io/developer-guide/plugins
@@ -138,7 +144,7 @@ interface StylelintContext {
  */
 interface StylelintRuleFunction {
   (
-    primaryOption: string | string[],
+    primaryOption: TPrimaryOptions,
     secondaryOptions?: ISecondaryOptions,
     context?: StylelintContext
   ): PostCSSPlugin;
