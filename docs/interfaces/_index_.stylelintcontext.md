@@ -22,7 +22,7 @@ Third Stylelint plugin context parameter.
 
 • `Optional` **fix**: undefined \| false \| true
 
-*Defined in [index.ts:126](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/f68286d/src/index.ts#L126)*
+*Defined in [index.ts:126](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/64c5885/src/index.ts#L126)*
 
 Wheter or not stylelint was executed with `--fix` option.
 

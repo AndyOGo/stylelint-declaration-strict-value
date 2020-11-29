@@ -1,15 +1,15 @@
 import path from 'path';
 
 import defaults, {
-  ISecondaryOptions,
-  TIgnoreValue,
-  TIgnoreValueList,
-  IIgnoreValueHash,
-  TIgnoreVariableOrFunctionConfig,
-  IIgnoreVariableOrFunctionHash,
-  TIgnoreValueConfig,
-  TAutoFixFunc,
-  TAutoFixFuncConfig,
+  SecondaryOptions,
+  IgnoreValue,
+  IgnoreValueList,
+  IgnoreValueHash,
+  IgnoreVariableOrFunctionConfig,
+  IgnoreVariableOrFunctionHash,
+  IgnoreValueConfig,
+  AutoFixFunc,
+  AutoFixFuncConfig,
   isIIgnoreValueHash,
 } from '../defaults';
 
@@ -21,7 +21,7 @@ import defaults, {
  *
  * @returns Returns `true` if `value`'s type is either `number` or `string`, else `false`.
  */
-function isNumberOrString(value: unknown): value is TIgnoreValue {
+function isNumberOrString(value: unknown): value is IgnoreValue {
   const type = typeof value;
 
   return type === 'string' || type === 'number';
@@ -37,7 +37,7 @@ function isNumberOrString(value: unknown): value is TIgnoreValue {
  */
 export function validProperties(
   actual: unknown
-): actual is TIgnoreValue | TIgnoreValueList {
+): actual is IgnoreValue | IgnoreValueList {
   return (
     isNumberOrString(actual) ||
     (Array.isArray(actual) && actual.every((item) => isNumberOrString(item)))
@@ -52,11 +52,11 @@ export function validProperties(
  *
  * @returns Returns `true` if hash keyword config is valid, else `false`.
  */
-function validHash(actual: unknown): actual is IIgnoreValueHash {
+function validHash(actual: unknown): actual is IgnoreValueHash {
   if (typeof actual !== 'object' || !actual) return false;
 
   return Object.keys(actual).every((key) =>
-    validProperties((actual as IIgnoreValueHash)[key as keyof IIgnoreValueHash])
+    validProperties((actual as IgnoreValueHash)[key as keyof IgnoreValueHash])
   );
 }
 
@@ -70,13 +70,13 @@ function validHash(actual: unknown): actual is IIgnoreValueHash {
  */
 function validBooleanHash(
   actual: unknown
-): actual is IIgnoreVariableOrFunctionHash {
+): actual is IgnoreVariableOrFunctionHash {
   if (typeof actual !== 'object' || !actual) return false;
 
   return Object.keys(actual).every(
     (key) =>
-      typeof (actual as IIgnoreVariableOrFunctionHash)[
-        key as keyof IIgnoreVariableOrFunctionHash
+      typeof (actual as IgnoreVariableOrFunctionHash)[
+        key as keyof IgnoreVariableOrFunctionHash
       ] === 'boolean'
   );
 }
@@ -89,7 +89,7 @@ function validBooleanHash(
  *
  * @returns Returns `true` if secondary options are valied, else `false`.
  */
-export function validOptions(actual: ISecondaryOptions): boolean {
+export function validOptions(actual: SecondaryOptions): boolean {
   if (typeof actual !== 'object') return false;
 
   const allowedKeys = Object.keys(defaults);
@@ -173,13 +173,15 @@ export function validOptions(actual: ISecondaryOptions): boolean {
 }
 
 /**
+ * Expected type of CSS value, available by configuration.
  * @internal
  */
-type TExpectedType = 'variable' | 'function' | 'keyword';
+type ExpectedType = 'variable' | 'function' | 'keyword';
 /**
+ * Expected types of CSS value, as configured.
  * @internal
  */
-type TExpectedTypes = Array<TExpectedType>;
+type ExpectedTypes = Array<ExpectedType>;
 
 /**
  * Build expected message for stylelint report.
@@ -193,7 +195,7 @@ type TExpectedTypes = Array<TExpectedType>;
  * @returns Returns an expected message for stylelint report.
  */
 export function expected(
-  types: TExpectedType | TExpectedTypes,
+  types: ExpectedType | ExpectedTypes,
   value: string,
   property: string,
   customMessage = ''
@@ -233,16 +235,16 @@ export function expected(
  * @returns Returns a list of configured types.
  */
 export function getTypes(
-  config: ISecondaryOptions,
+  config: SecondaryOptions,
   property: string
-): TExpectedTypes {
+): ExpectedTypes {
   const {
     ignoreVariables,
     ignoreFunctions,
     ignoreKeywords,
     ignoreValues,
   } = config;
-  const types: TExpectedTypes = [];
+  const types: ExpectedTypes = [];
 
   if (ignoreVariables) {
     types.push('variable');
@@ -274,7 +276,7 @@ export function getTypes(
  * @returns Returns ignored variable or function for a specific CSS property.
  */
 export function getIgnoredVariablesOrFunctions(
-  ignoreVariablesOrFunctions: TIgnoreVariableOrFunctionConfig,
+  ignoreVariablesOrFunctions: IgnoreVariableOrFunctionConfig,
   property: string
 ): boolean {
   // @see: https://github.com/microsoft/TypeScript/issues/41627
@@ -306,9 +308,9 @@ export function getIgnoredVariablesOrFunctions(
  * @returns Returns ignored keywords for a specific CSS property, or `null`.
  */
 export function getIgnoredKeywords(
-  ignoreKeywords: TIgnoreValueConfig,
+  ignoreKeywords: IgnoreValueConfig,
   property: string
-): null | TIgnoreValueList {
+): null | IgnoreValueList {
   if (!ignoreKeywords) return null;
 
   let keywords = ignoreKeywords;
@@ -332,9 +334,9 @@ export function getIgnoredKeywords(
  * @returns Returns ignored values for a specific CSS property, or `null`.
  */
 export function getIgnoredValues(
-  ignoreValues: TIgnoreValueConfig,
+  ignoreValues: IgnoreValueConfig,
   property: string
-): null | TIgnoreValueList {
+): null | IgnoreValueList {
   if (!ignoreValues) return null;
 
   let values = ignoreValues;
@@ -357,8 +359,8 @@ export function getIgnoredValues(
  * @returns Returns the auto-fix function if found, else `null`.
  */
 export function getAutoFixFunc(
-  autoFixFunc: TAutoFixFuncConfig
-): null | TAutoFixFunc {
+  autoFixFunc: AutoFixFuncConfig
+): null | AutoFixFunc {
   // @see: https://github.com/microsoft/TypeScript/issues/41627
   // const type = typeof autoFixFunc
 

@@ -3,35 +3,35 @@ import type { Node, Root } from 'postcss';
 /**
  * A hash of CSS properties to ignore variables or functions.
  */
-export interface IIgnoreVariableOrFunctionHash {
+export interface IgnoreVariableOrFunctionHash {
   [key: string]: boolean;
 }
 /**
  * Possible config for `ignoreVariables` and `ignoreFunctions` option.
  */
-export type TIgnoreVariableOrFunctionConfig =
+export type IgnoreVariableOrFunctionConfig =
   | boolean
-  | IIgnoreVariableOrFunctionHash;
+  | IgnoreVariableOrFunctionHash;
 /**
  * A Regular Expression string to match a CSS property or value.
  */
-export type TRegExpString = string;
+export type RegExpString = string;
 /**
  * A CSS value to be ignored.
  */
-export type TIgnoreValue = number | string | TRegExpString;
+export type IgnoreValue = number | string | RegExpString;
 /**
  * A list of CSS values to be ignored.
  */
-export type TIgnoreValueList = Array<TIgnoreValue>;
+export type IgnoreValueList = Array<IgnoreValue>;
 /**
  * A hash of CSS properties with ignored values.
  * - `''` key applies to all configured CSS properties.
  * - key can also be Regular Expression string.
  */
-export interface IIgnoreValueHash {
-  '': TIgnoreValue | TIgnoreValueList;
-  [CSSPropertyName: string]: TIgnoreValue | TIgnoreValueList;
+export interface IgnoreValueHash {
+  '': IgnoreValue | IgnoreValueList;
+  [CSSPropertyName: string]: IgnoreValue | IgnoreValueList;
   // [CSSPropertyName: TRegExpString]: TIgnoreValue | TIgnoreValueList;
 }
 /**
@@ -40,20 +40,20 @@ export interface IIgnoreValueHash {
 export const isIIgnoreValueHash = (
   key: unknown,
   value: unknown
-): key is IIgnoreValueHash =>
+): key is IgnoreValueHash =>
   typeof key === 'object' && Object.hasOwnProperty.call(key, value);
 /**
  * Possible config for `ignoreValues` and ~~`ignoreKeywords`~~ option.
  */
-export type TIgnoreValueConfig =
+export type IgnoreValueConfig =
   | null
-  | TIgnoreValue
-  | TIgnoreValueList
-  | IIgnoreValueHash;
+  | IgnoreValue
+  | IgnoreValueList
+  | IgnoreValueHash;
 /**
  * Result of CSS value validation.
  */
-export interface IDeclarationStrictValueResult {
+export interface DeclarationStrictValueResult {
   /**
    * Whether or not variable is valid.
    */
@@ -87,42 +87,38 @@ export interface IDeclarationStrictValueResult {
 /**
  * A autofix function.
  */
-export type TAutoFixFunc = (
+export type AutoFixFunc = (
   node: Node,
-  result: IDeclarationStrictValueResult,
+  result: DeclarationStrictValueResult,
   root: Root,
-  config: ISecondaryOptions
+  config: SecondaryOptions
 ) => string;
 /**
  * Path to autofix function module.
  */
-export type TAutoFixModule = string;
+export type AutoFixModule = string;
 /**
  * Possible config for `autoFixFunc` option.
  */
-export type TAutoFixFuncConfig =
-  | null
-  | undefined
-  | TAutoFixModule
-  | TAutoFixFunc;
+export type AutoFixFuncConfig = null | undefined | AutoFixModule | AutoFixFunc;
 
 /**
  * Plugin secondary options.
  */
-export interface ISecondaryOptions {
+export interface SecondaryOptions {
   /**
    * Whether or not to ignore variables.
    *
    * @defaultValue true
    */
-  ignoreVariables?: TIgnoreVariableOrFunctionConfig;
+  ignoreVariables?: IgnoreVariableOrFunctionConfig;
 
   /**
    * Whether or not to ignore function.
    *
    * @defaultValue true
    */
-  ignoreFunctions?: TIgnoreVariableOrFunctionConfig;
+  ignoreFunctions?: IgnoreVariableOrFunctionConfig;
 
   /**
    * An ignored keywords config.
@@ -130,14 +126,14 @@ export interface ISecondaryOptions {
    * @defaultValue null
    * @deprecated use `ignoreValues` option.
    */
-  ignoreKeywords?: TIgnoreValueConfig;
+  ignoreKeywords?: IgnoreValueConfig;
 
   /**
    * An ignored values config.
    *
    * @defaultValue null
    */
-  ignoreValues?: TIgnoreValueConfig;
+  ignoreValues?: IgnoreValueConfig;
 
   /**
    * Whether or not to expand shorthand CSS properties.
@@ -179,10 +175,10 @@ export interface ISecondaryOptions {
    *
    * @defaultValue null
    */
-  autoFixFunc?: TAutoFixFuncConfig;
+  autoFixFunc?: AutoFixFuncConfig;
 }
 
-const defaults: ISecondaryOptions = {
+const defaults: SecondaryOptions = {
   ignoreVariables: true,
   ignoreFunctions: true,
   ignoreKeywords: null,

@@ -2,46 +2,46 @@ import type { Node, Root } from 'postcss';
 /**
  * A hash of CSS properties to ignore variables or functions.
  */
-export interface IIgnoreVariableOrFunctionHash {
+export interface IgnoreVariableOrFunctionHash {
     [key: string]: boolean;
 }
 /**
  * Possible config for `ignoreVariables` and `ignoreFunctions` option.
  */
-export declare type TIgnoreVariableOrFunctionConfig = boolean | IIgnoreVariableOrFunctionHash;
+export declare type IgnoreVariableOrFunctionConfig = boolean | IgnoreVariableOrFunctionHash;
 /**
  * A Regular Expression string to match a CSS property or value.
  */
-export declare type TRegExpString = string;
+export declare type RegExpString = string;
 /**
  * A CSS value to be ignored.
  */
-export declare type TIgnoreValue = number | string | TRegExpString;
+export declare type IgnoreValue = number | string | RegExpString;
 /**
  * A list of CSS values to be ignored.
  */
-export declare type TIgnoreValueList = Array<TIgnoreValue>;
+export declare type IgnoreValueList = Array<IgnoreValue>;
 /**
  * A hash of CSS properties with ignored values.
  * - `''` key applies to all configured CSS properties.
  * - key can also be Regular Expression string.
  */
-export interface IIgnoreValueHash {
-    '': TIgnoreValue | TIgnoreValueList;
-    [CSSPropertyName: string]: TIgnoreValue | TIgnoreValueList;
+export interface IgnoreValueHash {
+    '': IgnoreValue | IgnoreValueList;
+    [CSSPropertyName: string]: IgnoreValue | IgnoreValueList;
 }
 /**
  * @internal
  */
-export declare const isIIgnoreValueHash: (key: unknown, value: unknown) => key is IIgnoreValueHash;
+export declare const isIIgnoreValueHash: (key: unknown, value: unknown) => key is IgnoreValueHash;
 /**
  * Possible config for `ignoreValues` and ~~`ignoreKeywords`~~ option.
  */
-export declare type TIgnoreValueConfig = null | TIgnoreValue | TIgnoreValueList | IIgnoreValueHash;
+export declare type IgnoreValueConfig = null | IgnoreValue | IgnoreValueList | IgnoreValueHash;
 /**
  * Result of CSS value validation.
  */
-export interface IDeclarationStrictValueResult {
+export interface DeclarationStrictValueResult {
     /**
      * Whether or not variable is valid.
      */
@@ -70,44 +70,44 @@ export interface IDeclarationStrictValueResult {
 /**
  * A autofix function.
  */
-export declare type TAutoFixFunc = (node: Node, result: IDeclarationStrictValueResult, root: Root, config: ISecondaryOptions) => string;
+export declare type AutoFixFunc = (node: Node, result: DeclarationStrictValueResult, root: Root, config: SecondaryOptions) => string;
 /**
  * Path to autofix function module.
  */
-export declare type TAutoFixModule = string;
+export declare type AutoFixModule = string;
 /**
  * Possible config for `autoFixFunc` option.
  */
-export declare type TAutoFixFuncConfig = null | undefined | TAutoFixModule | TAutoFixFunc;
+export declare type AutoFixFuncConfig = null | undefined | AutoFixModule | AutoFixFunc;
 /**
  * Plugin secondary options.
  */
-export interface ISecondaryOptions {
+export interface SecondaryOptions {
     /**
      * Whether or not to ignore variables.
      *
      * @defaultValue true
      */
-    ignoreVariables?: TIgnoreVariableOrFunctionConfig;
+    ignoreVariables?: IgnoreVariableOrFunctionConfig;
     /**
      * Whether or not to ignore function.
      *
      * @defaultValue true
      */
-    ignoreFunctions?: TIgnoreVariableOrFunctionConfig;
+    ignoreFunctions?: IgnoreVariableOrFunctionConfig;
     /**
      * An ignored keywords config.
      *
      * @defaultValue null
      * @deprecated use `ignoreValues` option.
      */
-    ignoreKeywords?: TIgnoreValueConfig;
+    ignoreKeywords?: IgnoreValueConfig;
     /**
      * An ignored values config.
      *
      * @defaultValue null
      */
-    ignoreValues?: TIgnoreValueConfig;
+    ignoreValues?: IgnoreValueConfig;
     /**
      * Whether or not to expand shorthand CSS properties.
      *
@@ -143,7 +143,7 @@ export interface ISecondaryOptions {
      *
      * @defaultValue null
      */
-    autoFixFunc?: TAutoFixFuncConfig;
+    autoFixFunc?: AutoFixFuncConfig;
 }
-declare const defaults: ISecondaryOptions;
+declare const defaults: SecondaryOptions;
 export default defaults;

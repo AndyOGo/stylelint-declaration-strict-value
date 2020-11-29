@@ -15,9 +15,9 @@ import {
   getAutoFixFunc,
 } from './lib/validation';
 import defaults, {
-  ISecondaryOptions,
-  TIgnoreValue,
-  TRegExpString,
+  SecondaryOptions,
+  IgnoreValue,
+  RegExpString,
 } from './defaults';
 
 /**
@@ -64,14 +64,14 @@ const reRegex = /^\/(.*)\/([a-zA-Z]*)$/;
 /**
  * @internal
  */
-type TRegExpArray = [string, string?];
+type RegExpArray = [string, string?];
 /**
  * Checks if string is a Regular Expression.
  *
  * @internal
  * @param value - Any string.
  */
-const isRegexString = (value: string): value is TRegExpString =>
+const isRegexString = (value: string): value is RegExpString =>
   reRegex.test(value);
 /**
  * Get pattern and flags of a Regular Expression string.
@@ -80,8 +80,8 @@ const isRegexString = (value: string): value is TRegExpString =>
  * @param value - Any string representing a Regular Expression.
  * @returns An Array of pattern and flags of a Regular Expression string.
  */
-const getRegexString = (value: string): TRegExpArray =>
-  value.match(reRegex)!.slice(1) as TRegExpArray;
+const getRegexString = (value: string): RegExpArray =>
+  value.match(reRegex)!.slice(1) as RegExpArray;
 /**
  * Convert a Regular Expression string to an RegExp object.
  *
@@ -89,7 +89,7 @@ const getRegexString = (value: string): TRegExpArray =>
  * @param value - Any string representing a Regular Expression.
  * @returns A Regular Expression object.
  */
-const stringToRegex = (value: TRegExpString) => {
+const stringToRegex = (value: RegExpString) => {
   const [pattern, flags] = getRegexString(value);
   return new RegExp(pattern, flags);
 };
@@ -100,7 +100,7 @@ const stringToRegex = (value: TRegExpString) => {
  * @param ignoreValue - A ignored value property.
  * @returns A Regular Expression to match ignored values.
  */
-const mapIgnoreValue = (ignoreValue: TIgnoreValue) =>
+const mapIgnoreValue = (ignoreValue: IgnoreValue) =>
   isRegexString(`${ignoreValue}`)
     ? stringToRegex(`${ignoreValue}`)
     : new RegExp(`^${ignoreValue}$`);
@@ -129,13 +129,13 @@ interface StylelintContext {
 /**
  * A string or regular expression matching a CSS property name.
  */
-type TCSSPropertyName = string | TRegExpString;
+type CSSPropertyName = string | RegExpString;
 
 /**
  * Primary options, a CSS property or list of CSS properties to lint.
  * - Regular Expression strings are supported
  */
-type TPrimaryOptions = TCSSPropertyName | TCSSPropertyName[];
+type PrimaryOptions = CSSPropertyName | CSSPropertyName[];
 
 /**
  * Stylelint declaration strict value rule function.
@@ -149,15 +149,15 @@ type TPrimaryOptions = TCSSPropertyName | TCSSPropertyName[];
  */
 interface StylelintRuleFunction {
   (
-    primaryOption: TPrimaryOptions,
-    secondaryOptions?: ISecondaryOptions,
+    primaryOption: PrimaryOptions,
+    secondaryOptions?: SecondaryOptions,
     context?: StylelintContext
   ): PostCSSPlugin;
   primaryOptionArray: boolean;
 }
 const ruleFunction: StylelintRuleFunction = (
   properties: string | string[],
-  options: ISecondaryOptions,
+  options: SecondaryOptions,
   context: StylelintContext = {}
 ) => (root: Root, result: Result) => {
   // validate stylelint plugin options
@@ -183,7 +183,7 @@ const ruleFunction: StylelintRuleFunction = (
     properties = [properties];
   }
 
-  const config: ISecondaryOptions = {
+  const config: SecondaryOptions = {
     ...defaults,
     ...options,
   };
@@ -199,16 +199,34 @@ const ruleFunction: StylelintRuleFunction = (
     recurseLonghand,
   } = config;
   const autoFixFuncNormalized = getAutoFixFunc(autoFixFunc);
-  interface IRegExpMap {
+  /**
+   * A hash of regular expression to ignore for a CSS properties.
+   * @internal
+   */
+  interface RegExpMap {
+    // [key: CSSPropertyName]: RegExp;
     [key: string]: RegExp;
   }
-  type TRegExpMap = null | IRegExpMap;
-  interface IRegExpList {
+  /**
+   * A hash of regular expression to ignore for a CSS properties or `null`.
+   * @internal
+   */
+  type RegExpKeywordMap = null | RegExpMap;
+  /**
+   * A hash of regular expression lists to ignore for a CSS property.
+   * @internal
+   */
+  interface RegExpList {
+    // [key: CSSPropertyName]: RegExp[];
     [key: string]: RegExp[];
   }
-  type TRegExpList = null | IRegExpList;
-  const reKeywords: TRegExpMap = ignoreKeywords ? {} : null;
-  const reValues: TRegExpList = ignoreValues ? {} : null;
+  /**
+   * A hash of regular expression lists to ignore for a CSS property or `null`.
+   * @internal
+   */
+  type RegExpValuesList = null | RegExpList;
+  const reKeywords: RegExpKeywordMap = ignoreKeywords ? {} : null;
+  const reValues: RegExpValuesList = ignoreValues ? {} : null;
   let cssLoaderValues: RegExp;
 
   if (ignoreVariables) {
