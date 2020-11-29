@@ -8,8 +8,8 @@
 
 ### Type aliases
 
-* [TExpectedType](_lib_validation_.md#texpectedtype)
-* [TExpectedTypes](_lib_validation_.md#texpectedtypes)
+* [ExpectedType](_lib_validation_.md#expectedtype)
+* [ExpectedTypes](_lib_validation_.md#expectedtypes)
 
 ### Functions
 
@@ -27,21 +27,25 @@
 
 ## Type aliases
 
-### TExpectedType
+### ExpectedType
 
-Ƭ  **TExpectedType**: \"variable\" \| \"function\" \| \"keyword\"
+Ƭ  **ExpectedType**: \"variable\" \| \"function\" \| \"keyword\"
 
-*Defined in [lib/validation.ts:178](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/f68286d/src/lib/validation.ts#L178)*
+*Defined in [lib/validation.ts:179](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/64c5885/src/lib/validation.ts#L179)*
+
+Expected type of CSS value, available by configuration.
 
 **`internal`** 
 
 ___
 
-### TExpectedTypes
+### ExpectedTypes
 
-Ƭ  **TExpectedTypes**: Array\<[TExpectedType](_lib_validation_.md#texpectedtype)>
+Ƭ  **ExpectedTypes**: Array\<[ExpectedType](_lib_validation_.md#expectedtype)>
 
-*Defined in [lib/validation.ts:182](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/f68286d/src/lib/validation.ts#L182)*
+*Defined in [lib/validation.ts:184](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/64c5885/src/lib/validation.ts#L184)*
+
+Expected types of CSS value, as configured.
 
 **`internal`** 
 
@@ -49,9 +53,9 @@ ___
 
 ### expected
 
-▸ **expected**(`types`: [TExpectedType](_lib_validation_.md#texpectedtype) \| [TExpectedTypes](_lib_validation_.md#texpectedtypes), `value`: string, `property`: string, `customMessage?`: string): string
+▸ **expected**(`types`: [ExpectedType](_lib_validation_.md#expectedtype) \| [ExpectedTypes](_lib_validation_.md#expectedtypes), `value`: string, `property`: string, `customMessage?`: string): string
 
-*Defined in [lib/validation.ts:195](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/f68286d/src/lib/validation.ts#L195)*
+*Defined in [lib/validation.ts:197](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/64c5885/src/lib/validation.ts#L197)*
 
 Build expected message for stylelint report.
 
@@ -61,7 +65,7 @@ Build expected message for stylelint report.
 
 Name | Type | Default value | Description |
 ------ | ------ | ------ | ------ |
-`types` | [TExpectedType](_lib_validation_.md#texpectedtype) \| [TExpectedTypes](_lib_validation_.md#texpectedtypes) | - | Either `variable`, `function` and/or `keyword`. |
+`types` | [ExpectedType](_lib_validation_.md#expectedtype) \| [ExpectedTypes](_lib_validation_.md#expectedtypes) | - | Either `variable`, `function` and/or `keyword`. |
 `value` | string | - | The CSS declaration's value. |
 `property` | string | - | The CSS declaration's property. |
 `customMessage` | string | "" | A custom message to be delivered upon error interpolated with `${types}`, `${value}` and `${property}`.  |
@@ -74,9 +78,9 @@ ___
 
 ### getAutoFixFunc
 
-▸ **getAutoFixFunc**(`autoFixFunc`: [TAutoFixFuncConfig](_defaults_.md#tautofixfuncconfig)): null \| [TAutoFixFunc](_defaults_.md#tautofixfunc)
+▸ **getAutoFixFunc**(`autoFixFunc`: [AutoFixFuncConfig](_defaults_.md#autofixfuncconfig)): null \| [AutoFixFunc](_defaults_.md#autofixfunc)
 
-*Defined in [lib/validation.ts:359](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/f68286d/src/lib/validation.ts#L359)*
+*Defined in [lib/validation.ts:361](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/64c5885/src/lib/validation.ts#L361)*
 
 Get the auto-fix function either by a function directly or from source file.
 
@@ -86,9 +90,9 @@ Get the auto-fix function either by a function directly or from source file.
 
 Name | Type | Description |
 ------ | ------ | ------ |
-`autoFixFunc` | [TAutoFixFuncConfig](_defaults_.md#tautofixfuncconfig) | A JavaScript function or a module path to resolve it, also from cwd.  |
+`autoFixFunc` | [AutoFixFuncConfig](_defaults_.md#autofixfuncconfig) | A JavaScript function or a module path to resolve it, also from cwd.  |
 
-**Returns:** null \| [TAutoFixFunc](_defaults_.md#tautofixfunc)
+**Returns:** null \| [AutoFixFunc](_defaults_.md#autofixfunc)
 
 Returns the auto-fix function if found, else `null`.
 
@@ -96,9 +100,9 @@ ___
 
 ### getIgnoredKeywords
 
-▸ **getIgnoredKeywords**(`ignoreKeywords`: [TIgnoreValueConfig](_defaults_.md#tignorevalueconfig), `property`: string): null \| [TIgnoreValueList](_defaults_.md#tignorevaluelist)
+▸ **getIgnoredKeywords**(`ignoreKeywords`: [IgnoreValueConfig](_defaults_.md#ignorevalueconfig), `property`: string): null \| [IgnoreValueList](_defaults_.md#ignorevaluelist)
 
-*Defined in [lib/validation.ts:308](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/f68286d/src/lib/validation.ts#L308)*
+*Defined in [lib/validation.ts:310](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/64c5885/src/lib/validation.ts#L310)*
 
 Get the correct ignored keywords for a specific CSS declaration's property
 out of a complex `ignoreKeywords` config hash or array.
@@ -109,10 +113,10 @@ out of a complex `ignoreKeywords` config hash or array.
 
 Name | Type | Description |
 ------ | ------ | ------ |
-`ignoreKeywords` | [TIgnoreValueConfig](_defaults_.md#tignorevalueconfig) | The keyword/-s to ignore. |
+`ignoreKeywords` | [IgnoreValueConfig](_defaults_.md#ignorevalueconfig) | The keyword/-s to ignore. |
 `property` | string | The specific CSS declaration's property of the current iteration.  |
 
-**Returns:** null \| [TIgnoreValueList](_defaults_.md#tignorevaluelist)
+**Returns:** null \| [IgnoreValueList](_defaults_.md#ignorevaluelist)
 
 Returns ignored keywords for a specific CSS property, or `null`.
 
@@ -120,9 +124,9 @@ ___
 
 ### getIgnoredValues
 
-▸ **getIgnoredValues**(`ignoreValues`: [TIgnoreValueConfig](_defaults_.md#tignorevalueconfig), `property`: string): null \| [TIgnoreValueList](_defaults_.md#tignorevaluelist)
+▸ **getIgnoredValues**(`ignoreValues`: [IgnoreValueConfig](_defaults_.md#ignorevalueconfig), `property`: string): null \| [IgnoreValueList](_defaults_.md#ignorevaluelist)
 
-*Defined in [lib/validation.ts:334](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/f68286d/src/lib/validation.ts#L334)*
+*Defined in [lib/validation.ts:336](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/64c5885/src/lib/validation.ts#L336)*
 
 Get the correct ignored values for a specific CSS declaration's property
 out of a complex `ignoreValues` config hash or array.
@@ -133,10 +137,10 @@ out of a complex `ignoreValues` config hash or array.
 
 Name | Type | Description |
 ------ | ------ | ------ |
-`ignoreValues` | [TIgnoreValueConfig](_defaults_.md#tignorevalueconfig) | The values/-s to ignore. |
+`ignoreValues` | [IgnoreValueConfig](_defaults_.md#ignorevalueconfig) | The values/-s to ignore. |
 `property` | string | The specific CSS declaration's property of the current iteration. |
 
-**Returns:** null \| [TIgnoreValueList](_defaults_.md#tignorevaluelist)
+**Returns:** null \| [IgnoreValueList](_defaults_.md#ignorevaluelist)
 
 Returns ignored values for a specific CSS property, or `null`.
 
@@ -144,9 +148,9 @@ ___
 
 ### getIgnoredVariablesOrFunctions
 
-▸ **getIgnoredVariablesOrFunctions**(`ignoreVariablesOrFunctions`: [TIgnoreVariableOrFunctionConfig](_defaults_.md#tignorevariableorfunctionconfig), `property`: string): boolean
+▸ **getIgnoredVariablesOrFunctions**(`ignoreVariablesOrFunctions`: [IgnoreVariableOrFunctionConfig](_defaults_.md#ignorevariableorfunctionconfig), `property`: string): boolean
 
-*Defined in [lib/validation.ts:276](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/f68286d/src/lib/validation.ts#L276)*
+*Defined in [lib/validation.ts:278](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/64c5885/src/lib/validation.ts#L278)*
 
 Get the correct ignored variable or function for a specific CSS declaration's property
 out of a complex `ignoreVariablesOrFunctions` config hash or boolean.
@@ -157,7 +161,7 @@ out of a complex `ignoreVariablesOrFunctions` config hash or boolean.
 
 Name | Type | Description |
 ------ | ------ | ------ |
-`ignoreVariablesOrFunctions` | [TIgnoreVariableOrFunctionConfig](_defaults_.md#tignorevariableorfunctionconfig) | The variables or functions to ignore. |
+`ignoreVariablesOrFunctions` | [IgnoreVariableOrFunctionConfig](_defaults_.md#ignorevariableorfunctionconfig) | The variables or functions to ignore. |
 `property` | string | The specific CSS declaration's property of the current iteration.  |
 
 **Returns:** boolean
@@ -168,9 +172,9 @@ ___
 
 ### getTypes
 
-▸ **getTypes**(`config`: [ISecondaryOptions](../interfaces/_defaults_.isecondaryoptions.md), `property`: string): [TExpectedTypes](_lib_validation_.md#texpectedtypes)
+▸ **getTypes**(`config`: [SecondaryOptions](../interfaces/_defaults_.secondaryoptions.md), `property`: string): [ExpectedTypes](_lib_validation_.md#expectedtypes)
 
-*Defined in [lib/validation.ts:235](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/f68286d/src/lib/validation.ts#L235)*
+*Defined in [lib/validation.ts:237](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/64c5885/src/lib/validation.ts#L237)*
 
 Get configured types for stylelint report message.
 
@@ -180,10 +184,10 @@ Get configured types for stylelint report message.
 
 Name | Type | Description |
 ------ | ------ | ------ |
-`config` | [ISecondaryOptions](../interfaces/_defaults_.isecondaryoptions.md) | The secondary stylelint-plugin config. |
+`config` | [SecondaryOptions](../interfaces/_defaults_.secondaryoptions.md) | The secondary stylelint-plugin config. |
 `property` | string | The specific CSS declaration's property of the current iteration.  |
 
-**Returns:** [TExpectedTypes](_lib_validation_.md#texpectedtypes)
+**Returns:** [ExpectedTypes](_lib_validation_.md#expectedtypes)
 
 Returns a list of configured types.
 
@@ -191,9 +195,9 @@ ___
 
 ### isNumberOrString
 
-▸ **isNumberOrString**(`value`: unknown): value is TIgnoreValue
+▸ **isNumberOrString**(`value`: unknown): value is IgnoreValue
 
-*Defined in [lib/validation.ts:24](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/f68286d/src/lib/validation.ts#L24)*
+*Defined in [lib/validation.ts:24](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/64c5885/src/lib/validation.ts#L24)*
 
 Check if type is either `number` or `string`.
 
@@ -205,7 +209,7 @@ Name | Type | Description |
 ------ | ------ | ------ |
 `value` | unknown | Any value.  |
 
-**Returns:** value is TIgnoreValue
+**Returns:** value is IgnoreValue
 
 Returns `true` if `value`'s type is either `number` or `string`, else `false`.
 
@@ -213,9 +217,9 @@ ___
 
 ### validBooleanHash
 
-▸ **validBooleanHash**(`actual`: unknown): actual is IIgnoreVariableOrFunctionHash
+▸ **validBooleanHash**(`actual`: unknown): actual is IgnoreVariableOrFunctionHash
 
-*Defined in [lib/validation.ts:71](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/f68286d/src/lib/validation.ts#L71)*
+*Defined in [lib/validation.ts:71](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/64c5885/src/lib/validation.ts#L71)*
 
 Validate optional boolean hash variable/function config.
 
@@ -227,7 +231,7 @@ Name | Type | Description |
 ------ | ------ | ------ |
 `actual` | unknown | A variable/function config.  |
 
-**Returns:** actual is IIgnoreVariableOrFunctionHash
+**Returns:** actual is IgnoreVariableOrFunctionHash
 
 Returns `true` if hash variable/function config is valid, else `false`.
 
@@ -235,9 +239,9 @@ ___
 
 ### validHash
 
-▸ **validHash**(`actual`: unknown): actual is IIgnoreValueHash
+▸ **validHash**(`actual`: unknown): actual is IgnoreValueHash
 
-*Defined in [lib/validation.ts:55](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/f68286d/src/lib/validation.ts#L55)*
+*Defined in [lib/validation.ts:55](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/64c5885/src/lib/validation.ts#L55)*
 
 Validate optional hash keyword config.
 
@@ -249,7 +253,7 @@ Name | Type | Description |
 ------ | ------ | ------ |
 `actual` | unknown | A keyword config.  |
 
-**Returns:** actual is IIgnoreValueHash
+**Returns:** actual is IgnoreValueHash
 
 Returns `true` if hash keyword config is valid, else `false`.
 
@@ -257,9 +261,9 @@ ___
 
 ### validOptions
 
-▸ **validOptions**(`actual`: [ISecondaryOptions](../interfaces/_defaults_.isecondaryoptions.md)): boolean
+▸ **validOptions**(`actual`: [SecondaryOptions](../interfaces/_defaults_.secondaryoptions.md)): boolean
 
-*Defined in [lib/validation.ts:92](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/f68286d/src/lib/validation.ts#L92)*
+*Defined in [lib/validation.ts:92](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/64c5885/src/lib/validation.ts#L92)*
 
 Validate optional secondary options of stylelint plugin config.
 
@@ -269,7 +273,7 @@ Validate optional secondary options of stylelint plugin config.
 
 Name | Type | Description |
 ------ | ------ | ------ |
-`actual` | [ISecondaryOptions](../interfaces/_defaults_.isecondaryoptions.md) | The actual config to validate.  |
+`actual` | [SecondaryOptions](../interfaces/_defaults_.secondaryoptions.md) | The actual config to validate.  |
 
 **Returns:** boolean
 
@@ -279,9 +283,9 @@ ___
 
 ### validProperties
 
-▸ **validProperties**(`actual`: unknown): actual is TIgnoreValue \| TIgnoreValueList
+▸ **validProperties**(`actual`: unknown): actual is IgnoreValue \| IgnoreValueList
 
-*Defined in [lib/validation.ts:38](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/f68286d/src/lib/validation.ts#L38)*
+*Defined in [lib/validation.ts:38](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/64c5885/src/lib/validation.ts#L38)*
 
 Validate primary options of stylelint plugin config.
 
@@ -293,6 +297,6 @@ Name | Type | Description |
 ------ | ------ | ------ |
 `actual` | unknown | The actual config to validate.  |
 
-**Returns:** actual is TIgnoreValue \| TIgnoreValueList
+**Returns:** actual is IgnoreValue \| IgnoreValueList
 
 Returns `true` if primary options are valid, else `false`.

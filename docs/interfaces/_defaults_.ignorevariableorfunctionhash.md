@@ -1,14 +1,14 @@
 **[stylelint-declaration-strict-value](../README.md)**
 
-> [Globals](../README.md) / ["defaults"](../modules/_defaults_.md) / IIgnoreVariableOrFunctionHash
+> [Globals](../README.md) / ["defaults"](../modules/_defaults_.md) / IgnoreVariableOrFunctionHash
 
-# Interface: IIgnoreVariableOrFunctionHash
+# Interface: IgnoreVariableOrFunctionHash
 
 A hash of CSS properties to ignore variables or functions.
 
 ## Hierarchy
 
-* **IIgnoreVariableOrFunctionHash**
+* **IgnoreVariableOrFunctionHash**
 
 ## Indexable
 
