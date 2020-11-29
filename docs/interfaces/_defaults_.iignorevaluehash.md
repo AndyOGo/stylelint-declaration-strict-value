@@ -30,4 +30,4 @@ A hash of CSS properties with ignored values.
 
 •  ****: [TIgnoreValue](../modules/_defaults_.md#tignorevalue) \| [TIgnoreValueList](../modules/_defaults_.md#tignorevaluelist)
 
-*Defined in [defaults.ts:33](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/99cea2d/src/defaults.ts#L33)*
+*Defined in [defaults.ts:33](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/f68286d/src/defaults.ts#L33)*
