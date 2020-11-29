@@ -1,6 +1,6 @@
 {
   "name": "stylelint-declaration-strict-value",
-  "version": "1.7.4",
+  "version": "1.7.5",
   "description": "Specify properties for which a variable, function, keyword or value must be used",
   "source": "src/index.ts",
   "main": "dist/index.js",

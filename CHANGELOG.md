@@ -1,3 +1,10 @@
+## [1.7.5](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.7.4...v1.7.5) (2020-11-29)
+
+
+### Bug Fixes
+
+* remove hungarian notations ([64c5885](https://github.com/AndyOGo/stylelint-declaration-strict-value/commit/64c58858602137f16d8983a2e1f646d432216826))
+
 ## [1.7.4](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.7.3...v1.7.4) (2020-11-29)
 
 
