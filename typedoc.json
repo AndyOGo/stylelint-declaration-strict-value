@@ -1,6 +1,4 @@
 {
-  "inputFiles": ["./src/"],
-  "mode": "modules",
   "readme": "none",
   "out": "docs"
 }
