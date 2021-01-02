@@ -15,7 +15,7 @@
     "coverage": "nyc --reporter lcov --reporter text node test",
     "postcoverage": "dotenv codecov",
     "eslint": "eslint 'src/**/*.[tj]s' 'test/**/*.[tj]s'",
-    "docs": "typedoc --plugin typedoc-plugin-markdown",
+    "docs": "typedoc --plugin typedoc-plugin-markdown src/index.ts",
     "toc": "doctoc README.md --title '**Table of Contents**'"
   },
   "repository": {
