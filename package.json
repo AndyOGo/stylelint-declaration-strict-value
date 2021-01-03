@@ -10,7 +10,7 @@
   "scripts": {
     "build": "microbundle --tsconfig tsconfig.build.json --compress",
     "release": "dotenv semantic-release",
-    "prepack": "npm run build",
+    "prerelease": "npm run build && npm run docs",
     "test": "node --require babel-register-ts test",
     "coverage": "nyc --reporter lcov --reporter text node test",
     "postcoverage": "dotenv codecov",
