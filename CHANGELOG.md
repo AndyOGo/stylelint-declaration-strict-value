@@ -1,3 +1,10 @@
+## [1.7.7](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.7.6...v1.7.7) (2021-01-03)
+
+
+### Bug Fixes
+
+* generate assets for release ([d063f75](https://github.com/AndyOGo/stylelint-declaration-strict-value/commit/d063f7546a1f514376acdfd88af29d3c4e7e700f))
+
 ## [1.7.6](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.7.5...v1.7.6) (2021-01-03)
 
 
