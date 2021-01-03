@@ -4,6 +4,7 @@
     "emitDeclarationOnly": false,
     "isolatedModules": false,
     "target": "ESNext",
-    "module": "ESNext"
+    "module": "ESNext",
+    "typeRoots": ["./types", "node_modules/@types"]
   },
 }
