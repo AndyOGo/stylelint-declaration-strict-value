@@ -4,7 +4,7 @@
 
 A hash of CSS properties with ignored values.
 - `''` key applies to all configured CSS properties.
-- key can also be Regular Expression string.
+- key can also be a Regular Expression string.
 
 ## Hierarchy
 
@@ -16,7 +16,7 @@ A hash of CSS properties with ignored values.
 
 A hash of CSS properties with ignored values.
 - `''` key applies to all configured CSS properties.
-- key can also be Regular Expression string.
+- key can also be a Regular Expression string.
 
 ## Index
 
@@ -28,4 +28,4 @@ A hash of CSS properties with ignored values.
 
 • ****: *string* \| *number* \| [*IgnoreValueList*](../modules/defaults.md#ignorevaluelist)
 
-Defined in: [defaults.ts:32](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/caaae6a/src/defaults.ts#L32)
+Defined in: [defaults.ts:32](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/4d809bd/src/defaults.ts#L32)
