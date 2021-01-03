@@ -12,6 +12,7 @@
     "esModuleInterop": true,
     "target": "ESNext",
     "module": "ESNext",
-    "moduleResolution": "Node"
+    "moduleResolution": "Node",
+    "typeRoots": ["./types", "node_modules/@types"]
   },
 }
