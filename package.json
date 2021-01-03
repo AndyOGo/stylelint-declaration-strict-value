@@ -10,7 +10,7 @@
   "scripts": {
     "build": "microbundle --tsconfig tsconfig.build.json --compress",
     "release": "dotenv semantic-release",
-    "prepack": "npm run build",
+    "prerelease": "npm run build && npm run docs",
     "test": "node --require babel-register-ts test",
     "coverage": "nyc --reporter lcov --reporter text node test",
     "postcoverage": "dotenv codecov",
@@ -81,8 +81,8 @@
     "semantic-release": "^17.3.0",
     "stylelint": "^13.8.0",
     "stylelint-test-rule-tape": "^0.2.0",
-    "typedoc": "^0.20.9",
-    "typedoc-plugin-markdown": "^3.0.11",
+    "typedoc": "^0.20.10",
+    "typedoc-plugin-markdown": "^3.2.1",
     "typescript": "^4.1.2"
   },
   "dependencies": {

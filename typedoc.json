@@ -1,7 +1,6 @@
 {
-  "inputFiles": ["./src/"],
-  "entryPoint": "declarationStrictValuePlugin",
-  "mode": "modules",
+  "entryPoints": ["src/index.ts", "src/defaults.ts", "src/lib/validation.ts"],
   "readme": "none",
-  "out": "docs"
+  "out": "docs",
+  "includeVersion": true
 }
