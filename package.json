@@ -15,7 +15,7 @@
     "coverage": "nyc --reporter lcov --reporter text node test",
     "postcoverage": "dotenv codecov",
     "eslint": "eslint 'src/**/*.[tj]s' 'test/**/*.[tj]s'",
-    "docs": "typedoc --plugin typedoc-plugin-markdown src/index.ts",
+    "docs": "typedoc --plugin typedoc-plugin-markdown",
     "toc": "doctoc README.md --title '**Table of Contents**'"
   },
   "repository": {
@@ -81,7 +81,7 @@
     "semantic-release": "^17.3.0",
     "stylelint": "^13.8.0",
     "stylelint-test-rule-tape": "^0.2.0",
-    "typedoc": "^0.20.9",
+    "typedoc": "^0.20.10",
     "typedoc-plugin-markdown": "^3.2.1",
     "typescript": "^4.1.2"
   },
