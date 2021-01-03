@@ -10,7 +10,6 @@
   "scripts": {
     "build": "microbundle --tsconfig tsconfig.build.json --compress",
     "release": "dotenv semantic-release",
-    "prerelease": "npm run build && npm run docs",
     "test": "node --require babel-register-ts test",
     "coverage": "nyc --reporter lcov --reporter text node test",
     "postcoverage": "dotenv codecov",
@@ -59,6 +58,7 @@
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^11.0.0",
     "@semantic-release/changelog": "^5.0.1",
+    "@semantic-release/exec": "^5.0.0",
     "@semantic-release/git": "^9.0.0",
     "@types/stylelint": "^9.10.1",
     "@typescript-eslint/eslint-plugin": "^4.8.2",
