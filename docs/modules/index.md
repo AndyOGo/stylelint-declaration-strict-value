@@ -16,7 +16,7 @@
 
 • `Const` **default**: *any*
 
-Defined in: [index.ts:461](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/4d809bd/src/index.ts#L461)
+Defined in: [index.ts:461](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/63acb54/src/index.ts#L461)
 
 ___
 
@@ -30,7 +30,7 @@ Name | Type | Value |
 ------ | ------ | ------ |
 `expected` | function | (`types`: *function* \| *variable* \| *keyword* \| ExpectedTypes, `value`: *string*, `property`: *string*, `customMessage`: *string*) => *string* |
 
-Defined in: [index.ts:28](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/4d809bd/src/index.ts#L28)
+Defined in: [index.ts:28](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/63acb54/src/index.ts#L28)
 
 ___
 
@@ -40,4 +40,4 @@ ___
 
 Rule Name.
 
-Defined in: [index.ts:26](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/4d809bd/src/index.ts#L26)
+Defined in: [index.ts:26](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/63acb54/src/index.ts#L26)

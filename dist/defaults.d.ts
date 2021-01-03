@@ -24,7 +24,7 @@ export declare type IgnoreValueList = Array<IgnoreValue>;
 /**
  * A hash of CSS properties with ignored values.
  * - `''` key applies to all configured CSS properties.
- * - key can also be Regular Expression string.
+ * - key can also be a Regular Expression string.
  */
 export interface IgnoreValueHash {
     '': IgnoreValue | IgnoreValueList;

@@ -1,3 +1,15 @@
+## [1.7.6](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.7.5...v1.7.6) (2021-01-03)
+
+
+### Bug Fixes
+
+* add typeRoots to build config too ([ee94cd2](https://github.com/AndyOGo/stylelint-declaration-strict-value/commit/ee94cd28cd42aa06cf3f1887c1755204796b04fc))
+* add types dir to typeRoots ([caaae6a](https://github.com/AndyOGo/stylelint-declaration-strict-value/commit/caaae6a72b52d9ea70fa29aea7623ebdef4edcae))
+* entry point missing ([cc3cdc3](https://github.com/AndyOGo/stylelint-declaration-strict-value/commit/cc3cdc3576de17a1c242c43cbee2f7efe051e48e))
+* remove mode and inputFiles options ([85dd4b8](https://github.com/AndyOGo/stylelint-declaration-strict-value/commit/85dd4b87338fd3fdb0bb80090fa51c77b29d87ed))
+* typedoc config ([b3c0ae5](https://github.com/AndyOGo/stylelint-declaration-strict-value/commit/b3c0ae58a3855bf017b6bc0fac4c79a703feac17))
+* typos ([4d809bd](https://github.com/AndyOGo/stylelint-declaration-strict-value/commit/4d809bd3109dfb8744cf10b3ca4e942de92a4db1))
+
 ## [1.7.5](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.7.4...v1.7.5) (2020-11-29)
 
 

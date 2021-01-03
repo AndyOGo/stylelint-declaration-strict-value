@@ -14,7 +14,7 @@ export declare function validProperties(actual: unknown): actual is IgnoreValue 
  * @internal
  * @param actual - The actual config to validate.
  *
- * @returns Returns `true` if secondary options are valied, else `false`.
+ * @returns Returns `true` if secondary options are valid, else `false`.
  */
 export declare function validOptions(actual: SecondaryOptions): boolean;
 /**
@@ -82,10 +82,10 @@ export declare function getIgnoredKeywords(ignoreKeywords: IgnoreValueConfig, pr
  */
 export declare function getIgnoredValues(ignoreValues: IgnoreValueConfig, property: string): null | IgnoreValueList;
 /**
- * Get the auto-fix function either by a function directly or from source file.
+ * Get the auto-fix function either by a function directly or from a source file.
  *
  * @internal
- * @param autoFixFunc - A JavaScript function or a module path to resolve it, also from cwd.
+ * @param autoFixFunc - A JavaScript function or a module path to resolve it, also from `cwd`.
  *
  * @returns Returns the auto-fix function if found, else `null`.
  */
