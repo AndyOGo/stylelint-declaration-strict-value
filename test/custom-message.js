@@ -12,7 +12,8 @@ testRule(rule, {
   config: [
     'color',
     {
-      message: 'Custom expected ${types} for "${value}" of "${property}"', // eslint-disable-line no-template-curly-in-string
+      // eslint-disable-next-line no-template-curly-in-string
+      message: 'Custom expected ${types} for "${value}" of "${property}"',
     },
   ],
 
@@ -26,6 +27,29 @@ testRule(rule, {
     {
       code: '.foo { color: red; }',
       message: `Custom expected variable or function for "red" of "color" (${ruleName})`,
+      line: 1,
+      column: 8,
+    },
+  ],
+});
+
+testRule(rule, {
+  ruleName,
+  skipBasicChecks: true,
+
+  config: [
+    ['/color$/', 'fill', 'stroke'],
+    {
+      ignoreVariables: false,
+      // eslint-disable-next-line no-template-curly-in-string
+      message: 'Custom expected ${types} for "${value}" of "${property}"',
+    },
+  ],
+
+  reject: [
+    {
+      code: '.foo { color: $red; }',
+      message: `Custom expected function for "$red" of "color" (${ruleName})`,
       line: 1,
       column: 8,
     },
