@@ -1,3 +1,11 @@
+## [1.7.8](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.7.7...v1.7.8) (2021-02-25)
+
+
+### Bug Fixes
+
+* delete stylints custom message override ([dc6efc1](https://github.com/AndyOGo/stylelint-declaration-strict-value/commit/dc6efc1218c7966c810698c00061e26cb0b92358))
+* eslint ([f073de4](https://github.com/AndyOGo/stylelint-declaration-strict-value/commit/f073de4e0236a6cf10ea858c21291e8586924f09))
+
 ## [1.7.7](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.7.6...v1.7.7) (2021-01-03)
 
 

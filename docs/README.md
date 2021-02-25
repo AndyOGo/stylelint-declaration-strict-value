@@ -1,6 +1,6 @@
-stylelint-declaration-strict-value - v1.7.7
+stylelint-declaration-strict-value - v1.7.8
 
-# stylelint-declaration-strict-value - v1.7.7
+# stylelint-declaration-strict-value - v1.7.8
 
 ## Index
 

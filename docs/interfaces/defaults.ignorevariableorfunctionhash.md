@@ -1,4 +1,4 @@
-[stylelint-declaration-strict-value - v1.7.7](../README.md) / [defaults](../modules/defaults.md) / IgnoreVariableOrFunctionHash
+[stylelint-declaration-strict-value - v1.7.8](../README.md) / [defaults](../modules/defaults.md) / IgnoreVariableOrFunctionHash
 
 # Interface: IgnoreVariableOrFunctionHash
 
