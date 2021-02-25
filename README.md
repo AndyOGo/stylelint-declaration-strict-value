@@ -389,7 +389,7 @@ Variables can be enabled for all props, except those listed in a hash, like:
 // .stylelintrc
 "rules": {
   // ...
-  "scale-unlimited/declaration-strict-value": ["/color$/", "margin", {
+  "scale-unlimited/declaration-strict-value": [["/color$/", "margin"], {
     ignoreVariables: {
       "margin": false,
     },
@@ -495,7 +495,7 @@ Functions can be enabled for all props, except those listed in a hash, like:
 // .stylelintrc
 "rules": {
   // ...
-  "scale-unlimited/declaration-strict-value": ["/color$/", "margin", {
+  "scale-unlimited/declaration-strict-value": [["/color$/", "margin"], {
     ignoreFunctions: {
       "margin": false,
     },
