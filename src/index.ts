@@ -160,6 +160,21 @@ const ruleFunction: StylelintRuleFunction = (
   options: SecondaryOptions,
   context: StylelintContext = {}
 ) => (root: Root, result: Result) => {
+  // fix #142
+  // @see https://github.com/stylelint/stylelint/pull/672/files#diff-78f1c80ffb2836008dd194b3b0ca28f9b46e4897b606f0b3d25a29e57a8d3e61R74
+  // @see https://stylelint.io/user-guide/configure#message
+  /* eslint-disable @typescript-eslint/no-explicit-any */
+  if (
+    result &&
+    (result as any).stylelint &&
+    (result as any).stylelint.customMessages &&
+    (result as any).stylelint.customMessages[ruleName]
+  ) {
+    // eslint-disable-next-line no-param-reassign
+    delete (result as any).stylelint.customMessages[ruleName];
+  }
+  /* eslint-enable @typescript-eslint/no-explicit-any */
+
   // validate stylelint plugin options
   const hasValidOptions = utils.validateOptions(
     result,
