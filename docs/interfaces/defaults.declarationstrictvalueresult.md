@@ -1,4 +1,4 @@
-[stylelint-declaration-strict-value - v1.7.8](../README.md) / [defaults](../modules/defaults.md) / DeclarationStrictValueResult
+[stylelint-declaration-strict-value - v1.7.9](../README.md) / [defaults](../modules/defaults.md) / DeclarationStrictValueResult
 
 # Interface: DeclarationStrictValueResult
 
@@ -27,7 +27,7 @@ Result of CSS value validation.
 
 Longhand CSS Property, if expanded.
 
-Defined in: [defaults.ts:80](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/8570a6f/src/defaults.ts#L80)
+Defined in: [defaults.ts:80](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/cf1a196/src/defaults.ts#L80)
 
 ___
 
@@ -37,7 +37,7 @@ ___
 
 Longhand CSS value, if expanded.
 
-Defined in: [defaults.ts:85](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/8570a6f/src/defaults.ts#L85)
+Defined in: [defaults.ts:85](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/cf1a196/src/defaults.ts#L85)
 
 ___
 
@@ -47,7 +47,7 @@ ___
 
 Whether or not function is valid.
 
-Defined in: [defaults.ts:65](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/8570a6f/src/defaults.ts#L65)
+Defined in: [defaults.ts:65](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/cf1a196/src/defaults.ts#L65)
 
 ___
 
@@ -57,7 +57,7 @@ ___
 
 Whether or not keyword is valid.
 
-Defined in: [defaults.ts:70](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/8570a6f/src/defaults.ts#L70)
+Defined in: [defaults.ts:70](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/cf1a196/src/defaults.ts#L70)
 
 ___
 
@@ -67,7 +67,7 @@ ___
 
 Whether or not value is valid.
 
-Defined in: [defaults.ts:75](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/8570a6f/src/defaults.ts#L75)
+Defined in: [defaults.ts:75](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/cf1a196/src/defaults.ts#L75)
 
 ___
 
@@ -77,4 +77,4 @@ ___
 
 Whether or not variable is valid.
 
-Defined in: [defaults.ts:60](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/8570a6f/src/defaults.ts#L60)
+Defined in: [defaults.ts:60](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/cf1a196/src/defaults.ts#L60)
