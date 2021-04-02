@@ -25,6 +25,7 @@
 ### Variables
 
 * [default](defaults.md#default)
+* [ruleName](defaults.md#rulename)
 
 ### Functions
 
@@ -38,7 +39,7 @@
 
 A autofix function.
 
-Defined in: [defaults.ts:90](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/cf1a196/src/defaults.ts#L90)
+Defined in: [defaults.ts:95](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/39c4fe5/src/defaults.ts#L95)
 
 ___
 
@@ -48,7 +49,7 @@ ___
 
 Possible config for `autoFixFunc` option.
 
-Defined in: [defaults.ts:103](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/cf1a196/src/defaults.ts#L103)
+Defined in: [defaults.ts:108](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/39c4fe5/src/defaults.ts#L108)
 
 ___
 
@@ -58,7 +59,7 @@ ___
 
 Path to autofix function module.
 
-Defined in: [defaults.ts:99](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/cf1a196/src/defaults.ts#L99)
+Defined in: [defaults.ts:104](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/39c4fe5/src/defaults.ts#L104)
 
 ___
 
@@ -68,7 +69,7 @@ ___
 
 A CSS value to be ignored.
 
-Defined in: [defaults.ts:22](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/cf1a196/src/defaults.ts#L22)
+Defined in: [defaults.ts:27](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/39c4fe5/src/defaults.ts#L27)
 
 ___
 
@@ -78,7 +79,7 @@ ___
 
 Possible config for `ignoreValues` and ~~`ignoreKeywords`~~ option.
 
-Defined in: [defaults.ts:48](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/cf1a196/src/defaults.ts#L48)
+Defined in: [defaults.ts:53](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/39c4fe5/src/defaults.ts#L53)
 
 ___
 
@@ -88,7 +89,7 @@ ___
 
 A list of CSS values to be ignored.
 
-Defined in: [defaults.ts:26](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/cf1a196/src/defaults.ts#L26)
+Defined in: [defaults.ts:31](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/39c4fe5/src/defaults.ts#L31)
 
 ___
 
@@ -98,7 +99,7 @@ ___
 
 Possible config for `ignoreVariables` and `ignoreFunctions` option.
 
-Defined in: [defaults.ts:12](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/cf1a196/src/defaults.ts#L12)
+Defined in: [defaults.ts:17](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/39c4fe5/src/defaults.ts#L17)
 
 ___
 
@@ -108,7 +109,7 @@ ___
 
 A Regular Expression string to match a CSS property or value.
 
-Defined in: [defaults.ts:18](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/cf1a196/src/defaults.ts#L18)
+Defined in: [defaults.ts:23](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/39c4fe5/src/defaults.ts#L23)
 
 ## Variables
 
@@ -116,7 +117,19 @@ Defined in: [defaults.ts:18](https://github.com/AndyOGo/stylelint-declaration-st
 
 • `Const` **default**: [*SecondaryOptions*](../interfaces/defaults.secondaryoptions.md)
 
-Defined in: [defaults.ts:181](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/cf1a196/src/defaults.ts#L181)
+Defined in: [defaults.ts:186](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/39c4fe5/src/defaults.ts#L186)
+
+___
+
+### ruleName
+
+• `Const` **ruleName**: *scale-unlimited/declaration-strict-value*= 'scale-unlimited/declaration-strict-value'
+
+Rule Name.
+
+Defined in: [defaults.ts:6](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/39c4fe5/src/defaults.ts#L6)
+
+Defined in: [index.ts:483](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/39c4fe5/src/index.ts#L483)
 
 ## Functions
 
@@ -135,4 +148,4 @@ Name | Type |
 
 **Returns:** key is IgnoreValueHash
 
-Defined in: [defaults.ts:40](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/cf1a196/src/defaults.ts#L40)
+Defined in: [defaults.ts:45](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/39c4fe5/src/defaults.ts#L45)

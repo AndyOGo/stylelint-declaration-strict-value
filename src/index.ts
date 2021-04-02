@@ -15,15 +15,12 @@ import {
   getAutoFixFunc,
 } from './lib/validation';
 import defaults, {
+  ruleName,
   SecondaryOptions,
   IgnoreValue,
   RegExpString,
 } from './defaults';
 
-/**
- * Rule Name.
- */
-const ruleName = 'scale-unlimited/declaration-strict-value';
 const { utils } = stylelint;
 const messages = utils.ruleMessages(ruleName, {
   expected,
@@ -213,7 +210,11 @@ const ruleFunction: StylelintRuleFunction = (
     expandShorthand,
     recurseLonghand,
   } = config;
-  const autoFixFuncNormalized = getAutoFixFunc(autoFixFunc);
+  const autoFixFuncNormalized = getAutoFixFunc(
+    autoFixFunc,
+    disableFix,
+    context.fix
+  );
   /**
    * A hash of regular expression to ignore for a CSS properties.
    * @internal
@@ -428,8 +429,8 @@ const ruleFunction: StylelintRuleFunction = (
         const types = getTypes(config, property);
 
         // support auto fixing
-        if (context.fix && !disableFix) {
-          const fixedValue = autoFixFuncNormalized!(
+        if (context.fix && !disableFix && autoFixFuncNormalized) {
+          const fixedValue = autoFixFuncNormalized(
             node,
             {
               validVar,

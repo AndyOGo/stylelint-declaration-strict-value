@@ -4,11 +4,20 @@
 
 ## Index
 
+### References
+
+* [ruleName](index.md#rulename)
+
 ### Variables
 
 * [default](index.md#default)
 * [messages](index.md#messages)
-* [ruleName](index.md#rulename)
+
+## References
+
+### ruleName
+
+Re-exports: [ruleName](defaults.md#rulename)
 
 ## Variables
 
@@ -16,7 +25,7 @@
 
 • `Const` **default**: *any*
 
-Defined in: [index.ts:476](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/cf1a196/src/index.ts#L476)
+Defined in: [index.ts:477](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/39c4fe5/src/index.ts#L477)
 
 ___
 
@@ -30,14 +39,4 @@ Name | Type | Value |
 ------ | ------ | ------ |
 `expected` | function | (`types`: *function* \| *variable* \| *keyword* \| ExpectedTypes, `value`: *string*, `property`: *string*, `customMessage`: *string*) => *string* |
 
-Defined in: [index.ts:28](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/cf1a196/src/index.ts#L28)
-
-___
-
-### ruleName
-
-• `Const` **ruleName**: *scale-unlimited/declaration-strict-value*= 'scale-unlimited/declaration-strict-value'
-
-Rule Name.
-
-Defined in: [index.ts:26](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/cf1a196/src/index.ts#L26)
+Defined in: [index.ts:25](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/39c4fe5/src/index.ts#L25)

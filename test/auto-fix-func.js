@@ -8,6 +8,34 @@ const { rule } = declarationStrictValue;
 const ruleWithContext = (context) => (properties, options) =>
   rule(properties, options, context);
 
+// works if autofix is omitted
+testRule(
+  ruleWithContext({
+    fix: true,
+  }),
+  {
+    ruleName,
+    skipBasicChecks: true,
+
+    config: ['color'],
+
+    reject: [
+      {
+        code: '.foo { color: #fff; }',
+        message: `Expected variable or function for "#fff" of "color" (${ruleName})`,
+        line: 1,
+        column: 8,
+      },
+      {
+        code: '.foo { color: red; }',
+        message: `Expected variable or function for "red" of "color" (${ruleName})`,
+        line: 1,
+        column: 8,
+      },
+    ],
+  }
+);
+
 // autofix by function property
 testRule(
   ruleWithContext({
