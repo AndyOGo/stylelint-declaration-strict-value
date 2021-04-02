@@ -428,8 +428,8 @@ const ruleFunction: StylelintRuleFunction = (
         const types = getTypes(config, property);
 
         // support auto fixing
-        if (context.fix && !disableFix) {
-          const fixedValue = autoFixFuncNormalized!(
+        if (context.fix && !disableFix && autoFixFuncNormalized) {
+          const fixedValue = autoFixFuncNormalized(
             node,
             {
               validVar,
