@@ -28,4 +28,4 @@ A hash of CSS properties with ignored values.
 
 • ****: *string* \| *number* \| [*IgnoreValueList*](../modules/defaults.md#ignorevaluelist)
 
-Defined in: [defaults.ts:32](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/cf1a196/src/defaults.ts#L32)
+Defined in: [defaults.ts:37](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/39c4fe5/src/defaults.ts#L37)
