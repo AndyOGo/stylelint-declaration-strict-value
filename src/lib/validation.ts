@@ -1,6 +1,7 @@
 import path from 'path';
 
 import defaults, {
+  ruleName,
   SecondaryOptions,
   IgnoreValue,
   IgnoreValueList,
@@ -359,7 +360,9 @@ export function getIgnoredValues(
  * @returns Returns the auto-fix function if found, else `null`.
  */
 export function getAutoFixFunc(
-  autoFixFunc: AutoFixFuncConfig
+  autoFixFunc: AutoFixFuncConfig,
+  disableFix?: boolean,
+  contextFix?: boolean
 ): null | AutoFixFunc {
   // @see: https://github.com/microsoft/TypeScript/issues/41627
   // const type = typeof autoFixFunc
@@ -381,6 +384,13 @@ export function getAutoFixFunc(
 
     // eslint-disable-next-line import/no-dynamic-require, global-require
     return require(resolveAutoFixfunc);
+  }
+
+  if (!disableFix && contextFix) {
+    // eslint-disable-next-line no-console
+    console.warn(
+      `No \`autoFix\` function provided, consider using \`disableFix\` for "${ruleName}"`
+    );
   }
 
   return null;
