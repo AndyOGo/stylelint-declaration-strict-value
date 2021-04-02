@@ -1,8 +1,5 @@
 import { expected } from './lib/validation';
-/**
- * Rule Name.
- */
-declare const ruleName = "scale-unlimited/declaration-strict-value";
+import { ruleName } from './defaults';
 declare const messages: {
     expected: typeof expected;
 };

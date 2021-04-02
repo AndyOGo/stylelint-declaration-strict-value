@@ -1,5 +1,9 @@
 import type { Node, Root } from 'postcss';
 /**
+ * Rule Name.
+ */
+export declare const ruleName = "scale-unlimited/declaration-strict-value";
+/**
  * A hash of CSS properties to ignore variables or functions.
  */
 export interface IgnoreVariableOrFunctionHash {

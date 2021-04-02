@@ -1,3 +1,11 @@
+## [1.7.10](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.7.9...v1.7.10) (2021-04-02)
+
+
+### Bug Fixes
+
+* import declaration files ([e862a5e](https://github.com/AndyOGo/stylelint-declaration-strict-value/commit/e862a5efab771727ed40ac0c3918d58a395e1379))
+* only execute autofix func if it could be found ([f5b20e3](https://github.com/AndyOGo/stylelint-declaration-strict-value/commit/f5b20e3455410d25ca0446b47440c7b661d9fb0d))
+
 ## [1.7.9](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.7.8...v1.7.9) (2021-02-25)
 
 ## [1.7.8](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.7.7...v1.7.8) (2021-02-25)

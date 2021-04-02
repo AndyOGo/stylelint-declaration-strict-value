@@ -1,4 +1,4 @@
-[stylelint-declaration-strict-value - v1.7.9](../README.md) / index
+[stylelint-declaration-strict-value - v1.7.10](../README.md) / index
 
 # Module: index
 
@@ -25,7 +25,7 @@ Re-exports: [ruleName](defaults.md#rulename)
 
 • `Const` **default**: *any*
 
-Defined in: [index.ts:477](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/39c4fe5/src/index.ts#L477)
+Defined in: [index.ts:477](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/8b6bb9a/src/index.ts#L477)
 
 ___
 
@@ -39,4 +39,4 @@ Name | Type | Value |
 ------ | ------ | ------ |
 `expected` | function | (`types`: *function* \| *variable* \| *keyword* \| ExpectedTypes, `value`: *string*, `property`: *string*, `customMessage`: *string*) => *string* |
 
-Defined in: [index.ts:25](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/39c4fe5/src/index.ts#L25)
+Defined in: [index.ts:25](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/8b6bb9a/src/index.ts#L25)
