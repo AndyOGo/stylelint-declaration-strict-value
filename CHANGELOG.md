@@ -1,3 +1,12 @@
+## [1.7.11](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.7.10...v1.7.11) (2021-04-16)
+
+
+### Bug Fixes
+
+* expanded shorthand check ([91cdf8c](https://github.com/AndyOGo/stylelint-declaration-strict-value/commit/91cdf8c7345b0b648bf13f5aea38729a72a87575))
+* keyword may be duplicated ([8ba4b47](https://github.com/AndyOGo/stylelint-declaration-strict-value/commit/8ba4b4799aa6224d3fe96e6ceb5de6715fa4a4d4))
+* shorthand value check should ignore variables and functions ([0556434](https://github.com/AndyOGo/stylelint-declaration-strict-value/commit/0556434efae4859d8bd26c61c30ebf3b1afba8d9))
+
 ## [1.7.10](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.7.9...v1.7.10) (2021-04-02)
 
 
