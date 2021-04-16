@@ -8,7 +8,7 @@
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 ![ts](https://badgen.net/badge/-/TypeScript/blue?icon=typescript&label)
 
-A [stylelint](https://github.com/stylelint/stylelint) plugin that enforces either variables (`$sass`, `namespace.$sass`, `@less`, `var(--cssnext)`, `css-loader @value`), functions or custom CSS values, like keywords (`inherit`, `none`, `currentColor` etc.), colors (`#fff`, `red`, etc.) or numbers incl. units (`0`, `1px`, `100%`, etc.) for CSS longhand and shorthand properties.
+A [stylelint](https://github.com/stylelint/stylelint) plugin that enforces either variables (`$sass`, `namespace.$sass`, `@less`, `var(--cssnext)`, `css-loader @value`), functions or custom CSS values, like keywords (`inherit`, `none`, `currentColor` etc.), colors (`#fff`, `red`, etc.) or numbers incl. units (`0`, `1px`, `100%`, etc.) for CSS longhand and experimental shorthand properties.
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -1153,14 +1153,14 @@ a {
 #### CSS shorthand Syntax
 
 CSS shorthand Syntax support is disabled by default.
-This feature is baked by [`shortcss`](https://www.npmjs.com/package/shortcss) and [`css-values`](https://www.npmjs.com/package/css-values), a list of support shorthand properties can be found at [`css-shorthand-properties`](https://github.com/gilmoreorless/css-shorthand-properties) and a list of validated CSS property/value pairs at [`property-support`](https://github.com/ben-eb/css-values#property-support).
+This feature is baked by [`shortcss`](https://www.npmjs.com/package/shortcss) and [`css-values`](https://www.npmjs.com/package/css-values), a list of supported shorthand properties can be found at [`css-shorthand-properties`](https://github.com/gilmoreorless/css-shorthand-properties) and a list of validated CSS property/value pairs at [`property-support`](https://github.com/ben-eb/css-values#property-support).
 
 How this works is:
 
 1. Try to lint a direct match
 2. If no direct match, check if the prop can be expanded and check the longhand props
 3. The expansion by [`shortcss`](https://www.npmjs.com/package/shortcss) is not 100% standard conform, i.e. assigning correct default values if you omit some longhands like `text-decoration-color`.
-4. So CSS validity check by [`css-values`](https://www.npmjs.com/package/css-values) is performed for each exapnded longhand property to avoid wrong linting errors
+4. So CSS validity check by [`css-values`](https://www.npmjs.com/package/css-values) is performed for each expanded longhand property to avoid wrong linting errors
 
 **Warning:** How do you determine, which longhand property is used by using a single shorthand?
 Like in this example:
