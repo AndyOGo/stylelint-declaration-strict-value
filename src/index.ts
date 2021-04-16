@@ -68,6 +68,8 @@ type RegExpArray = [string, string?];
  * @internal
  * @param value - Any string.
  */
+const checkCssValue = (prop: string, value: unknown) =>
+  (/color/.test(prop) && value === 'transparent') || cssValues(prop, value);
 const isRegexString = (value: string): value is RegExpString =>
   reRegex.test(value);
 /**
@@ -376,14 +378,19 @@ const ruleFunction: StylelintRuleFunction = (
         }
       }
 
+      if (isExpanded) {
+        console.log(
+          `${nodeProp}: ${nodeValue} -> ${longhandProp}: ${longhandValue}`,
+          checkCssValue(longhandProp!, longhandValue)
+        );
+      }
+
       // test expanded shorthands are valid
       if (
         isExpanded &&
-        ignoreVariables &&
-        !validVar &&
-        ignoreFunctions &&
-        !validFunc &&
-        cssValues(longhandProp, longhandValue) !== true
+        (!ignoreVariables || (ignoreVariables && !validVar)) &&
+        (!ignoreFunctions || (ignoreFunctions && !validFunc)) &&
+        checkCssValue(longhandProp!, longhandValue) !== true
       ) {
         return false;
       }
