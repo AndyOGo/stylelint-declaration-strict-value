@@ -17,55 +17,55 @@ testRule(rule, {
     { code: '.foo { border-color: $color; }' },
     { code: '.foo { border: 0; }' },
     { code: '.foo { border: $foo; }' },
-    { code: '.foo { boder: 1px solid $bar; }' },
-    { code: '.foo { boder: 1px solid $bar; }' },
-    { code: '.foo { boder: 1px solid namespace.$bar; }' },
-    { code: '.foo { boder: 1px solid @bar; }' },
-    { code: '.foo { boder: 1px solid var(--bar); }' },
-    { code: '.foo { boder: 1px solid var(--bar, fallback); }' },
-    { code: '.foo { boder: 1px solid var(--bar, fallback, fallback2); }' },
+    { code: '.foo { border: 1px solid $bar; }' },
+    { code: '.foo { border: 1px solid $bar; }' },
+    { code: '.foo { border: 1px solid namespace.$bar; }' },
+    { code: '.foo { border: 1px solid @bar; }' },
+    { code: '.foo { border: 1px solid var(--bar); }' },
+    { code: '.foo { border: 1px solid var(--bar, fallback); }' },
+    { code: '.foo { border: 1px solid var(--bar, fallback, fallback2); }' },
     {
-      code: `.foo { boder: 1px solid var(
+      code: `.foo { border: 1px solid var(
         --bar,
         fallback
       ); }`,
     },
     {
-      code: `.foo { boder: 1px solid var(
+      code: `.foo { border: 1px solid var(
         --bar,
         fallback,
         fallback2
       ); }`,
     },
-    { code: '.foo { boder: 1px solid -$bar; }' },
-    { code: '.foo { boder: 1px solid -namespace.$bar; }' },
-    { code: '.foo { boder: 1px solid -@bar; }' },
-    { code: '.foo { boder: 1px solid -var(--bar); }' },
-    { code: '.foo { boder: 1px solid spacing(); }' },
-    { code: '.foo { boder: 1px solid map-get($bar, baz); }' },
-    { code: '.foo { boder: 1px solid map-get(namespace.$bar, baz); }' },
-    { code: '.foo { boder: 1px solid darken(#fff, 10%); }' },
-    { code: '.foo { boder: 1px solid color(#fff, lighten(10%)); }' },
+    { code: '.foo { border: 1px solid -$bar; }' },
+    { code: '.foo { border: 1px solid -namespace.$bar; }' },
+    { code: '.foo { border: 1px solid -@bar; }' },
+    { code: '.foo { border: 1px solid -var(--bar); }' },
+    { code: '.foo { border: 1px solid spacing(); }' },
+    { code: '.foo { border: 1px solid map-get($bar, baz); }' },
+    { code: '.foo { border: 1px solid map-get(namespace.$bar, baz); }' },
+    { code: '.foo { border: 1px solid darken(#fff, 10%); }' },
+    { code: '.foo { border: 1px solid color(#fff, lighten(10%)); }' },
     {
-      code: `.foo { boder: 1px solid map-get(
+      code: `.foo { border: 1px solid map-get(
         $bar,
         baz)
       ; }`,
     },
     {
-      code: `.foo { boder: 1px solid map-get(
+      code: `.foo { border: 1px solid map-get(
         namespace.$bar,
         baz)
       ; }`,
     },
     {
-      code: `.foo { boder: 1px solid darken(
+      code: `.foo { border: 1px solid darken(
         #fff,
         10%)
       ; }`,
     },
     {
-      code: `.foo { boder: 1px solid color(
+      code: `.foo { border: 1px solid color(
         #fff,
         lighten(10%))
       ; }`,
@@ -124,6 +124,7 @@ testRule(rule, {
         lighten(10%))
       ; }`,
     },
+    { code: '.foo { background: no-repeat; }' },
   ],
 
   reject: [
@@ -184,10 +185,11 @@ testRule(rule, {
     { code: '.foo { scrollbar-color: transparent darken(#fff, 10%); }' },
     { code: '.foo { scrollbar-color: darken(#fff, 10%) darken(#fff, 10%); }' },
     { code: '.foo { scrollbar-color: darken(#fff, 10%) transparent; }' },
-    { code: '.foo { boder: 0; }' },
-    { code: '.foo { boder: transparent; }' },
-    { code: '.foo { boder: 1px solid transparent; }' },
+    { code: '.foo { border: 0; }' },
+    { code: '.foo { border: transparent; }' },
+    { code: '.foo { border: 1px solid transparent; }' },
     { code: '.foo { background: transparent; }' },
+    { code: '.foo { background: no-repeat; }' },
   ],
 
   reject: [
@@ -302,10 +304,11 @@ testRule(rule, {
   ],
 
   accept: [
-    { code: '.foo { boder: 1px solid #fff; }' },
+    { code: '.foo { border: 1px solid #fff; }' },
     { code: '.foo { border: 1px solid red; }' },
     { code: '.foo { background: #fff; }' },
     { code: '.foo { background: red; }' },
+    { code: '.foo { background: no-repeat; }' },
   ],
 });
 
@@ -322,7 +325,7 @@ testRule(rule, {
 
   reject: [
     {
-      code: '.foo { boder: red; }',
+      code: '.foo { border: red; }',
       message: `Invalid option "{"expandShorthand":"foo"}" for rule ${ruleName}`,
     },
   ],
@@ -341,7 +344,7 @@ testRule(rule, {
 
   reject: [
     {
-      code: '.foo { boder: red; }',
+      code: '.foo { border: red; }',
       message: `Invalid option "{"recurseLonghand":"foo"}" for rule ${ruleName}`,
     },
   ],
