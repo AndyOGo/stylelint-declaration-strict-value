@@ -61,6 +61,7 @@ const reRegex = /^\/(.*)\/([a-zA-Z]*)$/;
 /**
  * @internal
  */
+const reColorProp = /color/;
 type RegExpArray = [string, string?];
 /**
  * Checks if string is a Regular Expression.
@@ -68,8 +69,11 @@ type RegExpArray = [string, string?];
  * @internal
  * @param value - Any string.
  */
-const checkCssValue = (prop: string, value: unknown) =>
-  (/color/.test(prop) && value === 'transparent') || cssValues(prop, value);
+const checkCssValue = (prop: string, value: string) =>
+  (reColorProp.test(prop) && value === 'transparent') ||
+  reVar.test(value) ||
+  reFunc.test(value) ||
+  cssValues(prop, value);
 const isRegexString = (value: string): value is RegExpString =>
   reRegex.test(value);
 /**
@@ -378,19 +382,12 @@ const ruleFunction: StylelintRuleFunction = (
         }
       }
 
-      if (isExpanded) {
-        console.log(
-          `${nodeProp}: ${nodeValue} -> ${longhandProp}: ${longhandValue}`,
-          checkCssValue(longhandProp!, longhandValue)
-        );
-      }
-
       // test expanded shorthands are valid
       if (
         isExpanded &&
         (!ignoreVariables || (ignoreVariables && !validVar)) &&
         (!ignoreFunctions || (ignoreFunctions && !validFunc)) &&
-        checkCssValue(longhandProp!, longhandValue) !== true
+        checkCssValue(longhandProp!, longhandValue!) !== true
       ) {
         return false;
       }
