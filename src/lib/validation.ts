@@ -259,7 +259,11 @@ export function getTypes(
     types.push('keyword');
   }
 
-  if (ignoreValues && getIgnoredValues(ignoreValues, property)) {
+  if (
+    types.indexOf('keyword') === -1 &&
+    ignoreValues &&
+    getIgnoredValues(ignoreValues, property)
+  ) {
     types.push('keyword');
   }
 
