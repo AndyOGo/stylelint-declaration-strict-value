@@ -124,6 +124,7 @@ testRule(rule, {
         lighten(10%))
       ; }`,
     },
+    { code: '.foo { background: no-repeat; }' },
   ],
 
   reject: [
@@ -188,6 +189,7 @@ testRule(rule, {
     { code: '.foo { border: transparent; }' },
     { code: '.foo { border: 1px solid transparent; }' },
     { code: '.foo { background: transparent; }' },
+    { code: '.foo { background: no-repeat; }' },
   ],
 
   reject: [
@@ -306,6 +308,7 @@ testRule(rule, {
     { code: '.foo { border: 1px solid red; }' },
     { code: '.foo { background: #fff; }' },
     { code: '.foo { background: red; }' },
+    { code: '.foo { background: no-repeat; }' },
   ],
 });
 
