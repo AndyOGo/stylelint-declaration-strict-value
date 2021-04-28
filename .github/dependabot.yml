@@ -1,0 +1,21 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: "@commitlint/config-conventional"
+    versions:
+    - 12.0.0
+  - dependency-name: "@commitlint/cli"
+    versions:
+    - 12.0.0
+  - dependency-name: husky
+    versions:
+    - 5.0.9
+    - 5.1.0
+  - dependency-name: eslint-config-prettier
+    versions:
+    - 8.0.0
