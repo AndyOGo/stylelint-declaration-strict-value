@@ -349,3 +349,23 @@ testRule(rule, {
     },
   ],
 });
+
+// testRule(rule, {
+//   ruleName,
+//   skipBasicChecks: true,
+
+//   config: [
+//     ['box-shadow'],
+//     {
+//       ignoreValues: {
+//         'box-shadow': ['/\\d{1}px/'],
+//       },
+//     },
+//   ],
+
+//   accept: [
+//     {
+//       code: '.foo { box-shadow: 0px 0px 0px 1px var(--bar), 0px 0px 0px 2px var(--baz); }',
+//     },
+//   ],
+// });
