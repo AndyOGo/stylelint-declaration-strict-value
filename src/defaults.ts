@@ -1,4 +1,4 @@
-import type { Node, Root } from 'postcss';
+import type { Node, Root } from 'stylelint/node_modules/postcss';
 
 /**
  * Rule Name.

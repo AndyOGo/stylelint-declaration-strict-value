@@ -1,5 +1,5 @@
-import type { Declaration, Root, Result, AtRule } from 'postcss';
-import stylelint from 'stylelint';
+import type { Declaration, Root, AtRule } from 'stylelint/node_modules/postcss';
+import stylelint, { Plugin, PluginContext, PostcssResult } from 'stylelint';
 import shortCSS from 'shortcss';
 import list from 'shortcss/lib/list';
 import cssValues from 'css-values';
@@ -109,27 +109,6 @@ const mapIgnoreValue = (ignoreValue: IgnoreValue) =>
     : new RegExp(`^${ignoreValue}$`);
 
 /**
- * A rule function essentially returns a little PostCSS plugin.
- * It will report violations of this rule.
- *
- * @param root - PostCSS root (the parsed AST).
- * @param result - PostCSS lazy result.
- */
-type PostCSSPlugin = (root: Root, result: Result) => void | PromiseLike<void>;
-
-/**
- * Third Stylelint plugin context parameter.
- */
-interface StylelintContext {
-  /**
-   * Wheter or not stylelint was executed with `--fix` option.
-   *
-   * @defaultValue false
-   */
-  fix?: boolean;
-}
-
-/**
  * A string or regular expression matching a CSS property name.
  */
 type CSSPropertyName = string | RegExpString;
@@ -150,19 +129,17 @@ type PrimaryOptions = CSSPropertyName | CSSPropertyName[];
  *
  * @returns Returns a PostCSS Plugin.
  */
-interface StylelintRuleFunction {
-  (
-    primaryOption: PrimaryOptions,
-    secondaryOptions?: SecondaryOptions,
-    context?: StylelintContext
-  ): PostCSSPlugin;
-  primaryOptionArray: boolean;
-}
-const ruleFunction: StylelintRuleFunction = (
-  properties: string | string[],
+type StylelintPlugin<P = unknown, S = unknown> = Plugin<P, S> & {
+  /**
+   * @see: https://stylelint.io/developer-guide/plugins/#allow-primary-option-arrays
+   */
+  primaryOptionArray?: boolean;
+};
+const ruleFunction: StylelintPlugin<PrimaryOptions, SecondaryOptions> = (
+  properties: PrimaryOptions,
   options: SecondaryOptions,
-  context: StylelintContext = {}
-) => (root: Root, result: Result) => {
+  context: PluginContext = {}
+) => (root: Root, result: PostcssResult) => {
   // fix #142
   // @see https://github.com/stylelint/stylelint/pull/672/files#diff-78f1c80ffb2836008dd194b3b0ca28f9b46e4897b606f0b3d25a29e57a8d3e61R74
   // @see https://stylelint.io/user-guide/configure#message
