@@ -239,12 +239,8 @@ export function getTypes(
   config: SecondaryOptions,
   property: string
 ): ExpectedTypes {
-  const {
-    ignoreVariables,
-    ignoreFunctions,
-    ignoreKeywords,
-    ignoreValues,
-  } = config;
+  const { ignoreVariables, ignoreFunctions, ignoreKeywords, ignoreValues } =
+    config;
   const types: ExpectedTypes = [];
 
   if (ignoreVariables) {
