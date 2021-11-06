@@ -41,7 +41,8 @@ const reSkipProp = /^(?:@|\$|--).+$/;
  * @see  https://drafts.csswg.org/css-syntax-3/#ident-token-diagram
  */
 // eslint-disable-next-line no-control-regex
-const reVar = /^-?(?:@.+|(?:(?:[a-zA-Z_-]|[^\x00-\x7F])+(?:[a-zA-Z0-9_-]|[^\x00-\x7F])*\.)?\$.+|var\(\s*--[\s\S]+\))$/;
+const reVar =
+  /^-?(?:@.+|(?:(?:[a-zA-Z_-]|[^\x20-\x7F])+(?:[a-zA-Z0-9_-]|[^\x20-\x7F])*\.)?\$.+|var\(\s*--[\s\S]+\))$/;
 /**
  * RegExp to parse functions.
  * - irgnoring CSS variables `var(--*)`
@@ -135,323 +136,327 @@ type StylelintPlugin<P = unknown, S = unknown> = Plugin<P, S> & {
    */
   primaryOptionArray?: boolean;
 };
-const ruleFunction: StylelintPlugin<PrimaryOptions, SecondaryOptions> = (
-  properties: PrimaryOptions,
-  options: SecondaryOptions,
-  context: PluginContext = {}
-) => (root: Root, result: PostcssResult) => {
-  // fix #142
-  // @see https://github.com/stylelint/stylelint/pull/672/files#diff-78f1c80ffb2836008dd194b3b0ca28f9b46e4897b606f0b3d25a29e57a8d3e61R74
-  // @see https://stylelint.io/user-guide/configure#message
-  /* eslint-disable @typescript-eslint/no-explicit-any */
-  if (
-    result &&
-    (result as any).stylelint &&
-    (result as any).stylelint.customMessages &&
-    (result as any).stylelint.customMessages[ruleName]
-  ) {
-    // eslint-disable-next-line no-param-reassign
-    delete (result as any).stylelint.customMessages[ruleName];
-  }
-  /* eslint-enable @typescript-eslint/no-explicit-any */
-
-  // validate stylelint plugin options
-  const hasValidOptions = utils.validateOptions(
-    result,
-    ruleName,
-    {
-      actual: properties,
-      possible: validProperties,
-    },
-    {
-      actual: options,
-      possible: validOptions,
-      optional: true,
+const ruleFunction: StylelintPlugin<PrimaryOptions, SecondaryOptions> =
+  (
+    properties: PrimaryOptions,
+    options: SecondaryOptions,
+    context: PluginContext = {}
+  ) =>
+  (root: Root, result: PostcssResult) => {
+    // fix #142
+    // @see https://github.com/stylelint/stylelint/pull/672/files#diff-78f1c80ffb2836008dd194b3b0ca28f9b46e4897b606f0b3d25a29e57a8d3e61R74
+    // @see https://stylelint.io/user-guide/configure#message
+    /* eslint-disable @typescript-eslint/no-explicit-any */
+    if (
+      result &&
+      (result as any).stylelint &&
+      (result as any).stylelint.customMessages &&
+      (result as any).stylelint.customMessages[ruleName]
+    ) {
+      // eslint-disable-next-line no-param-reassign
+      delete (result as any).stylelint.customMessages[ruleName];
     }
-  );
+    /* eslint-enable @typescript-eslint/no-explicit-any */
 
-  if (!hasValidOptions) return;
+    // validate stylelint plugin options
+    const hasValidOptions = utils.validateOptions(
+      result,
+      ruleName,
+      {
+        actual: properties,
+        possible: validProperties,
+      },
+      {
+        actual: options,
+        possible: validOptions,
+        optional: true,
+      }
+    );
 
-  // normalize options
-  if (!Array.isArray(properties)) {
-    // eslint-disable-next-line no-param-reassign
-    properties = [properties];
-  }
+    if (!hasValidOptions) return;
 
-  const config: SecondaryOptions = {
-    ...defaults,
-    ...options,
-  };
-  const {
-    ignoreVariables,
-    ignoreFunctions,
-    ignoreKeywords,
-    ignoreValues,
-    message,
-    disableFix,
-    autoFixFunc,
-    expandShorthand,
-    recurseLonghand,
-  } = config;
-  const autoFixFuncNormalized = getAutoFixFunc(
-    autoFixFunc,
-    disableFix,
-    context.fix
-  );
-  /**
-   * A hash of regular expression to ignore for a CSS properties.
-   * @internal
-   */
-  interface RegExpMap {
-    // [key: CSSPropertyName]: RegExp;
-    [key: string]: RegExp;
-  }
-  /**
-   * A hash of regular expression to ignore for a CSS properties or `null`.
-   * @internal
-   */
-  type RegExpKeywordMap = null | RegExpMap;
-  /**
-   * A hash of regular expression lists to ignore for a CSS property.
-   * @internal
-   */
-  interface RegExpList {
-    // [key: CSSPropertyName]: RegExp[];
-    [key: string]: RegExp[];
-  }
-  /**
-   * A hash of regular expression lists to ignore for a CSS property or `null`.
-   * @internal
-   */
-  type RegExpValuesList = null | RegExpList;
-  const reKeywords: RegExpKeywordMap = ignoreKeywords ? {} : null;
-  const reValues: RegExpValuesList = ignoreValues ? {} : null;
-  let cssLoaderValues: RegExp;
-
-  if (ignoreVariables) {
-    const cssLoaderValuesNames: string[] = [];
-    root.walkAtRules('value', (rule: AtRule) => {
-      const { params } = rule;
-      const name = params.split(':')[0].trim();
-
-      cssLoaderValuesNames.push(name);
-    });
-
-    cssLoaderValues = new RegExp(`^-?(:?${cssLoaderValuesNames.join('|')})$`);
-  }
-
-  // loop through all properties
-  properties.forEach((property) => {
-    let propFilter: string | RegExp = property;
-
-    // parse RegExp
-    if (isRegexString(propFilter)) {
-      propFilter = stringToRegex(propFilter);
+    // normalize options
+    if (!Array.isArray(properties)) {
+      // eslint-disable-next-line no-param-reassign
+      properties = [properties];
     }
 
-    // walk through all declarations filtered by configured properties
-    root.walkDecls(filterDecl);
-
+    const config: SecondaryOptions = {
+      ...defaults,
+      ...options,
+    };
+    const {
+      ignoreVariables,
+      ignoreFunctions,
+      ignoreKeywords,
+      ignoreValues,
+      message,
+      disableFix,
+      autoFixFunc,
+      expandShorthand,
+      recurseLonghand,
+    } = config;
+    const autoFixFuncNormalized = getAutoFixFunc(
+      autoFixFunc,
+      disableFix,
+      context.fix
+    );
     /**
-     * Filter declarations for matching properties and expand shorthand properties.
-     *
+     * A hash of regular expression to ignore for a CSS properties.
      * @internal
-     * @param node - A Declaration-Node from PostCSS AST-Parser.
      */
-    function filterDecl(node: Declaration) {
-      const { value, prop } = node;
+    interface RegExpMap {
+      // [key: CSSPropertyName]: RegExp;
+      [key: string]: RegExp;
+    }
+    /**
+     * A hash of regular expression to ignore for a CSS properties or `null`.
+     * @internal
+     */
+    type RegExpKeywordMap = null | RegExpMap;
+    /**
+     * A hash of regular expression lists to ignore for a CSS property.
+     * @internal
+     */
+    interface RegExpList {
+      // [key: CSSPropertyName]: RegExp[];
+      [key: string]: RegExp[];
+    }
+    /**
+     * A hash of regular expression lists to ignore for a CSS property or `null`.
+     * @internal
+     */
+    type RegExpValuesList = null | RegExpList;
+    const reKeywords: RegExpKeywordMap = ignoreKeywords ? {} : null;
+    const reValues: RegExpValuesList = ignoreValues ? {} : null;
+    let cssLoaderValues: RegExp;
 
-      // skip variable declarations
-      if (reSkipProp.test(prop)) return;
+    if (ignoreVariables) {
+      const cssLoaderValuesNames: string[] = [];
+      root.walkAtRules('value', (rule: AtRule) => {
+        const { params } = rule;
+        const name = params.split(':')[0].trim();
 
-      const isShortHand = expandShorthand && shortCSS.isShorthand(prop);
+        cssLoaderValuesNames.push(name);
+      });
 
-      if (
-        prop === propFilter ||
-        (!isShortHand && propFilter instanceof RegExp && propFilter.test(prop))
-      ) {
-        const values: string[] = list.space(value);
+      cssLoaderValues = new RegExp(`^-?(:?${cssLoaderValuesNames.join('|')})$`);
+    }
 
-        // handle multi-value props, like scrollbar-color
-        if (values.length > 1) {
+    // loop through all properties
+    properties.forEach((property) => {
+      let propFilter: string | RegExp = property;
+
+      // parse RegExp
+      if (isRegexString(propFilter)) {
+        propFilter = stringToRegex(propFilter);
+      }
+
+      // walk through all declarations filtered by configured properties
+      root.walkDecls(filterDecl);
+
+      /**
+       * Filter declarations for matching properties and expand shorthand properties.
+       *
+       * @internal
+       * @param node - A Declaration-Node from PostCSS AST-Parser.
+       */
+      function filterDecl(node: Declaration) {
+        const { value, prop } = node;
+
+        // skip variable declarations
+        if (reSkipProp.test(prop)) return;
+
+        const isShortHand = expandShorthand && shortCSS.isShorthand(prop);
+
+        if (
+          prop === propFilter ||
+          (!isShortHand &&
+            propFilter instanceof RegExp &&
+            propFilter.test(prop))
+        ) {
+          const values: string[] = list.space(value);
+
+          // handle multi-value props, like scrollbar-color
+          if (values.length > 1) {
+            let failedFlag = false;
+
+            values.forEach((valueItem) => {
+              if (!failedFlag) {
+                failedFlag = lintDeclStrictValue(node, prop, valueItem);
+              }
+            });
+          } else {
+            lintDeclStrictValue(node);
+          }
+        } else if (isShortHand) {
+          const expandedProps = shortCSS.expand(prop, value, recurseLonghand);
           let failedFlag = false;
 
-          values.forEach((valueItem) => {
-            if (!failedFlag) {
-              failedFlag = lintDeclStrictValue(node, prop, valueItem);
+          Object.keys(expandedProps).forEach((longhandProp) => {
+            const longhandValue = expandedProps[longhandProp];
+
+            if (
+              !failedFlag &&
+              (longhandProp === propFilter ||
+                (propFilter instanceof RegExp && propFilter.test(longhandProp)))
+            ) {
+              failedFlag = lintDeclStrictValue(
+                node,
+                longhandProp,
+                longhandValue,
+                true
+              );
             }
           });
-        } else {
-          lintDeclStrictValue(node);
-        }
-      } else if (isShortHand) {
-        const expandedProps = shortCSS.expand(prop, value, recurseLonghand);
-        let failedFlag = false;
-
-        Object.keys(expandedProps).forEach((longhandProp) => {
-          const longhandValue = expandedProps[longhandProp];
-
-          if (
-            !failedFlag &&
-            (longhandProp === propFilter ||
-              (propFilter instanceof RegExp && propFilter.test(longhandProp)))
-          ) {
-            failedFlag = lintDeclStrictValue(
-              node,
-              longhandProp,
-              longhandValue,
-              true
-            );
-          }
-        });
-      }
-    }
-
-    /**
-     * Lint usages of declarations values against, variables, functions
-     * or custom keywords - as configured.
-     *
-     * @internal
-     * @param node - A Declaration-Node from PostCSS AST-Parser.
-     * @param longhandProp - A Declaration-Node from PostCSS AST-Parser.
-     * @param longhandValue - A Declaration-Node from PostCSS AST-Parser.
-     * @param isExpanded - Whether or not this declaration was expanded.
-     * @returns Returns `true` if invalid declaration found, else `false`.
-     */
-    function lintDeclStrictValue(
-      node: Declaration,
-      longhandProp?: string,
-      longhandValue?: string,
-      isExpanded = false
-    ) {
-      const { value: nodeValue, prop: nodeProp } = node;
-      const value = longhandValue || nodeValue;
-
-      // falsify everything by default
-      let validVar = false;
-      let validFunc = false;
-      let validKeyword = false;
-      let validValue = false;
-
-      // test variable
-      if (ignoreVariables) {
-        // @TODO: deviant regexes to primary options need to be evaluated
-        const ignoreVariable = getIgnoredVariablesOrFunctions(
-          ignoreVariables,
-          property
-        );
-
-        if (ignoreVariable) {
-          validVar = reVar.test(value) || cssLoaderValues.test(value);
         }
       }
 
-      // test function
-      if (ignoreFunctions && !validVar) {
-        // @TODO: deviant regexes to primary options need to be evaluated
-        const ignoreFunction = getIgnoredVariablesOrFunctions(
-          ignoreFunctions,
-          property
-        );
-
-        if (ignoreFunction) {
-          validFunc = reFunc.test(value);
-        }
-      }
-
-      // test expanded shorthands are valid
-      if (
-        isExpanded &&
-        (!ignoreVariables || (ignoreVariables && !validVar)) &&
-        (!ignoreFunctions || (ignoreFunctions && !validFunc)) &&
-        checkCssValue(longhandProp!, longhandValue!) !== true
+      /**
+       * Lint usages of declarations values against, variables, functions
+       * or custom keywords - as configured.
+       *
+       * @internal
+       * @param node - A Declaration-Node from PostCSS AST-Parser.
+       * @param longhandProp - A Declaration-Node from PostCSS AST-Parser.
+       * @param longhandValue - A Declaration-Node from PostCSS AST-Parser.
+       * @param isExpanded - Whether or not this declaration was expanded.
+       * @returns Returns `true` if invalid declaration found, else `false`.
+       */
+      function lintDeclStrictValue(
+        node: Declaration,
+        longhandProp?: string,
+        longhandValue?: string,
+        isExpanded = false
       ) {
-        return false;
-      }
+        const { value: nodeValue, prop: nodeProp } = node;
+        const value = longhandValue || nodeValue;
 
-      // test keywords
-      if (ignoreKeywords && (!validVar || !validFunc)) {
-        let reKeyword = reKeywords![property];
+        // falsify everything by default
+        let validVar = false;
+        let validFunc = false;
+        let validKeyword = false;
+        let validValue = false;
 
-        if (!reKeyword) {
-          const ignoreKeyword = getIgnoredKeywords(ignoreKeywords, property);
-
-          if (ignoreKeyword) {
-            reKeyword = new RegExp(`^${ignoreKeyword.join('$|^')}$`);
-            reKeywords![property] = reKeyword;
-          }
-        }
-
-        if (reKeyword) {
-          validKeyword = reKeyword.test(value);
-        }
-      }
-
-      if (ignoreValues && (!validVar || !validFunc || !validKeyword)) {
-        let reValueList = reValues![property];
-
-        if (!reValueList) {
-          const ignoreValue = getIgnoredValues(ignoreValues, property);
-
-          if (ignoreValue) {
-            reValueList = ignoreValue.map(mapIgnoreValue);
-            reValues![property] = reValueList;
-          }
-        }
-
-        if (reValueList) {
-          validValue =
-            reValueList.filter((reValue) => reValue.test(value)).length > 0;
-        }
-      }
-
-      // report only if all failed
-      if (!validVar && !validFunc && !validKeyword && !validValue) {
-        const types = getTypes(config, property);
-
-        // support auto fixing
-        if (context.fix && !disableFix && autoFixFuncNormalized) {
-          const fixedValue = autoFixFuncNormalized(
-            node,
-            {
-              validVar,
-              validFunc,
-              validKeyword,
-              validValue,
-              longhandProp,
-              longhandValue,
-            },
-            root,
-            config
+        // test variable
+        if (ignoreVariables) {
+          // @TODO: deviant regexes to primary options need to be evaluated
+          const ignoreVariable = getIgnoredVariablesOrFunctions(
+            ignoreVariables,
+            property
           );
 
-          // apply fixed value if returned
-          if (fixedValue) {
-            // eslint-disable-next-line no-param-reassign
-            node.value = fixedValue;
+          if (ignoreVariable) {
+            validVar = reVar.test(value) || cssLoaderValues.test(value);
           }
-        } else {
-          const { raws } = node;
-          // eslint-disable-next-line prefer-destructuring
-          const start = node.source!.start;
-
-          utils.report({
-            ruleName,
-            result,
-            node,
-            line: start!.line,
-            // column: start!.column + nodeProp.length + raws.between!.length,
-            message: messages.expected(types, value, nodeProp, message),
-          });
         }
 
-        return true;
-      }
+        // test function
+        if (ignoreFunctions && !validVar) {
+          // @TODO: deviant regexes to primary options need to be evaluated
+          const ignoreFunction = getIgnoredVariablesOrFunctions(
+            ignoreFunctions,
+            property
+          );
 
-      return false;
-    }
-  });
-};
+          if (ignoreFunction) {
+            validFunc = reFunc.test(value);
+          }
+        }
+
+        // test expanded shorthands are valid
+        if (
+          isExpanded &&
+          (!ignoreVariables || (ignoreVariables && !validVar)) &&
+          (!ignoreFunctions || (ignoreFunctions && !validFunc)) &&
+          checkCssValue(longhandProp!, longhandValue!) !== true
+        ) {
+          return false;
+        }
+
+        // test keywords
+        if (ignoreKeywords && (!validVar || !validFunc)) {
+          let reKeyword = reKeywords![property];
+
+          if (!reKeyword) {
+            const ignoreKeyword = getIgnoredKeywords(ignoreKeywords, property);
+
+            if (ignoreKeyword) {
+              reKeyword = new RegExp(`^${ignoreKeyword.join('$|^')}$`);
+              reKeywords![property] = reKeyword;
+            }
+          }
+
+          if (reKeyword) {
+            validKeyword = reKeyword.test(value);
+          }
+        }
+
+        if (ignoreValues && (!validVar || !validFunc || !validKeyword)) {
+          let reValueList = reValues![property];
+
+          if (!reValueList) {
+            const ignoreValue = getIgnoredValues(ignoreValues, property);
+
+            if (ignoreValue) {
+              reValueList = ignoreValue.map(mapIgnoreValue);
+              reValues![property] = reValueList;
+            }
+          }
+
+          if (reValueList) {
+            validValue =
+              reValueList.filter((reValue) => reValue.test(value)).length > 0;
+          }
+        }
+
+        // report only if all failed
+        if (!validVar && !validFunc && !validKeyword && !validValue) {
+          const types = getTypes(config, property);
+
+          // support auto fixing
+          if (context.fix && !disableFix && autoFixFuncNormalized) {
+            const fixedValue = autoFixFuncNormalized(
+              node,
+              {
+                validVar,
+                validFunc,
+                validKeyword,
+                validValue,
+                longhandProp,
+                longhandValue,
+              },
+              root,
+              config
+            );
+
+            // apply fixed value if returned
+            if (fixedValue) {
+              // eslint-disable-next-line no-param-reassign
+              node.value = fixedValue;
+            }
+          } else {
+            const { raws } = node;
+            // eslint-disable-next-line prefer-destructuring
+            const start = node.source!.start;
+
+            utils.report({
+              ruleName,
+              result,
+              node,
+              line: start!.line,
+              // column: start!.column + nodeProp.length + raws.between!.length,
+              message: messages.expected(types, value, nodeProp, message),
+            });
+          }
+
+          return true;
+        }
+
+        return false;
+      }
+    });
+  };
 
 ruleFunction.primaryOptionArray = true;
 

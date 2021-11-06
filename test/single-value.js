@@ -118,8 +118,7 @@ testRule(rule, {
       column: 8,
     },
     {
-      code:
-        '.foo { color: red; } .bar { color: RED; } .baz { color: inherit; }',
+      code: '.foo { color: red; } .bar { color: RED; } .baz { color: inherit; }',
       message: `Expected variable, function or keyword for "inherit" of "color" (${ruleName})`,
       line: 1,
       column: 50,

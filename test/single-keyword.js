@@ -31,8 +31,7 @@ testRule(rule, {
       column: 8,
     },
     {
-      code:
-        '.foo { color: transparent; } .bar { color: transparent; } .baz { color: inherit; }',
+      code: '.foo { color: transparent; } .bar { color: transparent; } .baz { color: inherit; }',
       message: `Expected variable, function or keyword for "inherit" of "color" (${ruleName})`,
       line: 1,
       column: 66,
@@ -70,8 +69,7 @@ testRule(rule, {
       column: 8,
     },
     {
-      code:
-        '.foo { color: transparent; } .bar { color: transparent; } .baz { color: inherit; }',
+      code: '.foo { color: transparent; } .bar { color: transparent; } .baz { color: inherit; }',
       message: `Expected variable, function or keyword for "inherit" of "color" (${ruleName})`,
       line: 1,
       column: 66,
