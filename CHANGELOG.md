@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.7.12...v1.8.0) (2021-11-06)
+
+
+### Features
+
+* support stylelint v14 ([3790437](https://github.com/AndyOGo/stylelint-declaration-strict-value/commit/37904375f9d508f3f6c15eac39caafd8b9d991c5))
+
 ## [1.7.12](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.7.11...v1.7.12) (2021-04-16)
 
 ## [1.7.11](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.7.10...v1.7.11) (2021-04-16)

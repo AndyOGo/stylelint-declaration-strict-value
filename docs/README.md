@@ -1,11 +1,11 @@
-stylelint-declaration-strict-value - v1.7.12
+stylelint-declaration-strict-value - v1.8.0
 
-# stylelint-declaration-strict-value - v1.7.12
+# stylelint-declaration-strict-value - v1.8.0
 
-## Index
+## Table of contents
 
 ### Modules
 
-* [defaults](modules/defaults.md)
-* [index](modules/index.md)
-* [lib/validation](modules/lib_validation.md)
+- [defaults](modules/defaults.md)
+- [index](modules/index.md)
+- [lib/validation](modules/lib_validation.md)
