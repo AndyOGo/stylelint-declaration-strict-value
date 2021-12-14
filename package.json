@@ -81,7 +81,7 @@
     "nyc": "^15.1.0",
     "pinst": "^2.1.6",
     "prettier": "^2.2.1",
-    "semantic-release": "^17.3.0",
+    "semantic-release": "^18.0.1",
     "stylelint": "^14.0.1",
     "stylelint-test-rule-tape": "^0.2.0",
     "typedoc": "^0.22.7",
