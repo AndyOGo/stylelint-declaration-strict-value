@@ -416,24 +416,37 @@ const ruleFunction: StylelintPlugin<PrimaryOptions, SecondaryOptions> =
 
           // support auto fixing
           if (context.fix && !disableFix && autoFixFuncNormalized) {
-            const fixedValue = autoFixFuncNormalized(
-              node,
-              {
-                validVar,
-                validFunc,
-                validKeyword,
-                validValue,
-                longhandProp,
-                longhandValue,
-              },
-              root,
-              config
-            );
+            try {
+              const fixedValue = autoFixFuncNormalized(
+                node,
+                {
+                  validVar,
+                  validFunc,
+                  validKeyword,
+                  validValue,
+                  longhandProp,
+                  longhandValue,
+                },
+                root,
+                config
+              );
 
-            // apply fixed value if returned
-            if (fixedValue) {
-              // eslint-disable-next-line no-param-reassign
-              node.value = fixedValue;
+              // apply fixed value if returned
+              if (fixedValue) {
+                // eslint-disable-next-line no-param-reassign
+                node.value = fixedValue;
+              }
+            } catch (err: unknown) {
+              if (typeof err === 'string') {
+                utils.report({
+                  ruleName,
+                  result,
+                  node,
+                  line: node.source!.start.line,
+                  // column: start!.column + nodeProp.length + raws.between!.length,
+                  message: err,
+                });
+              }
             }
           } else {
             const { raws } = node;

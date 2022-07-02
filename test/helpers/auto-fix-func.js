@@ -13,8 +13,10 @@ function autoFixFunc(node, validation, root, config) {
         // auto-fix by PostCSS AST tranformation
         // eslint-disable-next-line no-param-reassign
         node.value = '$color-red';
+        return;
     }
   }
+  throw `Property ${prop} with value ${value} can't be autofix (scale-unlimited/declaration-strict-value)`
 }
 
 module.exports = autoFixFunc;

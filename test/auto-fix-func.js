@@ -46,7 +46,7 @@ testRule(
     skipBasicChecks: true,
 
     config: [
-      'color',
+      ['color', 'font-size'],
       {
         autoFixFunc,
       },
@@ -56,6 +56,15 @@ testRule(
       { code: '.foo { color: #fff; }' },
       { code: '.foo { color: red; }' },
     ],
+
+    reject: [
+      {
+        code: '.foo { font-size: 16px; }',
+        message: `Property font-size with value 16px can't be autofix (${ruleName})`,
+        line: 1,
+        column: 8
+      }
+    ]
   }
 );
 
