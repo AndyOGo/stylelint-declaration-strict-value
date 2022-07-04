@@ -1379,6 +1379,10 @@ function autoFixFunc(node, validation, root, config) {
       case 'red':
         // auto-fix by PostCSS AST tranformation
         node.value = '$color-red'
+
+      // optional, you can throw your own error message if the value is not stated or handled, ex: color: blue
+      throw `Property ${prop} with value ${value} can't be autofix`
+      // 
     }
   }
 }
