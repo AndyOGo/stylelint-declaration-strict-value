@@ -60,7 +60,7 @@ testRule(
     reject: [
       {
         code: '.foo { font-size: 16px; }',
-        message: `Property font-size with value 16px can't be autofix (${ruleName})`,
+        message: `Property font-size with value 16px can't be autofix`,
         line: 1,
         column: 8
       }

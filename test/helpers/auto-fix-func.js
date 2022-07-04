@@ -16,7 +16,7 @@ function autoFixFunc(node, validation, root, config) {
         return;
     }
   }
-  throw `Property ${prop} with value ${value} can't be autofix (scale-unlimited/declaration-strict-value)`
+  throw `Property ${prop} with value ${value} can't be autofix`
 }
 
 module.exports = autoFixFunc;
