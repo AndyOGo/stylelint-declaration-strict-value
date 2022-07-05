@@ -437,16 +437,18 @@ const ruleFunction: StylelintPlugin<PrimaryOptions, SecondaryOptions> =
                 node.value = fixedValue;
               }
             } catch (err: unknown) {
-              if (typeof err === 'string') {
+              if (err instanceof Error) {
                 utils.report({
                   ruleName,
                   result,
                   node,
-                  line: node.source!.start.line,
-                  // column: start!.column + nodeProp.length + raws.between!.length,
-                  message: err,
+                  line: node.source!.start?.line,
+                  message: err.toString(),
                 });
+                return
               }
+  
+              throw err
             }
           } else {
             const { raws } = node;
