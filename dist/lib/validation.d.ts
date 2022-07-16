@@ -40,6 +40,17 @@ declare type ExpectedTypes = Array<ExpectedType>;
  */
 export declare function expected(types: ExpectedType | ExpectedTypes, value: string, property: string, customMessage?: string): string;
 /**
+ * Build failed-to-fix message for stylelint report.
+ *
+ * @internal
+ * @param error - An expression to `throw`.
+ * @param value - The CSS declaration's value.
+ * @param property - The CSS declaration's property.
+ *
+ * @returns Returns an failed-to-fix message for stylelint report.
+ */
+export declare function failedToFix(error: unknown, value: string, property: string): string;
+/**
  * Get configured types for stylelint report message.
  *
  * @internal

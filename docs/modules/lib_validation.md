@@ -1,4 +1,4 @@
-[stylelint-declaration-strict-value - v1.8.0](../README.md) / lib/validation
+[stylelint-declaration-strict-value - v1.9.0](../README.md) / lib/validation
 
 # Module: lib/validation
 
@@ -7,6 +7,7 @@
 ### Functions
 
 - [expected](lib_validation.md#expected)
+- [failedToFix](lib_validation.md#failedtofix)
 - [getAutoFixFunc](lib_validation.md#getautofixfunc)
 - [getIgnoredKeywords](lib_validation.md#getignoredkeywords)
 - [getIgnoredValues](lib_validation.md#getignoredvalues)
@@ -42,7 +43,35 @@ Returns an expected message for stylelint report.
 
 #### Defined in
 
-[src/lib/validation.ts:198](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/16795d3/src/lib/validation.ts#L198)
+[src/lib/validation.ts:198](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/19a59a9/src/lib/validation.ts#L198)
+
+___
+
+### failedToFix
+
+▸ **failedToFix**(`error`, `value`, `property`): `string`
+
+Build failed-to-fix message for stylelint report.
+
+**`internal`**
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `error` | `unknown` | An expression to `throw`. |
+| `value` | `string` | The CSS declaration's value. |
+| `property` | `string` | The CSS declaration's property. |
+
+#### Returns
+
+`string`
+
+Returns an failed-to-fix message for stylelint report.
+
+#### Defined in
+
+[src/lib/validation.ts:239](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/19a59a9/src/lib/validation.ts#L239)
 
 ___
 
@@ -70,7 +99,7 @@ Returns the auto-fix function if found, else `null`.
 
 #### Defined in
 
-[src/lib/validation.ts:362](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/16795d3/src/lib/validation.ts#L362)
+[src/lib/validation.ts:384](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/19a59a9/src/lib/validation.ts#L384)
 
 ___
 
@@ -98,7 +127,7 @@ Returns ignored keywords for a specific CSS property, or `null`.
 
 #### Defined in
 
-[src/lib/validation.ts:311](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/16795d3/src/lib/validation.ts#L311)
+[src/lib/validation.ts:333](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/19a59a9/src/lib/validation.ts#L333)
 
 ___
 
@@ -126,7 +155,7 @@ Returns ignored values for a specific CSS property, or `null`.
 
 #### Defined in
 
-[src/lib/validation.ts:337](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/16795d3/src/lib/validation.ts#L337)
+[src/lib/validation.ts:359](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/19a59a9/src/lib/validation.ts#L359)
 
 ___
 
@@ -154,7 +183,7 @@ Returns ignored variable or function for a specific CSS property.
 
 #### Defined in
 
-[src/lib/validation.ts:279](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/16795d3/src/lib/validation.ts#L279)
+[src/lib/validation.ts:301](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/19a59a9/src/lib/validation.ts#L301)
 
 ___
 
@@ -181,7 +210,7 @@ Returns a list of configured types.
 
 #### Defined in
 
-[src/lib/validation.ts:238](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/16795d3/src/lib/validation.ts#L238)
+[src/lib/validation.ts:260](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/19a59a9/src/lib/validation.ts#L260)
 
 ___
 
@@ -207,7 +236,7 @@ Returns `true` if secondary options are valid, else `false`.
 
 #### Defined in
 
-[src/lib/validation.ts:93](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/16795d3/src/lib/validation.ts#L93)
+[src/lib/validation.ts:93](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/19a59a9/src/lib/validation.ts#L93)
 
 ___
 
@@ -233,4 +262,4 @@ Returns `true` if primary options are valid, else `false`.
 
 #### Defined in
 
-[src/lib/validation.ts:39](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/16795d3/src/lib/validation.ts#L39)
+[src/lib/validation.ts:39](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/19a59a9/src/lib/validation.ts#L39)

@@ -1,8 +1,9 @@
 import stylelint from 'stylelint';
-import { expected } from './lib/validation';
+import { expected, failedToFix } from './lib/validation';
 import { ruleName } from './defaults';
 declare const messages: {
     expected: typeof expected;
+    failedToFix: typeof failedToFix;
 };
 declare const declarationStrictValuePlugin: {
     ruleName: string;

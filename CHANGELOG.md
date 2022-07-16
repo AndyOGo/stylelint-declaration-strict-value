@@ -1,3 +1,10 @@
+# [1.9.0](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.8.0...v1.9.0) (2022-07-16)
+
+
+### Features
+
+* handle thrown errors of autofix function ([868ae5c](https://github.com/AndyOGo/stylelint-declaration-strict-value/commit/868ae5c0912c2dc9d4b7323c6cc1b11f1dc08a7c))
+
 # [1.8.0](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.7.12...v1.8.0) (2021-11-06)
 
 
