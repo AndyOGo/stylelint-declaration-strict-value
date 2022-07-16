@@ -227,6 +227,28 @@ export function expected(
 }
 
 /**
+ * Build failed-to-fix message for stylelint report.
+ *
+ * @internal
+ * @param error - An expression to `throw`.
+ * @param value - The CSS declaration's value.
+ * @param property - The CSS declaration's property.
+ *
+ * @returns Returns an failed-to-fix message for stylelint report.
+ */
+export function failedToFix(
+  error: unknown,
+  value: string,
+  property: string
+): string {
+  if (error && (typeof error === 'string' || error instanceof Error)) {
+    return typeof error === 'string' ? error : error.message;
+  }
+
+  return `Property "${property}" with value "${value}" can't be autofixed`;
+}
+
+/**
  * Get configured types for stylelint report message.
  *
  * @internal
