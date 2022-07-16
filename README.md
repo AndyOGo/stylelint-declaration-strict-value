@@ -1360,6 +1360,8 @@ This plugin supports **configurable** [autofixing enabled by `--fix` option](htt
 So you have to supply an `autoFixFunc` function and **implement each fix you want by yourself**. To help you with that this function receives the whole [PostCSS API](http://api.postcss.org/postcss.html), all validations and configuration of this plugin, as follows [`node`](http://api.postcss.org/Node.html), `validation`, [`root`](http://api.postcss.org/Declaration.html#root) and `config`.
 `validation` is a hash of `{ validVar, validFunc, validValue, validKeyword, longhandProp, longhandValue }`, which tells you which aspect of the rule failed validation.
 
+You may `throw` errors if autofixing is not possible.
+
 **Note:** it's best you use a JavaScript based config file, which is easy because Stylelint utilizes [cosmiconfig](https://github.com/davidtheclark/cosmiconfig).
 Alternatively you can specify a common JS module, which will be resolved by [standard `require`](https://nodejs.org/api/modules.html#modules_file_modules) calls including support for `CWD`.
 
@@ -1379,6 +1381,14 @@ function autoFixFunc(node, validation, root, config) {
       case 'red':
         // auto-fix by PostCSS AST tranformation
         node.value = '$color-red'
+      
+      default:
+        // optional, you can throw your own error message if the value is not stated or handled, ex: color: blue     
+        throw `Property ${prop} with value ${value} can't be autofixed!`
+        // or an Error object
+        throw new Error(`Property ${prop} with value ${value} can't be autofixed!`)
+        // or a falsy value to use the default error message
+        throw null;
     }
   }
 }

@@ -2,6 +2,7 @@ import testRule from 'stylelint-test-rule-tape';
 
 import declarationStrictValue, { ruleName } from '../src';
 import autoFixFunc from './helpers/auto-fix-func';
+import autoFixFuncWithThrow from './helpers/auto-fix-func-with-throw';
 
 const { rule } = declarationStrictValue;
 
@@ -46,15 +47,36 @@ testRule(
     skipBasicChecks: true,
 
     config: [
-      'color',
+      ['color', 'font-size', 'display'],
       {
-        autoFixFunc,
+        autoFixFunc: autoFixFuncWithThrow,
       },
     ],
 
     accept: [
       { code: '.foo { color: #fff; }' },
       { code: '.foo { color: red; }' },
+    ],
+
+    reject: [
+      {
+        code: '.foo { font-size: 16px; }',
+        message: `"font-size" is not a color property (${ruleName})`,
+        line: 1,
+        column: 8,
+      },
+      {
+        code: '.foo { color: blue; }',
+        message: `Can't fix color "blue" (${ruleName})`,
+        line: 1,
+        column: 8,
+      },
+      {
+        code: '.foo { display: block; }',
+        message: `Property "display" with value "block" can't be autofixed (${ruleName})`,
+        line: 1,
+        column: 8,
+      },
     ],
   }
 );

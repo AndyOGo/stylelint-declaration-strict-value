@@ -13,6 +13,7 @@ import {
   getIgnoredKeywords,
   getIgnoredValues,
   getAutoFixFunc,
+  failedToFix,
 } from './lib/validation';
 import defaults, {
   ruleName,
@@ -24,6 +25,7 @@ import defaults, {
 const { utils } = stylelint;
 const messages = utils.ruleMessages(ruleName, {
   expected,
+  failedToFix,
 });
 /**
  * RegExp to skip non-CSS properties.
@@ -416,24 +418,43 @@ const ruleFunction: StylelintPlugin<PrimaryOptions, SecondaryOptions> =
 
           // support auto fixing
           if (context.fix && !disableFix && autoFixFuncNormalized) {
-            const fixedValue = autoFixFuncNormalized(
-              node,
-              {
-                validVar,
-                validFunc,
-                validKeyword,
-                validValue,
-                longhandProp,
-                longhandValue,
-              },
-              root,
-              config
-            );
+            try {
+              const fixedValue = autoFixFuncNormalized(
+                node,
+                {
+                  validVar,
+                  validFunc,
+                  validKeyword,
+                  validValue,
+                  longhandProp,
+                  longhandValue,
+                },
+                root,
+                config
+              );
 
-            // apply fixed value if returned
-            if (fixedValue) {
-              // eslint-disable-next-line no-param-reassign
-              node.value = fixedValue;
+              // apply fixed value if returned
+              if (fixedValue) {
+                // eslint-disable-next-line no-param-reassign
+                node.value = fixedValue;
+              }
+            } catch (error) {
+              console.error(
+                error,
+                messages.failedToFix(error, value, nodeProp)
+              );
+              const { raws } = node;
+              // eslint-disable-next-line prefer-destructuring
+              const start = node.source!.start;
+
+              utils.report({
+                ruleName,
+                result,
+                node,
+                line: start!.line,
+                column: start!.column + nodeProp.length + raws.between!.length,
+                message: messages.failedToFix(error, value, nodeProp),
+              } as any);
             }
           } else {
             const { raws } = node;
@@ -445,9 +466,9 @@ const ruleFunction: StylelintPlugin<PrimaryOptions, SecondaryOptions> =
               result,
               node,
               line: start!.line,
-              // column: start!.column + nodeProp.length + raws.between!.length,
+              column: start!.column + nodeProp.length + raws.between!.length,
               message: messages.expected(types, value, nodeProp, message),
-            });
+            } as any);
           }
 
           return true;
