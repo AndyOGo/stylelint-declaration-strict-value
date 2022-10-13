@@ -439,10 +439,6 @@ const ruleFunction: StylelintPlugin<PrimaryOptions, SecondaryOptions> =
                 node.value = fixedValue;
               }
             } catch (error) {
-              console.error(
-                error,
-                messages.failedToFix(error, value, nodeProp)
-              );
               const { raws } = node;
               // eslint-disable-next-line prefer-destructuring
               const start = node.source!.start;
