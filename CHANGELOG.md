@@ -1,3 +1,10 @@
+## [1.9.1](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.9.0...v1.9.1) (2022-10-13)
+
+
+### Bug Fixes
+
+* [#276](https://github.com/AndyOGo/stylelint-declaration-strict-value/issues/276) remove console.error ([9f9a59d](https://github.com/AndyOGo/stylelint-declaration-strict-value/commit/9f9a59d4527f319b3b6e9b4b6749f7d275ab72c4))
+
 # [1.9.0](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.8.0...v1.9.0) (2022-07-16)
 
 

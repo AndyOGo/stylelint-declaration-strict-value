@@ -1,4 +1,4 @@
-[stylelint-declaration-strict-value - v1.9.0](../README.md) / lib/validation
+[stylelint-declaration-strict-value - v1.9.1](../README.md) / lib/validation
 
 # Module: lib/validation
 
@@ -43,7 +43,7 @@ Returns an expected message for stylelint report.
 
 #### Defined in
 
-[src/lib/validation.ts:198](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/19a59a9/src/lib/validation.ts#L198)
+[src/lib/validation.ts:198](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/e79311f/src/lib/validation.ts#L198)
 
 ___
 
@@ -71,7 +71,7 @@ Returns an failed-to-fix message for stylelint report.
 
 #### Defined in
 
-[src/lib/validation.ts:239](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/19a59a9/src/lib/validation.ts#L239)
+[src/lib/validation.ts:239](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/e79311f/src/lib/validation.ts#L239)
 
 ___
 
@@ -99,7 +99,7 @@ Returns the auto-fix function if found, else `null`.
 
 #### Defined in
 
-[src/lib/validation.ts:384](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/19a59a9/src/lib/validation.ts#L384)
+[src/lib/validation.ts:384](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/e79311f/src/lib/validation.ts#L384)
 
 ___
 
@@ -127,7 +127,7 @@ Returns ignored keywords for a specific CSS property, or `null`.
 
 #### Defined in
 
-[src/lib/validation.ts:333](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/19a59a9/src/lib/validation.ts#L333)
+[src/lib/validation.ts:333](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/e79311f/src/lib/validation.ts#L333)
 
 ___
 
@@ -155,7 +155,7 @@ Returns ignored values for a specific CSS property, or `null`.
 
 #### Defined in
 
-[src/lib/validation.ts:359](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/19a59a9/src/lib/validation.ts#L359)
+[src/lib/validation.ts:359](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/e79311f/src/lib/validation.ts#L359)
 
 ___
 
@@ -183,7 +183,7 @@ Returns ignored variable or function for a specific CSS property.
 
 #### Defined in
 
-[src/lib/validation.ts:301](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/19a59a9/src/lib/validation.ts#L301)
+[src/lib/validation.ts:301](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/e79311f/src/lib/validation.ts#L301)
 
 ___
 
@@ -210,7 +210,7 @@ Returns a list of configured types.
 
 #### Defined in
 
-[src/lib/validation.ts:260](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/19a59a9/src/lib/validation.ts#L260)
+[src/lib/validation.ts:260](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/e79311f/src/lib/validation.ts#L260)
 
 ___
 
@@ -236,7 +236,7 @@ Returns `true` if secondary options are valid, else `false`.
 
 #### Defined in
 
-[src/lib/validation.ts:93](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/19a59a9/src/lib/validation.ts#L93)
+[src/lib/validation.ts:93](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/e79311f/src/lib/validation.ts#L93)
 
 ___
 
@@ -262,4 +262,4 @@ Returns `true` if primary options are valid, else `false`.
 
 #### Defined in
 
-[src/lib/validation.ts:39](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/19a59a9/src/lib/validation.ts#L39)
+[src/lib/validation.ts:39](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/e79311f/src/lib/validation.ts#L39)
