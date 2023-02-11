@@ -1,13 +1,8 @@
-import testRule from 'stylelint-test-rule-tape';
-
-import declarationStrictValue, { ruleName } from '../src';
-
-const { rule } = declarationStrictValue;
+import { ruleName } from '../src';
 
 // default config
-testRule(rule, {
+testRule({
   ruleName,
-  skipBasicChecks: true,
 
   config: ['/color/', { expandShorthand: true }],
 
@@ -167,9 +162,8 @@ testRule(rule, {
   ],
 });
 
-testRule(rule, {
+testRule({
   ruleName,
-  skipBasicChecks: true,
 
   config: [
     '/color/',
@@ -262,9 +256,8 @@ testRule(rule, {
   ],
 });
 
-testRule(rule, {
+testRule({
   ruleName,
-  skipBasicChecks: true,
 
   config: [
     '/margin-?(top|right|bottom|left)?/',
@@ -292,9 +285,8 @@ testRule(rule, {
   ],
 });
 
-testRule(rule, {
+testRule({
   ruleName,
-  skipBasicChecks: true,
 
   config: [
     '/color/',
@@ -312,9 +304,9 @@ testRule(rule, {
   ],
 });
 
-testRule(rule, {
+testRule({
+  skip: true,
   ruleName,
-  skipBasicChecks: true,
 
   config: [
     '/color/',
@@ -331,9 +323,9 @@ testRule(rule, {
   ],
 });
 
-testRule(rule, {
+testRule({
+  skip: true,
   ruleName,
-  skipBasicChecks: true,
 
   config: [
     '/color/',

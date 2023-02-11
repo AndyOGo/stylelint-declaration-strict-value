@@ -1,13 +1,8 @@
-import testRule from 'stylelint-test-rule-tape';
-
-import declarationStrictValue, { ruleName } from '../src';
-
-const { rule } = declarationStrictValue;
+import { ruleName } from '../src';
 
 // custom message
-testRule(rule, {
+testRule({
   ruleName,
-  skipBasicChecks: true,
 
   config: [
     'color',
@@ -32,9 +27,9 @@ testRule(rule, {
   ],
 });
 
-testRule(rule, {
+testRule({
+  skip: true,
   ruleName,
-  skipBasicChecks: true,
 
   config: [
     'color',

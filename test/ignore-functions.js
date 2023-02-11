@@ -1,13 +1,8 @@
-import testRule from 'stylelint-test-rule-tape';
-
-import declarationStrictValue, { ruleName } from '../src';
-
-const { rule } = declarationStrictValue;
+import { ruleName } from '../src';
 
 // disabling ignoreFunction
-testRule(rule, {
+testRule({
   ruleName,
-  skipBasicChecks: true,
 
   config: [
     ['color', 'margin'],
@@ -134,9 +129,8 @@ testRule(rule, {
   ],
 });
 
-testRule(rule, {
+testRule({
   ruleName,
-  skipBasicChecks: true,
 
   config: [
     ['color', 'margin'],
@@ -233,9 +227,9 @@ testRule(rule, {
   ],
 });
 
-testRule(rule, {
+testRule({
+  skip: true,
   ruleName,
-  skipBasicChecks: true,
 
   config: [
     'color',

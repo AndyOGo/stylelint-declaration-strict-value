@@ -1,13 +1,8 @@
-import testRule from 'stylelint-test-rule-tape';
-
-import declarationStrictValue, { ruleName } from '../src';
-
-const { rule } = declarationStrictValue;
+import { ruleName } from '../src';
 
 // ignore multiple keywords
-testRule(rule, {
+testRule({
   ruleName,
-  skipBasicChecks: true,
 
   config: [
     'color',

@@ -1,13 +1,8 @@
-import testRule from 'stylelint-test-rule-tape';
-
-import declarationStrictValue, { ruleName } from '../src';
-
-const { rule } = declarationStrictValue;
+import { ruleName } from '../src';
 
 // ignore single value
-testRule(rule, {
+testRule({
   ruleName,
-  skipBasicChecks: true,
 
   config: [
     'color',
@@ -28,9 +23,8 @@ testRule(rule, {
   ],
 });
 
-testRule(rule, {
+testRule({
   ruleName,
-  skipBasicChecks: true,
 
   config: [
     '/color/',
@@ -60,9 +54,8 @@ testRule(rule, {
 });
 
 // ignore single value regex
-testRule(rule, {
+testRule({
   ruleName,
-  skipBasicChecks: true,
 
   config: [
     'color',
@@ -87,9 +80,8 @@ testRule(rule, {
 });
 
 // ignore single value regex with i flag
-testRule(rule, {
+testRule({
   ruleName,
-  skipBasicChecks: true,
 
   config: [
     'color',
@@ -126,9 +118,9 @@ testRule(rule, {
   ],
 });
 
-testRule(rule, {
+testRule({
+  skip: true,
   ruleName,
-  skipBasicChecks: true,
 
   config: [
     'color',

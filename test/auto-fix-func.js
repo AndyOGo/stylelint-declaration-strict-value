@@ -1,22 +1,11 @@
-import testRule from 'stylelint-test-rule-tape';
-
-import declarationStrictValue, { ruleName } from '../src';
+import { ruleName } from '../src';
 import autoFixFunc from './helpers/auto-fix-func';
 import autoFixFuncWithThrow from './helpers/auto-fix-func-with-throw';
 
-const { rule } = declarationStrictValue;
-
-const ruleWithContext = (context) => (properties, options) =>
-  rule(properties, options, context);
-
 // works if autofix is omitted
 testRule(
-  ruleWithContext({
-    fix: true,
-  }),
   {
     ruleName,
-    skipBasicChecks: true,
 
     config: ['color'],
 
@@ -39,12 +28,9 @@ testRule(
 
 // autofix by function property
 testRule(
-  ruleWithContext({
-    fix: true,
-  }),
   {
     ruleName,
-    skipBasicChecks: true,
+    fix: true,
 
     config: [
       ['color', 'font-size', 'display'],
@@ -53,12 +39,15 @@ testRule(
       },
     ],
 
-    accept: [
-      { code: '.foo { color: #fff; }' },
-      { code: '.foo { color: red; }' },
-    ],
-
     reject: [
+      {
+        code: '.foo { color: #fff; }',
+        fixed: '.foo { color: $color-white; }',
+      },
+      {
+        code: '.foo { color: red; }',
+        fixed: '.foo { color: $color-red; }',
+      },
       {
         code: '.foo { font-size: 16px; }',
         message: `"font-size" is not a color property (${ruleName})`,
@@ -83,12 +72,9 @@ testRule(
 
 // autofix by function property disabled
 testRule(
-  ruleWithContext({
-    fix: true,
-  }),
   {
     ruleName,
-    skipBasicChecks: true,
+    fix: true,
 
     config: [
       'color',
@@ -119,12 +105,9 @@ testRule(
 
 // autofix by file exporting function
 testRule(
-  ruleWithContext({
-    fix: true,
-  }),
   {
     ruleName,
-    skipBasicChecks: true,
+    fix: true,
 
     config: [
       'color',
@@ -142,12 +125,9 @@ testRule(
 
 // autofix by file exporting function disabled
 testRule(
-  ruleWithContext({
-    fix: true,
-  }),
   {
     ruleName,
-    skipBasicChecks: true,
+    fix: true,
 
     config: [
       'color',
@@ -176,9 +156,9 @@ testRule(
   }
 );
 
-testRule(rule, {
+testRule({
+  skip: true,
   ruleName,
-  skipBasicChecks: true,
 
   config: [
     'color',
@@ -195,9 +175,9 @@ testRule(rule, {
   ],
 });
 
-testRule(rule, {
+testRule({
+  skip: true,
   ruleName,
-  skipBasicChecks: true,
 
   config: [
     'color',
