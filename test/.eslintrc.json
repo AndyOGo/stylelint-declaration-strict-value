@@ -1,6 +1,7 @@
 {
   "globals": {
     "testRule": "readonly",
+    "testOptions": "readonly"
   },
   "rules": {
     "import/no-extraneous-dependencies": ["error", {
