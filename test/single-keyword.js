@@ -1,13 +1,8 @@
-import testRule from 'stylelint-test-rule-tape';
-
-import declarationStrictValue, { ruleName } from '../src';
-
-const { rule } = declarationStrictValue;
+import { ruleName } from '../src';
 
 // ignore single keyword
-testRule(rule, {
+testRule({
   ruleName,
-  skipBasicChecks: true,
 
   config: [
     'color',
@@ -39,9 +34,8 @@ testRule(rule, {
   ],
 });
 
-testRule(rule, {
+testRule({
   ruleName,
-  skipBasicChecks: true,
 
   config: [
     '/color/',
@@ -77,9 +71,9 @@ testRule(rule, {
   ],
 });
 
-testRule(rule, {
+testOptions({
+  skip: true,
   ruleName,
-  skipBasicChecks: true,
 
   config: [
     'color',
@@ -91,7 +85,7 @@ testRule(rule, {
   reject: [
     {
       code: '.foo { color: red; }',
-      message: `Invalid option "{"ignoreKeywords":true}" for rule ${ruleName}`,
+      message: `Invalid option "{"ignoreKeywords":true}" for rule "${ruleName}"`,
     },
   ],
 });

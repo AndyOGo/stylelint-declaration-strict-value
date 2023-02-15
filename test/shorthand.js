@@ -1,13 +1,8 @@
-import testRule from 'stylelint-test-rule-tape';
-
-import declarationStrictValue, { ruleName } from '../src';
-
-const { rule } = declarationStrictValue;
+import { ruleName } from '../src';
 
 // default config
-testRule(rule, {
+testRule({
   ruleName,
-  skipBasicChecks: true,
 
   config: ['/color/', { expandShorthand: true }],
 
@@ -167,9 +162,8 @@ testRule(rule, {
   ],
 });
 
-testRule(rule, {
+testRule({
   ruleName,
-  skipBasicChecks: true,
 
   config: [
     '/color/',
@@ -262,9 +256,8 @@ testRule(rule, {
   ],
 });
 
-testRule(rule, {
+testRule({
   ruleName,
-  skipBasicChecks: true,
 
   config: [
     '/margin-?(top|right|bottom|left)?/',
@@ -292,9 +285,8 @@ testRule(rule, {
   ],
 });
 
-testRule(rule, {
+testRule({
   ruleName,
-  skipBasicChecks: true,
 
   config: [
     '/color/',
@@ -312,9 +304,9 @@ testRule(rule, {
   ],
 });
 
-testRule(rule, {
+testOptions({
+  skip: true,
   ruleName,
-  skipBasicChecks: true,
 
   config: [
     '/color/',
@@ -326,14 +318,14 @@ testRule(rule, {
   reject: [
     {
       code: '.foo { border: red; }',
-      message: `Invalid option "{"expandShorthand":"foo"}" for rule ${ruleName}`,
+      message: `Invalid option "{"expandShorthand":"foo"}" for rule "${ruleName}"`,
     },
   ],
 });
 
-testRule(rule, {
+testOptions({
+  skip: true,
   ruleName,
-  skipBasicChecks: true,
 
   config: [
     '/color/',
@@ -345,7 +337,7 @@ testRule(rule, {
   reject: [
     {
       code: '.foo { border: red; }',
-      message: `Invalid option "{"recurseLonghand":"foo"}" for rule ${ruleName}`,
+      message: `Invalid option "{"recurseLonghand":"foo"}" for rule "${ruleName}"`,
     },
   ],
 });
