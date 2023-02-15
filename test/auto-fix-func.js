@@ -156,7 +156,7 @@ testRule(
   }
 );
 
-testRule({
+testOptions({
   skip: true,
   ruleName,
 
@@ -170,12 +170,12 @@ testRule({
   reject: [
     {
       code: '.foo { color: red; }',
-      message: `Invalid option "{"autoFixFunc":true}" for rule ${ruleName}`,
+      message: `Invalid option "{"autoFixFunc":true}" for rule "${ruleName}"`,
     },
   ],
 });
 
-testRule({
+testOptions({
   skip: true,
   ruleName,
 
@@ -189,7 +189,7 @@ testRule({
   reject: [
     {
       code: '.foo { color: red; }',
-      message: `Invalid option "{"disableFix":1234}" for rule ${ruleName}`,
+      message: `Invalid option "{"disableFix":1234}" for rule "${ruleName}"`,
     },
   ],
 });

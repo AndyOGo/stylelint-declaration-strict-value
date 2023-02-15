@@ -27,7 +27,7 @@ testRule({
   ],
 });
 
-testRule({
+testOptions({
   skip: true,
   ruleName,
 
@@ -41,7 +41,7 @@ testRule({
   reject: [
     {
       code: '.foo { color: red; }',
-      message: `Invalid option "{"severity":1234}" for rule ${ruleName}`,
+      message: `Invalid option "{"severity":1234}" for rule "${ruleName}"`,
     },
   ],
 });

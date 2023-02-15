@@ -304,7 +304,7 @@ testRule({
   ],
 });
 
-testRule({
+testOptions({
   skip: true,
   ruleName,
 
@@ -318,12 +318,12 @@ testRule({
   reject: [
     {
       code: '.foo { border: red; }',
-      message: `Invalid option "{"expandShorthand":"foo"}" for rule ${ruleName}`,
+      message: `Invalid option "{"expandShorthand":"foo"}" for rule "${ruleName}"`,
     },
   ],
 });
 
-testRule({
+testOptions({
   skip: true,
   ruleName,
 
@@ -337,7 +337,7 @@ testRule({
   reject: [
     {
       code: '.foo { border: red; }',
-      message: `Invalid option "{"recurseLonghand":"foo"}" for rule ${ruleName}`,
+      message: `Invalid option "{"recurseLonghand":"foo"}" for rule "${ruleName}"`,
     },
   ],
 });

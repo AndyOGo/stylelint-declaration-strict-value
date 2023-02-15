@@ -248,7 +248,7 @@ testRule({
   ],
 });
 
-testRule({
+testOptions({
   skip: true,
   ruleName,
 
@@ -262,7 +262,7 @@ testRule({
   reject: [
     {
       code: '.foo { color: red; }',
-      message: `Invalid option "{"ignoreVariables":"foo"}" for rule ${ruleName}`,
+      message: `Invalid option "{"ignoreVariables":"foo"}" for rule "${ruleName}"`,
     },
   ],
 });

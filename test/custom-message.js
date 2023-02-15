@@ -50,7 +50,7 @@ testRule({
   ],
 });
 
-testRule({
+testOptions({
   skip: true,
   ruleName,
 
@@ -64,7 +64,7 @@ testRule({
   reject: [
     {
       code: '.foo { color: red; }',
-      message: `Invalid option "{"message":1234}" for rule ${ruleName}`,
+      message: `Invalid option "{"message":1234}" for rule "${ruleName}"`,
     },
   ],
 });
