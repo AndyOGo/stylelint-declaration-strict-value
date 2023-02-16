@@ -189,18 +189,10 @@ type ExpectedTypes = Array<ExpectedType>;
  *
  * @internal
  * @param types - Either `variable`, `function` and/or `keyword`.
- * @param value - The CSS declaration's value.
- * @param property - The CSS declaration's property.
- * @param customMessage - A custom message to be delivered upon error interpolated with `${types}`, `${value}` and `${property}`.
  *
- * @returns Returns an expected message for stylelint report.
+ * @returns Returns an expected types message for stylelint report.
  */
-export function expected(
-  types: ExpectedType | ExpectedTypes,
-  value: string,
-  property: string,
-  customMessage = ''
-): string {
+export function expectedTypes(types: ExpectedType | ExpectedTypes): string {
   let typesMessage: string;
 
   if (Array.isArray(types)) {
@@ -214,16 +206,50 @@ export function expected(
     typesMessage = types;
   }
 
-  if (typeof customMessage === 'string' && customMessage.length) {
-    /* eslint-disable no-template-curly-in-string */
-    return customMessage
-      .replace('${types}', typesMessage)
-      .replace('${value}', value)
-      .replace('${property}', property);
-    /* eslint-enable no-template-curly-in-string */
-  }
+  return typesMessage;
+}
 
+/**
+ * Build expected message for stylelint report.
+ *
+ * @internal
+ * @param typesMessage - An expected types message for stylelint report.
+ * @param value - The CSS declaration's value.
+ * @param property - The CSS declaration's property.
+ *
+ * @returns Returns an expected message for stylelint report.
+ */
+export function expected(
+  typesMessage: string,
+  value: string,
+  property: string
+): string {
   return `Expected ${typesMessage} for "${value}" of "${property}"`;
+}
+
+/**
+ * Build custom expected message for stylelint report.
+ *
+ * @internal
+ * @param typesMessage - An expected types message for stylelint report.
+ * @param value - The CSS declaration's value.
+ * @param property - The CSS declaration's property.
+ * @param customMessage - A custom message to be delivered upon error interpolated with `${types}`, `${value}` and `${property}`.
+ *
+ * @returns Returns a custom expected message for stylelint report.
+ */
+export function customExpected(
+  typesMessage: string,
+  value: string,
+  property: string,
+  customMessage: string
+): string {
+  /* eslint-disable no-template-curly-in-string */
+  return customMessage
+    .replace('${types}', typesMessage)
+    .replace('${value}', value)
+    .replace('${property}', property);
+  /* eslint-enable no-template-curly-in-string */
 }
 
 /**

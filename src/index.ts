@@ -1,5 +1,5 @@
 import type { Declaration, Root, AtRule } from 'stylelint/node_modules/postcss';
-import stylelint, { Plugin, PluginContext, PostcssResult } from 'stylelint';
+import stylelint, { PostcssResult, Rule } from 'stylelint';
 import shortCSS from 'shortcss';
 import list from 'shortcss/lib/list';
 import cssValues from 'css-values';
@@ -7,6 +7,8 @@ import cssValues from 'css-values';
 import {
   validProperties,
   validOptions,
+  expectedTypes,
+  customExpected,
   expected,
   getTypes,
   getIgnoredVariablesOrFunctions,
@@ -25,6 +27,7 @@ import defaults, {
 const { utils } = stylelint;
 const messages = utils.ruleMessages(ruleName, {
   expected,
+  customExpected,
   failedToFix,
 });
 /**
@@ -122,6 +125,11 @@ type CSSPropertyName = string | RegExpString;
  */
 type PrimaryOptions = CSSPropertyName | CSSPropertyName[];
 
+type RuleContext = {
+  fix?: boolean | undefined;
+  newline?: string | undefined;
+};
+
 /**
  * Stylelint declaration strict value rule function.
  *
@@ -132,17 +140,13 @@ type PrimaryOptions = CSSPropertyName | CSSPropertyName[];
  *
  * @returns Returns a PostCSS Plugin.
  */
-type StylelintPlugin<P = unknown, S = unknown> = Plugin<P, S> & {
-  /**
-   * @see: https://stylelint.io/developer-guide/plugins/#allow-primary-option-arrays
-   */
-  primaryOptionArray?: boolean;
-};
+type StylelintPlugin<P = unknown, S = unknown> = Rule<P, S>;
+
 const ruleFunction: StylelintPlugin<PrimaryOptions, SecondaryOptions> =
   (
     properties: PrimaryOptions,
     options: SecondaryOptions,
-    context: PluginContext = {}
+    context: RuleContext = {}
   ) =>
   (root: Root, result: PostcssResult) => {
     // fix #142
@@ -463,7 +467,14 @@ const ruleFunction: StylelintPlugin<PrimaryOptions, SecondaryOptions> =
               node,
               line: start!.line,
               column: start!.column + nodeProp.length + raws.between!.length,
-              message: messages.expected(types, value, nodeProp, message),
+              message: message
+                ? messages.customExpected(
+                    expectedTypes(types),
+                    value,
+                    nodeProp,
+                    message
+                  )
+                : messages.expected(expectedTypes(types), value, nodeProp),
             } as any);
           }
 
@@ -476,6 +487,8 @@ const ruleFunction: StylelintPlugin<PrimaryOptions, SecondaryOptions> =
   };
 
 ruleFunction.primaryOptionArray = true;
+ruleFunction.ruleName = ruleName;
+ruleFunction.messages = messages;
 
 const declarationStrictValuePlugin = stylelint.createPlugin(
   ruleName,
