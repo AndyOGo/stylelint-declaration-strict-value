@@ -1,4 +1,4 @@
-[stylelint-declaration-strict-value - v1.9.1](../README.md) / index
+[stylelint-declaration-strict-value - v1.9.2](../README.md) / index
 
 # Module: index
 
@@ -23,18 +23,11 @@ Re-exports [ruleName](defaults.md#rulename)
 
 ### default
 
-• **default**: `Object`
-
-#### Type declaration
-
-| Name | Type |
-| :------ | :------ |
-| `rule` | `Rule`<`any`, `any`\> |
-| `ruleName` | `string` |
+• **default**: `Plugin`
 
 #### Defined in
 
-[src/index.ts:480](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/e79311f/src/index.ts#L480)
+[index.ts:493](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/b5739c9/src/index.ts#L493)
 
 ___
 
@@ -46,9 +39,10 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `expected` | (`types`: `ExpectedType` \| `ExpectedTypes`, `value`: `string`, `property`: `string`, `customMessage`: `string`) => `string` |
+| `customExpected` | (`typesMessage`: `string`, `value`: `string`, `property`: `string`, `customMessage`: `string`) => `string` |
+| `expected` | (`typesMessage`: `string`, `value`: `string`, `property`: `string`) => `string` |
 | `failedToFix` | (`error`: `unknown`, `value`: `string`, `property`: `string`) => `string` |
 
 #### Defined in
 
-[src/index.ts:26](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/e79311f/src/index.ts#L26)
+[index.ts:28](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/b5739c9/src/index.ts#L28)

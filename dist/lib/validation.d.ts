@@ -32,13 +32,33 @@ declare type ExpectedTypes = Array<ExpectedType>;
  *
  * @internal
  * @param types - Either `variable`, `function` and/or `keyword`.
+ *
+ * @returns Returns an expected types message for stylelint report.
+ */
+export declare function expectedTypes(types: ExpectedType | ExpectedTypes): string;
+/**
+ * Build expected message for stylelint report.
+ *
+ * @internal
+ * @param typesMessage - An expected types message for stylelint report.
+ * @param value - The CSS declaration's value.
+ * @param property - The CSS declaration's property.
+ *
+ * @returns Returns an expected message for stylelint report.
+ */
+export declare function expected(typesMessage: string, value: string, property: string): string;
+/**
+ * Build custom expected message for stylelint report.
+ *
+ * @internal
+ * @param typesMessage - An expected types message for stylelint report.
  * @param value - The CSS declaration's value.
  * @param property - The CSS declaration's property.
  * @param customMessage - A custom message to be delivered upon error interpolated with `${types}`, `${value}` and `${property}`.
  *
- * @returns Returns an expected message for stylelint report.
+ * @returns Returns a custom expected message for stylelint report.
  */
-export declare function expected(types: ExpectedType | ExpectedTypes, value: string, property: string, customMessage?: string): string;
+export declare function customExpected(typesMessage: string, value: string, property: string, customMessage: string): string;
 /**
  * Build failed-to-fix message for stylelint report.
  *

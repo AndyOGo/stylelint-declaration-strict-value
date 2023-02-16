@@ -1,3 +1,14 @@
+## [1.9.2](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.9.1...v1.9.2) (2023-02-16)
+
+
+### Bug Fixes
+
+* eslint errors ([5639937](https://github.com/AndyOGo/stylelint-declaration-strict-value/commit/5639937dec9800f896c516a6aa97254c83889766))
+* improve auto fix tests ([b525d61](https://github.com/AndyOGo/stylelint-declaration-strict-value/commit/b525d6112798d54f05d396bad30b2d881629fce0))
+* migrate types ([e1c491f](https://github.com/AndyOGo/stylelint-declaration-strict-value/commit/e1c491fa956e95b8f78111f6f7dd4f86dbe8d4cf))
+* uninstall deprecated stylint types ([8f01fee](https://github.com/AndyOGo/stylelint-declaration-strict-value/commit/8f01fee1e291406bb7edd9c8e0478a064056e25c))
+* workaround missing options validation with jest styleint preset ([c25950b](https://github.com/AndyOGo/stylelint-declaration-strict-value/commit/c25950bf345709ad77d19f53a2fcad1ca26906b8))
+
 ## [1.9.1](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.9.0...v1.9.1) (2022-10-13)
 
 
