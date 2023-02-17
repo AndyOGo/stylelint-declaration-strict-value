@@ -26,7 +26,6 @@ testRule({
 
 // autofix by function property
 testRule({
-  skip: true,
   ruleName,
   fix: true,
 
@@ -51,7 +50,6 @@ testRule({
     {
       code: '.foo { font-size: 16px; }',
       unfixable: true,
-      // message: `"font-size" is not a color property (${ruleName})`,
       message: `Expected variable or function for "16px" of "font-size" (${ruleName})`,
       line: 1,
       column: 8,
@@ -59,7 +57,6 @@ testRule({
     {
       code: '.foo { color: blue; }',
       unfixable: true,
-      // message: `Can't fix color "blue" (${ruleName})`,
       message: `Expected variable or function for "blue" of "color" (scale-unlimited/declaration-strict-value)`,
       line: 1,
       column: 8,
@@ -67,7 +64,6 @@ testRule({
     {
       code: '.foo { display: block; }',
       unfixable: true,
-      // message: `Property "display" with value "block" can't be autofixed (${ruleName})`,
       message: `Expected variable or function for "block" of "display" (scale-unlimited/declaration-strict-value)`,
       line: 1,
       column: 8,
@@ -75,9 +71,35 @@ testRule({
   ],
 });
 
+testCustomAutoFixMessage({
+  ruleName,
+  fix: true,
+
+  config: [
+    ['color', 'font-size', 'display'],
+    {
+      autoFixFunc: autoFixFuncWithThrow,
+    },
+  ],
+
+  reject: [
+    {
+      code: '.foo { font-size: 16px; }',
+      message: `"font-size" is not a color property (${ruleName})`,
+    },
+    {
+      code: '.foo { color: blue; }',
+      message: `Can't fix color "blue" (${ruleName})`,
+    },
+    {
+      code: '.foo { display: block; }',
+      message: `Property "display" with value "block" can't be autofixed (${ruleName})`,
+    },
+  ],
+});
+
 // autofix by function property disabled
 testRule({
-  skip: true,
   ruleName,
   fix: true,
 
@@ -92,14 +114,14 @@ testRule({
   reject: [
     {
       code: '.foo { color: #fff; }',
-      fixed: '.foo { color: $color-white; }',
+      unfixable: true,
       message: `Expected variable or function for "#fff" of "color" (${ruleName})`,
       line: 1,
       column: 8,
     },
     {
       code: '.foo { color: red; }',
-      fixed: '.foo { color: $color-red; }',
+      unfixable: true,
       message: `Expected variable or function for "red" of "color" (${ruleName})`,
       line: 1,
       column: 8,
@@ -109,7 +131,6 @@ testRule({
 
 // autofix by file exporting function
 testRule({
-  skip: true,
   ruleName,
   fix: true,
 
@@ -120,7 +141,18 @@ testRule({
     },
   ],
 
-  accept: [{ code: '.foo { color: #fff; }' }, { code: '.foo { color: red; }' }],
+  reject: [
+    {
+      code: '.foo { color: #fff; }',
+      fixed: '.foo { color: $color-white; }',
+      message: `Expected variable or function for "#fff" of "color" (${ruleName})`,
+    },
+    {
+      code: '.foo { color: red; }',
+      fixed: '.foo { color: $color-red; }',
+      message: `Expected variable or function for "red" of "color" (${ruleName})`,
+    },
+  ],
 });
 
 // autofix by file exporting function disabled
@@ -139,7 +171,6 @@ testRule({
   reject: [
     {
       code: '.foo { color: #fff; }',
-      // fixed: '.foo { color: $color-white; }',
       unfixable: true,
       message: `Expected variable or function for "#fff" of "color" (${ruleName})`,
       line: 1,
@@ -147,7 +178,6 @@ testRule({
     },
     {
       code: '.foo { color: red; }',
-      // fixed: '.foo { color: $color-red; }',
       unfixable: true,
       message: `Expected variable or function for "red" of "color" (${ruleName})`,
       line: 1,

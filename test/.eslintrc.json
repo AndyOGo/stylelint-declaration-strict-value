@@ -1,6 +1,7 @@
 {
   "globals": {
-    "testRule": "readonly"
+    "testRule": "readonly",
+    "testCustomAutoFixMessage": "readonly"
   },
   "rules": {
     "import/no-extraneous-dependencies": ["error", {
