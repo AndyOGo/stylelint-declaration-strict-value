@@ -156,8 +156,7 @@ testRule({
   ],
 });
 
-testOptions({
-  skip: true,
+testRule({
   ruleName,
 
   config: [
@@ -175,8 +174,7 @@ testOptions({
   ],
 });
 
-testOptions({
-  skip: true,
+testRule({
   ruleName,
 
   config: [

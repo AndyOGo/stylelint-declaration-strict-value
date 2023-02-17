@@ -248,8 +248,7 @@ testRule({
   ],
 });
 
-testOptions({
-  skip: true,
+testRule({
   ruleName,
 
   config: [
