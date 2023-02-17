@@ -4,9 +4,9 @@ const { lint } = require('stylelint');
 
 global.testRule = getTestRule({ plugins: ['./src/index.ts'] });
 
-global.testOptions = testOptions;
+global.testCustomAutoFixMessage = testCustomAutoFixMessage;
 
-function testOptions({ ruleName, config, reject }) {
+function testCustomAutoFixMessage({ ruleName, config, reject, fix }) {
   // eslint-disable-next-line no-undef
   describe(ruleName, () => {
     // eslint-disable-next-line no-undef
@@ -14,8 +14,9 @@ function testOptions({ ruleName, config, reject }) {
       const rejections = await Promise.all(
         reject.map(async ({ code, message }) => {
           const {
-            results: [{ invalidOptionWarnings }],
+            results: [{ warnings }],
           } = await lint({
+            fix,
             code,
             config: {
               plugins: ['./src/index.ts'],
@@ -25,17 +26,17 @@ function testOptions({ ruleName, config, reject }) {
             },
           });
 
-          return { message, invalidOptionWarnings };
+          return { message, warnings };
         })
       );
 
-      rejections.forEach(({ message, invalidOptionWarnings }) => {
+      rejections.forEach(({ message, warnings }) => {
         const expectedWarning = {
           text: message,
         };
 
         // eslint-disable-next-line no-undef
-        expect(invalidOptionWarnings[0]).toMatchObject(expectedWarning);
+        expect(warnings[0]).toMatchObject(expectedWarning);
       });
     });
   });
