@@ -11,7 +11,7 @@
     "build": "microbundle --tsconfig tsconfig.build.json --compress",
     "release": "dotenv semantic-release",
     "test": "jest",
-    "coverage": "nyc --reporter lcov --reporter text node test",
+    "coverage": "jest --config='./jest.coverage.config.js'",
     "postcoverage": "dotenv codecov",
     "eslint": "eslint 'src/**/*.[tj]s' 'test/**/*.[tj]s'",
     "docs": "typedoc --plugin typedoc-plugin-markdown",
