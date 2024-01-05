@@ -6,7 +6,7 @@
   "exports": {
     "types": "./dist/index.d.ts",
     "require": "./dist/index.js",
-    "default": "./dist/index.mjs.js"
+    "default": "./dist/index.modern.mjs"
   },
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
