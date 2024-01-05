@@ -1,3 +1,10 @@
+## [1.10.1](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.10.0...v1.10.1) (2024-01-05)
+
+
+### Bug Fixes
+
+* modern exports path ([8aa3570](https://github.com/AndyOGo/stylelint-declaration-strict-value/commit/8aa35705bb224c1717eed4b6ddb0a4da68e92e7e))
+
 # [1.10.0](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.9.2...v1.10.0) (2024-01-05)
 
 
