@@ -1,4 +1,4 @@
-[stylelint-declaration-strict-value - v1.9.2](../README.md) / index
+[stylelint-declaration-strict-value - v1.10.0](../README.md) / index
 
 # Module: index
 
@@ -27,7 +27,7 @@ Re-exports [ruleName](defaults.md#rulename)
 
 #### Defined in
 
-[index.ts:493](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/b5739c9/src/index.ts#L493)
+[index.ts:493](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/3633354/src/index.ts#L493)
 
 ___
 
@@ -45,4 +45,4 @@ ___
 
 #### Defined in
 
-[index.ts:28](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/b5739c9/src/index.ts#L28)
+[index.ts:28](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/3633354/src/index.ts#L28)
