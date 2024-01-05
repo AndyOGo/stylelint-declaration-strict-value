@@ -1,4 +1,4 @@
-import type { Declaration, Root, AtRule } from 'stylelint/node_modules/postcss';
+import type { Declaration, Root, AtRule } from 'postcss';
 import stylelint, { PostcssResult, Rule } from 'stylelint';
 import shortCSS from 'shortcss';
 import list from 'shortcss/lib/list';
