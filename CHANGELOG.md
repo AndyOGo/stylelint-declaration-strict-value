@@ -1,3 +1,10 @@
+## [1.10.2](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.10.1...v1.10.2) (2024-01-05)
+
+
+### Bug Fixes
+
+* error [ERR_MODULE_NOT_FOUND]: Cannot find module 'shortcss/lib/list' ([139a824](https://github.com/AndyOGo/stylelint-declaration-strict-value/commit/139a824c04cd53d805b0c1b94caa0a03f4baa0eb))
+
 ## [1.10.1](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.10.0...v1.10.1) (2024-01-05)
 
 
