@@ -1,7 +1,10 @@
 import type { Declaration, Root, AtRule } from 'postcss';
 import stylelint, { PostcssResult, Rule } from 'stylelint';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import shortCSS from 'shortcss';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import list from 'shortcss/lib/list';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import cssValues from 'css-values';
 
 import {
@@ -496,4 +499,4 @@ const declarationStrictValuePlugin = stylelint.createPlugin(
 );
 
 export default declarationStrictValuePlugin;
-export { ruleName, messages };
+export { ruleName, messages, ruleFunction as rule };
