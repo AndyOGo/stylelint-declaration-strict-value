@@ -1,5 +1,5 @@
 import type { Declaration, Root, AtRule } from 'postcss';
-import stylelint, { PostcssResult, Rule } from 'stylelint';
+import stylelint, { PostcssResult, Rule, RuleMeta } from 'stylelint';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import shortCSS from 'shortcss';
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -28,6 +28,10 @@ import defaults, {
 } from './defaults';
 
 const { utils } = stylelint;
+const meta: RuleMeta = {
+  url: 'https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/master/README.md',
+  fixable: true,
+};
 const messages = utils.ruleMessages(ruleName, {
   expected,
   customExpected,
@@ -492,6 +496,7 @@ const ruleFunction: StylelintPlugin<PrimaryOptions, SecondaryOptions> =
 ruleFunction.primaryOptionArray = true;
 ruleFunction.ruleName = ruleName;
 ruleFunction.messages = messages;
+ruleFunction.meta = meta;
 
 const declarationStrictValuePlugin = stylelint.createPlugin(
   ruleName,
@@ -499,4 +504,4 @@ const declarationStrictValuePlugin = stylelint.createPlugin(
 );
 
 export default declarationStrictValuePlugin;
-export { ruleName, messages, ruleFunction as rule };
+export { ruleName, messages, meta, ruleFunction as rule };
