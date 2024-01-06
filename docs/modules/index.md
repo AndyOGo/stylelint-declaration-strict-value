@@ -1,4 +1,4 @@
-[stylelint-declaration-strict-value - v1.10.2](../README.md) / index
+[stylelint-declaration-strict-value - v1.10.3](../README.md) / index
 
 # Module: index
 
@@ -8,10 +8,15 @@
 
 - [ruleName](index.md#rulename)
 
+### Namespaces
+
+- [rule](index.rule.md)
+
 ### Variables
 
 - [default](index.md#default)
 - [messages](index.md#messages)
+- [rule](index.md#rule)
 
 ## References
 
@@ -27,7 +32,7 @@ Re-exports [ruleName](defaults.md#rulename)
 
 #### Defined in
 
-[index.ts:493](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/9f51f9e/src/index.ts#L493)
+[index.ts:496](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/a2f4937/src/index.ts#L496)
 
 ___
 
@@ -45,4 +50,14 @@ ___
 
 #### Defined in
 
-[index.ts:28](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/9f51f9e/src/index.ts#L28)
+[index.ts:31](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/a2f4937/src/index.ts#L31)
+
+___
+
+### rule
+
+• **rule**: `StylelintPlugin`<`PrimaryOptions`, [`SecondaryOptions`](../interfaces/defaults.SecondaryOptions.md)\>
+
+#### Defined in
+
+[index.ts:148](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/a2f4937/src/index.ts#L148)

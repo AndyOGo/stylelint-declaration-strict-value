@@ -1,3 +1,10 @@
+## [1.10.3](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.10.2...v1.10.3) (2024-01-06)
+
+
+### Bug Fixes
+
+* unknown rule ([60fc3b8](https://github.com/AndyOGo/stylelint-declaration-strict-value/commit/60fc3b8d9ff43f799240135293e199f5f4f4d7c5))
+
 ## [1.10.2](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.10.1...v1.10.2) (2024-01-05)
 
 
