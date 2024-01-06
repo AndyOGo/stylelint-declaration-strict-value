@@ -1,4 +1,4 @@
-[stylelint-declaration-strict-value - v1.10.3](../README.md) / [index](index.md) / rule
+[stylelint-declaration-strict-value - v1.10.4](../README.md) / [index](index.md) / rule
 
 # Namespace: rule
 
@@ -9,6 +9,7 @@
 ### Variables
 
 - [messages](index.rule.md#messages)
+- [meta](index.rule.md#meta)
 - [primaryOptionArray](index.rule.md#primaryoptionarray)
 - [ruleName](index.rule.md#rulename)
 
@@ -17,6 +18,12 @@
 ### messages
 
 • **messages**: `RuleMessages`
+
+___
+
+### meta
+
+• **meta**: `undefined` \| `RuleMeta`
 
 ___
 

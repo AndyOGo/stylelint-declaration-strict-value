@@ -1,6 +1,7 @@
-import stylelint, { Rule } from 'stylelint';
+import stylelint, { Rule, RuleMeta } from 'stylelint';
 import { customExpected, expected, failedToFix } from './lib/validation';
 import { ruleName, SecondaryOptions, RegExpString } from './defaults';
+declare const meta: RuleMeta;
 declare const messages: {
     expected: typeof expected;
     customExpected: typeof customExpected;
@@ -29,4 +30,4 @@ declare type StylelintPlugin<P = unknown, S = unknown> = Rule<P, S>;
 declare const ruleFunction: StylelintPlugin<PrimaryOptions, SecondaryOptions>;
 declare const declarationStrictValuePlugin: stylelint.Plugin;
 export default declarationStrictValuePlugin;
-export { ruleName, messages, ruleFunction as rule };
+export { ruleName, messages, meta, ruleFunction as rule };
