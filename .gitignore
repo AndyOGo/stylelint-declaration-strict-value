@@ -5,5 +5,3 @@
 .rts2_cache_*
 /node_modules/
 /coverage/
-
-package-lock.json
