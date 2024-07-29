@@ -21,7 +21,7 @@
       "prepareCmd": "npm run build && npm run docs"
     }],
     ["@semantic-release/git", {
-      "assets": ["dist", "docs", "CHANGELOG.md", "API.md", "README.md", "package.json"],
+      "assets": ["dist", "docs", "CHANGELOG.md", "API.md", "README.md", "package.json", "package-lock.json"],
       "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
     }],
     ["@semantic-release/exec", {
