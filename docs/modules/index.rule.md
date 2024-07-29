@@ -1,4 +1,4 @@
-[stylelint-declaration-strict-value - v1.10.5](../README.md) / [index](index.md) / rule
+[stylelint-declaration-strict-value - v1.10.6](../README.md) / [index](index.md) / rule
 
 # Namespace: rule
 

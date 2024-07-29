@@ -1,4 +1,4 @@
-[stylelint-declaration-strict-value - v1.10.5](../README.md) / lib/validation
+[stylelint-declaration-strict-value - v1.10.6](../README.md) / lib/validation
 
 # Module: lib/validation
 
@@ -45,7 +45,7 @@ Returns a custom expected message for stylelint report.
 
 #### Defined in
 
-[lib/validation.ts:241](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/ed9d4e2/src/lib/validation.ts#L241)
+[lib/validation.ts:241](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/4ed9b22/src/lib/validation.ts#L241)
 
 ___
 
@@ -73,7 +73,7 @@ Returns an expected message for stylelint report.
 
 #### Defined in
 
-[lib/validation.ts:222](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/ed9d4e2/src/lib/validation.ts#L222)
+[lib/validation.ts:222](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/4ed9b22/src/lib/validation.ts#L222)
 
 ___
 
@@ -99,7 +99,7 @@ Returns an expected types message for stylelint report.
 
 #### Defined in
 
-[lib/validation.ts:195](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/ed9d4e2/src/lib/validation.ts#L195)
+[lib/validation.ts:195](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/4ed9b22/src/lib/validation.ts#L195)
 
 ___
 
@@ -127,7 +127,7 @@ Returns an failed-to-fix message for stylelint report.
 
 #### Defined in
 
-[lib/validation.ts:265](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/ed9d4e2/src/lib/validation.ts#L265)
+[lib/validation.ts:265](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/4ed9b22/src/lib/validation.ts#L265)
 
 ___
 
@@ -155,7 +155,7 @@ Returns the auto-fix function if found, else `null`.
 
 #### Defined in
 
-[lib/validation.ts:410](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/ed9d4e2/src/lib/validation.ts#L410)
+[lib/validation.ts:410](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/4ed9b22/src/lib/validation.ts#L410)
 
 ___
 
@@ -183,7 +183,7 @@ Returns ignored keywords for a specific CSS property, or `null`.
 
 #### Defined in
 
-[lib/validation.ts:359](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/ed9d4e2/src/lib/validation.ts#L359)
+[lib/validation.ts:359](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/4ed9b22/src/lib/validation.ts#L359)
 
 ___
 
@@ -211,7 +211,7 @@ Returns ignored values for a specific CSS property, or `null`.
 
 #### Defined in
 
-[lib/validation.ts:385](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/ed9d4e2/src/lib/validation.ts#L385)
+[lib/validation.ts:385](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/4ed9b22/src/lib/validation.ts#L385)
 
 ___
 
@@ -239,7 +239,7 @@ Returns ignored variable or function for a specific CSS property.
 
 #### Defined in
 
-[lib/validation.ts:327](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/ed9d4e2/src/lib/validation.ts#L327)
+[lib/validation.ts:327](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/4ed9b22/src/lib/validation.ts#L327)
 
 ___
 
@@ -266,7 +266,7 @@ Returns a list of configured types.
 
 #### Defined in
 
-[lib/validation.ts:286](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/ed9d4e2/src/lib/validation.ts#L286)
+[lib/validation.ts:286](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/4ed9b22/src/lib/validation.ts#L286)
 
 ___
 
@@ -292,7 +292,7 @@ Returns `true` if secondary options are valid, else `false`.
 
 #### Defined in
 
-[lib/validation.ts:93](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/ed9d4e2/src/lib/validation.ts#L93)
+[lib/validation.ts:93](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/4ed9b22/src/lib/validation.ts#L93)
 
 ___
 
@@ -318,4 +318,4 @@ Returns `true` if primary options are valid, else `false`.
 
 #### Defined in
 
-[lib/validation.ts:39](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/ed9d4e2/src/lib/validation.ts#L39)
+[lib/validation.ts:39](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/4ed9b22/src/lib/validation.ts#L39)

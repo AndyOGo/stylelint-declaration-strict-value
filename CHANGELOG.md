@@ -1,3 +1,10 @@
+## [1.10.6](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.10.5...v1.10.6) (2024-07-29)
+
+
+### Bug Fixes
+
+* force release ([4ed9b22](https://github.com/AndyOGo/stylelint-declaration-strict-value/commit/4ed9b229490cd422d30a6b20da9f04fb26555da2))
+
 ## [1.10.5](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.10.4...v1.10.5) (2024-07-29)
 
 
