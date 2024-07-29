@@ -1,3 +1,10 @@
+## [1.10.5](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.10.4...v1.10.5) (2024-07-29)
+
+
+### Bug Fixes
+
+* commit package-lock.json ([a4043f5](https://github.com/AndyOGo/stylelint-declaration-strict-value/commit/a4043f5fb6f4f5a15a111a19e52ef42503299df0))
+
 ## [1.10.4](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.10.3...v1.10.4) (2024-01-06)
 
 ## [1.10.3](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.10.2...v1.10.3) (2024-01-06)
