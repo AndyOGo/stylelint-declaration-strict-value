@@ -26,6 +26,9 @@ import defaults, {
   IgnoreValue,
   RegExpString,
 } from './defaults';
+import unsafeQuietStylelintDeprecationWarning from './unsafe-quiet-stylelint-deprecation-warning';
+
+unsafeQuietStylelintDeprecationWarning();
 
 const { utils } = stylelint;
 const meta: RuleMeta = {
