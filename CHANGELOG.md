@@ -1,3 +1,5 @@
+## [1.10.7](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.10.6...v1.10.7) (2025-01-07)
+
 ## [1.10.6](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.10.5...v1.10.6) (2024-07-29)
 
 

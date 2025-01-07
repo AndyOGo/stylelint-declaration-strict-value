@@ -1,4 +1,4 @@
-[stylelint-declaration-strict-value - v1.10.6](../README.md) / [defaults](../modules/defaults.md) / IgnoreValueHash
+[stylelint-declaration-strict-value - v1.10.7](../README.md) / [defaults](../modules/defaults.md) / IgnoreValueHash
 
 # Interface: IgnoreValueHash
 
@@ -24,4 +24,4 @@ A hash of CSS properties with ignored values.
 
 #### Defined in
 
-[defaults.ts:38](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/4ed9b22/src/defaults.ts#L38)
+[defaults.ts:38](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/2389010/src/defaults.ts#L38)
