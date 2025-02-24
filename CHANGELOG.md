@@ -1,3 +1,10 @@
+## [1.10.8](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.10.7...v1.10.8) (2025-02-24)
+
+
+### Bug Fixes
+
+* monkey patch should check options.detail ([4b78520](https://github.com/AndyOGo/stylelint-declaration-strict-value/commit/4b7852071468c7e40bb36698c7e61ea29da944e2))
+
 ## [1.10.7](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.10.6...v1.10.7) (2025-01-07)
 
 ## [1.10.6](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.10.5...v1.10.6) (2024-07-29)
