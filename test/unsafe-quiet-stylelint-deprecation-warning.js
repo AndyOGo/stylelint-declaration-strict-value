@@ -7,7 +7,7 @@ describe('quietContextFixDeprecationWarning', () => {
     jest.restoreAllMocks();
   });
 
-  it('quiets context.fix dewprecation warnings', () => {
+  it('quiets context.fix deprecation warnings by message', () => {
     const emitWarningSpy = jest.spyOn(process, 'emitWarning');
 
     unsafeQuietStylelintDeprecationWarning();
@@ -20,7 +20,21 @@ describe('quietContextFixDeprecationWarning', () => {
     expect(emitWarningSpy).not.toHaveBeenCalled();
   });
 
-  it('quiets utils.report dewprecation warnings', () => {
+  it('quiets context.fix deprecation warnings by options.detail', () => {
+    const emitWarningSpy = jest.spyOn(process, 'emitWarning');
+
+    unsafeQuietStylelintDeprecationWarning();
+
+    process.emitWarning('', {
+      type: 'DeprecationWarning',
+      code: 'stylelint:005',
+      detail: ruleName,
+    });
+
+    expect(emitWarningSpy).not.toHaveBeenCalled();
+  });
+
+  it('quiets utils.report deprecation warnings by message', () => {
     const emitWarningSpy = jest.spyOn(process, 'emitWarning');
 
     unsafeQuietStylelintDeprecationWarning();
@@ -28,6 +42,20 @@ describe('quietContextFixDeprecationWarning', () => {
     process.emitWarning(ruleName, {
       type: 'DeprecationWarning',
       code: 'stylelint:007',
+    });
+
+    expect(emitWarningSpy).not.toHaveBeenCalled();
+  });
+
+  it('quiets utils.report deprecation warnings by options.detail', () => {
+    const emitWarningSpy = jest.spyOn(process, 'emitWarning');
+
+    unsafeQuietStylelintDeprecationWarning();
+
+    process.emitWarning('', {
+      type: 'DeprecationWarning',
+      code: 'stylelint:007',
+      detail: ruleName,
     });
 
     expect(emitWarningSpy).not.toHaveBeenCalled();

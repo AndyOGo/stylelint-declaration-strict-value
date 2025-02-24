@@ -18,13 +18,14 @@ export default function unsafeQuietStylelintDeprecationWarning(): void {
     const [message, options] = args;
 
     if (
-      message &&
-      typeof message === 'string' &&
-      message?.includes(ruleName) &&
       options &&
       typeof options === 'object' &&
       options?.type === 'DeprecationWarning' &&
-      options?.code?.startsWith(STYLELINT_DEPRECATION_WARNING_PREFIX)
+      options?.code?.startsWith(STYLELINT_DEPRECATION_WARNING_PREFIX) &&
+      ((message &&
+        typeof message === 'string' &&
+        message?.includes(ruleName)) ||
+        options?.detail?.includes(ruleName))
     ) {
       return;
     }
