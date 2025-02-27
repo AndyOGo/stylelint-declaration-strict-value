@@ -1,3 +1,10 @@
+## [1.10.9](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.10.8...v1.10.9) (2025-02-27)
+
+
+### Bug Fixes
+
+* package only dist/ ([99b8501](https://github.com/AndyOGo/stylelint-declaration-strict-value/commit/99b8501a1c884df5d7869a665576be532ff298d1))
+
 ## [1.10.8](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.10.7...v1.10.8) (2025-02-24)
 
 
