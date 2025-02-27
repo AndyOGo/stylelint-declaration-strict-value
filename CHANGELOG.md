@@ -1,3 +1,10 @@
+## [1.10.10](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.10.9...v1.10.10) (2025-02-27)
+
+
+### Bug Fixes
+
+* exclude dependencies from build ([af4bbce](https://github.com/AndyOGo/stylelint-declaration-strict-value/commit/af4bbce75695bf448f4b98e8195f2273b2f23417))
+
 ## [1.10.9](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.10.8...v1.10.9) (2025-02-27)
 
 

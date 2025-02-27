@@ -1,4 +1,4 @@
-[stylelint-declaration-strict-value - v1.10.9](../README.md) / index
+[stylelint-declaration-strict-value - v1.10.10](../README.md) / index
 
 # Module: index
 
@@ -33,7 +33,7 @@ Re-exports [ruleName](defaults.md#rulename)
 
 #### Defined in
 
-[index.ts:504](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/695b5ea/src/index.ts#L504)
+[index.ts:502](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/72a93c2/src/index.ts#L502)
 
 ___
 
@@ -51,7 +51,7 @@ ___
 
 #### Defined in
 
-[index.ts:38](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/695b5ea/src/index.ts#L38)
+[index.ts:36](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/72a93c2/src/index.ts#L36)
 
 ___
 
@@ -61,7 +61,7 @@ ___
 
 #### Defined in
 
-[index.ts:34](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/695b5ea/src/index.ts#L34)
+[index.ts:32](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/72a93c2/src/index.ts#L32)
 
 ___
 
@@ -71,4 +71,4 @@ ___
 
 #### Defined in
 
-[index.ts:155](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/695b5ea/src/index.ts#L155)
+[index.ts:153](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/72a93c2/src/index.ts#L153)
