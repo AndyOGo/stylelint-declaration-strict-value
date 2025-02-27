@@ -1,3 +1,3 @@
 declare module 'shortcss';
 
-declare module 'shortcss/lib/list';
+declare module 'shortcss/lib/list.js';
