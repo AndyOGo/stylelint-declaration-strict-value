@@ -1,8 +1,10 @@
 import type { Declaration, Root, AtRule } from 'postcss';
 import stylelint, { PostcssResult, Rule, RuleMeta } from 'stylelint';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import shortCSS from 'shortcss';
-// eslint-disable-next-line import/extensions
-import list from 'shortcss/lib/list.js';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import list from 'shortcss/lib/list';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import cssValues from 'css-values';
 
 import {
