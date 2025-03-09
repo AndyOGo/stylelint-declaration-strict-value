@@ -1,3 +1,10 @@
+## [1.10.11](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.10.10...v1.10.11) (2025-03-09)
+
+
+### Reverts
+
+* Revert "fix: exclude dependencies from build" ([1c15a08](https://github.com/AndyOGo/stylelint-declaration-strict-value/commit/1c15a080ed33b6c62c52a24bf76077a2163ac694))
+
 ## [1.10.10](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.10.9...v1.10.10) (2025-02-27)
 
 
