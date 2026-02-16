@@ -1,3 +1,4 @@
+import { jest } from '@jest/globals';
 import process from 'node:process';
 import unsafeQuietStylelintDeprecationWarning from '../src/unsafe-quiet-stylelint-deprecation-warning';
 import { ruleName } from '../src/defaults';

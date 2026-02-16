@@ -5,21 +5,22 @@
   "source": "src/index.ts",
   "exports": {
     "types": "./dist/index.d.ts",
-    "require": "./dist/index.js",
+    "require": "./dist/index.cjs",
     "default": "./dist/index.modern.mjs"
   },
-  "main": "dist/index.js",
+  "main": "dist/index.cjs",
   "module": "dist/index.esm.js",
   "unpkg": "dist/index.umd.js",
   "types": "dist/index.d.ts",
+  "type": "module",
   "engines": {
-    "node": ">=18.12.0"
+    "node": ">=20.19.0"
   },
   "scripts": {
     "build": "microbundle --tsconfig tsconfig.build.json --compress",
     "release": "dotenv semantic-release",
     "test": "cross-env NODE_OPTIONS=\"--experimental-vm-modules --no-warnings\" jest",
-    "coverage": "jest --config='./jest.coverage.config.js'",
+    "coverage": "jest --config='./jest.coverage.config.cjs'",
     "postcoverage": "dotenv codecov",
     "eslint": "eslint 'src/**/*.[tj]s' 'test/**/*.[tj]s'",
     "docs": "typedoc --plugin typedoc-plugin-markdown",
@@ -53,7 +54,7 @@
   },
   "homepage": "https://github.com/AndyOGo/stylelint-declaration-strict-value#readme",
   "peerDependencies": {
-    "stylelint": ">=7 <=16"
+    "stylelint": ">=7 <=17"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.8",
@@ -97,7 +98,7 @@
     "prettier": "^2.2.1",
     "semantic-release": "^17.3.0",
     "shortcss": "^0.1.3",
-    "stylelint": "^16.1.0",
+    "stylelint": "^17.0.0",
     "typedoc": "^0.22.7",
     "typedoc-plugin-markdown": "^3.2.1",
     "typescript": "^4.1.2"

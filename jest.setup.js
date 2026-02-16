@@ -1,8 +1,9 @@
 import { getTestRule } from 'jest-preset-stylelint';
-import { lint } from 'stylelint';
+import stylelint from 'stylelint';
 // eslint-disable-next-line import/extensions
 import declarationStrictValuePlugin from './src/index.ts';
 
+const { lint } = stylelint;
 const plugins = [declarationStrictValuePlugin];
 
 global.testRule = getTestRule({ plugins });

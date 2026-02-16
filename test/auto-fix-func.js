@@ -1,6 +1,9 @@
 import { ruleName } from '../src';
-import autoFixFunc from './helpers/auto-fix-func';
-import autoFixFuncWithThrow from './helpers/auto-fix-func-with-throw';
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
+const autoFixFunc = require('./helpers/auto-fix-func.cjs');
+const autoFixFuncWithThrow = require('./helpers/auto-fix-func-with-throw.cjs');
 
 // works if autofix is omitted
 testRule({
@@ -137,7 +140,7 @@ testRule({
   config: [
     'color',
     {
-      autoFixFunc: './test/helpers/auto-fix-func.js',
+      autoFixFunc: './test/helpers/auto-fix-func.cjs',
     },
   ],
 
@@ -163,7 +166,7 @@ testRule({
   config: [
     'color',
     {
-      autoFixFunc: './test/helpers/auto-fix-func.js',
+      autoFixFunc: './test/helpers/auto-fix-func.cjs',
       disableFix: true,
     },
   ],

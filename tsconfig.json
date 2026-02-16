@@ -13,6 +13,9 @@
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "Node",
-    "typeRoots": ["./types", "node_modules/@types"]
+    "typeRoots": ["./types", "node_modules/@types"],
+    "paths": {
+      "stylelint": ["./node_modules/stylelint/types/stylelint"]
+    }
   },
 }

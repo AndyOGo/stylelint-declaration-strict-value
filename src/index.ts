@@ -5,7 +5,14 @@ import shortCSS from 'shortcss';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import list from 'shortcss/lib/list';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import cssValues from 'css-values';
+import _cssValues from 'css-values';
+
+// Handle CJS/ESM interop for css-values
+const cssValues: (prop: string, value: string) => boolean =
+  typeof _cssValues === 'function'
+    ? _cssValues
+    : (_cssValues as { default: (prop: string, value: string) => boolean })
+        .default;
 
 import {
   validProperties,

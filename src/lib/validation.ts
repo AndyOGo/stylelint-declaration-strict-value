@@ -1,4 +1,5 @@
 import path from 'path';
+import { createRequire } from 'node:module';
 
 import defaults, {
   ruleName,
@@ -420,18 +421,18 @@ export function getAutoFixFunc(
   }
 
   if (typeof autoFixFunc === 'string') {
+    const esmRequire = createRequire(import.meta.url);
     let resolveAutoFixfunc;
 
     try {
-      resolveAutoFixfunc = require.resolve(autoFixFunc);
+      resolveAutoFixfunc = esmRequire.resolve(autoFixFunc);
     } catch (error) {
-      resolveAutoFixfunc = require.resolve(
+      resolveAutoFixfunc = esmRequire.resolve(
         path.join(process.cwd(), autoFixFunc)
       );
     }
 
-    // eslint-disable-next-line import/no-dynamic-require, global-require
-    return require(resolveAutoFixfunc);
+    return esmRequire(resolveAutoFixfunc);
   }
 
   if (!disableFix && contextFix) {
