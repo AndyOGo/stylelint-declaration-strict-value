@@ -2,7 +2,6 @@ import path from 'path';
 import { createRequire } from 'node:module';
 
 import defaults, {
-  ruleName,
   SecondaryOptions,
   IgnoreValue,
   IgnoreValueList,
@@ -409,9 +408,7 @@ export function getIgnoredValues(
  * @returns Returns the auto-fix function if found, else `null`.
  */
 export function getAutoFixFunc(
-  autoFixFunc: AutoFixFuncConfig,
-  disableFix?: boolean,
-  contextFix?: boolean
+  autoFixFunc: AutoFixFuncConfig
 ): null | AutoFixFunc {
   // @see: https://github.com/microsoft/TypeScript/issues/41627
   // const type = typeof autoFixFunc
@@ -433,13 +430,6 @@ export function getAutoFixFunc(
     }
 
     return esmRequire(resolveAutoFixfunc);
-  }
-
-  if (!disableFix && contextFix) {
-    // eslint-disable-next-line no-console
-    console.warn(
-      `No \`autoFix\` function provided, consider using \`disableFix\` for "${ruleName}"`
-    );
   }
 
   return null;

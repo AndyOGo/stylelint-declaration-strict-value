@@ -7,13 +7,6 @@ import list from 'shortcss/lib/list';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import _cssValues from 'css-values';
 
-// Handle CJS/ESM interop for css-values
-const cssValues: (prop: string, value: string) => boolean =
-  typeof _cssValues === 'function'
-    ? _cssValues
-    : (_cssValues as { default: (prop: string, value: string) => boolean })
-        .default;
-
 import {
   validProperties,
   validOptions,
@@ -25,7 +18,6 @@ import {
   getIgnoredKeywords,
   getIgnoredValues,
   getAutoFixFunc,
-  failedToFix,
 } from './lib/validation';
 import defaults, {
   ruleName,
@@ -33,9 +25,13 @@ import defaults, {
   IgnoreValue,
   RegExpString,
 } from './defaults';
-import unsafeQuietStylelintDeprecationWarning from './unsafe-quiet-stylelint-deprecation-warning';
 
-unsafeQuietStylelintDeprecationWarning();
+// Handle CJS/ESM interop for css-values
+const cssValues: (prop: string, value: string) => boolean =
+  typeof _cssValues === 'function'
+    ? _cssValues
+    : (_cssValues as { default: (prop: string, value: string) => boolean })
+        .default;
 
 const { utils } = stylelint;
 const meta: RuleMeta = {
@@ -45,7 +41,6 @@ const meta: RuleMeta = {
 const messages = utils.ruleMessages(ruleName, {
   expected,
   customExpected,
-  failedToFix,
 });
 /**
  * RegExp to skip non-CSS properties.
@@ -142,29 +137,19 @@ type CSSPropertyName = string | RegExpString;
  */
 type PrimaryOptions = CSSPropertyName | CSSPropertyName[];
 
-type RuleContext = {
-  fix?: boolean | undefined;
-  newline?: string | undefined;
-};
-
 /**
  * Stylelint declaration strict value rule function.
  *
  * @see https://stylelint.io/developer-guide/plugins
  * @param properties - Primary options, a CSS property or list of CSS properties to lint.
  * @param options- Secondary options, configure edge cases.
- * @param context - Only used for autofixing.
  *
  * @returns Returns a PostCSS Plugin.
  */
 type StylelintPlugin<P = unknown, S = unknown> = Rule<P, S>;
 
 const ruleFunction: StylelintPlugin<PrimaryOptions, SecondaryOptions> =
-  (
-    properties: PrimaryOptions,
-    options: SecondaryOptions,
-    context: RuleContext = {}
-  ) =>
+  (properties: PrimaryOptions, options: SecondaryOptions) =>
   (root: Root, result: PostcssResult) => {
     // fix #142
     // @see https://github.com/stylelint/stylelint/pull/672/files#diff-78f1c80ffb2836008dd194b3b0ca28f9b46e4897b606f0b3d25a29e57a8d3e61R74
@@ -219,11 +204,7 @@ const ruleFunction: StylelintPlugin<PrimaryOptions, SecondaryOptions> =
       expandShorthand,
       recurseLonghand,
     } = config;
-    const autoFixFuncNormalized = getAutoFixFunc(
-      autoFixFunc,
-      disableFix,
-      context.fix
-    );
+    const autoFixFuncNormalized = getAutoFixFunc(autoFixFunc);
     /**
      * A hash of regular expression to ignore for a CSS properties.
      * @internal
@@ -436,64 +417,56 @@ const ruleFunction: StylelintPlugin<PrimaryOptions, SecondaryOptions> =
         // report only if all failed
         if (!validVar && !validFunc && !validKeyword && !validValue) {
           const types = getTypes(config, property);
+          const { raws } = node;
+          // eslint-disable-next-line prefer-destructuring
+          const start = node.source!.start;
 
-          // support auto fixing
-          if (context.fix && !disableFix && autoFixFuncNormalized) {
-            try {
-              const fixedValue = autoFixFuncNormalized(
-                node,
-                {
-                  validVar,
-                  validFunc,
-                  validKeyword,
-                  validValue,
-                  longhandProp,
-                  longhandValue,
-                },
-                root,
-                config
-              );
+          const fix =
+            !disableFix && autoFixFuncNormalized
+              ? () => {
+                  try {
+                    const fixedValue = autoFixFuncNormalized(
+                      node,
+                      {
+                        validVar,
+                        validFunc,
+                        validKeyword,
+                        validValue,
+                        longhandProp,
+                        longhandValue,
+                      },
+                      root,
+                      config
+                    );
 
-              // apply fixed value if returned
-              if (fixedValue) {
-                // eslint-disable-next-line no-param-reassign
-                node.value = fixedValue;
-              }
-            } catch (error) {
-              const { raws } = node;
-              // eslint-disable-next-line prefer-destructuring
-              const start = node.source!.start;
+                    // apply fixed value if returned
+                    if (fixedValue) {
+                      // eslint-disable-next-line no-param-reassign
+                      node.value = fixedValue;
+                    }
+                  } catch {
+                    // autofix failed, let stylelint report the original warning
+                  }
+                }
+              : undefined;
 
-              utils.report({
-                ruleName,
-                result,
-                node,
-                line: start!.line,
-                column: start!.column + nodeProp.length + raws.between!.length,
-                message: messages.failedToFix(error, value, nodeProp),
-              } as any);
-            }
-          } else {
-            const { raws } = node;
-            // eslint-disable-next-line prefer-destructuring
-            const start = node.source!.start;
-
-            utils.report({
-              ruleName,
-              result,
-              node,
-              line: start!.line,
-              column: start!.column + nodeProp.length + raws.between!.length,
-              message: message
-                ? messages.customExpected(
-                    expectedTypes(types),
-                    value,
-                    nodeProp,
-                    message
-                  )
-                : messages.expected(expectedTypes(types), value, nodeProp),
-            } as any);
-          }
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          utils.report({
+            ruleName,
+            result,
+            node,
+            line: start!.line,
+            column: start!.column + nodeProp.length + raws.between!.length,
+            message: message
+              ? messages.customExpected(
+                  expectedTypes(types),
+                  value,
+                  nodeProp,
+                  message
+                )
+              : messages.expected(expectedTypes(types), value, nodeProp),
+            fix,
+          } as any);
 
           return true;
         }

@@ -1,8 +1,10 @@
-import { ruleName } from '../src';
 import { createRequire } from 'node:module';
+import { ruleName } from '../src';
 
 const require = createRequire(import.meta.url);
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const autoFixFunc = require('./helpers/auto-fix-func.cjs');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const autoFixFuncWithThrow = require('./helpers/auto-fix-func-with-throw.cjs');
 
 // works if autofix is omitted
@@ -70,33 +72,6 @@ testRule({
       message: `Expected variable or function for "block" of "display" (scale-unlimited/declaration-strict-value)`,
       line: 1,
       column: 8,
-    },
-  ],
-});
-
-testCustomAutoFixMessage({
-  ruleName,
-  fix: true,
-
-  config: [
-    ['color', 'font-size', 'display'],
-    {
-      autoFixFunc: autoFixFuncWithThrow,
-    },
-  ],
-
-  reject: [
-    {
-      code: '.foo { font-size: 16px; }',
-      message: `"font-size" is not a color property (${ruleName})`,
-    },
-    {
-      code: '.foo { color: blue; }',
-      message: `Can't fix color "blue" (${ruleName})`,
-    },
-    {
-      code: '.foo { display: block; }',
-      message: `Property "display" with value "block" can't be autofixed (${ruleName})`,
     },
   ],
 });
