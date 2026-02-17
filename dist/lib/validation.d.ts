@@ -120,5 +120,5 @@ export declare function getIgnoredValues(ignoreValues: IgnoreValueConfig, proper
  *
  * @returns Returns the auto-fix function if found, else `null`.
  */
-export declare function getAutoFixFunc(autoFixFunc: AutoFixFuncConfig, disableFix?: boolean, contextFix?: boolean): null | AutoFixFunc;
+export declare function getAutoFixFunc(autoFixFunc: AutoFixFuncConfig): null | AutoFixFunc;
 export {};
