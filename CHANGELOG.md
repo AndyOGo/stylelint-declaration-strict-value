@@ -1,3 +1,16 @@
+# [1.11.0](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.10.11...v1.11.0) (2026-02-17)
+
+
+### Bug Fixes
+
+* migrate context.fix to fix callback API and update peerDependencies ([0fb1d5d](https://github.com/AndyOGo/stylelint-declaration-strict-value/commit/0fb1d5d09ddd02a9ca4ff2c40c0ea5880e12dabd))
+* upgrade typescript, typedoc and instyle css-tree types ([d6ba666](https://github.com/AndyOGo/stylelint-declaration-strict-value/commit/d6ba666a8a77ad8121a2568c6cf2fa2b2d1d3d4f))
+
+
+### Features
+
+* support stylelint v17 ([58565f3](https://github.com/AndyOGo/stylelint-declaration-strict-value/commit/58565f32fc1aaee6cfa48747141a20f4449c8f1d))
+
 ## [1.10.11](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.10.10...v1.10.11) (2025-03-09)
 
 

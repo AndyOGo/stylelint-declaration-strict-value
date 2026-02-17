@@ -21,12 +21,12 @@ export declare function validOptions(actual: SecondaryOptions): boolean;
  * Expected type of CSS value, available by configuration.
  * @internal
  */
-declare type ExpectedType = 'variable' | 'function' | 'keyword';
+type ExpectedType = 'variable' | 'function' | 'keyword';
 /**
  * Expected types of CSS value, as configured.
  * @internal
  */
-declare type ExpectedTypes = Array<ExpectedType>;
+type ExpectedTypes = Array<ExpectedType>;
 /**
  * Build expected message for stylelint report.
  *

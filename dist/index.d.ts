@@ -9,12 +9,12 @@ declare const messages: {
 /**
  * A string or regular expression matching a CSS property name.
  */
-declare type CSSPropertyName = string | RegExpString;
+type CSSPropertyName = string | RegExpString;
 /**
  * Primary options, a CSS property or list of CSS properties to lint.
  * - Regular Expression strings are supported
  */
-declare type PrimaryOptions = CSSPropertyName | CSSPropertyName[];
+type PrimaryOptions = CSSPropertyName | CSSPropertyName[];
 /**
  * Stylelint declaration strict value rule function.
  *
@@ -24,7 +24,7 @@ declare type PrimaryOptions = CSSPropertyName | CSSPropertyName[];
  *
  * @returns Returns a PostCSS Plugin.
  */
-declare type StylelintPlugin<P = unknown, S = unknown> = Rule<P, S>;
+type StylelintPlugin<P = unknown, S = unknown> = Rule<P, S>;
 declare const ruleFunction: StylelintPlugin<PrimaryOptions, SecondaryOptions>;
 declare const declarationStrictValuePlugin: stylelint.Plugin;
 export default declarationStrictValuePlugin;
