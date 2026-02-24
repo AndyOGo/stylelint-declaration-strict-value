@@ -1,4 +1,4 @@
-[**stylelint-declaration-strict-value v1.11.0**](../../../README.md)
+[**stylelint-declaration-strict-value v1.11.1**](../../../README.md)
 
 ***
 

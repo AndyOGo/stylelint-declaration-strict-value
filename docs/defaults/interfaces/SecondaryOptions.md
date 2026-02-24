@@ -1,4 +1,4 @@
-[**stylelint-declaration-strict-value v1.11.0**](../../README.md)
+[**stylelint-declaration-strict-value v1.11.1**](../../README.md)
 
 ***
 
@@ -6,7 +6,7 @@
 
 # Interface: SecondaryOptions
 
-Defined in: [defaults.ts:113](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/d6ba666a8a77ad8121a2568c6cf2fa2b2d1d3d4f/src/defaults.ts#L113)
+Defined in: [defaults.ts:113](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/b2f09cb0cb459f8f7c48d3e7b8ec509b91d7bb4f/src/defaults.ts#L113)
 
 Plugin secondary options.
 
@@ -16,7 +16,7 @@ Plugin secondary options.
 
 > `optional` **autoFixFunc**: [`AutoFixFuncConfig`](../type-aliases/AutoFixFuncConfig.md)
 
-Defined in: [defaults.ts:183](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/d6ba666a8a77ad8121a2568c6cf2fa2b2d1d3d4f/src/defaults.ts#L183)
+Defined in: [defaults.ts:183](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/b2f09cb0cb459f8f7c48d3e7b8ec509b91d7bb4f/src/defaults.ts#L183)
 
 By default no auto-fix feature.
 
@@ -32,7 +32,7 @@ null
 
 > `optional` **disableFix**: `boolean`
 
-Defined in: [defaults.ts:176](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/d6ba666a8a77ad8121a2568c6cf2fa2b2d1d3d4f/src/defaults.ts#L176)
+Defined in: [defaults.ts:176](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/b2f09cb0cb459f8f7c48d3e7b8ec509b91d7bb4f/src/defaults.ts#L176)
 
 Don't auto-fix if `--fix` option is applied.
 
@@ -48,7 +48,7 @@ false
 
 > `optional` **expandShorthand**: `boolean`
 
-Defined in: [defaults.ts:148](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/d6ba666a8a77ad8121a2568c6cf2fa2b2d1d3d4f/src/defaults.ts#L148)
+Defined in: [defaults.ts:148](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/b2f09cb0cb459f8f7c48d3e7b8ec509b91d7bb4f/src/defaults.ts#L148)
 
 Whether or not to expand shorthand CSS properties.
 
@@ -64,7 +64,7 @@ false
 
 > `optional` **ignoreFunctions**: [`IgnoreVariableOrFunctionConfig`](../type-aliases/IgnoreVariableOrFunctionConfig.md)
 
-Defined in: [defaults.ts:126](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/d6ba666a8a77ad8121a2568c6cf2fa2b2d1d3d4f/src/defaults.ts#L126)
+Defined in: [defaults.ts:126](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/b2f09cb0cb459f8f7c48d3e7b8ec509b91d7bb4f/src/defaults.ts#L126)
 
 Whether or not to ignore function.
 
@@ -80,7 +80,7 @@ true
 
 > `optional` **ignoreKeywords**: [`IgnoreValueConfig`](../type-aliases/IgnoreValueConfig.md)
 
-Defined in: [defaults.ts:134](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/d6ba666a8a77ad8121a2568c6cf2fa2b2d1d3d4f/src/defaults.ts#L134)
+Defined in: [defaults.ts:134](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/b2f09cb0cb459f8f7c48d3e7b8ec509b91d7bb4f/src/defaults.ts#L134)
 
 An ignored keywords config.
 
@@ -100,7 +100,7 @@ use `ignoreValues` option.
 
 > `optional` **ignoreValues**: [`IgnoreValueConfig`](../type-aliases/IgnoreValueConfig.md)
 
-Defined in: [defaults.ts:141](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/d6ba666a8a77ad8121a2568c6cf2fa2b2d1d3d4f/src/defaults.ts#L141)
+Defined in: [defaults.ts:141](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/b2f09cb0cb459f8f7c48d3e7b8ec509b91d7bb4f/src/defaults.ts#L141)
 
 An ignored values config.
 
@@ -116,7 +116,7 @@ null
 
 > `optional` **ignoreVariables**: [`IgnoreVariableOrFunctionConfig`](../type-aliases/IgnoreVariableOrFunctionConfig.md)
 
-Defined in: [defaults.ts:119](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/d6ba666a8a77ad8121a2568c6cf2fa2b2d1d3d4f/src/defaults.ts#L119)
+Defined in: [defaults.ts:119](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/b2f09cb0cb459f8f7c48d3e7b8ec509b91d7bb4f/src/defaults.ts#L119)
 
 Whether or not to ignore variables.
 
@@ -132,7 +132,7 @@ true
 
 > `optional` **message**: `string`
 
-Defined in: [defaults.ts:169](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/d6ba666a8a77ad8121a2568c6cf2fa2b2d1d3d4f/src/defaults.ts#L169)
+Defined in: [defaults.ts:169](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/b2f09cb0cb459f8f7c48d3e7b8ec509b91d7bb4f/src/defaults.ts#L169)
 
 A custom message when a rule is violated, interpolated with `${types}`, `${value}` and `${property}`.
 
@@ -148,7 +148,7 @@ undefined
 
 > `optional` **recurseLonghand**: `boolean`
 
-Defined in: [defaults.ts:155](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/d6ba666a8a77ad8121a2568c6cf2fa2b2d1d3d4f/src/defaults.ts#L155)
+Defined in: [defaults.ts:155](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/b2f09cb0cb459f8f7c48d3e7b8ec509b91d7bb4f/src/defaults.ts#L155)
 
 Whether or not to expand longhand CSS properties recursivly - this is only useful for the `border` property.
 
@@ -164,7 +164,7 @@ false
 
 > `optional` **severity**: `string`
 
-Defined in: [defaults.ts:162](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/d6ba666a8a77ad8121a2568c6cf2fa2b2d1d3d4f/src/defaults.ts#L162)
+Defined in: [defaults.ts:162](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/b2f09cb0cb459f8f7c48d3e7b8ec509b91d7bb4f/src/defaults.ts#L162)
 
 Adjust severity of the rule, `'warning'` or `'error'` (default).
 

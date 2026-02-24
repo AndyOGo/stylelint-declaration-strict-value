@@ -1,8 +1,8 @@
-**stylelint-declaration-strict-value v1.11.0**
+**stylelint-declaration-strict-value v1.11.1**
 
 ***
 
-# stylelint-declaration-strict-value v1.11.0
+# stylelint-declaration-strict-value v1.11.1
 
 ## Modules
 

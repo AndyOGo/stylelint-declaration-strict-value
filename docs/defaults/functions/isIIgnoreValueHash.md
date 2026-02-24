@@ -1,4 +1,4 @@
-[**stylelint-declaration-strict-value v1.11.0**](../../README.md)
+[**stylelint-declaration-strict-value v1.11.1**](../../README.md)
 
 ***
 
@@ -8,7 +8,7 @@
 
 > **isIIgnoreValueHash**(`key`, `value`): `key is IgnoreValueHash`
 
-Defined in: [defaults.ts:45](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/d6ba666a8a77ad8121a2568c6cf2fa2b2d1d3d4f/src/defaults.ts#L45)
+Defined in: [defaults.ts:45](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/b2f09cb0cb459f8f7c48d3e7b8ec509b91d7bb4f/src/defaults.ts#L45)
 
 **`Internal`**
 

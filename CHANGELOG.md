@@ -1,3 +1,10 @@
+## [1.11.1](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.11.0...v1.11.1) (2026-02-24)
+
+
+### Bug Fixes
+
+* utils.report line is deprecated ([871c1da](https://github.com/AndyOGo/stylelint-declaration-strict-value/commit/871c1dad25dee6431d6eff4c29e25be5266f4931))
+
 # [1.11.0](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.10.11...v1.11.0) (2026-02-17)
 
 
