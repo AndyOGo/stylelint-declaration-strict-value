@@ -417,9 +417,10 @@ const ruleFunction: StylelintPlugin<PrimaryOptions, SecondaryOptions> =
         // report only if all failed
         if (!validVar && !validFunc && !validKeyword && !validValue) {
           const types = getTypes(config, property);
-          const { raws } = node;
           // eslint-disable-next-line prefer-destructuring
           const start = node.source!.start;
+          // eslint-disable-next-line prefer-destructuring
+          const end = node.source!.end;
 
           const fix =
             !disableFix && autoFixFuncNormalized
@@ -455,8 +456,8 @@ const ruleFunction: StylelintPlugin<PrimaryOptions, SecondaryOptions> =
             ruleName,
             result,
             node,
-            line: start!.line,
-            column: start!.column + nodeProp.length + raws.between!.length,
+            start: { line: start!.line, column: start!.column },
+            end: { line: end!.line, column: end!.column },
             message: message
               ? messages.customExpected(
                   expectedTypes(types),
@@ -466,7 +467,7 @@ const ruleFunction: StylelintPlugin<PrimaryOptions, SecondaryOptions> =
                 )
               : messages.expected(expectedTypes(types), value, nodeProp),
             fix,
-          } as any);
+          });
 
           return true;
         }
