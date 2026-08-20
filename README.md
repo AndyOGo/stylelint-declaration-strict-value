@@ -142,6 +142,18 @@ The config scheme looks as follows:
         // match pattern prop
         "/RegExp/[gimsuy]": "string" || "/RegExp/[gimsuy]" || ["string", "/RegExp/[gimsuy]", /* ... */],
       },
+    ignoreAtRules: "string" || "/RegExp/[gimsuy]" ||
+      ["string", "/RegExp/[gimsuy]", /* ... */] ||
+      {
+        // match all
+        "": "string" || "/RegExp/[gimsuy]" || ["string", "/RegExp/[gimsuy]", /* ... */],
+
+        // match specific prop
+        "font-weight": "string" || "/RegExp/[gimsuy]" || ["string", "/RegExp/[gimsuy]", /* ... */],
+
+        // match pattern prop
+        "/RegExp/[gimsuy]": "string" || "/RegExp/[gimsuy]" || ["string", "/RegExp/[gimsuy]", /* ... */],
+      },
     // DEPRECATED (use ignoreValues)
     ignoreKeywords: "string" ||
       ["string", "string", /* ... */] ||
