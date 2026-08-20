@@ -11,8 +11,14 @@ import defaults, {
   IgnoreValueConfig,
   AutoFixFunc,
   AutoFixFuncConfig,
-  isIIgnoreValueHash,
+  isIgnoreValueHash,
+  IgnoreAtRuleConfig,
+  IgnoreAtRuleHash,
+  isIgnoreAtRuleHash,
+  IgnoreAtRule,
+  IgnoreAtRuleList,
 } from '../defaults';
+import { mapIgnoreValue } from './utils';
 
 /**
  * Check if type is either `number` or `string`.
@@ -131,6 +137,13 @@ export function validOptions(actual: SecondaryOptions): boolean {
     'ignoreValues' in actual &&
     !validProperties(actual.ignoreValues) &&
     !validHash(actual.ignoreValues)
+  )
+    return false;
+
+  if (
+    'ignoreAtRules' in actual &&
+    !validProperties(actual.ignoreAtRules) &&
+    !validHash(actual.ignoreAtRules)
   )
     return false;
 
@@ -364,9 +377,9 @@ export function getIgnoredKeywords(
 
   let keywords = ignoreKeywords;
 
-  if (isIIgnoreValueHash(keywords, property)) {
+  if (isIgnoreValueHash(keywords, property)) {
     keywords = keywords[property];
-  } else if (isIIgnoreValueHash(keywords, '')) {
+  } else if (isIgnoreValueHash(keywords, '')) {
     keywords = keywords[''];
   }
 
@@ -378,7 +391,7 @@ export function getIgnoredKeywords(
  * out of a complex `ignoreValues` config hash or array.
  *
  * @internal
- * @param ignoreValues - The values/-s to ignore.
+ * @param ignoreValues - The value/-s to ignore.
  * @param property - The specific CSS declaration's property of the current iteration.
  * @returns Returns ignored values for a specific CSS property, or `null`.
  */
@@ -390,13 +403,72 @@ export function getIgnoredValues(
 
   let values = ignoreValues;
 
-  if (isIIgnoreValueHash(values, property)) {
+  if (isIgnoreValueHash(values, property)) {
     values = values[property];
-  } else if (isIIgnoreValueHash(values, '')) {
+  } else if (isIgnoreValueHash(values, '')) {
     values = values[''];
   }
 
   return Array.isArray(values) ? values : [values];
+}
+
+/**
+ * Get the correct ignored at-rules for a specific CSS declaration's property
+ * out of a complex `ignoreAtRules` config hash or array.
+ *
+ * @internal
+ * @param ignoreAtRules - The at-rule/-s to ignore.
+ * @param property - The specific CSS declaration's property of the current iteration.
+ * @param longhandProp - The specific CSS declaration's longhand property of the current iteration.
+ * @returns Returns ignored at-rules for a specific CSS property, or `null`.
+ */
+export function getIgnoredAtRules(
+  ignoreAtRules: IgnoreAtRuleConfig,
+  property: string,
+  longhandProp: string | undefined
+): null | IgnoreAtRuleList {
+  if (!ignoreAtRules) return null;
+
+  let atRules = ignoreAtRules;
+
+  if (isIgnoreAtRuleHash(atRules)) {
+    const atRulesTemp = atRules;
+    atRules = Object.keys(atRulesTemp).reduce<IgnoreAtRuleList>(
+      (atRulesList, atRule) => {
+        const propertyFilters = atRulesTemp[atRule];
+        const propertyFilterList = Array.isArray(propertyFilters)
+          ? propertyFilters
+          : [propertyFilters];
+
+        if (
+          propertyFilterList.some((propertyFilter) => {
+            switch (typeof propertyFilter) {
+              case 'boolean':
+                return propertyFilter;
+
+              case 'string': {
+                const rePropertyFilter = mapIgnoreValue(propertyFilter);
+                return (
+                  rePropertyFilter.test(property) ||
+                  (longhandProp && rePropertyFilter.test(longhandProp))
+                );
+              }
+
+              default:
+                return false;
+            }
+          })
+        ) {
+          atRulesList.push(atRule);
+        }
+
+        return atRulesList;
+      },
+      []
+    );
+  }
+
+  return Array.isArray(atRules) ? atRules : [atRules];
 }
 
 /**

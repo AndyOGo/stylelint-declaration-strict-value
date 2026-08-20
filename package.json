@@ -20,7 +20,7 @@
     "build": "microbundle --tsconfig tsconfig.build.json --compress",
     "release": "dotenv semantic-release",
     "test": "cross-env NODE_OPTIONS=\"--experimental-vm-modules --no-warnings\" jest",
-    "coverage": "jest --config='./jest.coverage.config.cjs'",
+    "coverage": "cross-env NODE_OPTIONS=\"--experimental-vm-modules --no-warnings\" jest --config='./jest.coverage.config.cjs'",
     "postcoverage": "dotenv codecov",
     "eslint": "eslint 'src/**/*.[tj]s' 'test/**/*.[tj]s'",
     "docs": "typedoc --plugin typedoc-plugin-markdown",
