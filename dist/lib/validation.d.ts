@@ -1,4 +1,4 @@
-import { SecondaryOptions, IgnoreValue, IgnoreValueList, IgnoreVariableOrFunctionConfig, IgnoreValueConfig, AutoFixFunc, AutoFixFuncConfig } from '../defaults';
+import { SecondaryOptions, IgnoreValue, IgnoreValueList, IgnoreVariableOrFunctionConfig, IgnoreValueConfig, AutoFixFunc, AutoFixFuncConfig, IgnoreAtRuleConfig, IgnoreAtRuleList } from '../defaults';
 /**
  * Validate primary options of stylelint plugin config.
  *
@@ -107,11 +107,22 @@ export declare function getIgnoredKeywords(ignoreKeywords: IgnoreValueConfig, pr
  * out of a complex `ignoreValues` config hash or array.
  *
  * @internal
- * @param ignoreValues - The values/-s to ignore.
+ * @param ignoreValues - The value/-s to ignore.
  * @param property - The specific CSS declaration's property of the current iteration.
  * @returns Returns ignored values for a specific CSS property, or `null`.
  */
 export declare function getIgnoredValues(ignoreValues: IgnoreValueConfig, property: string): null | IgnoreValueList;
+/**
+ * Get the correct ignored at-rules for a specific CSS declaration's property
+ * out of a complex `ignoreAtRules` config hash or array.
+ *
+ * @internal
+ * @param ignoreAtRules - The at-rule/-s to ignore.
+ * @param property - The specific CSS declaration's property of the current iteration.
+ * @param longhandProp - The specific CSS declaration's longhand property of the current iteration.
+ * @returns Returns ignored at-rules for a specific CSS property, or `null`.
+ */
+export declare function getIgnoredAtRules(ignoreAtRules: IgnoreAtRuleConfig, property: string, longhandProp: string | undefined): null | IgnoreAtRuleList;
 /**
  * Get the auto-fix function either by a function directly or from a source file.
  *

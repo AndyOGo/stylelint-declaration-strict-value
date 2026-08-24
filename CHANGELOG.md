@@ -1,3 +1,15 @@
+# [1.12.0](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.11.1...v1.12.0) (2026-08-24)
+
+
+### Bug Fixes
+
+* escape reg exp ([0756799](https://github.com/AndyOGo/stylelint-declaration-strict-value/commit/07567996812c550bda2f7e57f98095e6eb174aa6))
+
+
+### Features
+
+* add ignoreAtRules option ([10cd49c](https://github.com/AndyOGo/stylelint-declaration-strict-value/commit/10cd49c0ff67a73714179c3cb359b3152cd0a159))
+
 ## [1.11.1](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.11.0...v1.11.1) (2026-02-24)
 
 

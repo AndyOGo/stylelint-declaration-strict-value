@@ -1,4 +1,4 @@
-[**stylelint-declaration-strict-value v1.11.1**](../../README.md)
+[**stylelint-declaration-strict-value v1.12.0**](../../README.md)
 
 ***
 
@@ -8,6 +8,6 @@
 
 > **RegExpString** = `string`
 
-Defined in: [defaults.ts:23](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/b2f09cb0cb459f8f7c48d3e7b8ec509b91d7bb4f/src/defaults.ts#L23)
+Defined in: [defaults.ts:23](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/7ebdf9b929e2eacc9832b5063e906bf2a4332035/src/defaults.ts#L23)
 
 A Regular Expression string to match a CSS property or value.

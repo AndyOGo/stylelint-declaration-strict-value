@@ -1,4 +1,4 @@
-[**stylelint-declaration-strict-value v1.11.1**](../../README.md)
+[**stylelint-declaration-strict-value v1.12.0**](../../README.md)
 
 ***
 
@@ -13,6 +13,7 @@
 - [expectedTypes](functions/expectedTypes.md)
 - [failedToFix](functions/failedToFix.md)
 - [getAutoFixFunc](functions/getAutoFixFunc.md)
+- [getIgnoredAtRules](functions/getIgnoredAtRules.md)
 - [getIgnoredKeywords](functions/getIgnoredKeywords.md)
 - [getIgnoredValues](functions/getIgnoredValues.md)
 - [getIgnoredVariablesOrFunctions](functions/getIgnoredVariablesOrFunctions.md)

@@ -37,11 +37,34 @@ export interface IgnoreValueHash {
 /**
  * @internal
  */
-export declare const isIIgnoreValueHash: (key: unknown, value: unknown) => key is IgnoreValueHash;
+export declare const isIgnoreValueHash: (value: unknown, key: unknown) => value is IgnoreValueHash;
 /**
  * Possible config for `ignoreValues` and ~~`ignoreKeywords`~~ option.
  */
 export type IgnoreValueConfig = null | IgnoreValue | IgnoreValueList | IgnoreValueHash;
+/**
+ * A CSS at-rule to be ignored.
+ */
+export type IgnoreAtRule = string | RegExpString;
+/**
+ * A list of CSS at-rules to be ignored.
+ */
+export type IgnoreAtRuleList = Array<IgnoreAtRule>;
+/**
+ * A hash of CSS at-rules with ignored properties.
+ * - key can also be a Regular Expression string.
+ */
+export type IgnoreAtRuleHash = {
+    [AtRule: IgnoreAtRule]: boolean | IgnoreAtRule | IgnoreAtRuleList;
+};
+/**
+ * @internal
+ */
+export declare const isIgnoreAtRuleHash: (value: unknown) => value is IgnoreAtRuleHash;
+/**
+ * Possible config for `IgnoreAtRule`.
+ */
+export type IgnoreAtRuleConfig = null | IgnoreAtRule | IgnoreAtRuleList | IgnoreAtRuleHash;
 /**
  * Result of CSS value validation.
  */
@@ -112,6 +135,12 @@ export interface SecondaryOptions {
      * @defaultValue null
      */
     ignoreValues?: IgnoreValueConfig;
+    /**
+     * An ignored at-rules config.
+     *
+     * @defaultValue null
+     */
+    ignoreAtRules?: IgnoreAtRuleConfig;
     /**
      * Whether or not to expand shorthand CSS properties.
      *

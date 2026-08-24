@@ -1,4 +1,4 @@
-[**stylelint-declaration-strict-value v1.11.1**](../../../README.md)
+[**stylelint-declaration-strict-value v1.12.0**](../../../README.md)
 
 ***
 
@@ -8,7 +8,7 @@
 
 > **getIgnoredValues**(`ignoreValues`, `property`): [`IgnoreValueList`](../../../defaults/type-aliases/IgnoreValueList.md) \| `null`
 
-Defined in: [lib/validation.ts:385](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/b2f09cb0cb459f8f7c48d3e7b8ec509b91d7bb4f/src/lib/validation.ts#L385)
+Defined in: [lib/validation.ts:418](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/7ebdf9b929e2eacc9832b5063e906bf2a4332035/src/lib/validation.ts#L418)
 
 **`Internal`**
 
@@ -21,7 +21,7 @@ out of a complex `ignoreValues` config hash or array.
 
 [`IgnoreValueConfig`](../../../defaults/type-aliases/IgnoreValueConfig.md)
 
-The values/-s to ignore.
+The value/-s to ignore.
 
 ### property
 

@@ -1,4 +1,4 @@
-[**stylelint-declaration-strict-value v1.11.1**](../README.md)
+[**stylelint-declaration-strict-value v1.12.0**](../README.md)
 
 ***
 
@@ -18,6 +18,10 @@
 - [AutoFixFunc](type-aliases/AutoFixFunc.md)
 - [AutoFixFuncConfig](type-aliases/AutoFixFuncConfig.md)
 - [AutoFixModule](type-aliases/AutoFixModule.md)
+- [IgnoreAtRule](type-aliases/IgnoreAtRule.md)
+- [IgnoreAtRuleConfig](type-aliases/IgnoreAtRuleConfig.md)
+- [IgnoreAtRuleHash](type-aliases/IgnoreAtRuleHash.md)
+- [IgnoreAtRuleList](type-aliases/IgnoreAtRuleList.md)
 - [IgnoreValue](type-aliases/IgnoreValue.md)
 - [IgnoreValueConfig](type-aliases/IgnoreValueConfig.md)
 - [IgnoreValueList](type-aliases/IgnoreValueList.md)
@@ -31,4 +35,5 @@
 
 ## Functions
 
-- [isIIgnoreValueHash](functions/isIIgnoreValueHash.md)
+- [isIgnoreAtRuleHash](functions/isIgnoreAtRuleHash.md)
+- [isIgnoreValueHash](functions/isIgnoreValueHash.md)
