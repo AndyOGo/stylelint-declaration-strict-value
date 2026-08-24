@@ -1,4 +1,4 @@
-[**stylelint-declaration-strict-value v1.12.0**](../../../README.md)
+[**stylelint-declaration-strict-value v1.12.1**](../../../README.md)
 
 ***
 
@@ -8,7 +8,7 @@
 
 > **validProperties**(`actual`): actual is IgnoreValue \| IgnoreValueList
 
-Defined in: [lib/validation.ts:44](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/7ebdf9b929e2eacc9832b5063e906bf2a4332035/src/lib/validation.ts#L44)
+Defined in: [lib/validation.ts:44](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/c9b77b2c496c17f74da6b337166fdf3b245b026b/src/lib/validation.ts#L44)
 
 **`Internal`**
 

@@ -1,3 +1,10 @@
+## [1.12.1](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.12.0...v1.12.1) (2026-08-24)
+
+
+### Bug Fixes
+
+* missing array check ([ffa93bb](https://github.com/AndyOGo/stylelint-declaration-strict-value/commit/ffa93bb07d3dc5d1c1293f36e03e2e1da0025679))
+
 # [1.12.0](https://github.com/AndyOGo/stylelint-declaration-strict-value/compare/v1.11.1...v1.12.0) (2026-08-24)
 
 

@@ -1,4 +1,4 @@
-[**stylelint-declaration-strict-value v1.12.0**](../../README.md)
+[**stylelint-declaration-strict-value v1.12.1**](../../README.md)
 
 ***
 
@@ -6,7 +6,7 @@
 
 # Interface: DeclarationStrictValueResult
 
-Defined in: [defaults.ts:91](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/7ebdf9b929e2eacc9832b5063e906bf2a4332035/src/defaults.ts#L91)
+Defined in: [defaults.ts:92](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/c9b77b2c496c17f74da6b337166fdf3b245b026b/src/defaults.ts#L92)
 
 Result of CSS value validation.
 
@@ -16,7 +16,7 @@ Result of CSS value validation.
 
 > `optional` **longhandProp**: `string`
 
-Defined in: [defaults.ts:115](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/7ebdf9b929e2eacc9832b5063e906bf2a4332035/src/defaults.ts#L115)
+Defined in: [defaults.ts:116](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/c9b77b2c496c17f74da6b337166fdf3b245b026b/src/defaults.ts#L116)
 
 Longhand CSS Property, if expanded.
 
@@ -26,7 +26,7 @@ Longhand CSS Property, if expanded.
 
 > `optional` **longhandValue**: `string`
 
-Defined in: [defaults.ts:120](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/7ebdf9b929e2eacc9832b5063e906bf2a4332035/src/defaults.ts#L120)
+Defined in: [defaults.ts:121](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/c9b77b2c496c17f74da6b337166fdf3b245b026b/src/defaults.ts#L121)
 
 Longhand CSS value, if expanded.
 
@@ -36,7 +36,7 @@ Longhand CSS value, if expanded.
 
 > **validFunc**: `boolean`
 
-Defined in: [defaults.ts:100](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/7ebdf9b929e2eacc9832b5063e906bf2a4332035/src/defaults.ts#L100)
+Defined in: [defaults.ts:101](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/c9b77b2c496c17f74da6b337166fdf3b245b026b/src/defaults.ts#L101)
 
 Whether or not function is valid.
 
@@ -46,7 +46,7 @@ Whether or not function is valid.
 
 > **validKeyword**: `boolean`
 
-Defined in: [defaults.ts:105](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/7ebdf9b929e2eacc9832b5063e906bf2a4332035/src/defaults.ts#L105)
+Defined in: [defaults.ts:106](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/c9b77b2c496c17f74da6b337166fdf3b245b026b/src/defaults.ts#L106)
 
 Whether or not keyword is valid.
 
@@ -56,7 +56,7 @@ Whether or not keyword is valid.
 
 > **validValue**: `boolean`
 
-Defined in: [defaults.ts:110](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/7ebdf9b929e2eacc9832b5063e906bf2a4332035/src/defaults.ts#L110)
+Defined in: [defaults.ts:111](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/c9b77b2c496c17f74da6b337166fdf3b245b026b/src/defaults.ts#L111)
 
 Whether or not value is valid.
 
@@ -66,6 +66,6 @@ Whether or not value is valid.
 
 > **validVar**: `boolean`
 
-Defined in: [defaults.ts:95](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/7ebdf9b929e2eacc9832b5063e906bf2a4332035/src/defaults.ts#L95)
+Defined in: [defaults.ts:96](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/c9b77b2c496c17f74da6b337166fdf3b245b026b/src/defaults.ts#L96)
 
 Whether or not variable is valid.
