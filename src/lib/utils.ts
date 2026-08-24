@@ -1,6 +1,7 @@
 import type { Declaration, Root, AtRule, Rule } from 'postcss';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import _cssValues from 'css-values';
+import regExpEscape from 'regexp.escape';
 import { IgnoreValue, RegExpString } from '../defaults';
 
 // Handle CJS/ESM interop for css-values
@@ -46,14 +47,20 @@ export const reFunc = /^(?!var\(\s*--)[\s\S]+\([\s\S]*\)$/;
  *
  * @internal
  */
-const reRegex = /^\/(.*)\/([a-zA-Z]*)$/;
+export const reRegex = /^\/(.*)\/([a-zA-Z]*)$/;
 
 /**
  * @internal
  */
-const reColorProp = /color/;
+export const reColorProp = /color/;
 
 type RegExpArray = [string, string?];
+
+export const checkCssValue = (prop: string, value: string) =>
+  (reColorProp.test(prop) && value === 'transparent') ||
+  reVar.test(value) ||
+  reFunc.test(value) ||
+  cssValues(prop, value);
 
 /**
  * Checks if string is a Regular Expression.
@@ -61,12 +68,6 @@ type RegExpArray = [string, string?];
  * @internal
  * @param value - Any string.
  */
-export const checkCssValue = (prop: string, value: string) =>
-  (reColorProp.test(prop) && value === 'transparent') ||
-  reVar.test(value) ||
-  reFunc.test(value) ||
-  cssValues(prop, value);
-
 export const isRegexString = (value: string): value is RegExpString =>
   reRegex.test(value);
 
@@ -102,15 +103,15 @@ export const stringToRegex = (value: RegExpString) => {
 export const mapIgnoreValue = (ignoreValue: IgnoreValue) =>
   isRegexString(`${ignoreValue}`)
     ? stringToRegex(`${ignoreValue}`)
-    : new RegExp(`^${ignoreValue}$`);
+    : new RegExp(`^${regExpEscape(`${ignoreValue}`)}$`);
 
-function isRoot(node: unknown): node is Root {
+export function isRoot(node: unknown): node is Root {
   return (
     !!node && typeof node === 'object' && 'type' in node && node.type === 'root'
   );
 }
 
-function isAtRule(node: unknown): node is AtRule {
+export function isAtRule(node: unknown): node is AtRule {
   return (
     !!node &&
     typeof node === 'object' &&
@@ -127,7 +128,9 @@ export const findAtRules = (node: Declaration | Rule | AtRule): string[] => {
 
     if (isAtRule(parent)) {
       atRules.push(
-        `@${parent.name}${parent.params ? ` ${parent.params}` : ''}`
+        `@${parent.name.trim()}${
+          parent.params ? ` ${parent.params.trim()}` : ''
+        }`
       );
     }
 

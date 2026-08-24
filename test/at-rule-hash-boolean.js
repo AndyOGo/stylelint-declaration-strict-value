@@ -7,7 +7,10 @@ testRule({
   config: [
     ['font-weight'],
     {
-      ignoreAtRules: '/@font-face|@media/',
+      ignoreAtRules: {
+        '@font-face': true,
+        '@media (min-width: 100px)': true,
+      },
     },
   ],
 

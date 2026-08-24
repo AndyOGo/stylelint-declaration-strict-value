@@ -9,11 +9,15 @@ testRule({
     {
       ignoreAtRules: {
         '/@font-face/': ['font-weight'],
+        '/@media/': ['font-weight'],
       },
     },
   ],
 
-  accept: [{ code: '@font-face { font-weight: 500; }' }],
+  accept: [
+    { code: '@font-face { font-weight: 500; }' },
+    { code: '@media (min-width: 100px) { font-weight: 500; }' },
+  ],
 
   reject: [
     {

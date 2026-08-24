@@ -13,10 +13,9 @@ import defaults, {
   AutoFixFuncConfig,
   isIgnoreValueHash,
   IgnoreAtRuleConfig,
-  IgnoreAtRuleHash,
   isIgnoreAtRuleHash,
-  IgnoreAtRule,
   IgnoreAtRuleList,
+  IgnoreAtRuleHash,
 } from '../defaults';
 import { mapIgnoreValue } from './utils';
 
@@ -64,6 +63,27 @@ function validHash(actual: unknown): actual is IgnoreValueHash {
 
   return Object.keys(actual).every((key) =>
     validProperties((actual as IgnoreValueHash)[key as keyof IgnoreValueHash])
+  );
+}
+
+/**
+ * Validate optional at-rule hash keyword config.
+ *
+ * @internal
+ * @param actual - An at-rule config.
+ *
+ * @returns Returns `true` if hash at-rule config is valid, else `false`.
+ */
+function validAtRuleHash(actual: unknown): actual is IgnoreAtRuleHash {
+  if (typeof actual !== 'object' || !actual) return false;
+
+  return Object.keys(actual).every(
+    (key) =>
+      typeof (actual as IgnoreAtRuleHash)[key as keyof IgnoreAtRuleHash] ===
+        'boolean' ||
+      validProperties(
+        (actual as IgnoreAtRuleHash)[key as keyof IgnoreAtRuleHash]
+      )
   );
 }
 
@@ -143,7 +163,7 @@ export function validOptions(actual: SecondaryOptions): boolean {
   if (
     'ignoreAtRules' in actual &&
     !validProperties(actual.ignoreAtRules) &&
-    !validHash(actual.ignoreAtRules)
+    !validAtRuleHash(actual.ignoreAtRules)
   )
     return false;
 

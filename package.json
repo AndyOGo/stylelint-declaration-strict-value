@@ -1,6 +1,6 @@
 {
   "name": "stylelint-declaration-strict-value",
-  "version": "1.11.1",
+  "version": "1.12.0-0",
   "description": "Specify properties for which a variable, function, keyword or value must be used",
   "source": "src/index.ts",
   "exports": {
@@ -74,6 +74,7 @@
     "@semantic-release/git": "^9.0.0",
     "@types/css-tree": "^2.3.11",
     "@types/node": "^20.19.33",
+    "@types/regexp.escape": "^2.0.0",
     "@typescript-eslint/eslint-plugin": "^4.8.2",
     "@typescript-eslint/parser": "^4.8.2",
     "babel-jest": "^29.4.2",
@@ -107,5 +108,8 @@
   },
   "files": [
     "dist"
-  ]
+  ],
+  "dependencies": {
+    "regexp.escape": "^2.0.1"
+  }
 }
