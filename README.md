@@ -29,10 +29,14 @@ A [stylelint](https://github.com/stylelint/stylelint) plugin that enforces eithe
         - [Simple single value](#simple-single-value)
         - [List of values](#list-of-values)
         - [Complex Mighty Hash Mapping](#complex-mighty-hash-mapping)
+      - [ignoreAtRules](#ignoreatrules)
+        - [Simple single property](#simple-single-property)
+        - [List of at-rules](#list-of-at-rules)
+        - [Complex Mighty Hash Mapping](#complex-mighty-hash-mapping-1)
       - [ignoreKeywords (DEPRECATED)](#ignorekeywords-deprecated)
         - [Simple single keyword](#simple-single-keyword)
         - [List of keywords](#list-of-keywords)
-        - [Complex Mighty Hash Mapping](#complex-mighty-hash-mapping-1)
+        - [Complex Mighty Hash Mapping](#complex-mighty-hash-mapping-2)
       - [CSS shorthand Syntax](#css-shorthand-syntax)
         - [expandShorthand](#expandshorthand)
         - [recurseLonghand](#recurselonghand)
@@ -145,14 +149,11 @@ The config scheme looks as follows:
     ignoreAtRules: "string" || "/RegExp/[gimsuy]" ||
       ["string", "/RegExp/[gimsuy]", /* ... */] ||
       {
-        // match all
-        "": "string" || "/RegExp/[gimsuy]" || ["string", "/RegExp/[gimsuy]", /* ... */],
-
         // match specific prop
-        "font-weight": "string" || "/RegExp/[gimsuy]" || ["string", "/RegExp/[gimsuy]", /* ... */],
+        "font-weight": "boolean" || "string" || "/RegExp/[gimsuy]" || ["string", "/RegExp/[gimsuy]", /* ... */],
 
         // match pattern prop
-        "/RegExp/[gimsuy]": "string" || "/RegExp/[gimsuy]" || ["string", "/RegExp/[gimsuy]", /* ... */],
+        "/RegExp/[gimsuy]": "boolean" || "string" || "/RegExp/[gimsuy]" || ["string", "/RegExp/[gimsuy]", /* ... */],
       },
     // DEPRECATED (use ignoreValues)
     ignoreKeywords: "string" ||
@@ -872,6 +873,129 @@ a {
     },
   }],
   // ...
+}
+```
+
+#### ignoreAtRules
+
+This allows you to ignore any CSS property inside [Block at-rules](https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Syntax/At-rules#block_at-rules) like `@font-face`, `@layer`, `@media`, `@page`, etc.
+
+This configuration can either be a simple `"string"`, `"/RegExp/[gimsuy]"`, an `[array]` of `"strings"`, `"/RegExp/[gimsuy]"` or a complex hash of property/keyword mappings.
+
+##### Simple single property
+
+To ignore a single `property` for all properties simply use a `"string"` or `"/RegExp/[gimsuy]"`, like:
+
+```js
+// .stylelintrc
+"rules": {
+  // ...
+  "scale-unlimited/declaration-strict-value": ["/font-weight$/", {
+    ignoreAtRules: "@font-face",
+  }],
+  // ...
+}
+```
+
+The following patterns are considered **warnings:**
+
+```css
+a {
+  font-weight: 500;
+}
+```
+
+The following patterns are **not** considered **warnings:**
+
+```css
+@font-face {
+  font-weight: 500;
+}
+```
+
+##### List of at-rules
+
+To ignore a list of `atRules` for all properties simply use an `[array]`, like:
+
+```js
+// .stylelintrc
+"rules": {
+  // ...
+  "scale-unlimited/declaration-strict-value": ["font-weight", {
+    ignoreAtRules: ["@font-face", "/^@media/"],
+  }],
+  // ...
+}
+```
+
+The following patterns are considered **warnings:**
+
+```css
+a {
+  font-weight: 500;
+}
+```
+
+The following patterns are **not** considered **warnings:**
+
+```css
+@font-face {
+  font-weight: 500;
+}
+
+@media (min-width 100px) {
+  font-weight: 500;
+}
+```
+
+##### Complex Mighty Hash Mapping
+
+You may noticed that the above methods do count for all properties. In case you wish more sophisticated control `{hash}` based configs is the right choice for you.
+
+The basic principle works the same as above - you either have one property or a list of properties. This time you can define them for each at-rule separately, like:
+
+```js
+// .stylelintrc
+"rules": {
+  // ...
+  "scale-unlimited/declaration-strict-value": [
+    ["font-weight", "/color$/"], {
+    ignoreAtRules: {
+      "@font-face": ["font-weight"],
+      "/^@media/": "/color$/",
+    },
+  }],
+  // ...
+}
+```
+
+The following patterns are considered **warnings:**
+
+```css
+a {
+  font-weight: 500;
+}
+
+a {
+  color: #FFF;
+  background-color: #FFF;
+  border-color: #FFF;
+}
+```
+
+The following patterns are **not** considered **warnings:**
+
+```css
+@font-face {
+  font-weight: 500;
+}
+
+@media (min-width 100px) {
+  a {
+    color: #FFF;
+    background-color: #FFF;
+    border-color: #FFF;
+  }
 }
 ```
 
