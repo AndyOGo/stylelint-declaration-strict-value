@@ -48,6 +48,7 @@ export const isIgnoreValueHash = (
 ): value is IgnoreValueHash =>
   !!value &&
   typeof value === 'object' &&
+  !Array.isArray(value) &&
   Object.hasOwnProperty.call(value, key);
 /**
  * Possible config for `ignoreValues` and ~~`ignoreKeywords`~~ option.
@@ -76,7 +77,7 @@ export type IgnoreAtRuleHash = {
  * @internal
  */
 export const isIgnoreAtRuleHash = (value: unknown): value is IgnoreAtRuleHash =>
-  !!value && typeof value === 'object';
+  !!value && typeof value === 'object' && !Array.isArray(value);
 /**
  * Possible config for `IgnoreAtRule`.
  */
