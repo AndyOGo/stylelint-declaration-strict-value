@@ -4,8 +4,6 @@ import stylelint, { PostcssResult, Rule, RuleMeta } from 'stylelint';
 import shortCSS from 'shortcss';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import list from 'shortcss/lib/list';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import _cssValues from 'css-values';
 
 import {
   validProperties,
@@ -18,20 +16,19 @@ import {
   getIgnoredKeywords,
   getIgnoredValues,
   getAutoFixFunc,
+  getIgnoredAtRules,
 } from './lib/validation';
-import defaults, {
-  ruleName,
-  SecondaryOptions,
-  IgnoreValue,
-  RegExpString,
-} from './defaults';
-
-// Handle CJS/ESM interop for css-values
-const cssValues: (prop: string, value: string) => boolean =
-  typeof _cssValues === 'function'
-    ? _cssValues
-    : (_cssValues as { default: (prop: string, value: string) => boolean })
-        .default;
+import defaults, { ruleName, SecondaryOptions, RegExpString } from './defaults';
+import {
+  checkCssValue,
+  findAtRules,
+  isRegexString,
+  mapIgnoreValue,
+  reFunc,
+  reSkipProp,
+  reVar,
+  stringToRegex,
+} from './lib/utils';
 
 const { utils } = stylelint;
 const meta: RuleMeta = {
@@ -42,89 +39,6 @@ const messages = utils.ruleMessages(ruleName, {
   expected,
   customExpected,
 });
-/**
- * RegExp to skip non-CSS properties.
- *
- * @internal
- */
-const reSkipProp = /^(?:@|\$|--).+$/;
-/**
- * RegExp to parse CSS, SCSS and less variables.
- * - allowing CSS variables to be multi line
- * - Sass namespaces and CSS <ident-token> supported
- *
- * @internal
- * @see https://github.com/sass/sass/blob/master/accepted/module-system.md#member-references
- * @see  https://drafts.csswg.org/css-syntax-3/#ident-token-diagram
- */
-// eslint-disable-next-line no-control-regex
-const reVar =
-  /^-?(?:@.+|(?:(?:[a-zA-Z_-]|[^\x20-\x7F])+(?:[a-zA-Z0-9_-]|[^\x20-\x7F])*\.)?\$.+|var\(\s*--[\s\S]+\))$/;
-/**
- * RegExp to parse functions.
- * - irgnoring CSS variables `var(--*)`
- * - allow multi line arguments
- *
- * @internal
- */
-const reFunc = /^(?!var\(\s*--)[\s\S]+\([\s\S]*\)$/;
-/**
- * RegExp to parse regular expressions.
- * - supporting patterns
- * - and optional flags
- *
- * @internal
- */
-const reRegex = /^\/(.*)\/([a-zA-Z]*)$/;
-/**
- * @internal
- */
-const reColorProp = /color/;
-type RegExpArray = [string, string?];
-/**
- * Checks if string is a Regular Expression.
- *
- * @internal
- * @param value - Any string.
- */
-const checkCssValue = (prop: string, value: string) =>
-  (reColorProp.test(prop) && value === 'transparent') ||
-  reVar.test(value) ||
-  reFunc.test(value) ||
-  cssValues(prop, value);
-const isRegexString = (value: string): value is RegExpString =>
-  reRegex.test(value);
-/**
- * Get pattern and flags of a Regular Expression string.
- *
- * @internal
- * @param value - Any string representing a Regular Expression.
- * @returns An Array of pattern and flags of a Regular Expression string.
- */
-const getRegexString = (value: string): RegExpArray =>
-  value.match(reRegex)!.slice(1) as RegExpArray;
-/**
- * Convert a Regular Expression string to an RegExp object.
- *
- * @internal
- * @param value - Any string representing a Regular Expression.
- * @returns A Regular Expression object.
- */
-const stringToRegex = (value: RegExpString) => {
-  const [pattern, flags] = getRegexString(value);
-  return new RegExp(pattern, flags);
-};
-/**
- * Map ignored value config to a Regular expression.
- *
- * @internal
- * @param ignoreValue - A ignored value property.
- * @returns A Regular Expression to match ignored values.
- */
-const mapIgnoreValue = (ignoreValue: IgnoreValue) =>
-  isRegexString(`${ignoreValue}`)
-    ? stringToRegex(`${ignoreValue}`)
-    : new RegExp(`^${ignoreValue}$`);
 
 /**
  * A string or regular expression matching a CSS property name.
@@ -198,6 +112,7 @@ const ruleFunction: StylelintPlugin<PrimaryOptions, SecondaryOptions> =
       ignoreFunctions,
       ignoreKeywords,
       ignoreValues,
+      ignoreAtRules,
       message,
       disableFix,
       autoFixFunc,
@@ -335,6 +250,29 @@ const ruleFunction: StylelintPlugin<PrimaryOptions, SecondaryOptions> =
       ) {
         const { value: nodeValue, prop: nodeProp } = node;
         const value = longhandValue || nodeValue;
+
+        if (ignoreAtRules) {
+          const ignoreAtRuleList = getIgnoredAtRules(
+            ignoreAtRules,
+            nodeProp,
+            longhandProp
+          );
+
+          if (ignoreAtRuleList && ignoreAtRuleList.length) {
+            const atRules = findAtRules(node);
+
+            if (
+              atRules.length &&
+              ignoreAtRuleList.some((ignoreAtRule) => {
+                const reIgnoreAtRule = mapIgnoreValue(ignoreAtRule);
+
+                return atRules.some((atRule) => reIgnoreAtRule.test(atRule));
+              })
+            ) {
+              return false;
+            }
+          }
+        }
 
         // falsify everything by default
         let validVar = false;
