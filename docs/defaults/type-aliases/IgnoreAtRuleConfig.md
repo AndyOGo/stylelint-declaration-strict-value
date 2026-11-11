@@ -1,4 +1,4 @@
-[**stylelint-declaration-strict-value v1.12.1**](../../README.md)
+[**stylelint-declaration-strict-value v1.13.0**](../../README.md)
 
 ***
 
@@ -8,6 +8,6 @@
 
 > **IgnoreAtRuleConfig** = `null` \| [`IgnoreAtRule`](IgnoreAtRule.md) \| [`IgnoreAtRuleList`](IgnoreAtRuleList.md) \| [`IgnoreAtRuleHash`](IgnoreAtRuleHash.md)
 
-Defined in: [defaults.ts:84](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/c9b77b2c496c17f74da6b337166fdf3b245b026b/src/defaults.ts#L84)
+Defined in: [defaults.ts:84](https://github.com/AndyOGo/stylelint-declaration-strict-value/blob/1d74c3feff51fb9140e00068eb4137b2bcf791ee/src/defaults.ts#L84)
 
 Possible config for `IgnoreAtRule`.
